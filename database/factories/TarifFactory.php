@@ -21,11 +21,13 @@ class TarifFactory extends Factory
         $villeIds = Ville::pluck('id_V')->toArray();
 
         return [
-            'id_V' => $this->faker->randomNumber(),
-            'ref' => $this->faker->city(),
-            'villename' => $this->faker->city(),
-            'statut' => $this->faker->numberBetween($min = 0, $max = 1),
-            'id_Z' => $this->faker->randomElement($villeIds),
+            'id_Tar' => $this->faker->randomNumber(),
+            'villeRamassage' => $this->faker->randomElement($villeIds),
+            'ville' => $this->faker->randomElement($villeIds),
+            'prixliv' => $this->faker->randomNumber(),
+            'prixret' => $this->faker->randomNumber(),
+            'prixref' => $this->faker->randomNumber(),
+            'delailiv' => $this->faker->randomNumber($min = 0, $max = 100),
         ];
     }
 }

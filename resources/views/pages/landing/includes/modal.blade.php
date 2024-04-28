@@ -38,7 +38,7 @@
               <li>
                 <i class="bx bx-location-plus"></i>
                 ADRESSE
-                <span>Marrakech</span>
+                <span>Fes</span>
               </li>
               <li>
                 <i class="bx bx-envelope"></i>

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TarifController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VilleController;
 use App\Http\Controllers\ZoneController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class,'index'])->name('home');
+Route::get('/tarifs', [HomeController::class,'tarifs'])->name('tarifs');
 
 Route::get('/signup', [UserController::class, 'signuppage'])->name('auth.signUp');
 Route::post('/register', [UserController::class, 'signup'])->name('auth.signUp.store');
@@ -43,4 +46,20 @@ Route::group(['prefix' => 'zones', 'middleware' => 'authen'], function () {
     Route::get('/edit/{id}', [ZoneController::class, 'edit'])->name('zone.edit');
     Route::put('/update/{id}', [ZoneController::class, 'update'])->name('zone.update');
     Route::delete('/destroy/{id}', [ZoneController::class, 'destroy'])->name('zone.destroy');
+});
+Route::group(['prefix' => 'villes', 'middleware' => 'authen'], function () {
+    Route::get('/', [VilleController::class, 'index'])->name('ville.index');
+    Route::get('/create', [VilleController::class, 'create'])->name('ville.create');
+    Route::post('/store', [VilleController::class, 'store'])->name('ville.store');
+    Route::get('/edit/{id}', [VilleController::class, 'edit'])->name('ville.edit');
+    Route::put('/update/{id}', [VilleController::class, 'update'])->name('ville.update');
+    Route::delete('/destroy/{id}', [VilleController::class, 'destroy'])->name('ville.destroy');
+});
+Route::group(['prefix' => 'tarifs', 'middleware' => 'authen'], function () {
+    Route::get('/aa', [TarifController::class, 'index'])->name('tarif.index');
+    Route::get('/create', [TarifController::class, 'create'])->name('tarif.create');
+    Route::post('/store', [TarifController::class, 'store'])->name('tarif.store');
+    Route::get('/edit/{id}', [TarifController::class, 'edit'])->name('tarif.edit');
+    Route::put('/update/{id}', [TarifController::class, 'update'])->name('tarif.update');
+    Route::delete('/destroy/{id}', [TarifController::class, 'destroy'])->name('tarif.destroy');
 });

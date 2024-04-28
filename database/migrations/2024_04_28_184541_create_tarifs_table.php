@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('tarifs', function (Blueprint $table) {
             $table->string('id_Tar')->primary();
-            $table->foreignId('villeRamassage')->constrained('villes', 'id_V');
-            $table->foreignId('ville')->constrained('villes', 'id_V');
+            $table->string('villeRamassage');
+            $table->string('ville');
+            $table->foreign('villeRamassage')->references('id_V')->on('villes');
+            $table->foreign('ville')->references('id_V')->on('villes');
             $table->integer('prixliv');
             $table->integer('prixret');
             $table->integer('prixref');
