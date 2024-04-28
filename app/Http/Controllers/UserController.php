@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
 class UserController extends Controller
 {
 public function index(){
-    return view('dist.index');
+    return view('pages.admin.index');
 }
     // public function redirectToGoogle()
     // {
@@ -98,7 +98,7 @@ public function index(){
     public function signuppage()
     {
         // $roles = Role::all();, compact('roles')
-        return view('dist.authentication.layouts.corporate.sign-up');
+        return view('auth.sign-up');
     }
     public function signup(Request $request)
     {
@@ -132,7 +132,7 @@ public function index(){
     }
     public function signinpage()
     {
-        return view('dist.authentication.layouts.corporate.sign-in');
+        return view('auth.sign-in');
     }
 
     public function signin(Request $request)
