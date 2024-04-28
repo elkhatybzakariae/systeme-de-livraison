@@ -20,8 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             // $table->string('Phone')->nullable();
             $table->string('password');
-            $table->string('id_R'); // Foreign key column
-            $table->foreign('id_R')->references('id_R')->on('roles'); // Updated to 'id_R'
+            $table->foreignId('id_R')->references('id_R')->on('roles'); // Updated to 'id_R'
         });
     }
 

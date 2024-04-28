@@ -108,7 +108,7 @@ License: For each use you must have a valid license purchased only from above li
                     <!--begin::Wrapper-->
                     <div class="w-lg-500px p-10">
                         <!--begin::Form-->
-                        <form action="{{route('signup')}}" method="post" class="form w-100" novalidate="novalidate" id="kt_sign_up_form"
+                        <form action="{{route('auth.signUp.store')}}" method="post" class="form w-100" novalidate="novalidate" id="kt_sign_up_form"
                             >
 							@csrf
                             <!--begin::Heading-->
@@ -236,7 +236,7 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Submit button-->
                             <!--begin::Sign up-->
                             <div class="text-gray-500 text-center fw-semibold fs-6">Already have an Account?
-                                <a href="{{route('signinpage')}}"
+                                <a href="{{route('auth.signIn')}}"
                                     class="link-primary fw-semibold">Sign in</a>
                             </div>
                             <!--end::Sign up-->

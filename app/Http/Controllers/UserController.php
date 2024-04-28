@@ -113,7 +113,7 @@ public function index(){
                 'id_U' => $id_U,
                 'email' => $validation['email'],
                 'password' => Hash::make($validation['password']),
-                'id_R' => '[value-1]',
+                'id_R' => 1,
             ]);
             // $type=Role::where('role_name',$validation['usertype'])->first();
 
