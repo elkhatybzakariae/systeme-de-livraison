@@ -60,7 +60,7 @@
 
 		<!-- Start What We Offer Area -->
 	
-		<section class="what-offer-area-two mt-minus-70 pb-70" id="services-section" style=" background: linear-gradient( to top, rgba(255,255,255, 0.95), rgba(255,255,255, 0.95) ) , url(https://cdn.vitex.ma//images/front/bg-transparent.png) center repeat;">
+		<section class="what-offer-area-two mt-minus-70 pb-70" id="services-section" style=" background: linear-gradient( to top, rgba(255,255,255, 0.95), rgba(255,255,255, 0.95) ) , url({{ asset('storage/images/bg-transparent.png') }}) center repeat;">
 		
 			
 			
@@ -147,7 +147,7 @@
 						</div>
 					</div>
 					<div class="col-lg-6 pr-0">
-						<div class="about-img" style="background-image: url(https://cdn.vitex.ma//images/front/about-img-two.jpg);">
+						<div class="about-img" style="background-image: url({{ asset('storage/images/about-img-two.jpg') }});">
 							<div class="about-list">
 								<h3>Nos priorités principales:</h3>
 								<ul>
@@ -251,7 +251,7 @@
 					<span>A commencé avec des rôles</span>
 					<h2>Veuillez respecter les règles pour rester en sécurité</h2>
 				</div>
-				<div class="began-top-wrap" style="background-image: url(https://cdn.vitex.ma//images/front/services.jpg);">
+				<div class="began-top-wrap" style="background-image: url({{ asset('storage/images/services.jpg') }});">
 					<div class="row">
 						<div class="col-lg-8">
 							<div class="began-wrap">
@@ -307,7 +307,7 @@
 		</section>
 		<!-- End Began Area -->
 		
-		<section class="address-area pt-100 pb-70" style="background:  linear-gradient( to top, rgba(68,68,73, 0.95), rgba(68,68,73, 0.95) ) , url(https://cdn.vitex.ma//images/front/bg-transparent-4.png) center repeat;" id="contact-section">
+		<section class="address-area pt-100 pb-70" style="background:  linear-gradient( to top, rgba(68,68,73, 0.95), rgba(68,68,73, 0.95) ) , url({{ asset('storage/images/bg-transparent-4.png') }}) center repeat;" id="contact-section">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-4 col-md-6">

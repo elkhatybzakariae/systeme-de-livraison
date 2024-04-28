@@ -10,7 +10,7 @@
           </button>
           <h2 class="modal-title" id="myModalLabel2">
             <a class="side-bar-header" href="">
-              <img src="https://cdn.vitex.ma/images/front/logo-side-bar.png" class="logo-header" alt="Logo">
+              <img src="{{ asset('storage/images/logo-side-bar.png') }}" class="logo-header" alt="Logo">
               
             </a>
           </h2>
@@ -24,10 +24,10 @@
             <h3 class="title">Liens supplémentaires</h3>
             <ul>
               <li>
-                <a href="http://vitex.ma/clients/">Espace client</a>
+                <a href="{{ route('auth.signIn') }}">Espace client</a>
               </li>
               <li>
-                <a href="http://vitex.ma/clients//register">Devenir client</a>
+                <a href="{{ route('auth.signUp') }}">Devenir client</a>
               </li>
             
             </ul>

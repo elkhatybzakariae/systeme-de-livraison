@@ -21,7 +21,7 @@
     <meta name="keywords" content="" />
             <link rel="icon" href="https://cdn.vitex.ma/images/company/1702590775-780-1651191227-530-icone siteweb.jpeg" sizes="16x16" type="image/png"> 
             <link rel="icon" href="https://cdn.vitex.ma/images/company/1702590775-780-1651191227-530-icone siteweb.jpeg" sizes="16x16 32x32" type="image/png"> 
-			<base href="http://vitex.ma/" >
+		
 
 
             <meta name="author" content="Digixel.ma" />
