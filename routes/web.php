@@ -41,6 +41,6 @@ Route::group(['prefix' => 'zones', 'middleware' => 'authen'], function () {
     Route::get('/create', [ZoneController::class, 'create'])->name('zone.create');
     Route::post('/store', [ZoneController::class, 'store'])->name('zone.store');
     Route::get('/edit/{id}', [ZoneController::class, 'edit'])->name('zone.edit');
-    Route::put('/update/{id}', [ZoneController::class, 'update'])->name('zone.update');
+    Route::post('/update/{id}', [ZoneController::class, 'update'])->name('zone.update');
     Route::delete('/destroy/{id}', [ZoneController::class, 'destroy'])->name('zone.destroy');
 });
