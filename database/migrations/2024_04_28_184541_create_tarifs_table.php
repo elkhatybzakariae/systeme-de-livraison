@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('id_Tar')->primary();
             $table->string('villeRamassage');
             $table->string('ville');
-            // $table->foreign('villeRamassage')->constrained('villes', 'id_V');
+            $table->foreign('villeRamassage')->on('villes')->references('id_V');
             $table->foreign('ville')->on('villes')->references('id_V');
             $table->integer('prixliv');
             $table->integer('prixret');
