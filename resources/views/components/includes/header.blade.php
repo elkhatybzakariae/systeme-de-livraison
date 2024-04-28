@@ -33,10 +33,10 @@
           <div class="header-right-content">
             <ul class="additional-link">
               <li>
-                <a href="clients/">Espace client</a>
+                <a href="{{ route('auth.signIn') }}">Espace client</a>
               </li>
               <li>
-                <a href="clients//register">Devenir client</a>
+                <a href="{{ route('auth.signUp') }}">Devenir client</a>
               </li>
             </ul>
             <ul class="social-links">
