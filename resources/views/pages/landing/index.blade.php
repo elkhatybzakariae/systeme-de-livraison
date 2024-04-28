@@ -347,81 +347,71 @@
 			
 			
 			<div class="tracking-number-area tracking-number-area-five pb-70 pt-70">
-			<div class="container">
-				<div class="row align-items-center">
-					<div class="col-lg-5">
-						<div class="tracking-content">
-							<h2>Veuillez utiliser ce formulaire pour suivre votre commande manuellement</h2>
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-lg-5">
+							<div class="tracking-content">
+								<h2>Veuillez utiliser ce formulaire pour suivre votre commande manuellement</h2>
+							</div>
 						</div>
-					</div>
-					<div class="col-lg-7">
-						<div class="tracking-body">
-							<form action="action?action=tracking" id="tracking-form"  method="post" class="tracking-wrap">
-											<input type="text" class="input-tracking"  name="parcel-code" placeholder="Tapez votre numéro de suivi" name="Tracking">
-											<button class="default-btn active" type="submit" value="submit">Suivre maintenant</button>
-										</form>
+						<div class="col-lg-7">
+							<div class="tracking-body">
+								<form action="action?action=tracking" id="tracking-form"  method="post" class="tracking-wrap">
+												<input type="text" class="input-tracking"  name="parcel-code" placeholder="Tapez votre numéro de suivi" name="Tracking">
+												<button class="default-btn active" type="submit" value="submit">Suivre maintenant</button>
+											</form>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="container">
-		<div class="row">
+			<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-sm-6 p-0">
+					<div class="single-offer">
+						<i class="icon flaticon-warehouse"></i>
+						<h3>Ramassage</h3>
+						<p>Le ramassage est un service mis en place par la société vitex afin de faciliter au maximum votre processus d’expédition.</p>
+					
+					</div>
+				</div>
 			<div class="col-lg-3 col-sm-6 p-0">
-				<div class="single-offer">
-					<i class="icon flaticon-warehouse"></i>
-					<h3>Ramassage</h3>
-					<p>Le ramassage est un service mis en place par la société vitex afin de faciliter au maximum votre processus d’expédition.</p>
-				
+					<div class="single-offer">
+						<i class="icon flaticon-fast-delivery"></i>
+						<h3>Livraison</h3>
+						<p>Grâce à une connaissance du terrain, nos livreurs récupèrent les colis pour une livraison en mains propres à vos clients dans plusieurs villes.</p>
+					
+					</div>
 				</div>
-			</div>
-		<div class="col-lg-3 col-sm-6 p-0">
-				<div class="single-offer">
-					<i class="icon flaticon-fast-delivery"></i>
-					<h3>Livraison</h3>
-					<p>Grâce à une connaissance du terrain, nos livreurs récupèrent les colis pour une livraison en mains propres à vos clients dans plusieurs villes.</p>
-				
-				</div>
-			</div>
-		
-			<div class="col-lg-3 col-sm-6 p-0">
-				<div class="single-offer">
-					<i class="icon flaticon-stopwatch"></i>
-					<h3>Expédition</h3>
-					<p>L’équipe de vitex assure l’acheminement de vos colis à votre destinataire contre un accusé de réception.</p>
-					</br>
-				
-				</div>
-			</div>
 			
-			<div class="col-lg-3 col-sm-6 p-0">
-				<div class="single-offer" >
-					<i class="icon flaticon-payment-method"></i>
-					<h3>Fonds et paiements</h3>
-					<p>Nous assure le retour de fonds dans 48 H, des Virements, des bons de livraison d’une manière régulière sur les services de messagerie de nos clients.</p>
+				<div class="col-lg-3 col-sm-6 p-0">
+					<div class="single-offer">
+						<i class="icon flaticon-stopwatch"></i>
+						<h3>Expédition</h3>
+						<p>L’équipe de vitex assure l’acheminement de vos colis à votre destinataire contre un accusé de réception.</p>
+						</br>
+					
+					</div>
+				</div>
 				
+				<div class="col-lg-3 col-sm-6 p-0">
+					<div class="single-offer" >
+						<i class="icon flaticon-payment-method"></i>
+						<h3>Fonds et paiements</h3>
+						<p>Nous assure le retour de fonds dans 48 H, des Virements, des bons de livraison d’une manière régulière sur les services de messagerie de nos clients.</p>
+					
+					</div>
 				</div>
 			</div>
-		</div>
-			<div id="about-section"></div>
-	</div>
+				<div id="about-section"></div>
+			</div>
 	
 		</section>
 		<!-- End What We Offer Area -->
 
-
-
-
-
-	
-	
 		
 		<!-- Start About Area -->
-
-
-
-
 
 
 		<section class="about-area about-area-two about-area-four pb-100" >
@@ -448,20 +438,20 @@
 										Les solutions clients et employés prennent du temps.
 									</li>
 									<li>
-										<i class="flaticon-checked"></i>
-Nous accomplissons nos objectifs plus efficacement.									</li>
+										<i class="flaticon-checked"></i>Nous accomplissons nos objectifs plus efficacement.			
+									</li>
 									<li>
-										<i class="flaticon-checked"></i>
-La collaboration de communication transparente le fait correctement.									</li>
+										<i class="flaticon-checked"></i>La collaboration de communication transparente le fait correctement.									
+									</li>
 									<li>
-										<i class="flaticon-checked"></i>
-Il fournit une feuille de route pour une productivité accrue.									</li>
+										<i class="flaticon-checked"></i>Il fournit une feuille de route pour une productivité accrue.
+									</li>
 									<li>
-										<i class="flaticon-checked"></i>
-Fournir des conseils indépendants pour vous.									</li>
+										<i class="flaticon-checked"></i>Fournir des conseils indépendants pour vous.									
+									</li>
 									<li>
-										<i class="flaticon-checked"></i>
-Système de support disponible 24/7									</li>
+										<i class="flaticon-checked"></i>Système de support disponible 24/7									
+									</li>
 								</ul>
 							</div>
 						</div>
