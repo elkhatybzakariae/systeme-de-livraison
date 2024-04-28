@@ -3,6 +3,7 @@
 namespace App\Helpers;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Zone;
 use Illuminate\Support\Str;
 class Helpers
 {
@@ -21,5 +22,13 @@ class Helpers
             $id_R = Str::random(15);
         }
         return $id_R;
+    }
+    public static function generateIdZ()
+    {
+        $id_Z = Str::random(15);
+        while (Zone::where('id_Z', $id_Z)->exists()) {
+            $id_Z = Str::random(15);
+        }
+        return $id_Z;
     }
 }

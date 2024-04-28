@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ZoneController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,4 +33,14 @@ Route::group(['middleware' => 'authen'], function () {
     Route::get('/profile/', [UserController::class, 'profile'])->name('profile');
     Route::put('/profile/update', [UserController::class, 'update'])->name('update');
     Route::get('/signout', [UserController::class, 'signout'])->name('signout');
+});
+
+
+Route::group(['prefix' => 'zones', 'middleware' => 'authen'], function () {
+    Route::get('/', [ZoneController::class, 'index'])->name('zone.index');
+    Route::get('/create', [ZoneController::class, 'create'])->name('zone.create');
+    Route::post('/store', [ZoneController::class, 'store'])->name('zone.store');
+    Route::get('/edit/{id}', [ZoneController::class, 'edit'])->name('zone.edit');
+    Route::put('/update/{id}', [ZoneController::class, 'update'])->name('zone.update');
+    Route::delete('/destroy/{id}', [ZoneController::class, 'destroy'])->name('zone.destroy');
 });
