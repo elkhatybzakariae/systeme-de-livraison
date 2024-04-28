@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class,'index'])->name('home')->middleware('guest');
+Route::get('/', [HomeController::class,'index'])->name('home');
 
 Route::get('/signup', [UserController::class, 'signuppage'])->name('auth.signUp');
 Route::post('/register', [UserController::class, 'signup'])->name('auth.signUp.store');

@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-lg-4 col-md-6">
         <div class="single-widget">
-              <img src="https://cdn.vitex.ma/images/front/header-logo.png" style="width: 150px;"  alt="Logo">
+              <img src="{{ asset('storage/images/header-logo.png') }}" style="width: 150px;"  alt="Logo">
           <p>La société Vitex  assure l’expédition, l’arrivage, le ramassage, 
             la livraison, le retour des fonds,la confirmation, le stock ,
              la gestion documentaire et propose à chaque client professionnel ou
@@ -25,13 +25,13 @@
           <ul>
           
                 <li class="nav-item">
-                  <a href="https://cdn.vitex.ma/">
+                  <a href="{{ route('home') }}">
                                           Accueil
                   </a>
               
                 </li>
                 <li class="nav-item">
-                  <a href="https://cdn.vitex.ma/#services-section" >
+                  <a href="" >
                     Nos Services
                                           </a>
                 </li>
@@ -41,25 +41,25 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                <a href="https://cdn.vitex.ma/#avantages-section" >
+                <a href="" >
                   Nos avantages 
                 </a>
               </li>
                 <li class="nav-item">
-                  <a href="https://cdn.vitex.ma/#about-section" >
+                  <a href="" >
                     Qui sommes-nous
                   </a>
                 </li>
             
                 <li class="nav-item">
-                  <a href="https://cdn.vitex.ma/#contact-section" >Contact</a>
+                  <a href="" >Contact</a>
                 </li>
                 
                 <li class="nav-item">
-                  <a href="http://vitex.ma/clients//register" >Devenir client</a>
+                  <a href="{{ route('auth.signUp') }}" >Devenir client</a>
                 </li>
                 <li class="nav-item">
-                  <a href="http://vitex.ma/clients/" >Espace client</a>
+                  <a href="{{ route('auth.signIn') }}" >Espace client</a>
                 </li>
                 
                 
@@ -71,7 +71,7 @@
         <div class="col-lg-4 col-md-6">
         <div class="single-widget">
           <h3>Contactez-Nous </h3>
-          <p>Adresse : Marrakech</p>
+          <p>Adresse : Fes</p>
           
 <p>téléphone: 0600000000</p>
 
@@ -79,7 +79,7 @@
 
 <p>Fix : 0600000000</p>
 
-          <p>Email: contact@vitex.ma</p>
+          <p>Email: contact@abdou.ma</p>
 
         </div>
       </div>
@@ -100,7 +100,7 @@
           <ul>
           
             <li>
-              <a href="http://vitex.ma/admin/">Employee login</a>
+              <a href="{{ route('auth.signIn') }}">Employee login</a>
             </li>
           </ul>
         </div>
