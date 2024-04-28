@@ -129,11 +129,9 @@ License: For each use you must have a valid license purchased only from above li
                     <!--begin::Wrapper-->
                     <div class="w-lg-500px p-10">
                         <!--begin::Form-->
-<<<<<<< HEAD
+
                         <form action="{{ route('auth.signIn.store') }}" method="post" class="form w-100" novalidate="novalidate"
-=======
-                        <form action="{{ route('auth.signIn') }}" method="post" class="form w-100" novalidate="novalidate"
->>>>>>> 1083dc6eaa9b40c6d6ff00199b58c67398b0e69d
+
                             id="kt_sign_in_form">
                             @csrf
 
