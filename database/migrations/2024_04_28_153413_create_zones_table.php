@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('zones', function (Blueprint $table) {
             $table->string('id_Z')->primary();
             $table->string('zonename');
-            $table->boolean('statut')->default(1);
-            
+            $table->boolean('statut')->default(1);            
             $table->timestamps();
         });
     }

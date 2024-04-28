@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('ref');
             $table->string('villename');
             $table->boolean('statut')->default(1);
+
             $table->foreignId('id_Z')->references('id_Z')->on('zones');
         
             $table->timestamps();
