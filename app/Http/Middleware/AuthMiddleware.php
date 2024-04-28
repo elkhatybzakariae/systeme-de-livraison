@@ -21,6 +21,6 @@ class AuthMiddleware
                 return $next($request);
         }
 
-        return redirect()->route('signinpage'); // Redirect to the login page if not authenticated
+        return redirect()->route('auth.signIn'); // Redirect to the login page if not authenticated
     }
 }
