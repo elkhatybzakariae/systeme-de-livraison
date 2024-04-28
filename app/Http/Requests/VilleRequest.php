@@ -11,7 +11,7 @@ class VilleRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class VilleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'ref' => 'required|string|max:100',
+            'villename' => 'required|string|max:100',
+            'id_Z' => 'required|exists:zones,id_Z',
         ];
     }
 }
