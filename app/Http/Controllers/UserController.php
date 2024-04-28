@@ -127,7 +127,7 @@ public function index(){
             // return redirect()->route('index');
             return redirect()->route('index');
         } else {
-            return redirect()->route('signuppage');
+            return redirect()->route('auth.signUp');
         }
     }
     public function signinpage()
@@ -165,7 +165,7 @@ public function index(){
     public function signout()
     {
         Auth::logout();
-        return redirect()->route('signinpage');
+        return redirect()->route('auth.signIn');
     }
 
 
