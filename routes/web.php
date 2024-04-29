@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ColisController;
 use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TarifController;
@@ -73,4 +74,12 @@ Route::group(['prefix' => 'depenses', 'middleware' => 'authen'], function () {
     Route::get('/edit/{id}', [DepenseController::class, 'edit'])->name('depense.edit');
     Route::put('/update/{id}', [DepenseController::class, 'update'])->name('depense.update');
     Route::delete('/destroy/{id}', [DepenseController::class, 'destroy'])->name('depense.destroy');
+});
+Route::group(['prefix' => 'colis', 'middleware' => 'authen'], function () {
+    Route::get('/', [ColisController::class, 'index'])->name('colis.index');
+    Route::get('/create', [ColisController::class, 'create'])->name('colis.create');
+    Route::post('/store', [ColisController::class, 'store'])->name('colis.store');
+    Route::get('/edit/{id}', [ColisController::class, 'edit'])->name('colis.edit');
+    Route::put('/update/{id}', [ColisController::class, 'update'])->name('colis.update');
+    Route::delete('/destroy/{id}', [ColisController::class, 'destroy'])->name('colis.destroy');
 });
