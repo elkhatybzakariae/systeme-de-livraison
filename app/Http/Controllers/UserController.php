@@ -109,11 +109,13 @@ public function index(){
             'password' => 'required|string|min:8',
         ]);
         if ($request->password === $request->confirmpassword) {
+            $role=Role::all()[0]->id_R;
+            // dd($role);
             $newuser = User::create([
                 'id_U' => $id_U,
                 'email' => $validation['email'],
                 'password' => Hash::make($validation['password']),
-                'id_R' => 1,
+                'id_R' => $role,
             ]);
             // $type=Role::where('role_name',$validation['usertype'])->first();
 
