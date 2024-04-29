@@ -22,7 +22,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->id('id_R');
+            $table->string('id_R')->primary();
             $table->string('role_name');
         });
     }

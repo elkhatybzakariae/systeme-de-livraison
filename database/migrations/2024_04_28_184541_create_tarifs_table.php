@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('ville');
             $table->foreign('villeRamassage')->on('villes')->references('id_V');
             $table->foreign('ville')->on('villes')->references('id_V');
-            $table->integer('prixliv');
-            $table->integer('prixret');
-            $table->integer('prixref');
+            $table->float('prixliv');
+            $table->float('prixret');
+            $table->float('prixref');
             $table->string('delailiv');
             $table->timestamps();
         });

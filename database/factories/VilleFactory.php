@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Zone;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Ville>
@@ -20,7 +21,7 @@ class VilleFactory extends Factory
     {
         $zoneIds = Zone::pluck('id_Z')->toArray();
         return [
-            'id_V' => $this->faker->randomNumber(),
+            'id_V' => Str::random(10),
             'ref' => $this->faker->city(),
             'villename' => $this->faker->city(),
             'statut' => $this->faker->numberBetween($min = 0, $max = 1),
