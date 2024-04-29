@@ -45,10 +45,18 @@ Route::group(['prefix' => 'zones', 'middleware' => 'authen'], function () {
     Route::get('/create', [ZoneController::class, 'create'])->name('zone.create');
     Route::post('/store', [ZoneController::class, 'store'])->name('zone.store');
     Route::get('/edit/{id}', [ZoneController::class, 'edit'])->name('zone.edit');
-    Route::put('/update/{id}', [ZoneController::class, 'update'])->name('zone.update');
+    Route::post('/update/{id}', [ZoneController::class, 'update'])->name('zone.update');
     Route::delete('/destroy/{id}', [ZoneController::class, 'destroy'])->name('zone.destroy');
 });
 Route::group(['prefix' => 'villes', 'middleware' => 'authen'], function () {
+<<<<<<< HEAD
+    Route::get('/', [VilleController::class, 'index'])->name('villes.index');
+    Route::get('/create', [VilleController::class, 'create'])->name('villes.create');
+    Route::post('/store', [VilleController::class, 'store'])->name('villes.store');
+    Route::get('/edit/{id}', [VilleController::class, 'edit'])->name('villes.edit');
+    Route::post('/update/{id}', [VilleController::class, 'update'])->name('villes.update');
+    Route::delete('/destroy/{id}', [VilleController::class, 'destroy'])->name('villes.destroy');
+=======
     Route::get('/', [VilleController::class, 'index'])->name('ville.index');
     Route::get('/create', [VilleController::class, 'create'])->name('ville.create');
     Route::post('/store', [VilleController::class, 'store'])->name('ville.store');
@@ -63,4 +71,5 @@ Route::group(['prefix' => 'tarifs', 'middleware' => 'authen'], function () {
     Route::get('/edit/{id}', [TarifController::class, 'edit'])->name('tarif.edit');
     Route::put('/update/{id}', [TarifController::class, 'update'])->name('tarif.update');
     Route::delete('/destroy/{id}', [TarifController::class, 'destroy'])->name('tarif.destroy');
+>>>>>>> e15661a99472f0d862ab37e5767c6b045c3cc4bc
 });

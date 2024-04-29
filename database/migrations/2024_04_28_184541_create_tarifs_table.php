@@ -15,13 +15,8 @@ return new class extends Migration
             $table->string('id_Tar')->primary();
             $table->string('villeRamassage');
             $table->string('ville');
-<<<<<<< HEAD
-            $table->foreign('villeRamassage')->references('id_V')->on('villes');
-            $table->foreign('ville')->references('id_V')->on('villes');
-=======
             $table->foreign('villeRamassage')->on('villes')->references('id_V');
             $table->foreign('ville')->on('villes')->references('id_V');
->>>>>>> d766a7bf3881f499bd8b91f23beeb4ad612dd6e8
             $table->integer('prixliv');
             $table->integer('prixret');
             $table->integer('prixref');
