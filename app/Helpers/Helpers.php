@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 use App\Models\Role;
+use App\Models\Tarif;
 use App\Models\User;
 use App\Models\Zone;
 use Illuminate\Support\Str;
@@ -30,5 +31,13 @@ class Helpers
             $id_Z = Str::random(15);
         }
         return $id_Z;
+    }
+    public static function generateIdTar()
+    {
+        $id_Tar = Str::random(15);
+        while (Tarif::where('id_Tar', $id_Tar)->exists()) {
+            $id_Tar = Str::random(15);
+        }
+        return $id_Tar;
     }
 }
