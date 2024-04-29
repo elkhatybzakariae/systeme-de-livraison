@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Helpers;
+
+use App\Models\Depense;
 use App\Models\Role;
 use App\Models\Tarif;
 use App\Models\User;
@@ -39,5 +41,13 @@ class Helpers
             $id_Tar = Str::random(15);
         }
         return $id_Tar;
+    }
+    public static function generateIdDep()
+    {
+        $id_Dep = Str::random(15);
+        while (Depense::where('id_Dep', $id_Dep)->exists()) {
+            $id_Dep = Str::random(15);
+        }
+        return $id_Dep;
     }
 }

@@ -25,7 +25,7 @@ class TarifController extends Controller
 
     public function store(TarifRequest $request)
     {
-        $customIdTar = Helpers::generateIdZ();
+        $customIdTar = Helpers::generateIdTar();
         $validatedData = $request->validated();
 
         $validatedData['id_Tar'] = $customIdTar;

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TarifController;
 use App\Http\Controllers\UserController;
@@ -49,20 +50,12 @@ Route::group(['prefix' => 'zones', 'middleware' => 'authen'], function () {
     Route::delete('/destroy/{id}', [ZoneController::class, 'destroy'])->name('zone.destroy');
 });
 Route::group(['prefix' => 'villes', 'middleware' => 'authen'], function () {
-<<<<<<< HEAD
     Route::get('/', [VilleController::class, 'index'])->name('villes.index');
     Route::get('/create', [VilleController::class, 'create'])->name('villes.create');
     Route::post('/store', [VilleController::class, 'store'])->name('villes.store');
     Route::get('/edit/{id}', [VilleController::class, 'edit'])->name('villes.edit');
     Route::post('/update/{id}', [VilleController::class, 'update'])->name('villes.update');
     Route::delete('/destroy/{id}', [VilleController::class, 'destroy'])->name('villes.destroy');
-=======
-    Route::get('/', [VilleController::class, 'index'])->name('ville.index');
-    Route::get('/create', [VilleController::class, 'create'])->name('ville.create');
-    Route::post('/store', [VilleController::class, 'store'])->name('ville.store');
-    Route::get('/edit/{id}', [VilleController::class, 'edit'])->name('ville.edit');
-    Route::put('/update/{id}', [VilleController::class, 'update'])->name('ville.update');
-    Route::delete('/destroy/{id}', [VilleController::class, 'destroy'])->name('ville.destroy');
 });
 Route::group(['prefix' => 'tarifs', 'middleware' => 'authen'], function () {
     Route::get('/aa', [TarifController::class, 'index'])->name('tarif.index');
@@ -71,5 +64,12 @@ Route::group(['prefix' => 'tarifs', 'middleware' => 'authen'], function () {
     Route::get('/edit/{id}', [TarifController::class, 'edit'])->name('tarif.edit');
     Route::put('/update/{id}', [TarifController::class, 'update'])->name('tarif.update');
     Route::delete('/destroy/{id}', [TarifController::class, 'destroy'])->name('tarif.destroy');
->>>>>>> e15661a99472f0d862ab37e5767c6b045c3cc4bc
+});
+Route::group(['prefix' => 'depenses', 'middleware' => 'authen'], function () {
+    Route::get('/', [DepenseController::class, 'index'])->name('depense.index');
+    Route::get('/create', [DepenseController::class, 'create'])->name('depense.create');
+    Route::post('/store', [DepenseController::class, 'store'])->name('depense.store');
+    Route::get('/edit/{id}', [DepenseController::class, 'edit'])->name('depense.edit');
+    Route::put('/update/{id}', [DepenseController::class, 'update'])->name('depense.update');
+    Route::delete('/destroy/{id}', [DepenseController::class, 'destroy'])->name('depense.destroy');
 });
