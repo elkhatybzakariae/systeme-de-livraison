@@ -13,4 +13,7 @@ class HomeController extends Controller
     public function tarifs() {
         return view('pages.landing.tarifs');
     }
+    public function option() {
+        return view('pages.option.index');
+    }
 }

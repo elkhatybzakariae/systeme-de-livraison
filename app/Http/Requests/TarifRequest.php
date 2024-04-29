@@ -11,7 +11,7 @@ class TarifRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class TarifRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'villeRamassage' => 'required|exists:villes,id_V',
+            'ville' => 'required|exists:villes,id_V',
+            'prixliv' => 'required|integer',
+            'prixret' => 'required|integer',
+            'prixref' => 'required|integer',
+            'delailiv' => 'required|string|max:100',
         ];
     }
 }

@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/tarifs', [HomeController::class,'tarifs'])->name('tarifs');
+Route::get('/option', [HomeController::class,'option'])->name('option');
 
 Route::get('/signup', [UserController::class, 'signuppage'])->name('auth.signUp');
 Route::post('/register', [UserController::class, 'signup'])->name('auth.signUp.store');
