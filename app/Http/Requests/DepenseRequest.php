@@ -24,9 +24,9 @@ class DepenseRequest extends FormRequest
         return [
             'depense' => 'required|string',
             'description' => 'nullable|string',
-            'montant' => 'required|integer',
+            'montant' => 'required|numeric',
             'datedep' => 'nullable|date',
-            'id_U' => 'required|exists:users,id_U',
+            // 'id_U' => 'required|exists:users,id_U',
         ];
     }
 }

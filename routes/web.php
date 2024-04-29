@@ -68,6 +68,7 @@ Route::group(['prefix' => 'tarifs', 'middleware' => 'authen'], function () {
 Route::group(['prefix' => 'depenses', 'middleware' => 'authen'], function () {
     Route::get('/', [DepenseController::class, 'index'])->name('depense.index');
     Route::get('/create', [DepenseController::class, 'create'])->name('depense.create');
+    // Route::post('/store', function(){dd('edd');})->name('depense.store');
     Route::post('/store', [DepenseController::class, 'store'])->name('depense.store');
     Route::get('/edit/{id}', [DepenseController::class, 'edit'])->name('depense.edit');
     Route::put('/update/{id}', [DepenseController::class, 'update'])->name('depense.update');
