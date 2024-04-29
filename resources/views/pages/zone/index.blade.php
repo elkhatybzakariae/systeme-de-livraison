@@ -19,7 +19,7 @@
         <form id="kt_modal_new_target_form" method="POST" class="form" action="{{ route('zone.store') }}">
           @csrf
           <div class="mb-13 text-center">
-            <h1 class="mb-3">Set First Target</h1>
+            <h1 class="mb-3">Ajouter une zone</h1>
           </div>
           <div class="d-flex flex-column mb-8 fv-row">
             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
@@ -67,7 +67,7 @@
 					<option value="0">Inactive</option>
         </select>
       </div>
-      <a  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_new_target">Add Product</a>
+      <a  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_new_target">Ajouter une zone</a>
     </div>
   </div>
 
@@ -185,10 +185,8 @@
   function openModal(zoneName = '', actionUrl = "{{ route('zone.store') }}") {
     // Set the zone name input value
     document.getElementById('zonename').value = zoneName;
-    // Set the form action URL
     document.getElementById('kt_modal_new_target_form').action = actionUrl;
-    // document.getElementById('kt_modal_new_target_form').method = 'PUT';
-    // Show the modal
+    
 
   }
 </script>

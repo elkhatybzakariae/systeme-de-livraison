@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VilleController;
 use App\Http\Controllers\ZoneController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,4 +44,12 @@ Route::group(['prefix' => 'zones', 'middleware' => 'authen'], function () {
     Route::get('/edit/{id}', [ZoneController::class, 'edit'])->name('zone.edit');
     Route::post('/update/{id}', [ZoneController::class, 'update'])->name('zone.update');
     Route::delete('/destroy/{id}', [ZoneController::class, 'destroy'])->name('zone.destroy');
+});
+Route::group(['prefix' => 'villes', 'middleware' => 'authen'], function () {
+    Route::get('/', [VilleController::class, 'index'])->name('villes.index');
+    Route::get('/create', [VilleController::class, 'create'])->name('villes.create');
+    Route::post('/store', [VilleController::class, 'store'])->name('villes.store');
+    Route::get('/edit/{id}', [VilleController::class, 'edit'])->name('villes.edit');
+    Route::post('/update/{id}', [VilleController::class, 'update'])->name('villes.update');
+    Route::delete('/destroy/{id}', [VilleController::class, 'destroy'])->name('villes.destroy');
 });

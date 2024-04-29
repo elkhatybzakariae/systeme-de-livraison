@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Helpers;
 use App\Http\Requests\VilleRequest;
 use App\Models\Ville;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 
 class VilleController extends Controller
@@ -12,7 +13,8 @@ class VilleController extends Controller
     public function index()
     {
         $villes = Ville::all();
-        return view('pages.ville.index', compact('villes'));
+        $zones = Zone::all();
+        return view('pages.ville.index', compact('villes', 'zones'));
     }
 
 
@@ -30,7 +32,7 @@ class VilleController extends Controller
 
         $validatedData['id_V'] = $customIdV;
         Ville::create($validatedData);
-        return redirect()->route('ville.index')->with('success', 'ville created successfully');
+        return redirect()->route('villes.index')->with('success', 'ville created successfully');
     }
 
     public function edit($id)
@@ -46,15 +48,15 @@ class VilleController extends Controller
 
         $ville = ville::find($id);
         if (!$ville) {
-            return redirect()->route('ville.index')->with('error', 'ville not found');
+            return redirect()->route('villes.index')->with('error', 'ville not found');
         }
         $ville->update($request->validated());
-        return redirect()->route('ville.index')->with('success', 'ville updated successfully');
+        return redirect()->route('villes.index')->with('success', 'ville updated successfully');
     }
 
     public function destroy($id)
     {
         ville::find($id)->delete();
-        return redirect()->route('ville.index')->with('success', 'ville deleted successfully');
+        return redirect()->route('villes.index')->with('success', 'ville deleted successfully');
     }
 }
