@@ -130,7 +130,7 @@ License: For each use you must have a valid license purchased only from above li
                     <div class="w-lg-500px p-10">
                         <!--begin::Form-->
 
-                        <form action="{{ route('auth.signIn.store') }}" method="post" class="form w-100" novalidate="novalidate"
+                        <form action="{{ route('auth.client.signIn.store') }}" method="post" class="form w-100" novalidate="novalidate"
 
                             id="kt_sign_in_form">
                             @csrf
@@ -220,7 +220,7 @@ License: For each use you must have a valid license purchased only from above li
                             <!--end::Submit button-->
                             <!--begin::Sign up-->
                             <div class="text-gray-500 text-center fw-semibold fs-6">Not a Member yet?
-                                <a href="{{ route('auth.signUp') }}" class="link-primary">Sign up</a>
+                                <a href="{{ route('auth.client.signUp') }}" class="link-primary">Sign up</a>
                             </div>
                             <!--end::Sign up-->
                         </form>

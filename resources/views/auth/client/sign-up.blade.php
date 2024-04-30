@@ -1,5 +1,10 @@
 @extends('layouts.app')
-
+@section('style')
+    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+    <link href="{{ asset('storage/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('storage/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <!--end::Global Stylesheets Bundle-->
+@endsection
 @section('content')
       <div class="d-flex flex-column flex-root mt-10" id="kt_app_root">
         <!--begin::Authentication - Sign-up -->
@@ -12,8 +17,8 @@
                     <!--begin::Wrapper-->
                     <div class="w-lg-100 p-10">
                         <!--begin::Form-->
-                        <form action="{{ route('auth.livreur.signUp.store') }}" method="post" class="form w-100 row"
-                            novalidate="novalidate" id="kt_sign_up_form">
+                        <form action="{{ route('auth.client.signUp.store') }}" method="post" class="form w-100 row"
+                             >
                             @csrf
                             <!--begin::Heading-->
                             <div class="text-center mb-11">
@@ -147,7 +152,7 @@
                             <!--end::Accept-->
                             <!--begin::Submit button-->
                             <div class="d-grid mb-10">
-                                <button type="submit" {{-- id="kt_sign_up_submit" --}} class="btn " style="background-color: #202b46">
+                                <button type="submit" id="kt_sign_up_submit" class="btn " style="background-color: #202b46">
                                     <!--begin::Indicator label-->
                                     <span class="indicator-label text-white">Devenir Client</span>
                                     <!--end::Indicator label-->
@@ -160,7 +165,7 @@
                             <!--end::Submit button-->
                             <!--begin::Sign up-->
                             <div class="text-gray-500 text-center fw-semibold fs-6">Vous avez déja un compte?
-                                <a href="{{ route('auth.livreur.signIn') }}" class="link-primary fw-semibold">Espace
+                                <a href="{{ route('auth.client.signIn') }}" class="link-primary fw-semibold">Espace
                                     Client</a>
                             </div>
                             <!--end::Sign up-->
@@ -201,8 +206,12 @@
     </script>
     <!--end::Theme mode setup on page load-->
     <!--begin::Javascript-->
-    <script>
+    {{-- <script>
         var hostUrl = "assets/";
-    </script>
-  
+    </script> --}}
+  {{-- <script src="{{ asset('storage/assets/plugins/global/plugins.bundle.js') }}"></script> --}}
+    <script src="{{ asset('storage/assets/js/scripts.bundle.js') }}"></script>
+    <!--end::Global Javascript Bundle-->
+    <!--begin::Custom Javascript(used for this page only)-->
+    <script src="{{ asset('storage/assets/js/custom/authentication/sign-up/general.js') }}"></script>
 @endsection
