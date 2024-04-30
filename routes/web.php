@@ -47,7 +47,7 @@ Route::post('/livreur-login', [LivreurController::class, 'signin'])->name('auth.
 Route::get('/client-signup', [ClientController::class, 'signuppage'])->name('auth.client.signUp');
 Route::post('/client-register', [ClientController::class, 'signup'])->name('auth.client.signUp.store');
 
-    // Route::post('/store', function(){dd('edd');})->name('depense.store');
+// Route::post('/store', function(){dd('edd');})->name('depense.store');
 Route::get('/client-signin', [ClientController::class, 'signinpage'])->name('auth.client.signIn');
 Route::post('/client-login', [ClientController::class, 'signin'])->name('auth.client.signIn.store');
 
