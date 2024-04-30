@@ -52,6 +52,7 @@ Route::get('/client-signin', [ClientController::class, 'signinpage'])->name('aut
 Route::post('/client-login', [ClientController::class, 'signin'])->name('auth.client.signIn.store');
 
 
+    Route::get('/livreur/dashboard', [LivreurController::class, 'index'])->name('livreur.index');
     Route::get('/index', [ClientController::class, 'index'])->name('index');
     // Route::get('/teach', [UserController::class, 'teach'])->name('teach');
     // Route::get('/teachdashboard', [UserController::class, 'teachdashboard'])->name('teachdashboard')->middleware('formateur');

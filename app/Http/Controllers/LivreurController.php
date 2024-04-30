@@ -12,7 +12,7 @@ class LivreurController extends Controller
 {
     public function index()
     {
-        return view('pages.admin.index');
+        return view('pages.livreur.dashboard');
     }
     public function signuppage()
     {
@@ -49,7 +49,7 @@ class LivreurController extends Controller
             $validation['password']=Hash::make($validation['password']);
             $newLivreur = Livreur::create($validation);
             auth()->login($newLivreur);
-            return redirect()->route('index');
+            return redirect()->route('livreur.index');
         } else {
             return redirect()->route('auth.livreur.signUp');
         }
