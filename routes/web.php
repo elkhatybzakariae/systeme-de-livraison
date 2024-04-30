@@ -53,7 +53,9 @@ Route::post('/client-login', [ClientController::class, 'signin'])->name('auth.cl
 
 
 Route::get('/livreur/dashboard', [LivreurController::class, 'index'])->name('livreur.index');
-Route::get('/index', [ClientController::class, 'index'])->name('index');
+Route::get('/client/index', [ClientController::class, 'index'])->name('client.index');
+Route::get('/admin/index', [AdminController::class, 'index'])->name('admin.index');
+Route::get('/livreur/index', [LivreurController::class, 'index'])->name('livreur.index');
 // Route::get('/teach', [UserController::class, 'teach'])->name('teach');
 // Route::get('/teachdashboard', [UserController::class, 'teachdashboard'])->name('teachdashboard')->middleware('formateur');
 // Route::get('/management', [UserController::class, 'management'])->name('management')->middleware('moderateur');
@@ -70,6 +72,8 @@ Route::get('/signout/livreur', [LivreurController::class, 'signout'])->name('sig
 
 
 Route::get('/new-clients', [AdminController::class, 'newclients'])->name('newclients');
+Route::put('/accepteclient/{id}', [AdminController::class, 'accepteclient'])->name('accepteclient');
+Route::delete('/deleteclient/{id}', [AdminController::class, 'deleteclient'])->name('deleteclient');
 
 
 
