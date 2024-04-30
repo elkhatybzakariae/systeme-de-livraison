@@ -11,8 +11,8 @@
               <h1 class="slider-text-header"></h1>
                            <p class="slider-text-paragraph"></p>
               <div class="slider-btn">
-              <a href="{{ route('auth.signUp') }}"  class="default-btn active">Devenir client</a>
-              <a href="{{ route('auth.signIn') }}"  class="default-btn active">Espace client</a>
+              <a href="{{ route('auth.client.signUp') }}"  class="default-btn active">Devenir client</a>
+              <a href="{{ route('auth.client.signIn') }}"  class="default-btn active">Espace client</a>
 
 
               
@@ -38,8 +38,8 @@
               <h1 class="slider-text-header"></h1>
                            <p class="slider-text-paragraph"></p>
               <div class="slider-btn">
-              <a href="{{ route('auth.signUp') }}"  class="default-btn active">Devenir client</a>
-              <a href="{{ route('auth.signIn') }}"  class="default-btn active">Espace client</a>
+              <a href="{{ route('auth.client.signUp') }}"  class="default-btn active">Devenir client</a>
+              <a href="{{ route('auth.client.signIn') }}"  class="default-btn active">Espace client</a>
 
 
               

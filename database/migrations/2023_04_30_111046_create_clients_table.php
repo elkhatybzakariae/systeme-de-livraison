@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->string('id_Cl')->primary();
-            $table->string('logo');
+            $table->string('logo')->nullable();
             $table->string('nommagasin');
             $table->string('nomcomplet');
             $table->string('typeentreprise');
@@ -28,9 +28,6 @@ return new class extends Migration
             $table->string('numerocompte')->nullable();
             $table->boolean('isAdmin');
             $table->string('password');
-            $table->string('cinrecto');
-            $table->string('cinverso');
-            $table->string('RIB');
             $table->boolean('valider')->default(0);
 
             $table->timestamps();

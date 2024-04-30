@@ -33,10 +33,10 @@
           <div class="header-right-content">
             <ul class="additional-link">
               <li>
-                <a href="{{ route('auth.signIn') }}">Espace client</a>
+                <a href="{{ route('auth.livreur.signIn') }}">Espace Livreur</a>
               </li>
               <li>
-                <a href="{{ route('auth.signUp') }}">Devenir client</a>
+                <a href="{{ route('auth.livreur.signUp') }}">Devenir Livreur</a>
               </li>
             </ul>
             <ul class="social-links">
@@ -88,10 +88,10 @@
                 </li>
                 
                 <li class="nav-item">
-                  <a href="{{ route('auth.signUp') }}" class="nav-link">Devenir client</a>
+                  <a href="{{ route('auth.client.signUp') }}" class="nav-link">Devenir client</a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ route('auth.signIn') }}" class="nav-link">Espace client</a>
+                  <a href="{{ route('auth.client.signIn') }}" class="nav-link">Espace client</a>
                 </li>
                 <!--config_ws_link_direct-->
                 

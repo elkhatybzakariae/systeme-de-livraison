@@ -16,7 +16,7 @@ class ClientController extends Controller
     }
     public function signuppage()
     {
-        return view('auth.sign-up');
+        return view('auth.client.sign-up');
     }
     public function signup(Request $request)
     {
@@ -61,7 +61,7 @@ class ClientController extends Controller
     }
     public function signinpage()
     {
-        return view('auth.sign-in');
+        return view('auth.client.sign-in');
     }
 
     public function signin(Request $request)

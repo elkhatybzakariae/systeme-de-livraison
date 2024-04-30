@@ -16,7 +16,7 @@ class AdminController extends Controller
     }
     public function signuppage()
     {
-        return view('auth.sign-up');
+        return view('auth.admin.sign-up');
     }
     // public function signup(Request $request)
     // {
@@ -51,7 +51,7 @@ class AdminController extends Controller
     // }
     public function signinpage()
     {
-        return view('auth.sign-in');
+        return view('auth.admin.sign-in');
     }
 
     public function signin(Request $request)

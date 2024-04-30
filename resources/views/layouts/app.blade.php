@@ -4,7 +4,8 @@
 <head>
     <style>
         :root {
-            --main-color: #2e7d32;
+            /* --main-color: #2e7d32; */
+            --main-color: #202b46;
             /* Main green color */
             --second-color: #388e3c;
             /* Lighter shade of green */
@@ -20,7 +21,7 @@
             /* Focus color, main green color */
         }
     </style>
-    <title>Accueil - vitex </title>
+    <title>Accueil - livraison </title>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -89,6 +90,8 @@
 
 
     </style>
+    
+    @yield('style')
 </head>
 
 
@@ -225,6 +228,7 @@
     </script>
     <script src={{ asset('storage/assets/js/main.js') }}></script>
 
+    @yield('script')
 </body>
 
 </html>

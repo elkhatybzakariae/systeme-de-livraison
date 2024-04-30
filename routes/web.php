@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ColisController;
 use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\HomeController;
@@ -25,10 +27,16 @@ Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/tarifs', [HomeController::class,'tarifs'])->name('tarifs');
 Route::get('/option', [HomeController::class,'option'])->name('option');
 
-Route::get('/signup', [UserController::class, 'signuppage'])->name('auth.signUp');
-Route::post('/register', [UserController::class, 'signup'])->name('auth.signUp.store');
-Route::get('/signin', [UserController::class, 'signinpage'])->name('auth.signIn');
-Route::post('/login', [UserController::class, 'signin'])->name('auth.signIn.store');
+// Route::get('/signup', [UserController::class, 'signuppage'])->name('auth.signUp');
+// Route::post('/register', [UserController::class, 'signup'])->name('auth.signUp.store');
+// Route::get('/signin', [UserController::class, 'signinpage'])->name('auth.signIn');
+// Route::post('/login', [UserController::class, 'signin'])->name('auth.signIn.store');
+
+
+Route::get('/signup', [AdminController::class, 'signuppage'])->name('auth.admin.signUp');
+Route::post('/register', [AdminController::class, 'signup'])->name('auth.admin.signUp.store');
+Route::get('/signin', [AdminController::class, 'signinpage'])->name('auth.admin.signIn');
+Route::post('/login', [AdminController::class, 'signin'])->name('auth.admin.signIn.store');
 
 
 Route::get('/livreur-signup', [LivreurController::class, 'signuppage'])->name('auth.livreur.signUp');
@@ -36,10 +44,10 @@ Route::post('/livreur-register', [LivreurController::class, 'signup'])->name('au
 Route::get('/livreur-signin', [LivreurController::class, 'signinpage'])->name('auth.livreur.signIn');
 Route::post('/livreur-login', [LivreurController::class, 'signin'])->name('auth.livreur.signIn.store');
 
-// Route::get('/signup', [UserController::class, 'signuppage'])->name('auth.signUp');
-// Route::post('/register', [UserController::class, 'signup'])->name('auth.signUp.store');
-// Route::get('/signin', [UserController::class, 'signinpage'])->name('auth.signIn');
-// Route::post('/login', [UserController::class, 'signin'])->name('auth.signIn.store');
+Route::get('/client-signup', [ClientController::class, 'signuppage'])->name('auth.client.signUp');
+Route::post('/client-register', [ClientController::class, 'signup'])->name('auth.client.signUp.store');
+Route::get('/client-signin', [ClientController::class, 'signinpage'])->name('auth.client.signIn');
+Route::post('/client-login', [ClientController::class, 'signin'])->name('auth.client.signIn.store');
 
 Route::group(['middleware' => 'authen'], function () {
     Route::get('/index', [UserController::class, 'index'])->name('index');

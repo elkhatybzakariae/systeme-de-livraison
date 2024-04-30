@@ -24,10 +24,10 @@
             <h3 class="title">Liens supplémentaires</h3>
             <ul>
               <li>
-                <a href="{{ route('auth.signIn') }}">Espace client</a>
+                <a href="{{ route('auth.client.signIn') }}">Espace client</a>
               </li>
               <li>
-                <a href="{{ route('auth.signUp') }}">Devenir client</a>
+                <a href="{{ route('auth.client.signUp') }}">Devenir client</a>
               </li>
             
             </ul>
