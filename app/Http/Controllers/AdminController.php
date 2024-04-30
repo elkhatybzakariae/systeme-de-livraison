@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helpers;
 use App\Models\Admin;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -25,6 +26,7 @@ class AdminController extends Controller
 
     public function signin(Request $request)
     {
+        // dd(Hash::make('password'));
         $v = $request->validate([
             'email' => 'required|email|max:50',
             'password' => 'required|string|min:8',
@@ -46,5 +48,11 @@ class AdminController extends Controller
     {
         Auth::logout();
         return redirect()->route('auth.signIn');
+    }
+
+    public function newclients()
+    {
+        $list= Client::where('isAccepted',0)->get();
+        return view('pages.admin.newclients',compact('list'));
     }
 }

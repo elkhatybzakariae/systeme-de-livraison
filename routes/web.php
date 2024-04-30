@@ -23,9 +23,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class,'index'])->name('home');
-Route::get('/tarifs', [HomeController::class,'tarifs'])->name('tarifs');
-Route::get('/option', [HomeController::class,'option'])->name('option');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/tarifs', [HomeController::class, 'tarifs'])->name('tarifs');
+Route::get('/option', [HomeController::class, 'option'])->name('option');
 
 // Route::get('/signup', [UserController::class, 'signuppage'])->name('auth.signUp');
 // Route::post('/register', [UserController::class, 'signup'])->name('auth.signUp.store');
@@ -52,17 +52,27 @@ Route::get('/client-signin', [ClientController::class, 'signinpage'])->name('aut
 Route::post('/client-login', [ClientController::class, 'signin'])->name('auth.client.signIn.store');
 
 
-    Route::get('/livreur/dashboard', [LivreurController::class, 'index'])->name('livreur.index');
-    Route::get('/index', [ClientController::class, 'index'])->name('index');
-    // Route::get('/teach', [UserController::class, 'teach'])->name('teach');
-    // Route::get('/teachdashboard', [UserController::class, 'teachdashboard'])->name('teachdashboard')->middleware('formateur');
-    // Route::get('/management', [UserController::class, 'management'])->name('management')->middleware('moderateur');
-    // // Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
-    // Route::get('/dashboard', [UserController::class, 'index2'])->name('home2');
-    Route::get('/profile/', [UserController::class, 'profile'])->name('profile');
-    Route::put('/profile/update', [UserController::class, 'update'])->name('update');
-    Route::get('/signout', [ClientController::class, 'signout'])->name('signout');
-    Route::get('/signout/livreur', [LivreurController::class, 'signout'])->name('signout.livreur');
+Route::get('/livreur/dashboard', [LivreurController::class, 'index'])->name('livreur.index');
+Route::get('/index', [ClientController::class, 'index'])->name('index');
+// Route::get('/teach', [UserController::class, 'teach'])->name('teach');
+// Route::get('/teachdashboard', [UserController::class, 'teachdashboard'])->name('teachdashboard')->middleware('formateur');
+// Route::get('/management', [UserController::class, 'management'])->name('management')->middleware('moderateur');
+// // Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+// Route::get('/dashboard', [UserController::class, 'index2'])->name('home2');
+Route::get('/profile/', [UserController::class, 'profile'])->name('profile');
+Route::put('/profile/update', [UserController::class, 'update'])->name('update');
+Route::get('/signout', [ClientController::class, 'signout'])->name('signout');
+Route::get('/signout/livreur', [LivreurController::class, 'signout'])->name('signout.livreur');
+
+
+
+
+
+
+Route::get('/new-clients', [AdminController::class, 'newclients'])->name('newclients');
+
+
+
 
 Route::group(['prefix' => 'zones'], function () {
     Route::get('/', [ZoneController::class, 'index'])->name('zone.index');
