@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -18,14 +19,14 @@ class DepenseFactory extends Factory
      */
     public function definition(): array
     {        
-        $userIds = User::pluck('id_U')->toArray();
+        $userIds = Admin::pluck('id_Ad')->toArray();
         return [
             'id_Dep' => Str::random(10),
             'depense' => fake()->name(),
             'description' => fake()->paragraph(),
             'montant' => fake()->randomNumber(),
             'datedep' =>now(),
-            'id_U' => fake()->randomElement($userIds),
+            'id_Ad' => fake()->randomElement($userIds),
         ];
     }
 }

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->text('description');
             $table->integer('montant');
             $table->date('datedep');
-            $table->string('id_U');
-            $table->foreign('id_U')->references('id_U')->on('users');
+            $table->string('id_Ad');
+            $table->foreign('id_Ad')->references('id_Ad')->on('admins');
             $table->timestamps();
         });
     }

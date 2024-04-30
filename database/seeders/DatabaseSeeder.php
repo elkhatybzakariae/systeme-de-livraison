@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             //     'name' => 'Test User',
             //     'email' => 'test@example.com',
             // ]);
-        \App\Models\Role::factory(5)->create();
+            
         \App\Models\User::factory(10)->create();
         $this->call(ZoneSeeder::class);
         $this->call(ColisSeeder::class);
