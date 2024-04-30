@@ -1,49 +1,10 @@
 @extends('layouts.app')
-@section('style')
-    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
-    <link href="{{ asset('storage/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('storage/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <!--end::Global Stylesheets Bundle-->
-@endsection
+
 @section('content')
-      <!--begin::Root-->
       <div class="d-flex flex-column flex-root mt-10" id="kt_app_root">
         <!--begin::Authentication - Sign-up -->
         <div class="d-flex flex-column flex-lg-row flex-column-fluid">
-            <!--begin::Aside-->
-            {{-- <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center"
-			        style="background-image: url('{{ asset('storage/assets/media/misc/auth-bg.png') }}')">
 
-                <!--begin::Content-->
-                <div class="d-flex flex-column flex-center p-6 p-lg-10 w-100">
-                    <!--begin::Logo-->
-                    <a href="../../demo1/dist/index.html" class="mb-0 mb-lg-20">
-                        <img alt="Logo" src="{{ asset('storage/assets/media/logos/default-white.svg') }}"
-                            class="h-40px h-lg-50px" />
-                    </a>
-                    <!--end::Logo-->
-                    <!--begin::Image-->
-                    <img class="d-none d-lg-block mx-auto w-300px w-lg-75 w-xl-500px mb-10 mb-lg-20"
-                        src="{{ asset('storage/assets/media/misc/auth-screens.png') }}" alt="" />
-                    <!--end::Image-->
-                    <!--begin::Title-->
-                    <h1 class="d-none d-lg-block text-white fs-2qx fw-bold text-center mb-7">Fast, Efficient and
-                        Productive</h1>
-                    <!--end::Title-->
-                    <!--begin::Text-->
-                    <div class="d-none d-lg-block text-white fs-base text-center">In this kind of post,
-                        <a href="#" class="opacity-75-hover text-warning fw-semibold me-1">the
-                            blogger</a>introduces a person they’ve interviewed
-                        <br />and provides some background information about
-                        <a href="#" class="opacity-75-hover text-warning fw-semibold me-1">the interviewee</a>and
-                        their
-                        <br />work following this is a transcript of the interview.
-                    </div>
-                    <!--end::Text-->
-                </div>
-                <!--end::Content-->
-            </div> --}}
-            <!--begin::Aside-->
             <!--begin::Body-->
             <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 mt-15">
                 <!--begin::Form-->
@@ -60,35 +21,23 @@
                                 <h1 class="text-dark fw-bolder mb-3">Devenir Client</h1>
                                 <!--end::Title-->
                             </div>
-                            <!--begin::Heading-->
-                            <!--begin::Separator-->
-                            {{-- <div class="separator separator-content my-14">
-                                <span class="w-125px text-gray-500 fw-semibold fs-7">Devenir Livreur</span>
-                            </div> --}}
-                            <!--end::Separator-->
-                            <!--begin::Input group=-->
+                           
                             <div class="fv-row mb-8 col-6">
 
                                 <input type="text" placeholder="Nom Complet" name="nomcomplet" autocomplete="off"
                                     class="form-control bg-transparent" />
 
                             </div>
-                            
-                            <!--end::Input group=-->
-                            <!--begin::Input group=-->
                             <div class="fv-row mb-8 col-6">
                                 <input type="text" placeholder="Nom du magasin" name="nommagasin" autocomplete="off"
                                     class="form-control bg-transparent" />
-                            </div>                            
-                            <!--end::Input group=-->
-                            <!--begin::Input group=-->
+                            </div> 
                             <div class="fv-row mb-8 col-6">
 
                                 <input type="text" placeholder="Numero de telephone" name="Phone"
                                     autocomplete="off" class="form-control bg-transparent" />
 
                             </div>
-                            <!--begin::Input group=-->
                             <div class="fv-row mb-8 col-6">
 
                                 <input type="text" placeholder="Email" name="email" autocomplete="off"
@@ -255,14 +204,5 @@
     <script>
         var hostUrl = "assets/";
     </script>
-    <!--begin::Global Javascript Bundle(mandatory for all pages)-->
-
-    {{-- <script src="{{ asset('storage/assets/plugins/global/plugins.bundle.js') }}"></script>
-    <script src="{{ asset('storage/assets/js/scripts.bundle.js') }}"></script>
-    <!--end::Global Javascript Bundle-->
-    <!--begin::Custom Javascript(used for this page only)-->
-    <script src="{{ asset('storage/assets/js/custom/authentication/sign-up/general.js') }}"></script> --}}
-    
-    <!--end::Custom Javascript-->
-    <!--end::Javascript-->
+  
 @endsection

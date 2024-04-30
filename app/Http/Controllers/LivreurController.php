@@ -16,6 +16,7 @@ class LivreurController extends Controller
     }
     public function signuppage()
     {
+
         return view('auth.livreur.sign-up');
     }
     public function signup(Request $request)
@@ -64,6 +65,7 @@ class LivreurController extends Controller
             'email' => 'required|email|max:50',
             'password' => 'required|string|min:8',
         ]);
+        
         $Livreur = Livreur::where('email', $request->email)->first();
         if ($Livreur) {
             if (Hash::check($request->password, $Livreur->password)) {

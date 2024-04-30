@@ -57,7 +57,9 @@
     <link rel="stylesheet" href="https://cdn.vitex.ma/assets/home-page/css/boxicons.min.css"> 
     <!-- Flaticon CSS -->
      <link rel="stylesheet" href="https://cdn.vitex.ma/assets/home-page/css/flaticon.css">
-
+     <link href="{{ asset('storage/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
+     <link href="{{ asset('storage/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+   
 
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/owl.theme.default.min.css') }}">
     <!-- Owl Carousel CSS -->
