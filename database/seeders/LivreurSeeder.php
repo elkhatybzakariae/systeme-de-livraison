@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Livreur;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,6 @@ class LivreurSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Livreur::factory(10)->create();
     }
 }

@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('Phone')->nullable();
             $table->string('ville');
             $table->string('adress');
-            $table->string('nombanque');
-            $table->string('numerocompte');
+            $table->string('nombanque')->nullable();
+            $table->string('numerocompte')->nullable();
             $table->boolean('isAdmin');
             $table->string('password');
             $table->timestamps();

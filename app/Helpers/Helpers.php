@@ -2,21 +2,39 @@
 
 namespace App\Helpers;
 
+use App\Models\Admin;
+use App\Models\Client;
 use App\Models\Depense;
+use App\Models\Livreur;
 use App\Models\Role;
 use App\Models\Tarif;
-use App\Models\User;
 use App\Models\Zone;
 use Illuminate\Support\Str;
 class Helpers
 {
-    public static function generateIdU()
+    public static function generateIdAd()
     {
-        $id_U = Str::random(15);
-        while (User::where('id_U', $id_U)->exists()) {
-            $id_U = Str::random(15);
+        $id_Ad = Str::random(15);
+        while (Admin::where('id_Ad', $id_Ad)->exists()) {
+            $id_Ad = Str::random(15);
         }
-        return $id_U;
+        return $id_Ad;
+    }
+    public static function generateIdCl()
+    {
+        $id_Cl = Str::random(15);
+        while (Client::where('id_Cl', $id_Cl)->exists()) {
+            $id_Cl = Str::random(15);
+        }
+        return $id_Cl;
+    }
+    public static function generateIdLiv()
+    {
+        $id_Liv = Str::random(15);
+        while (Livreur::where('id_Liv', $id_Liv)->exists()) {
+            $id_Liv = Str::random(15);
+        }
+        return $id_Liv;
     }
     public static function generateIdRole()
     {

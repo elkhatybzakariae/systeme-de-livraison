@@ -3,6 +3,7 @@
 use App\Http\Controllers\ColisController;
 use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LivreurController;
 use App\Http\Controllers\TarifController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VilleController;
@@ -28,6 +29,17 @@ Route::get('/signup', [UserController::class, 'signuppage'])->name('auth.signUp'
 Route::post('/register', [UserController::class, 'signup'])->name('auth.signUp.store');
 Route::get('/signin', [UserController::class, 'signinpage'])->name('auth.signIn');
 Route::post('/login', [UserController::class, 'signin'])->name('auth.signIn.store');
+
+
+Route::get('/livreur-signup', [LivreurController::class, 'signuppage'])->name('auth.livreur.signUp');
+Route::post('/livreur-register', [LivreurController::class, 'signup'])->name('auth.livreur.signUp.store');
+Route::get('/livreur-signin', [LivreurController::class, 'signinpage'])->name('auth.livreur.signIn');
+Route::post('/livreur-login', [LivreurController::class, 'signin'])->name('auth.livreur.signIn.store');
+
+// Route::get('/signup', [UserController::class, 'signuppage'])->name('auth.signUp');
+// Route::post('/register', [UserController::class, 'signup'])->name('auth.signUp.store');
+// Route::get('/signin', [UserController::class, 'signinpage'])->name('auth.signIn');
+// Route::post('/login', [UserController::class, 'signin'])->name('auth.signIn.store');
 
 Route::group(['middleware' => 'authen'], function () {
     Route::get('/index', [UserController::class, 'index'])->name('index');

@@ -14,9 +14,10 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-public function index(){
-    return view('pages.admin.index');
-}
+    public function index()
+    {
+        return view('pages.admin.index');
+    }
     // public function redirectToGoogle()
     // {
     //     return Socialite::driver('google')->redirect();
@@ -98,7 +99,7 @@ public function index(){
     public function signuppage()
     {
         // $roles = Role::all();, compact('roles')
-        return view('auth.sign-up');
+        return view('auth.admin.sign-up');
     }
     public function signup(Request $request)
     {
@@ -109,7 +110,7 @@ public function index(){
             'password' => 'required|string|min:8',
         ]);
         if ($request->password === $request->confirmpassword) {
-            $role=Role::all()[0]->id_R;
+            $role = Role::all()[0]->id_R;
             // dd($role);
             $newuser = User::create([
                 'id_U' => $id_U,
@@ -156,7 +157,7 @@ public function index(){
                 Auth::login($u);
                 // }
 
-               return redirect()->route('index');
+                return redirect()->route('index');
             }
             // return redirect()->route('signinpage');
         } else {
