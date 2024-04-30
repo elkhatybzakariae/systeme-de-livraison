@@ -19,17 +19,20 @@ class AdminFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_Ad' => Str::random(10),
-            'nommagasin' => fake()->company(),
-            'nomcomplet' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'Phone' => fake()->phoneNumber(),
-            'ville' => fake()->city(),
-            'adress' => fake()->address(),
-            'nombanque' => fake()->company(),
-            'numerocompte' => fake()->randomNumber(10),
-            'isAdmin' => fake()->boolean(),
-            'password' => Hash::make('password'),
+            'id_Ad' => $this->faker->unique()->uuid,
+            'nommagasin' => $this->faker->company,
+            'nomcomplet' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
+            'Phone' => $this->faker->optional()->phoneNumber,
+            'ville' => $this->faker->city,
+            'adress' => $this->faker->address,
+            'nombanque' => $this->faker->optional()->company,
+            'numerocompte' => $this->faker->optional()->bankAccountNumber,
+            'isAdmin' => $this->faker->boolean,
+            'password' => bcrypt('password'),
+            'created_at' => $this->faker->dateTimeBetween('-2 years', 'now'),
+            'updated_at' => $this->faker->dateTimeBetween('-2 years', 'now'),
+        
         ];
     }
 }

@@ -49,8 +49,8 @@ Route::post('/client-register', [ClientController::class, 'signup'])->name('auth
 Route::get('/client-signin', [ClientController::class, 'signinpage'])->name('auth.client.signIn');
 Route::post('/client-login', [ClientController::class, 'signin'])->name('auth.client.signIn.store');
 
-Route::group(['middleware' => 'authen'], function () {
-    Route::get('/index', [UserController::class, 'index'])->name('index');
+
+    Route::get('/index', [ClientController::class, 'index'])->name('index');
     // Route::get('/teach', [UserController::class, 'teach'])->name('teach');
     // Route::get('/teachdashboard', [UserController::class, 'teachdashboard'])->name('teachdashboard')->middleware('formateur');
     // Route::get('/management', [UserController::class, 'management'])->name('management')->middleware('moderateur');
@@ -59,10 +59,10 @@ Route::group(['middleware' => 'authen'], function () {
     Route::get('/profile/', [UserController::class, 'profile'])->name('profile');
     Route::put('/profile/update', [UserController::class, 'update'])->name('update');
     Route::get('/signout', [UserController::class, 'signout'])->name('signout');
-});
 
 
-Route::group(['prefix' => 'zones', 'middleware' => 'authen'], function () {
+
+Route::group(['prefix' => 'zones'], function () {
     Route::get('/', [ZoneController::class, 'index'])->name('zone.index');
     Route::get('/create', [ZoneController::class, 'create'])->name('zone.create');
     Route::post('/store', [ZoneController::class, 'store'])->name('zone.store');
@@ -70,7 +70,7 @@ Route::group(['prefix' => 'zones', 'middleware' => 'authen'], function () {
     Route::post('/update/{id}', [ZoneController::class, 'update'])->name('zone.update');
     Route::delete('/destroy/{id}', [ZoneController::class, 'destroy'])->name('zone.destroy');
 });
-Route::group(['prefix' => 'villes', 'middleware' => 'authen'], function () {
+Route::group(['prefix' => 'villes'], function () {
     Route::get('/', [VilleController::class, 'index'])->name('villes.index');
     Route::get('/create', [VilleController::class, 'create'])->name('villes.create');
     Route::post('/store', [VilleController::class, 'store'])->name('villes.store');
@@ -78,7 +78,7 @@ Route::group(['prefix' => 'villes', 'middleware' => 'authen'], function () {
     Route::post('/update/{id}', [VilleController::class, 'update'])->name('villes.update');
     Route::delete('/destroy/{id}', [VilleController::class, 'destroy'])->name('villes.destroy');
 });
-Route::group(['prefix' => 'tarifs', 'middleware' => 'authen'], function () {
+Route::group(['prefix' => 'tarifs'], function () {
     Route::get('/aa', [TarifController::class, 'index'])->name('tarif.index');
     Route::get('/create', [TarifController::class, 'create'])->name('tarif.create');
     Route::post('/store', [TarifController::class, 'store'])->name('tarif.store');
@@ -86,7 +86,7 @@ Route::group(['prefix' => 'tarifs', 'middleware' => 'authen'], function () {
     Route::put('/update/{id}', [TarifController::class, 'update'])->name('tarif.update');
     Route::delete('/destroy/{id}', [TarifController::class, 'destroy'])->name('tarif.destroy');
 });
-Route::group(['prefix' => 'depenses', 'middleware' => 'authen'], function () {
+Route::group(['prefix' => 'depenses'], function () {
     Route::get('/', [DepenseController::class, 'index'])->name('depense.index');
     Route::get('/create', [DepenseController::class, 'create'])->name('depense.create');
     // Route::post('/store', function(){dd('edd');})->name('depense.store');
@@ -95,7 +95,7 @@ Route::group(['prefix' => 'depenses', 'middleware' => 'authen'], function () {
     Route::put('/update/{id}', [DepenseController::class, 'update'])->name('depense.update');
     Route::delete('/destroy/{id}', [DepenseController::class, 'destroy'])->name('depense.destroy');
 });
-Route::group(['prefix' => 'colis', 'middleware' => 'authen'], function () {
+Route::group(['prefix' => 'colis'], function () {
     Route::get('/', [ColisController::class, 'index'])->name('colis.index');
     Route::get('/create', [ColisController::class, 'create'])->name('colis.create');
     Route::post('/store', [ColisController::class, 'store'])->name('colis.store');

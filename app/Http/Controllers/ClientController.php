@@ -12,7 +12,7 @@ class ClientController extends Controller
 {
     public function index()
     {
-        return view('pages.client.index');
+        return view('pages.clients.dashboard');
     }
     public function signuppage()
     {
@@ -41,6 +41,7 @@ class ClientController extends Controller
         if ($request->password === $request->confirmpassword) {
             $newclient = Client::create($validation);
             auth()->login($newclient);
+            // dd('hhh');
             return redirect()->route('index');
         } else {
             return redirect()->route('auth.signUp');
