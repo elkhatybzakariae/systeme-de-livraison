@@ -30,7 +30,7 @@ class ClientFactory extends Factory
             'adress' => fake()->address(),
             'siteweb' => fake()->url(),
             'nombanque' => fake()->company(),
-            'numerocompte' => fake()->randomNumber(10),
+            'numerocompte' => $this->faker->optional()->bankAccountNumber,
             'isAdmin' => fake()->boolean(),
             'password' => Hash::make('password'),
         ];

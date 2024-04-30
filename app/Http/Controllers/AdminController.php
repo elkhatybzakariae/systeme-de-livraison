@@ -34,7 +34,8 @@ class AdminController extends Controller
             if (Hash::check($request->password, $u->password)) {
 
                 Auth::login($u);
-                return redirect()->route('index');
+                // dd(auth()->user());
+                return redirect()->route('admin.index');
             }
             // return redirect()->route('signinpage');
         } else {

@@ -17,11 +17,12 @@ class DepenseController extends Controller
     }
     public function store(DepenseRequest $request)
     {
-        $user = Auth::user();
+        $user = auth()->user();
+        dd($user);
         $customIdDep = Helpers::generateIdDep();
         $validatedData = $request->validated();
         $validatedData['id_Dep'] = $customIdDep;
-        $validatedData['id_U'] = $user->id_U;
+        $validatedData['id_Ad'] = $user->id_Ad;
         Depense::create($validatedData);
         return redirect()->route('depense.index')->with('success', 'Depense created successfully');
     }

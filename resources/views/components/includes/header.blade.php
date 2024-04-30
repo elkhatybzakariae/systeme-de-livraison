@@ -72,7 +72,7 @@
           <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
             <ul class="navbar-nav m-auto">
                 <li class="nav-item">
-                  <a href="{{ route('index') }}" class="nav-link dropdown-toggle ">Accueil</a>
+                  <a href="{{ route('admin.index') }}" class="nav-link dropdown-toggle ">Accueil</a>
                 </li>
                 <li class="nav-item">
                   <a href="#services-section" class="nav-link dropdown-toggle">Services</a>
