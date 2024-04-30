@@ -18,37 +18,6 @@ class AdminController extends Controller
     {
         return view('auth.admin.sign-up');
     }
-    // public function signup(Request $request)
-    // {
-    //     $id_Ad = Helpers::generateIdAd();
-    //     $validation = $request->validate([
-    //         'email' => 'required|email|max:50',
-    //         'password' => 'required|string|min:8',
-    //     ]);
-    //     if ($request->password === $request->confirmpassword) {
-    //         $role = Role::all()[0]->id_R;
-    //         // dd($role);
-    //         $newuser = User::create([
-    //             'id_Ad' => $id_Ad,
-    //             'email' => $validation['email'],
-    //             'password' => Hash::make($validation['password']),
-    //             'id_R' => $role,
-    //         ]);
-    //         // $type=Role::where('role_name',$validation['usertype'])->first();
-
-    //         // Role_User::create([
-    //         //     'id' => $id,
-    //         //     'id_Ad' => $newuser->id_Ad,
-    //         //     'id_R' => $type->id_R,
-    //         // ]);
-    //         auth()->login($newuser);
-    //         // return redirect()->route('dashboard');
-    //         // return redirect()->route('index');
-    //         return redirect()->route('index');
-    //     } else {
-    //         return redirect()->route('auth.signUp');
-    //     }
-    // }
     public function signinpage()
     {
         return view('auth.admin.sign-in');

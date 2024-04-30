@@ -12,7 +12,7 @@ class ClientController extends Controller
 {
     public function index()
     {
-        return view('pages.admin.index');
+        return view('pages.client.index');
     }
     public function signuppage()
     {
