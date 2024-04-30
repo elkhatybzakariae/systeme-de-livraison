@@ -41,23 +41,9 @@ class LivreurController extends Controller
             $cinrecto = $request->file('cinrecto')->store('public/images');
             $cinverso = $request->file('cinverso')->store('public/images');
             $RIB = $request->file('RIB')->store('public/images');
-            $newLivreur = Livreur::create([
-                'id_Liv' => $id_Liv,
-                'nomcomplet' => $validation['nomcomplet'],
-                'cin' => $validation['cin'],
-                'email' => $validation['email'],
-                'Phone' => $validation['Phone'],
-                'ville' => $validation['ville'],
-                'adress' => $validation['adress'],
-                'fraislivraison' => $validation['fraislivraison'],
-                'fraisrefus' => $validation['fraisrefus'],
-                'nombanque' => $validation['nombanque'],
-                'numerocompte' => $validation['numerocompte'],
-                'password' => Hash::make($validation['password']),
-                'cinrecto' => $cinrecto,
-                'cinverso' => $cinverso,
-                'RIB' => $RIB,
-            ]);
+            $validation['id_Liv']=$id_Liv;
+            $validation['password']=Hash::make($validation['password']);
+            $newLivreur = Livreur::create($validation);
             auth()->login($newLivreur);
             return redirect()->route('index');
         } else {
