@@ -36,23 +36,10 @@ class ClientController extends Controller
             'numerocompte' => 'nullable|string|max:50',
             'password' => 'required|string|min:8',
         ]);
+        $validation['id_Cl']=$id_Cl;
+        $validation['password']=Hash::make($validation['password']);
         if ($request->password === $request->confirmpassword) {
-            $newclient = Client::create([
-                'id_Cl' => $id_Cl,
-                'nommagasin' => $validation['nommagasin'],
-                'nomcomplet' => $validation['nomcomplet'],
-                'typeentreprise' => $validation['typeentreprise'],
-                'cin' => $validation['cin'],
-                'email' => $validation['email'],
-                'Phone' => $validation['Phone'],
-                'ville' => $validation['ville'],
-                'villeRamassage' => $validation['villeRamassage'],
-                'adress' => $validation['adress'],
-                'siteweb' => $validation['siteweb'],
-                'nombanque' => $validation['nombanque'],
-                'numerocompte' => $validation['numerocompte'],
-                'password' => Hash::make($validation['password']),
-            ]);
+            $newclient = Client::create($validation);
             auth()->login($newclient);
             return redirect()->route('index');
         } else {
