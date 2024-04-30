@@ -11,13 +11,10 @@
                                     <h5>Ajouter<!--5-->
                                     </h5>
                                 </div>
-
                                 <div class="card-body">
-
                                     <form action="{{ route('depense.store') }}" method="POST" id="">
                                         @csrf
                                         <div class="row">
-
                                             <div class="col-md-12 m-auto">
                                                 <div class="form-group">
                                                     <label>Depense ( Titre )</label>
