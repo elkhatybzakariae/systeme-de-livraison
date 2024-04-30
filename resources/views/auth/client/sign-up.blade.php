@@ -1,10 +1,4 @@
-@extends('layouts.app')
-@section('style')
-    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
-    <link href="{{ asset('storage/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('storage/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <!--end::Global Stylesheets Bundle-->
-@endsection
+@extends('layouts.livreur.admin')
 @section('content')
       <div class="d-flex flex-column flex-root mt-10" id="kt_app_root">
         <!--begin::Authentication - Sign-up -->
