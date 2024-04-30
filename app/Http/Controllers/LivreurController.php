@@ -42,6 +42,9 @@ class LivreurController extends Controller
             $cinverso = $request->file('cinverso')->store('public/images');
             $RIB = $request->file('RIB')->store('public/images');
             $validation['id_Liv']=$id_Liv;
+            $validation['cinverso']=$cinverso;
+            $validation['cinrecto']=$cinrecto;
+            $validation['RIB']=$RIB;
             $validation['password']=Hash::make($validation['password']);
             $newLivreur = Livreur::create($validation);
             auth()->login($newLivreur);
