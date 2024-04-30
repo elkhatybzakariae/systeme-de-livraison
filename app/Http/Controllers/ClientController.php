@@ -44,7 +44,7 @@ class ClientController extends Controller
             // dd('hhh');
             return redirect()->route('index');
         } else {
-            return redirect()->route('auth.signUp');
+            return redirect()->route('auth.client.signUp');
         }
     }
     public function signinpage()
@@ -65,15 +65,13 @@ class ClientController extends Controller
                 Auth::login($client);
                 return redirect()->route('index');
             }
-            // return redirect()->route('signinpage');
         } else {
-            // Password is incorrect; show an error message
             return back()->with('error', 'Invalid email or password.');
         }
     }
     public function signout()
     {
-        Auth::logout();
-        return redirect()->route('auth.signIn');
+        auth()->logout();
+        return redirect()->route('auth.client.signIn');
     }
 }
