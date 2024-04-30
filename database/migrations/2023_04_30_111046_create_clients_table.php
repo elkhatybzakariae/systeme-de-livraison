@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('siteweb')->nullable();
             $table->string('nombanque')->nullable();
             $table->string('numerocompte')->nullable();
-            $table->boolean('isAdmin');
+            $table->boolean('isAdmin')->default(0);
             $table->string('password');
             $table->boolean('valider')->default(0);
 

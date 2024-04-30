@@ -49,12 +49,12 @@ License: For each use you must have a valid license purchased only from above li
 			<!--begin::Page-->
 			<div class="app-page flex-column flex-column-fluid" id="kt_app_page">
 				<!--begin::Header-->
-				@include('layouts.admin.header')
+				@include('layouts.client.header')
 				<!--end::Header-->
 				<!--begin::Wrapper-->
 				<div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
 					<!--begin::Sidebar-->
-					@include('layouts.admin.sidebar')
+					@include('layouts.client.sidebar')
 					<!--end::Sidebar-->
 					<!--begin::Main-->
 					<div class="app-main flex-column flex-row-fluid" id="kt_app_main">

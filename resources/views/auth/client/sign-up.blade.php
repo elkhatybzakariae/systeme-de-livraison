@@ -96,7 +96,7 @@
                 <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 mt-15">
                     <div class="d-flex flex-center flex-column flex-lg-row-fluid">
                         <div class="w-lg-100 p-10">
-                            <form action="{{ route('auth.livreur.signUp.store') }}" method="post" class="form w-100 row" novalidate="novalidate" id="kt_sign_up_form">
+                            <form action="{{ route('auth.client.signUp.store') }}" method="post" class="form w-100 row" novalidate="novalidate" id="kt_sign_up_form">
                                 @csrf
                                 <div class="text-center mb-11">
                                     <h1 class="text-dark fw-bolder mb-3">Devenir Client</h1>
