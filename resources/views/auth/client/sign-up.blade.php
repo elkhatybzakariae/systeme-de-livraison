@@ -147,9 +147,9 @@
                             <!--end::Accept-->
                             <!--begin::Submit button-->
                             <div class="d-grid mb-10">
-                                <button type="submit" {{-- id="kt_sign_up_submit" --}} class="btn btn-primary">
+                                <button type="submit" {{-- id="kt_sign_up_submit" --}} class="btn " style="background-color: #202b46">
                                     <!--begin::Indicator label-->
-                                    <span class="indicator-label">Devenir Client</span>
+                                    <span class="indicator-label text-white">Devenir Client</span>
                                     <!--end::Indicator label-->
                                     <!--begin::Indicator progress-->
                                     <span class="indicator-progress">Please wait...

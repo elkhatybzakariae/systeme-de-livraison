@@ -29,7 +29,7 @@ class ClientController extends Controller
             'email' => 'required|email|max:50',
             'Phone' => 'nullable|string|max:50',
             'ville' => 'required|string|max:50',
-            'villeRamassage' => 'required|string|max:50',
+            'villeRamassage' => 'nullable|string|max:50',
             'adress' => 'required|string|max:50',
             'siteweb' => 'nullable|string|max:50',
             'nombanque' => 'nullable|string|max:50',
