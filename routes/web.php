@@ -61,6 +61,7 @@ Route::post('/client-login', [ClientController::class, 'signin'])->name('auth.cl
     Route::get('/profile/', [UserController::class, 'profile'])->name('profile');
     Route::put('/profile/update', [UserController::class, 'update'])->name('update');
     Route::get('/signout', [ClientController::class, 'signout'])->name('signout');
+    Route::get('/signout/livreur', [LivreurController::class, 'signout'])->name('signout.livreur');
 
 Route::group(['prefix' => 'zones'], function () {
     Route::get('/', [ZoneController::class, 'index'])->name('zone.index');

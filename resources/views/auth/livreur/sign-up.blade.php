@@ -1,12 +1,107 @@
-@extends('layouts.app')
-@section('style')
-    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
-    <link href="{{ asset('storage/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('storage/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <!--end::Global Stylesheets Bundle-->
-@endsection
-@section('content')
-      <!--begin::Root-->
+<!DOCTYPE html>
+<html dir="ws_config_dir" lang="ws_config_lang">
+
+<head>
+    <style>
+        :root {
+            /* --main-color: #2e7d32; */
+            --main-color: #202b46;
+            /* Main green color */
+            --second-color: #388e3c;
+            /* Lighter shade of green */
+            --third-color: #43a047;
+            /* Lightest shade of green */
+            --fourth-color: #1b5e20;
+            /* Darker shade of green */
+            --fifth-color: #1b5e20;
+            /* Another darker shade of green */
+            --hover-color: #388e3c;
+            /* Hover color, lighter shade of green */
+            --focus-color: #2e7d32;
+            /* Focus color, main green color */
+        }
+    </style>
+    <title>Accueil - livraison </title>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="description"
+        content="livraison est la nouvelle solution d'expédition pour gérer vos livraisons en ligne. Donnez à votre entreprise en ligne un avantage concurrentiel grâce aux solutions de livraison sur mesure de commerce électronique de livraison." />
+    <meta name="keywords" content="" />
+    <link rel="icon" href="https://cdn.vitex.ma/images/company/1702590775-780-1651191227-530-icone siteweb.jpeg"
+        sizes="16x16" type="image/png">
+    <link rel="icon" href="https://cdn.vitex.ma/images/company/1702590775-780-1651191227-530-icone siteweb.jpeg"
+        sizes="16x16 32x32" type="image/png">
+
+
+
+    <meta name="author" content="Digixel.ma" />
+
+    <!-- keywords -->
+    <meta name="keywords"
+        content="livraison à domicile maroc,livraison à domicile,livraison Maroc,livraison Agadir,For livraison,ForLivraison, livraison, amana livraison, Oubratra , Livraison,coursier,coursier maroc casa,coursier rapide,service coursier,livraison,tournee programee,courises expresse,delivery maroc,Service Livraison et Ramassage">
+    <!-- favicon -->
+    <meta name="title" content="livraison est la nouvelle solution d'expédition pour gérer vos livraisons en ligne" />
+    <meta property="og:title"
+        content="livraison est la nouvelle solution d'expédition pour gérer vos livraisons en ligne" />
+    <meta property="og:description"
+        content="livraison œuvre avec rapidité et agilité et assure une distribution transparente de bout en bout avec passion et engagement." />
+    <meta property="og:image" content="https://cdn.vitex.ma/images/logo.png" />
+    <meta property="og:url" content="https://cdn.vitex.ma/" />
+    <meta property="og:type" content="page" />
+    <!-- Bootstrap CSS -->
+
+    <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/bootstrap.min.css') }}">
+    <!-- Owl Theme Default CSS -->
+
+    <link rel="stylesheet" href="https://cdn.vitex.ma/assets/home-page/css/boxicons.min.css"> 
+    <!-- Flaticon CSS -->
+     <link rel="stylesheet" href="https://cdn.vitex.ma/assets/home-page/css/flaticon.css">
+     <link href="{{ asset('storage/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
+     <link href="{{ asset('storage/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+   
+
+    <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/owl.theme.default.min.css') }}">
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/owl.carousel.min.css') }}">
+    <!-- Owl Magnific CSS -->
+    <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/magnific-popup.css') }}">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/animate.css') }}">
+    <!-- Boxicons CSS -->
+    <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/boxicons.min.css') }}">
+    <!-- Flaticon CSS -->
+    <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/flaticon.css') }}">
+    <!-- Meanmenu CSS -->
+    <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/meanmenu.css') }}">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/nice-select.css') }}">
+    <!-- Odometer CSS-->
+    <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/odometer.css') }}">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/style.css') }}">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/responsive.css') }}">
+    <link href="{{ asset('storage/styles/styles-ws.css') }}" rel="stylesheet" />
+    <!-- Favicon -->
+    <link rel="stylesheet" href="{{ asset('storage/assets/main-page/css/aos.css') }}">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="{{ asset('storage/assets/main-page/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/floatingapp.css') }}">
+    </head>
+    <body>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    
+        <div class="container">
+            
       <div class="d-flex flex-column flex-root mt-10" id="kt_app_root">
         <!--begin::Authentication - Sign-up -->
         <div class="d-flex flex-column flex-lg-row flex-column-fluid">
@@ -51,7 +146,7 @@
                     <!--begin::Wrapper-->
                     <div class="w-lg-100 p-10">
                         <!--begin::Form-->
-                        <form action="{{ route('auth.livreur.signUp.store') }}" method="post" class="form w-100 row"
+                        <form action="{{ route('auth.livreur.signUp.store') }}" method="post" enctype="multipart/form-data" class="form w-100 row"
                             novalidate="novalidate" id="kt_sign_up_form">
                             @csrf
                             <!--begin::Heading-->
@@ -160,7 +255,7 @@
                             <!--begin::Input group=-->
                             <div class="fv-row mb-8 col-6">
 
-                                <input type="text" placeholder="Frais de livraison (DH)" name="fraislivraison"
+                                <input type="number" placeholder="Frais de livraison (DH)" name="fraislivraison"
                                     autocomplete="off" class="form-control bg-transparent" />
 
                             </div>
@@ -168,7 +263,7 @@
                             <!--begin::Input group=-->
                             <div class="fv-row mb-8 col-6">
 
-                                <input type="text" placeholder="Frais de refus (DH)" name="fraisrefus"
+                                <input type="number" placeholder="Frais de refus (DH)" name="fraisrefus"
                                     autocomplete="off" class="form-control bg-transparent" />
 
                             </div>
@@ -192,7 +287,7 @@
                             <!--begin::Input group=-->
                             <div class="fv-row mb-8 col-4">
 
-                                <input type="file" name="cinrecto" autocomplete="off"
+                                <input type="file" name="cinrecto" autocomplete="off" accept="image/*"
                                     class="form-control bg-transparent" />
 
                             </div>
@@ -200,7 +295,7 @@
                             <!--begin::Input group=-->
                             <div class="fv-row mb-8 col-4">
 
-                                <input type="file" name="cinverso" autocomplete="off"
+                                <input type="file" name="cinverso" autocomplete="off" accept="image/*"
                                     class="form-control bg-transparent" />
 
                             </div>
@@ -208,7 +303,7 @@
                             <!--begin::Input group=-->
                             <div class="fv-row mb-8 col-4">
 
-                                <input type="file" name="RIB" autocomplete="off"
+                                <input type="file" name="RIB" autocomplete="off" accept="image/*"
                                     class="form-control bg-transparent" />
 
                             </div>
@@ -254,10 +349,7 @@
         </div>
         <!--end::Authentication - Sign-up-->
     </div>
-    <!--end::Root-->
-@endsection
-@section('script')
-    <!--begin::Theme mode setup on page load-->
+    
     <script>
         var defaultThemeMode = "light";
         var themeMode;
@@ -292,4 +384,28 @@
     
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
-@endsection
+
+        </div>
+        
+
+<script>
+    var defaultThemeMode = "light";
+    var themeMode;
+    if (document.documentElement) {
+        if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
+            themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
+        } else {
+            if (localStorage.getItem("data-bs-theme") !== null) {
+                themeMode = localStorage.getItem("data-bs-theme");
+            } else {
+                themeMode = defaultThemeMode;
+            }
+        }
+        if (themeMode === "system") {
+            themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-bs-theme", themeMode);
+    }
+</script>
+    </body>
+</html>
