@@ -17,11 +17,14 @@ class DepenseController extends Controller
     }
     public function store(DepenseRequest $request)
     {
-        $user = Auth::user();
+        $user = session('user');
+        // dd($user['id_Ad']);
         $customIdDep = Helpers::generateIdDep();
         $validatedData = $request->validated();
         $validatedData['id_Dep'] = $customIdDep;
-        $validatedData['id_Ad'] = $user->id_Ad;
+
+        $validatedData['id_Ad'] = $user['id_Ad'];
+        // dd($validatedData);
         Depense::create($validatedData);
         return redirect()->route('depense.index')->with('success', 'Depense created successfully');
     }
@@ -34,20 +37,20 @@ class DepenseController extends Controller
     //     }
     //     return view('pages.depense.edit', compact('depense'));
     // }
-    // public function update(DepenseRequest $request, $id)
-    // {
+    public function update(DepenseRequest $request, $id)
+    {
 
-    //     $depense = Depense::find($id);
-    //     if (!$depense) {
-    //         return redirect()->route('depense.index')->with('error', 'Depense not found');
-    //     }
-    //     $depense->update($request->validated());
-    //     return redirect()->route('depense.index')->with('success', 'Depense updated successfully');
-    // }
+        $depense = Depense::find($id);
+        if (!$depense) {
+            return redirect()->route('depense.index')->with('error', 'Depense not found');
+        }
+        $depense->update($request->validated());
+        return redirect()->route('depense.index')->with('success', 'Depense updated successfully');
+    }
 
-    // public function destroy($id)
-    // {
-    //     Depense::find($id)->delete();
-    //     return redirect()->route('depense.index')->with('success', 'Depense deleted successfully');
-    // }
+    public function destroy($id)
+    {
+        Depense::find($id)->delete();
+        return redirect()->route('depense.index')->with('success', 'Depense deleted successfully');
+    }
 }

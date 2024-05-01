@@ -29,7 +29,7 @@ class TarifController extends Controller
     {
         $customIdTar = Helpers::generateIdTar();
         $validatedData = $request->validated();
-
+        // dd($validatedData);
         $validatedData['id_Tar'] = $customIdTar;
         tarif::create($validatedData);
         return redirect()->route('tarif.index')->with('success', 'tarif created successfully');

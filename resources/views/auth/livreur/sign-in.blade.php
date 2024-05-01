@@ -222,14 +222,9 @@ License: For each use you must have a valid license purchased only from above li
                             <div class="text-gray-500 text-center fw-semibold fs-6">Not a Member yet?
                                 <a href="{{ route('auth.livreur.signUp') }}" class="link-primary">Sign up</a>
                             </div>
-                            <!--end::Sign up-->
                         </form>
-                        <!--end::Form-->
                     </div>
-                    <!--end::Wrapper-->
                 </div>
-                <!--end::Form-->
-                <!--begin::Footer-->
                 <div class="d-flex flex-center flex-wrap px-5">
                     <!--begin::Links-->
                     <div class="d-flex fw-semibold text-primary fs-base">

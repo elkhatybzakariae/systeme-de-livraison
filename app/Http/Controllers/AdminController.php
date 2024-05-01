@@ -27,7 +27,6 @@ class AdminController extends Controller
 
     public function signin(Request $request)
     {
-        // dd(Hash::make('password'));
         $v = $request->validate([
             'email' => 'required|email|max:50',
             'password' => 'required|string|min:8',
@@ -37,18 +36,18 @@ class AdminController extends Controller
             if (Hash::check($request->password, $u->password)) {
 
                 Auth::login($u);
+                session(["user" => $u]);
+                // dd(session('user'));
                 return redirect()->route('admin.index');
             }
-            // return redirect()->route('signinpage');
         } else {
-            // Password is incorrect; show an error message
             return back()->with('error', 'Invalid email or password.');
         }
     }
     public function signout()
     {
         Auth::logout();
-        return redirect()->route('auth.signIn');
+        return redirect()->route('auth.admin.signIn');
     }
 
     public function newclients()

@@ -22,17 +22,18 @@ class LivreurFactory extends Factory
             'nomcomplet' => fake()->name(),
             'cin' => Str::random(10),
             'email' =>fake()->unique()->safeEmail() ,
-            'Phone' => Str::phoneNumber(),
+            'Phone' => fake()->phoneNumber(),
             'ville' => fake()->city(),
             'adress' => fake()->address(),
-            'fraislivraison' => fake()->randomNumber(2),
-            'fraisrefus' => fake()->randomNumber(2),
+            'fraislivraison' => fake()->numberBetween(10, 50),
+            'fraisrefus' => fake()->numberBetween(10, 50),
             'nombanque' => fake()->company(),
-            'numerocompte' => fake()->randomNumber(10),
+            'numerocompte' => fake()->numberBetween(10, 50),
             'password' => Hash::make('password'),
-            // 'cinrecto' => fake()->randomNumber(10),
-            // 'cinverso' => fake()->boolean(),
-            // 'RIB' => ,
+            'cinrecto' => fake()->imageUrl(), // Example for cinrecto, you should replace this with proper logic to handle file uploads
+        'cinverso' => fake()->imageUrl(), // Example for cinverso, you should replace this with proper logic to handle file uploads
+        'RIB' => fake()->imageUrl(), // Example for RIB, you should replace this with proper logic to handle file uploads
+        'valider' => fake()->boolean(),
         ];
     }
 }
