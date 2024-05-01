@@ -12,7 +12,7 @@ class Depense extends Model
     protected $primaryKey = 'id_Dep';
     public $incrementing = false;
     public $timestamps = true;
-    protected $fillable = ['id_Dep','depense','description','montant','datedep','id_U'];
+    protected $fillable = ['id_Dep','depense','description','montant','datedep','id_Ad'];
     public function user()
     {
         return $this->belongsTo(User::class,'id_U');

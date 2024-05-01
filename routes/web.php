@@ -11,8 +11,6 @@ use App\Http\Controllers\VilleController;
 use App\Http\Controllers\ZoneController;
 use Illuminate\Support\Facades\Route;
 
-
-
 Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/tarifs', [HomeController::class,'tarifs'])->name('tarifs');
 Route::get('/option', [HomeController::class,'option'])->name('option.index');
@@ -24,9 +22,8 @@ Route::controller(AdminController::class)->prefix('admin')->group(function () {
     Route::post('/register',  'signup')->name('auth.admin.signUp.store');
     Route::get('/signin',  'signinpage')->name('auth.admin.signIn');
     Route::post('/login',  'signin')->name('auth.admin.signIn.store');
-    Route::get('/signout',  'signout')->name('signout');
+    Route::get('/signout',  'signout')->name('admin.signout');
 });
-
 
 
 Route::controller(ClientController::class)->prefix('clients')->group(function () {
@@ -49,6 +46,11 @@ Route::controller(LivreurController::class)->prefix('livreurs')->group(function 
     Route::get('/dashboard',  'index')->name('livreur.index');
     Route::get('/signoutr',  'signout')->name('signout.livreur');
 });
+
+
+Route::get('/new-clients', [AdminController::class, 'newclients'])->name('newclients');
+
+
 
 
 Route::group(['prefix' => 'zones'], function () {
@@ -74,7 +76,7 @@ Route::group(['prefix' => 'tarifs'], function () {
     Route::get('/create', [TarifController::class, 'create'])->name('tarif.create');
     Route::post('/store', [TarifController::class, 'store'])->name('tarif.store');
     Route::get('/edit/{id}', [TarifController::class, 'edit'])->name('tarif.edit');
-    Route::put('/update/{id}', [TarifController::class, 'update'])->name('tarif.update');
+    Route::post('/update/{id}', [TarifController::class, 'update'])->name('tarif.update');
     Route::delete('/destroy/{id}', [TarifController::class, 'destroy'])->name('tarif.destroy');
 });
 
@@ -83,7 +85,7 @@ Route::group(['prefix' => 'depenses','midleware'=>'auth'], function () {
     Route::get('/create', [DepenseController::class, 'create'])->name('depense.create');
     Route::post('/store', [DepenseController::class, 'store'])->name('depense.store');
     Route::get('/edit/{id}', [DepenseController::class, 'edit'])->name('depense.edit');
-    Route::put('/update/{id}', [DepenseController::class, 'update'])->name('depense.update');
+    Route::post('/update/{id}', [DepenseController::class, 'update'])->name('depense.update');
     Route::delete('/destroy/{id}', [DepenseController::class, 'destroy'])->name('depense.destroy');
 });
 

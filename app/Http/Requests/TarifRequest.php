@@ -21,6 +21,7 @@ class TarifRequest extends FormRequest
      */
     public function rules(): array
     {
+        // dd(request());
         return [
             'villeRamassage' => 'required|exists:villes,id_V',
             'ville' => 'required|exists:villes,id_V',

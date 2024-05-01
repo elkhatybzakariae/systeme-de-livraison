@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Helpers;
 use App\Http\Requests\TarifRequest;
 use App\Models\Tarif;
+use App\Models\Ville;
 use Illuminate\Http\Request;
 
 class TarifController extends Controller
@@ -12,7 +13,8 @@ class TarifController extends Controller
     public function index()
     {
         $tarifs = tarif::all();
-        return view('pages.tarif.index', compact('tarifs'));
+        $villes = Ville::all();
+        return view('pages.tarif.index', compact('tarifs','villes'));
     }
 
 
@@ -27,7 +29,7 @@ class TarifController extends Controller
     {
         $customIdTar = Helpers::generateIdTar();
         $validatedData = $request->validated();
-
+        // dd($validatedData);
         $validatedData['id_Tar'] = $customIdTar;
         tarif::create($validatedData);
         return redirect()->route('tarif.index')->with('success', 'tarif created successfully');

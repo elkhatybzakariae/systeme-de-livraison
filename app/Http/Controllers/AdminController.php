@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helpers;
 use App\Models\Admin;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -34,18 +35,23 @@ class AdminController extends Controller
             if (Hash::check($request->password, $u->password)) {
 
                 Auth::login($u);
-                // dd(auth()->user());
+                session(["user" => $u]);
+                // dd(session('user'));
                 return redirect()->route('admin.index');
             }
-            // return redirect()->route('signinpage');
         } else {
-            // Password is incorrect; show an error message
             return back()->with('error', 'Invalid email or password.');
         }
     }
     public function signout()
     {
         Auth::logout();
-        return redirect()->route('auth.signIn');
+        return redirect()->route('auth.admin.signIn');
+    }
+
+    public function newclients()
+    {
+        $list= Client::where('isAccepted',0)->get();
+        return view('pages.admin.newclients',compact('list'));
     }
 }

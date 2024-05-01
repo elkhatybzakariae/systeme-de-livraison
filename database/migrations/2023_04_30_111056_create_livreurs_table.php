@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('cinrecto');
             $table->string('cinverso');
             $table->string('RIB');
-            $table->boolean('valider')->default(0);
+            $table->boolean('isAccepted')->default(0);
             $table->timestamps();
         });
     }
