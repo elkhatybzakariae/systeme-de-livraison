@@ -54,4 +54,16 @@ class AdminController extends Controller
         $list= Client::where('isAccepted',0)->get();
         return view('pages.admin.newclients',compact('list'));
     }
+    public function accepteclient($id)
+    {
+        Client::where('id_Cl', $id)->update([
+            'isAccepted' => 1,
+        ]);
+        return redirect()->route('newclients');
+    }
+    public function deleteclient($id)
+    {
+        Client::find($id)->delete();
+        return redirect()->route('newclients');
+    }
 }

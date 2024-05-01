@@ -25,7 +25,6 @@ Route::controller(AdminController::class)->prefix('admin')->group(function () {
     Route::get('/signout',  'signout')->name('admin.signout');
 });
 
-
 Route::controller(ClientController::class)->prefix('clients')->group(function () {
     Route::get('/signup',  'signuppage')->name('auth.client.signUp');
     Route::post('/register',  'signup')->name('auth.client.signUp.store');
@@ -49,6 +48,8 @@ Route::controller(LivreurController::class)->prefix('livreurs')->group(function 
 
 
 Route::get('/new-clients', [AdminController::class, 'newclients'])->name('newclients');
+Route::put('/accepteclient/{id}', [AdminController::class, 'accepteclient'])->name('accepteclient');
+Route::delete('/deleteclient/{id}', [AdminController::class, 'deleteclient'])->name('deleteclient');
 
 
 

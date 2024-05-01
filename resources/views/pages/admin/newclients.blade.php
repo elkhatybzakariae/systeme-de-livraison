@@ -48,29 +48,37 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($list as $item)
-                                                    <tr id="{{$item->id_Cl}}" role="row" class="odd">
-                                                        <td><b>Nom du magasin : </b>{{$item->nommagasin}}<br>
-                                                            <b>Nom complet : </b>{{$item->nomcomplet}}<br>
-                                                            <b>Type d entereprise : </b>{{$item->typeentreprise}}<br>
-                                                            <b>CIN : </b>{{$item->cin}}<br>
-                                                            <b>Site web : </b>{{$item->siteweb}}<br>
-                                                            <b>Registre de commerce : {{$item->siteweb}}</b>
+                                                    <tr id="{{ $item->id_Cl }}" role="row" class="odd">
+                                                        <td><b>Nom du magasin : </b>{{ $item->nommagasin }}<br>
+                                                            <b>Nom complet : </b>{{ $item->nomcomplet }}<br>
+                                                            <b>Type d entereprise : </b>{{ $item->typeentreprise }}<br>
+                                                            <b>CIN : </b>{{ $item->cin }}<br>
+                                                            <b>Site web : </b>{{ $item->siteweb }}<br>
+                                                            <b>Registre de commerce : {{ $item->siteweb }}</b>
                                                         </td>
-                                                        <td><b>Adresse electronique : </b>{{$item->email}}<br>
-                                                            <b>Mot de passe : </b>{{$item->password}}<br>
-                                                            <b>Numero de telephone : </b>?{{$item->Phone}}?<br>
-                                                            <b>Ville : </b>{{$item->ville}}<br>
-                                                            <b>Adresse : </b>{{$item->adress}}
+                                                        <td><b>Adresse electronique : </b>{{ $item->email }}<br>
+                                                            <b>Mot de passe : </b>{{ $item->password }}<br>
+                                                            <b>Numero de telephone : </b>?{{ $item->Phone }}?<br>
+                                                            <b>Ville : </b>{{ $item->ville }}<br>
+                                                            <b>Adresse : </b>{{ $item->adress }}
                                                         </td>
                                                         <td class="dns_tbl_td_statut">
-                                                            <div class="btn-group btn-group-sm" role="group"><a
-                                                                    target="_blank"
-                                                                    href="customers?action=add&amp;customers_storename=Dripwave&amp;customers_fullname=Aicha laoulidi&amp;customers_company_type=16&amp;customers_brand=Bj452558&amp;customers_website=&amp;customers_rc=&amp;customers_email=aishalaoulidi@gmail.com&amp;customers_password=aicha199700.&amp;customers_phone=?+212&nbsp;649?575961?&amp;customers_city=Casablanca&amp;customers_address=Ainsebaa el wifaq"
-                                                                    class="btn btn-sm btn-primary"><i
-                                                                        class="fa fa-plus"></i></a>
-                                                                <a href="javascript:ajaxLink('new-customer?action=delete&amp;customer-id=399');"
-                                                                    class="btn btn-sm btn-danger"><i
-                                                                        class="fa fa-times"></i></a>
+                                                            <div class="btn-group btn-group-sm" role="group">
+                                                                <form action="{{ route('accepteclient', $item->id_Cl) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('put')
+                                                                    <input type="submit" value="+" class="btn btn-sm btn-primary" />
+                                                                    <i class="fa fa-plus"></i>
+                                                                </form>
+                                                                <form action="{{ route('deleteclient', $item->id_Cl) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('delete')
+                                                                    <input type="submit" value="*"  class="btn btn-sm btn-danger" />
+                                                                    <i class="fa fa-plus"></i>
+                                                                </form>
+                                                                <i class="fa fa-times"></i></a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -101,8 +109,8 @@
                                                         class="page-link">1</a></li>
                                                 <li class="paginate_button page-item next disabled"
                                                     id="customers_table_json_next"><a href="#"
-                                                        aria-controls="customers_table_json" data-dt-idx="2" tabindex="0"
-                                                        class="page-link">Suivant</a></li>
+                                                        aria-controls="customers_table_json" data-dt-idx="2"
+                                                        tabindex="0" class="page-link">Suivant</a></li>
                                             </ul>
                                         </div>
                                     </div>

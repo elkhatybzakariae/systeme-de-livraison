@@ -42,7 +42,7 @@ class ClientController extends Controller
             $newclient = Client::create($validation);
             auth()->login($newclient);
             // dd('hhh');
-            return redirect()->route('index');
+            return redirect()->route('client.index');
         } else {
             return redirect()->route('auth.client.signUp');
         }
@@ -63,7 +63,7 @@ class ClientController extends Controller
             if (Hash::check($request->password, $client->password)) {
 
                 Auth::login($client);
-                return redirect()->route('index');
+                return redirect()->route('client.index');
             }
         } else {
             return back()->with('error', 'Invalid email or password.');
