@@ -154,7 +154,6 @@
         $('.dataTable').DataTable();
     } );
 </script>
-
 		<script>var hostUrl = "assets/";</script>
 		<script src="{{ asset('storage/assets/plugins/global/plugins.bundle.js') }}"></script>
 		<script src="{{ asset('storage/assets/js/scripts.bundle.js') }}"></script>
