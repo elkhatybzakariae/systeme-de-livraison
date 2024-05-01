@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Helpers;
 use App\Models\Admin;
 use App\Models\Client;
+use App\Models\Livreur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -66,5 +67,22 @@ class AdminController extends Controller
     {
         Client::find($id)->delete();
         return redirect()->route('newclients');
+    }
+    public function newlivreurs()
+    {
+        $list= Livreur::where('isAccepted',0)->get();
+        return view('pages.admin.newlivreurs',compact('list'));
+    }
+    public function acceptelivreur($id)
+    {
+        Livreur::where('id_Liv', $id)->update([
+            'isAccepted' => 1,
+        ]);
+        return redirect()->route('newlivreurs');
+    }
+    public function deletelivreur($id)
+    {
+        Livreur::find($id)->delete();
+        return redirect()->route('newlivreurs');
     }
 }

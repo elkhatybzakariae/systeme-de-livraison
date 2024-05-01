@@ -14,43 +14,42 @@
                                 <div class="card-body">
                                     <form action="{{ route('depense.store') }}" method="POST" id="">
                                         @csrf
-                                        <div class="row">
-                                            <div class="col-md-12 m-auto">
-                                                <div class="form-group">
-                                                    <label>Depense ( Titre )</label>
-                                                    <input type="text" class="form-control" name="depense" value=""
-                                                        placeholder="Depense ( Titre )">
-                                                </div>
-                                            </div>
+                                        <div class="d-flex flex-column mb-8 fv-row">
+                                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                <span class="required">Depense ( Titre )</span>
+                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                                    title="Specify a target name for future usage and reference"></i>
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid"
+                                                placeholder="Depense ( Titre )" value="{{old('depense')}}" id="depense" name="depense" />
                                         </div>
-                                        <div class="row">
-
-                                            <div class="col-md-12 ">
-                                                <div class="form-group">
-                                                    <label>Description du depense</label>
-                                                    <textarea class="form-control" name="description" rows="1" placeholder="Description du depense"></textarea>
-                                                </div>
-                                            </div>
+                                        <div class="d-flex flex-column mb-8 fv-row">
+                                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                <span class="required">Description du depense</span>
+                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                                    title="Specify a target name for future usage and reference"></i>
+                                            </label>
+                                            <textarea class="form-control form-control-solid" name="description" rows="1"
+                                                placeholder="Description du depense" >{{old('description')}}</textarea>
                                         </div>
-                                        <div class="row">
-
-                                            <div class="col-md-12 m-auto">
-                                                <div class="form-group">
-                                                    <label>Montant depense</label>
-                                                    <input type="number" min="0" class="form-control" name="montant"
-                                                        value="" placeholder="Montant depense">
-                                                </div>
-                                            </div>
+                                        <div class="d-flex flex-column mb-8 fv-row">
+                                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                <span class="required">Montant depense</span>
+                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                                    title="Specify a target name for future usage and reference"></i>
+                                            </label>
+                                            <input type="number" min="0" class="form-control form-control-solid"
+                                                name="montant" value="{{old('montant')}}" placeholder="Montant depense">
                                         </div>
-                                        <div class="row">
+                                        <div class="d-flex flex-column mb-8 fv-row">
+                                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                <span class="required">Date de depense</span>
+                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                                    title="Specify a target name for future usage and reference"></i>
+                                            </label>
+                                            <input type="date" class="form-control form-control-solid" name="datedep"
+                                                value="{{old('datedep')}}" placeholder="Date de depense">
 
-                                            <div class="col-md-12 m-auto">
-                                                <div class="form-group">
-                                                    <label>Date de depense</label>
-                                                    <input type="date" class="form-control" name="datedep" value=""
-                                                        placeholder="Date de depense">
-                                                </div>
-                                            </div>
                                         </div>
                                         <div class="form-actions">
                                             <div class="text-right">
@@ -145,19 +144,19 @@
                                                     <tbody>
                                                         @foreach ($depenses as $depense)
                                                             <tr id="spent-157" role="row" class="odd">
-                                                            <td>{{$depense->depense}}</td>
-                                                            <td>{{$depense->description}}</td>
-                                                            <td>{{$depense->montant}}</td>
-                                                            <td>{{$depense->datedep}}</td>
-                                                            <td>{{$depense->created_at->format('Y-m-d') }}</td>
-                                                            <td>{{$depense->user->email}}</td>
-                                                            <td><a href="javascript:ajaxLink('spent?action=delete-spent&amp;spent-id=157');"
-                                                                    data-tooltip="Supprimer"
-                                                                    class="btn btn-sm btn-danger"><i
-                                                                        class="fa fa-trash"></i></a></td>
-                                                        </tr>
+                                                                <td>{{ $depense->depense }}</td>
+                                                                <td>{{ $depense->description }}</td>
+                                                                <td>{{ $depense->montant }}</td>
+                                                                <td>{{ $depense->datedep }}</td>
+                                                                <td>{{ $depense->created_at->format('Y-m-d') }}</td>
+                                                                {{-- <td>{{$depense->user->email}}</td> --}}
+                                                                <td><a href="javascript:ajaxLink('spent?action=delete-spent&amp;spent-id=157');"
+                                                                        data-tooltip="Supprimer"
+                                                                        class="btn btn-sm btn-danger"><i
+                                                                            class="fa fa-trash"></i></a></td>
+                                                            </tr>
                                                         @endforeach
-                                                        
+
                                                     </tbody>
                                                 </table>
                                                 <div id="spents_table_json_processing"

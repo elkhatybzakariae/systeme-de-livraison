@@ -75,6 +75,10 @@ Route::get('/new-clients', [AdminController::class, 'newclients'])->name('newcli
 Route::put('/accepteclient/{id}', [AdminController::class, 'accepteclient'])->name('accepteclient');
 Route::delete('/deleteclient/{id}', [AdminController::class, 'deleteclient'])->name('deleteclient');
 
+Route::get('/new-livreurs', [AdminController::class, 'newlivreurs'])->name('newlivreurs');
+Route::put('/acceptelivreur/{id}', [AdminController::class, 'acceptelivreur'])->name('acceptelivreur');
+Route::delete('/deletelivreur/{id}', [AdminController::class, 'deletelivreur'])->name('deletelivreur');
+
 
 
 
@@ -95,7 +99,7 @@ Route::group(['prefix' => 'villes'], function () {
     Route::delete('/destroy/{id}', [VilleController::class, 'destroy'])->name('villes.destroy');
 });
 Route::group(['prefix' => 'tarifs'], function () {
-    Route::get('/aa', [TarifController::class, 'index'])->name('tarif.index');
+    Route::get('/all', [TarifController::class, 'index'])->name('tarif.index');
     Route::get('/create', [TarifController::class, 'create'])->name('tarif.create');
     Route::post('/store', [TarifController::class, 'store'])->name('tarif.store');
     Route::get('/edit/{id}', [TarifController::class, 'edit'])->name('tarif.edit');

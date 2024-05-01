@@ -21,7 +21,7 @@ class DepenseController extends Controller
         $customIdDep = Helpers::generateIdDep();
         $validatedData = $request->validated();
         $validatedData['id_Dep'] = $customIdDep;
-        $validatedData['id_U'] = $user->id_U;
+        $validatedData['id_Ad'] = $user->id_Ad;
         Depense::create($validatedData);
         return redirect()->route('depense.index')->with('success', 'Depense created successfully');
     }
