@@ -59,7 +59,7 @@
 
       <a href="" class="logo">
 
-        <img class="logo-header"src="{{ asset('storage/images/header-logo.png') }}" alt="Logo">
+        <img src="{{ asset('storage/images/logo.png') }}" width="40" alt="Logo">
       </a>
     </div>
     <!-- Menu For Desktop Device -->
@@ -67,7 +67,7 @@
       <nav class="navbar navbar-expand-md navbar-light">
         <div class="container">
           <a class="navbar-brand"  href="">
-            <img class="logo-header" src="{{ asset('storage/images/header-logo.png') }}" alt="Logo">
+            <img src="{{ asset('storage/images/logo.png') }}" width="70" alt="Logo">
           </a>
           <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
             <ul class="navbar-nav m-auto">

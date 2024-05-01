@@ -1,6 +1,6 @@
 <section class="prevoz-slider-area prevoz-slider-area-five">
   <div class="prevoz-slider-style owl-carousel owl-theme">
-    <div class="prevoz-slider-item " style="background-image: url({{ asset('storage/images/slider.jpg') }});">
+    <div class="prevoz-slider-item " style="background-image: url({{ asset('storage/images/main.jpg') }});">
       <div class="d-table">
         <div class="d-table-cell">
           <div class="container">

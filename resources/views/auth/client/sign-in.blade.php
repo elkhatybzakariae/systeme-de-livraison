@@ -91,9 +91,9 @@ License: For each use you must have a valid license purchased only from above li
         <div class="d-flex flex-column flex-lg-row flex-column-fluid">
             <!--begin::Aside-->
             <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center"
-                style="background-image: url({{ asset('storage/assets/media/misc/auth-bg.png)') }}">
+                style="background-image: url({{ asset('storage/images/client.png)') }}">
                 <!--begin::Content-->
-                <div class="d-flex flex-column flex-center p-6 p-lg-10 w-100">
+                {{-- <div class="d-flex flex-column flex-center p-6 p-lg-10 w-100">
                     <!--begin::Logo-->
                     <a href="../../demo1/dist/index.html" class="mb-0 mb-lg-20">
                         <img alt="Logo" src="{{ asset('storage/assets/media/logos/default-white.svg') }}"
@@ -118,7 +118,7 @@ License: For each use you must have a valid license purchased only from above li
                         <br />work following this is a transcript of the interview.
                     </div>
                     <!--end::Text-->
-                </div>
+                </div> --}}
                 <!--end::Content-->
             </div>
             <!--begin::Aside-->
@@ -139,44 +139,6 @@ License: For each use you must have a valid license purchased only from above li
                             <div class="text-center mb-11">
                                 <!--begin::Title-->
                                 <h1 class="text-dark fw-bolder mb-3">Sign In</h1>
-                                <!--end::Title-->
-                                <!--begin::Subtitle-->
-                                <div class="text-gray-500 fw-semibold fs-6">Your Social Campaigns</div>
-                                <!--end::Subtitle=-->
-                            </div>
-                            <!--begin::Heading-->
-                            <!--begin::Login options-->
-                            <div class="row g-3 mb-9">
-                                <!--begin::Col-->
-                                <div class="col-md-6">
-                                    <!--begin::Google link=-->
-                                    <a href="#"
-                                        class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
-                                        <img alt="Logo"
-                                            src="{{ asset('storage/assets/media/svg/brand-logos/google-icon.svg') }}"
-                                            class="h-15px me-3" />Sign in with Google</a>
-                                    <!--end::Google link=-->
-                                </div>
-                                <!--end::Col-->
-                                <!--begin::Col-->
-                                <div class="col-md-6">
-                                    <!--begin::Google link=-->
-                                    <a href="#"
-                                        class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
-                                        <img alt="Logo"
-                                            src="{{ asset('storage/assets/media/svg/brand-logos/apple-black.svg') }}"
-                                            class="theme-light-show h-15px me-3" />
-                                        <img alt="Logo"
-                                            src="{{ asset('storage/assets/media/svg/brand-logos/apple-black-dark.svg') }}"
-                                            class="theme-dark-show h-15px me-3" />Sign in with Apple</a>
-                                    <!--end::Google link=-->
-                                </div>
-                                <!--end::Col-->
-                            </div>
-                            <!--end::Login options-->
-                            <!--begin::Separator-->
-                            <div class="separator separator-content my-14">
-                                <span class="w-125px text-gray-500 fw-semibold fs-7">Or with email</span>
                             </div>
                             <!--end::Separator-->
                             <!--begin::Input group=-->
