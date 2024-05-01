@@ -52,7 +52,7 @@ Route::controller(LivreurController::class)->prefix('livreurs')->group(function 
 Route::controller(NewClientController::class)->prefix('admin')->group(function () {
     
     Route::get('/new-clients', 'newclients')->name('newclients');
-    Route::get('/accept/profile/{id}', 'profile')->name('accept.profile');
+    Route::get('/accept/profile/client/{id}', 'profile')->name('accept.profile');
     Route::put('/accept/profile/client/{id}', 'accept')->name('accept.client');
     Route::delete('/deleteclient/{id}', 'deleteclient')->name('deleteclient');
 });

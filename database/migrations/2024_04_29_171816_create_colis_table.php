@@ -13,14 +13,28 @@ return new class extends Migration
             $table->string('id_C')->primary();
             $table->string('code_d_envoi');
             $table->date('date_d_expedition');
-            // $table->foreignId('client_id')->constrained('clients');
+            $table->string('destinataire');
+            $table->string('id_Cl');
+            $table->foreign('id_Cl')->on('clients')->references('id_Cl');
+            $table->string('telephone');
+            $table->string('marchandise');
             $table->string('etat');
             $table->string('status');
+            $table->string('zone');
+            $table->foreign('zone')->on('zones')->references('id_Z');
             $table->string('ville_id');
             $table->foreign('ville_id')->on('villes')->references('id_V');
             $table->decimal('prix', 8, 2);
+            $table->integer('quantite');
+            $table->text('commentaire')->nullable();
+            $table->string('adresse');
+            $table->boolean('fragile')->default(false);
+            $table->boolean('ouvrir')->default(false);
+            $table->boolean('colis_a_remplacer')->default(false);
             $table->timestamps();
+
         });
+        
     }
 
     public function down(): void
