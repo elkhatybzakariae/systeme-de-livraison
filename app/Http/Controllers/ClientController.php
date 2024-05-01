@@ -40,9 +40,8 @@ class ClientController extends Controller
         $validation['password']=Hash::make($validation['password']);
         if ($request->password === $request->confirmpassword) {
             $newclient = Client::create($validation);
-            auth()->login($newclient);
-            // dd('hhh');
-            return redirect()->route('client.index');
+            return back()->with('success', 'Nous avons bien reçu votre demande de création de compte. Nous vous contacterons ultérieurement.');
+
         } else {
             return redirect()->route('auth.client.signUp');
         }
@@ -63,7 +62,8 @@ class ClientController extends Controller
             if (Hash::check($request->password, $client->password)) {
 
                 Auth::login($client);
-                return redirect()->route('client.index');
+                session(["user" => $client]);
+                return redirect()->route('client.index')->with('success', 'successfull!!!!.');
             }
         } else {
             return back()->with('error', 'Invalid email or password.');
@@ -74,4 +74,5 @@ class ClientController extends Controller
         auth()->logout();
         return redirect()->route('auth.client.signIn');
     }
+
 }

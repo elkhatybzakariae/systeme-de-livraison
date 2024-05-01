@@ -50,38 +50,6 @@ class AdminController extends Controller
         return redirect()->route('auth.admin.signIn');
     }
 
-    public function newclients()
-    {
-        $list= Client::where('isAccepted',0)->get();
-        return view('pages.admin.newclients',compact('list'));
-    }
-    public function accepteclient($id)
-    {
-        Client::where('id_Cl', $id)->update([
-            'isAccepted' => 1,
-        ]);
-        return redirect()->route('newclients');
-    }
-    public function deleteclient($id)
-    {
-        Client::find($id)->delete();
-        return redirect()->route('newclients');
-    }
-    public function newlivreurs()
-    {
-        $list= Livreur::where('isAccepted',0)->get();
-        return view('pages.admin.newlivreurs',compact('list'));
-    }
-    public function acceptelivreur($id)
-    {
-        Livreur::where('id_Liv', $id)->update([
-            'isAccepted' => 1,
-        ]);
-        return redirect()->route('newlivreurs');
-    }
-    public function deletelivreur($id)
-    {
-        Livreur::find($id)->delete();
-        return redirect()->route('newlivreurs');
-    }
+   
+    
 }

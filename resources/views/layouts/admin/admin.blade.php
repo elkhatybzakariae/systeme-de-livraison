@@ -32,7 +32,7 @@
 
 <!-- JavaScript -->
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('style')
 	</head>
 	<!--end::Head-->
@@ -4740,6 +4740,9 @@
 		<script src="{{ asset('storage/assets/js/custom/utilities/modals/users-search.js') }}"></script>
 		<!--end::Custom Javascript-->
 		<!--end::Javascript-->
+		<x-alert :message="session('error')" type="error" />
+  <x-alert :message="session('success')" type="success" />
+  <x-alert :message="session('warning')" type="warning" />
 	</body>
 	<!--end::Body-->
 </html>

@@ -33,7 +33,7 @@ class LivreurFactory extends Factory
             'cinrecto' => fake()->imageUrl(), // Example for cinrecto, you should replace this with proper logic to handle file uploads
         'cinverso' => fake()->imageUrl(), // Example for cinverso, you should replace this with proper logic to handle file uploads
         'RIB' => fake()->imageUrl(), // Example for RIB, you should replace this with proper logic to handle file uploads
-        'valider' => fake()->boolean(),
+        'isAccepted' => fake()->boolean(),
         ];
     }
 }

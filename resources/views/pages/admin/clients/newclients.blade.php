@@ -9,24 +9,6 @@
 
                             <div id="customers_table_json_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                 <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
-                                        <div class="dataTables_length" id="customers_table_json_length"><label>Afficher
-                                                <select name="customers_table_json_length"
-                                                    aria-controls="customers_table_json" class="form-control input-sm">
-                                                    <option value="50">50</option>
-                                                    <option value="100">100</option>
-                                                    <option value="200">200</option>
-                                                    <option value="500">500</option>
-                                                    <option value="-1">All</option>
-                                                </select> entrees par page</label></div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                        <div id="customers_table_json_filter" class="dataTables_filter"><label>Rechercher
-                                                :<input type="search" class="form-control input-sm" placeholder=""
-                                                    aria-controls="customers_table_json"></label></div>
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-xs-12 col-sm-12">
                                         <table id="customers_table_json"
                                             class="table table-striped table-bordered table-sm mb-0 no-footer dataTable"
@@ -34,16 +16,9 @@
                                             style="width: 864px;">
                                             <thead>
                                                 <tr role="row">
-                                                    <th class="sorting" tabindex="0" aria-controls="customers_table_json"
-                                                        rowspan="1" colspan="1" style="width: 306.2px;"
-                                                        aria-label="Vendeur: activate to sort column ascending">Vendeur</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="customers_table_json"
-                                                        rowspan="1" colspan="1" style="width: 377.2px;"
-                                                        aria-label="Informations: activate to sort column ascending">
-                                                        Informations</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="customers_table_json"
-                                                        rowspan="1" colspan="1" style="width: 74.2px;"
-                                                        aria-label="Actions: activate to sort column ascending">Actions</th>
+                                                    <th>Vendeur</th>
+                                                    <th>Informations</th>
+                                                    <th>Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -62,25 +37,21 @@
                                                             <b>Ville : </b>{{ $item->ville }}<br>
                                                             <b>Adresse : </b>{{ $item->adress }}
                                                         </td>
-                                                        <td class="dns_tbl_td_statut">
-                                                            <div class="btn-group btn-group-sm" role="group">
-                                                                <form action="{{ route('accepteclient', $item->id_Cl) }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    @method('put')
-                                                                    <input type="submit" value="+" class="btn btn-sm btn-primary" />
-                                                                    <i class="fa fa-plus"></i>
-                                                                </form>
-                                                                <form action="{{ route('deleteclient', $item->id_Cl) }}"
-                                                                    method="POST">
+                                                        <td class="text-center align-middle">
+                                                            <div class="btn-group" role="group">
+                                                                <a href="{{ route('accept.profile', $item->id_Cl) }}"  class="btn btn-primary">
+                                                                        <i class="fa fa-plus"></i>
+                                                                </a>
+                                                                <form action="{{ route('deleteclient', $item->id_Cl) }}" method="POST">
                                                                     @csrf
                                                                     @method('delete')
-                                                                    <input type="submit" value="*"  class="btn btn-sm btn-danger" />
-                                                                    <i class="fa fa-plus"></i>
+                                                                    <button type="submit" class="btn btn-danger">
+                                                                        <i class="fa fa-trash"></i>
+                                                                    </button>
                                                                 </form>
-                                                                <i class="fa fa-times"></i></a>
                                                             </div>
                                                         </td>
+                                                        
                                                     </tr>
                                                 @endforeach
 

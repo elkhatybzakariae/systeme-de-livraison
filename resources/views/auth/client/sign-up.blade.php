@@ -170,7 +170,10 @@
         </div>
         </div>
         
-
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <x-alert :message="session('error')" type="error" />
+        <x-alert :message="session('success')" type="success" />
+        <x-alert :message="session('warning')" type="warning" />
 <script>
     var defaultThemeMode = "light";
     var themeMode;

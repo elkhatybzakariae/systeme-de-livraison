@@ -21,6 +21,13 @@ class DatabaseSeeder extends Seeder
         \App\Models\Client::factory()->create([
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('password'),
+                'isAccepted'=>0
+            ]);
+        \App\Models\Client::factory(10)->create([
+                'isAccepted'=>0
+            ]);
+        \App\Models\Livreur::factory(10)->create([
+                'isAccepted'=>0
             ]);
         \App\Models\Livreur::factory()->create([
                 'email' => 'admin@gmail.com',

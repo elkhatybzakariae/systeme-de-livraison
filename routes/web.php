@@ -6,6 +6,8 @@ use App\Http\Controllers\ColisController;
 use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LivreurController;
+use App\Http\Controllers\NewClientController;
+use App\Http\Controllers\NewLivreurController;
 use App\Http\Controllers\TarifController;
 use App\Http\Controllers\VilleController;
 use App\Http\Controllers\ZoneController;
@@ -17,12 +19,13 @@ Route::get('/option', [HomeController::class,'option'])->name('option.index');
 
 
 Route::controller(AdminController::class)->prefix('admin')->group(function () {
-    Route::get('/index',  'index')->name('admin.index');
+    Route::get('/index',  'index')->name('admin.index')->middleware('check.admin');
     Route::get('/signup',  'signuppage')->name('auth.admin.signUp');
     Route::post('/register',  'signup')->name('auth.admin.signUp.store');
     Route::get('/signin',  'signinpage')->name('auth.admin.signIn');
     Route::post('/login',  'signin')->name('auth.admin.signIn.store');
     Route::get('/signout',  'signout')->name('admin.signout');
+
 });
 
 Route::controller(ClientController::class)->prefix('clients')->group(function () {
@@ -46,15 +49,19 @@ Route::controller(LivreurController::class)->prefix('livreurs')->group(function 
     Route::get('/signoutr',  'signout')->name('signout.livreur');
 });
 
-
-Route::get('/new-clients', [AdminController::class, 'newclients'])->name('newclients');
-Route::put('/accepteclient/{id}', [AdminController::class, 'accepteclient'])->name('accepteclient');
-Route::delete('/deleteclient/{id}', [AdminController::class, 'deleteclient'])->name('deleteclient');
-
-Route::get('/new-livreurs', [AdminController::class, 'newlivreurs'])->name('newlivreurs');
-Route::put('/acceptelivreur/{id}', [AdminController::class, 'acceptelivreur'])->name('acceptelivreur');
-Route::delete('/deletelivreur/{id}', [AdminController::class, 'deletelivreur'])->name('deletelivreur');
-
+Route::controller(NewClientController::class)->prefix('admin')->group(function () {
+    
+    Route::get('/new-clients', 'newclients')->name('newclients');
+    Route::get('/accept/profile/{id}', 'profile')->name('accept.profile');
+    Route::put('/accept/profile/client/{id}', 'accept')->name('accept.client');
+    Route::delete('/deleteclient/{id}', 'deleteclient')->name('deleteclient');
+});
+Route::controller(NewLivreurController::class)->prefix('admin')->group(function () {
+    Route::get('/new-livreurs', 'newlivreurs')->name('newlivreurs');
+    Route::get('/accept/profile/{id}', 'profile')->name('accept.profile.livreur');
+    Route::put('/accept/profile/livreur/{id}', 'accept')->name('accept.livreur');
+    Route::delete('/deletelivreur/{id}', 'deletelivreur')->name('deletelivreur');   
+});
 
 
 

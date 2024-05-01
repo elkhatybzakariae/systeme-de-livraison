@@ -27,10 +27,10 @@ class LivreurController extends Controller
             'cin' => 'required|string|max:50',
             'email' => 'required|email|max:50',
             'Phone' => 'nullable|string|max:50',
-            'ville' => 'required|string|max:50',
-            'adress' => 'required|string|max:50',
-            'fraislivraison' => 'required|integer|max:50',
-            'fraisrefus' => 'required|integer|max:50',
+            'ville' => 'required|string|max:150',
+            'adress' => 'required|string|max:150',
+            'fraislivraison' => 'required|integer',
+            'fraisrefus' => 'required|integer',
             'nombanque' => 'nullable|string|max:50',
             'numerocompte' => 'nullable|string|max:50',
             'password' => 'required|string|min:8',
@@ -48,8 +48,9 @@ class LivreurController extends Controller
             $validation['RIB']=$RIB;
             $validation['password']=Hash::make($validation['password']);
             $newLivreur = Livreur::create($validation);
-            auth()->login($newLivreur);
-            return redirect()->route('livreur.index');
+            
+            return back()->with('success', 'Nous avons bien reçu votre demande de création de compte. Nous vous contacterons ultérieurement.');
+
         } else {
             return redirect()->route('auth.livreur.signUp');
         }
@@ -71,11 +72,10 @@ class LivreurController extends Controller
             if (Hash::check($request->password, $Livreur->password)) {
 
                 Auth::login($Livreur);
+                session(["user" => $Livreur]);
                 return redirect()->route('index');
             }
-            // return redirect()->route('signinpage');
         } else {
-            // Password is incorrect; show an error message
             return back()->with('error', 'Invalid email or password.');
         }
     }

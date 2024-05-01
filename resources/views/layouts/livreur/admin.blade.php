@@ -37,6 +37,7 @@ License: For each use you must have a valid license purchased only from above li
 		<link href="{{ asset('storage/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('storage/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -4738,8 +4739,8 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="{{ asset('storage/assets/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
 		<script src="{{ asset('storage/assets/js/custom/utilities/modals/create-campaign.js') }}"></script>
 		<script src="{{ asset('storage/assets/js/custom/utilities/modals/users-search.js') }}"></script>
-		<!--end::Custom Javascript-->
-		<!--end::Javascript-->
-	</body>
+		<x-alert :message="session('error')" type="error" />
+  <x-alert :message="session('success')" type="success" />
+  <x-alert :message="session('warning')" type="warning" />
 	<!--end::Body-->
 </html>

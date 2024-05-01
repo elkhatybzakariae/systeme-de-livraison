@@ -105,41 +105,7 @@
       <div class="d-flex flex-column flex-root mt-10" id="kt_app_root">
         <!--begin::Authentication - Sign-up -->
         <div class="d-flex flex-column flex-lg-row flex-column-fluid">
-            <!--begin::Aside-->
-            {{-- <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center"
-			        style="background-image: url('{{ asset('storage/assets/media/misc/auth-bg.png') }}')">
-
-                <!--begin::Content-->
-                <div class="d-flex flex-column flex-center p-6 p-lg-10 w-100">
-                    <!--begin::Logo-->
-                    <a href="../../demo1/dist/index.html" class="mb-0 mb-lg-20">
-                        <img alt="Logo" src="{{ asset('storage/assets/media/logos/default-white.svg') }}"
-                            class="h-40px h-lg-50px" />
-                    </a>
-                    <!--end::Logo-->
-                    <!--begin::Image-->
-                    <img class="d-none d-lg-block mx-auto w-300px w-lg-75 w-xl-500px mb-10 mb-lg-20"
-                        src="{{ asset('storage/assets/media/misc/auth-screens.png') }}" alt="" />
-                    <!--end::Image-->
-                    <!--begin::Title-->
-                    <h1 class="d-none d-lg-block text-white fs-2qx fw-bold text-center mb-7">Fast, Efficient and
-                        Productive</h1>
-                    <!--end::Title-->
-                    <!--begin::Text-->
-                    <div class="d-none d-lg-block text-white fs-base text-center">In this kind of post,
-                        <a href="#" class="opacity-75-hover text-warning fw-semibold me-1">the
-                            blogger</a>introduces a person they’ve interviewed
-                        <br />and provides some background information about
-                        <a href="#" class="opacity-75-hover text-warning fw-semibold me-1">the interviewee</a>and
-                        their
-                        <br />work following this is a transcript of the interview.
-                    </div>
-                    <!--end::Text-->
-                </div>
-                <!--end::Content-->
-            </div> --}}
-            <!--begin::Aside-->
-            <!--begin::Body-->
+            
             <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 mt-15">
                 <!--begin::Form-->
                 <div class="d-flex flex-center flex-column flex-lg-row-fluid">
@@ -155,13 +121,6 @@
                                 <h1 class="text-dark fw-bolder mb-3">Devenir Livreur</h1>
                                 <!--end::Title-->
                             </div>
-                            <!--begin::Heading-->
-                            <!--begin::Separator-->
-                            {{-- <div class="separator separator-content my-14">
-                                <span class="w-125px text-gray-500 fw-semibold fs-7">Devenir Livreur</span>
-                            </div> --}}
-                            <!--end::Separator-->
-                            <!--begin::Input group=-->
                             <div class="fv-row mb-8 col-6">
 
                                 <input type="text" placeholder="Nom Complet" name="nomcomplet" autocomplete="off"
@@ -345,11 +304,13 @@
                 <!--end::Form-->
 
             </div>
-            <!--end::Body-->
         </div>
         <!--end::Authentication - Sign-up-->
     </div>
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <x-alert :message="session('error')" type="error" />
+    <x-alert :message="session('success')" type="success" />
+    <x-alert :message="session('warning')" type="warning" />
     <script>
         var defaultThemeMode = "light";
         var themeMode;
