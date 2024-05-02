@@ -17,7 +17,7 @@ class CheckAdmin
     public function handle(Request $request, Closure $next)
     {
         $user=Admin::find(session('user')['id_Ad']);
-        // dd($user);
+
         if ($user) {
             return $next($request);
         }else{

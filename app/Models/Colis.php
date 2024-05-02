@@ -12,13 +12,26 @@ class Colis extends Model
     protected $primaryKey = 'id_C';
 
     protected $fillable = [
-        'code_d_envoi',
-        'date_d_expedition',
-        'etat',
-        'status',
-        'ville_id',
-        'prix',
-    ];
+        'id_C',
+            'code_d_envoi',
+            'date_d_expedition',
+            'destinataire',
+            'id_Cl',
+            'telephone',
+            'marchandise',
+            'etat',
+            'status',
+            'zone',
+            'ville_id',
+            'prix',
+            'quantite',
+            'commentaire',
+            'adresse',
+            'fragile',
+            'ouvrir',
+            'colis_a_remplacer',
+        ];
+        
 
     public function client()
     {

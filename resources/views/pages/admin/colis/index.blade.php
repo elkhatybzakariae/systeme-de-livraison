@@ -1,4 +1,4 @@
-@extends('layouts.admin.admin')
+@extends('layouts.client.admin')
 @section('content')
 
 <!-- Modal -->

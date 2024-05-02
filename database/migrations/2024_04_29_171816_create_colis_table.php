@@ -12,14 +12,14 @@ return new class extends Migration
         Schema::create('colis', function (Blueprint $table) {
             $table->string('id_C')->primary();
             $table->string('code_d_envoi');
-            $table->date('date_d_expedition');
+            $table->date('date_d_expedition')->nullable();
             $table->string('destinataire');
             $table->string('id_Cl');
             $table->foreign('id_Cl')->on('clients')->references('id_Cl');
             $table->string('telephone');
             $table->string('marchandise');
-            $table->string('etat');
-            $table->string('status');
+            $table->string('etat')->default('Nouveau colis');
+            $table->string('status')->default('Nouveau colis');
             $table->string('zone');
             $table->foreign('zone')->on('zones')->references('id_Z');
             $table->string('ville_id');

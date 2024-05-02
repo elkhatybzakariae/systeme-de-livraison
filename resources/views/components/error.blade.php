@@ -1,6 +1,6 @@
 @props(['field'])
 @error($field)
-<div class="text-danger my-2">
-  {{ $message }}
-</div>
+<span class="invalid-feedback" role="alert">
+  <strong>{{ $message }}</strong>
+</span>
 @enderror

@@ -2,33 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helpers;
 use App\Models\Colis;
+use App\Models\Ville;
+use App\Models\Zone;
 use Illuminate\Http\Request;
+use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkProcessor;
 
 class ColisController extends Controller
 {
     public function index()
     {
         $colis = Colis::all();
-        return view('pages.colis.index', compact('colis'));
+        return view('pages.clients.colis.index', compact('colis'));
     }
 
     public function create()
     {
-        return view('pages.colis.create');
+        $villes=Ville::all();
+        $zones=Zone::all();
+
+        return view('pages.clients.colis.create',compact('zones','villes'));
     }
 
     public function store(Request $request)
     {
         $validatedData = $request->validate([
             'code_d_envoi' => 'required|string|max:255',
-            'date_d_expedition' => 'required|date',
             'destinataire' => 'required|string|max:255',
-            'id_Cl' => 'required|string|max:255',
             'telephone' => 'required|string|max:255',
             'marchandise' => 'required|string|max:255',
-            'etat' => 'required|string|max:255',
-            'status' => 'required|string|max:255',
             'zone' => 'required|string|max:255',
             'ville_id' => 'required|string|max:255',
             'prix' => 'required|numeric',
@@ -39,6 +42,10 @@ class ColisController extends Controller
             'ovrire' => 'nullable|boolean',
             'colis_a_remplacer' => 'nullable|boolean',
         ]);
+        $validatedData['id_C']=Helpers::generateIdC();
+        $validatedData['id_Cl']=session('user')['id_Cl'];
+        // $validatedData['id_Cl']=session('user')['id_Cl'];
+        // dd($validatedData);
 
         Colis::create($validatedData);
 
@@ -49,13 +56,9 @@ class ColisController extends Controller
     {
         $validatedData = $request->validate([
             'code_d_envoi' => 'required|string|max:255',
-            'date_d_expedition' => 'required|date',
             'destinataire' => 'required|string|max:255',
-            'id_Cl' => 'required|string|max:255',
             'telephone' => 'required|string|max:255',
             'marchandise' => 'required|string|max:255',
-            'etat' => 'required|string|max:255',
-            'status' => 'required|string|max:255',
             'zone' => 'required|string|max:255',
             'ville_id' => 'required|string|max:255',
             'prix' => 'required|numeric',
@@ -80,7 +83,7 @@ class ColisController extends Controller
 
     public function edit(Colis $colis)
     {
-        return view('colis.edit', compact('colis'));
+        return view('pages.clients.colis.edit', compact('colis'));
     }
 
 

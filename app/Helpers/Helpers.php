@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Models\Admin;
 use App\Models\Client;
+use App\Models\Colis;
 use App\Models\Depense;
 use App\Models\Livreur;
 use App\Models\Role;
@@ -36,14 +37,14 @@ class Helpers
         }
         return $id_Liv;
     }
-    public static function generateIdRole()
-    {
-        $id_R = Str::random(15);
-        while (Role::where('id_R', $id_R)->exists()) {
-            $id_R = Str::random(15);
-        }
-        return $id_R;
-    }
+    // public static function generateIdRole()
+    // {
+    //     $id_R = Str::random(15);
+    //     while (Role::where('id_R', $id_R)->exists()) {
+    //         $id_R = Str::random(15);
+    //     }
+    //     return $id_R;
+    // }
     public static function generateIdZ()
     {
         $id_Z = Str::random(15);
@@ -67,5 +68,13 @@ class Helpers
             $id_Dep = Str::random(15);
         }
         return $id_Dep;
+    }
+    public static function generateIdC()
+    {
+        $id_C = Str::random(15);
+        while (Colis::where('id_C', $id_C)->exists()) {
+            $id_C = Str::random(15);
+        }
+        return $id_C;
     }
 }
