@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BonLivraisonController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ColisController;
 use App\Http\Controllers\DepenseController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\NewLivreurController;
 use App\Http\Controllers\TarifController;
 use App\Http\Controllers\VilleController;
 use App\Http\Controllers\ZoneController;
+use App\Models\BonLivraison;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class,'index'])->name('home');
@@ -108,4 +110,12 @@ Route::group(['prefix' => 'colis'], function () {
     Route::get('/edit/{id}', [ColisController::class, 'edit'])->name('colis.edit');
     Route::put('/update/{id}', [ColisController::class, 'update'])->name('colis.update');
     Route::delete('/destroy/{id}', [ColisController::class, 'destroy'])->name('colis.destroy');
+});
+Route::group(['prefix' => 'bon-livraison'], function () {
+    Route::get('/', [BonLivraisonController::class, 'index'])->name('bon.livraison.index');
+    Route::get('/create', [BonLivraisonController::class, 'create'])->name('bon.livraison.create');
+    Route::post('/store', [BonLivraisonController::class, 'store'])->name('bon.livraison.store');
+    Route::get('/edit/{id}', [BonLivraisonController::class, 'edit'])->name('bon.livraison.edit');
+    Route::put('/update/{id}', [BonLivraisonController::class, 'update'])->name('bon.livraison.update');
+    Route::delete('/destroy/{id}', [BonLivraisonController::class, 'destroy'])->name('bon.livraison.destroy');
 });
