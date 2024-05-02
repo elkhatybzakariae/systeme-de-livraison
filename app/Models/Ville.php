@@ -17,8 +17,12 @@ class Ville extends Model
     {
         return $this->belongsTo(Zone::class,'id_Z');
     }
-    public function tarif()
+    public function tarifvr()
     {
-        return $this->hasMany(Tarif::class,'id_V');
+        return $this->hasMany(Tarif::class,'id_V','villeRamassage');
+    }
+    public function tarifv()
+    {
+        return $this->hasMany(Tarif::class,'id_V','ville');
     }
 }

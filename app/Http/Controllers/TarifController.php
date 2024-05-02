@@ -12,7 +12,11 @@ class TarifController extends Controller
 {
     public function index()
     {
+<<<<<<< HEAD
         $tarifs = tarif::query()->with('ville','villeRamassage')->get();
+=======
+        $tarifs = Tarif::all();
+>>>>>>> d8d5505528262a8bf749b58687f154d5397a9eed
         // dd($tarifs);
         $villes = Ville::all();
         return view('pages.tarif.index', compact('tarifs','villes'));
