@@ -18,16 +18,13 @@ class Tarif extends Model
     {
         return $this->belongsTo(Ville::class,'id_V','villeRamassage');
     }
-    public function ville()
+    public function villle()
     {
-<<<<<<< HEAD
         return $this->belongsTo(Ville::class, 'ville', 'id_V');
     }
-    public function villeRamassage()
+    public function villleRamassage()
     {
         return $this->belongsTo(Ville::class,'villeRamassage','id_V');
-=======
-        return $this->belongsTo(Ville::class,'id_V','ville');
->>>>>>> d8d5505528262a8bf749b58687f154d5397a9eed
+
     }
 }
