@@ -12,7 +12,8 @@ class TarifController extends Controller
 {
     public function index()
     {
-        $tarifs = tarif::all();
+        $tarifs = tarif::query()->with('ville','villeRamassage')->get();
+        // dd($tarifs);
         $villes = Ville::all();
         return view('pages.tarif.index', compact('tarifs','villes'));
     }

@@ -144,11 +144,12 @@
                 </div>
               </div>
             </td>
+          
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="villename">{{ $tarif->villeRamassage }}</span>
+              <span class="fw-bold" data-kt-ecommerce-product-filter="villename">{{ $tarif->villeRamassage()->villename }}</span>
             </td>
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="villename">{{ $tarif->ville }}</span>
+              <span class="fw-bold" data-kt-ecommerce-product-filter="villename">{{ $tarif->ville->villename()->villename }}</span>
             </td>
             <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="prixliv">{{ $tarif->prixliv }}</span>
