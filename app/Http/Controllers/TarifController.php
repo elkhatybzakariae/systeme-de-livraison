@@ -13,12 +13,11 @@ class TarifController extends Controller
     public function index()
     {
 
-       // Assuming you have a Tarif instance
-        $tarif = Tarif::first( );
-        
+        $tarifs = tarif::query()->with('villle', 'villleRamassage')->get();
+
         $villes = Ville::all();
-        return view('pages.tarif.index', compact('tarifs','villes'));
-            }
+        return view('pages.tarif.index', compact('tarifs', 'villes'));
+    }
 
 
     public function create()
@@ -63,4 +62,3 @@ class TarifController extends Controller
         return redirect()->route('tarif.index')->with('success', 'tarif deleted successfully');
     }
 }
-
