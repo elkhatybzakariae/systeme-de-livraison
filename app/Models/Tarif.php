@@ -14,8 +14,12 @@ class Tarif extends Model
     public $timestamps = true;
     protected $fillable = ['id_Tar','villeRamassage','ville','prixliv','prixret','prixref','delailiv'];
 
+    public function villeR()
+    {
+        return $this->belongsTo(Ville::class,'id_V','villeRamassage');
+    }
     public function ville()
     {
-        return $this->belongsTo(Ville::class);
+        return $this->belongsTo(Ville::class,'id_V','ville');
     }
 }
