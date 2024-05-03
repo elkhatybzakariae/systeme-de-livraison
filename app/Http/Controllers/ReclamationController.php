@@ -14,13 +14,14 @@ class ReclamationController extends Controller
     {
         $idU= Auth::id();
         $reclamations = Reclamation::where('id_Cl',$idU)->get();
-        return view('pages.clients.reclamation.index', compact('reclamations'));
+        // $messages = Message::where('id_Rec',$reclamations['id_Rec'])->get();
+        return view('pages.clients.reclamation.index', compact('reclamations','messages'));
     }
     public function all()
     {
-        $reclamations = Reclamation::query()->with('client')->get();
-        
-        return view('pages.admin.reclamation.index', compact('reclamations'));
+        $reclamations = Reclamation::query()->with('client')->get(); 
+        $messages = Message::whereIn('id_Rec', $reclamations->pluck('id_Rec'))->get();   
+        return view('pages.admin.reclamation.index', compact('reclamations','messages'));
     }
 
     // public function create()

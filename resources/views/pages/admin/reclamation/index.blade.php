@@ -17,41 +17,91 @@
                     </div>
                 </div>
                 <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
-                    <form id="kt_modal_new_tarif_form" method="POST" class="form" action="{{ route('reclamation.store') }}">
-                        @csrf
-                        <div class="mb-13 text-center">
-                            <h1 class="mb-3">Nouvelle reclamation</h1>
-                        </div>
-                        <div class="row">
-                            <div class=" col-md-12 col mb-8 fv-row">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">Objet</span>
-                                </label>
-                                <input type="text" class="form-control form-control-solid"
-                                    placeholder="Objet" id="objet" name="objet" />
-                            </div>
-                            <div class=" col-md-12 col mb-8 fv-row">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">Message</span>
-                                </label>
-                                <input type="text" class="form-control form-control-solid"
-                                    placeholder="Message" id="message" name="message" />
-                            </div>
-                        </div>
+                    <form id="kt_modal_new_tarif_form" method="POST" class="form"
+                        action="{{ route('reclamation.store') }}">
 
-                        <div class="text-center">
-                            <button type="reset" id="kt_modal_new_target_cancel"
-                                class="btn btn-light me-3">Cancel</button>
-                            <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">
-                                <span class="indicator-label">Enregister</span>
-                                <span class="indicator-progress">Please wait...
-                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                            </button>
+                        @csrf
+                        <!--begin::Card body-->
+                        <div class="card-body" id="kt_drawer_chat_messenger_body">
+                            <!--begin::Messages-->
+                            <div class="scroll-y me-n5 pe-5" data-kt-element="messages" data-kt-scroll="true"
+                                data-kt-scroll-activate="true" data-kt-scroll-height="auto"
+                                data-kt-scroll-dependencies="#kt_drawer_chat_messenger_header, #kt_drawer_chat_messenger_footer"
+                                data-kt-scroll-wrappers="#kt_drawer_chat_messenger_body" data-kt-scroll-offset="0px"
+                                style="height:200px" id="show">
+
+                                <!--begin::Message(template for out)-->
+                                {{-- <div class="d-flex justify-content-end mb-10 d-none" data-kt-element="template-out">
+                                        <!--begin::Wrapper-->
+                                        <div class="d-flex flex-column align-items-end">
+                                            <!--begin::User-->
+                                            <div class="d-flex align-items-center mb-2">
+                                                <!--begin::Details-->
+                                                <div class="me-3">
+                                                    <span class="text-muted fs-7 mb-1">Just now</span>
+                                                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">You</a>
+                                                </div>
+                                                <!--end::Details-->
+                                                <!--begin::Avatar-->
+                                                <div class="symbol symbol-35px symbol-circle">
+                                                    <img alt="Pic" src="assets/media/avatars/300-1.jpg">
+                                                </div>
+                                                <!--end::Avatar-->
+                                            </div>
+                                            <!--end::User-->
+                                            <!--begin::Text-->
+                                            <div class="p-5 rounded bg-light-primary text-dark fw-semibold mw-lg-400px text-end" data-kt-element="message-text"></div>
+                                            <!--end::Text-->
+                                        </div>
+                                        <!--end::Wrapper-->
+                                    </div> --}}
+                                {{-- <div class="d-flex justify-content-start mb-10 d-none" data-kt-element="template-in">
+                                <!--begin::Wrapper-->
+                                <div class="d-flex flex-column align-items-start">
+                                    <!--begin::User-->
+                                    <div class="d-flex align-items-center mb-2">
+                                        <!--begin::Avatar-->
+                                        <div class="symbol symbol-35px symbol-circle">
+                                            <img alt="Pic" src="assets/media/avatars/300-25.jpg">
+                                        </div>
+                                        <!--end::Avatar-->
+                                        <!--begin::Details-->
+                                        <div class="ms-3">
+                                            <a href="#"
+                                                class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">Brian Cox</a>
+                                            <span class="text-muted fs-7 mb-1">Just now</span>
+                                        </div>
+                                        <!--end::Details-->
+                                    </div>
+                                    <!--end::User-->
+                                    <!--begin::Text-->
+                                    <div class="p-5 rounded bg-light-info text-dark fw-semibold mw-lg-400px text-start"
+                                        data-kt-element="message-text">Right before vacation season we have the next Big
+                                        Deal for you.</div>
+                                    <!--end::Text-->
+                                </div>
+                                <!--end::Wrapper-->
+                            </div> --}}
+                            </div>
                         </div>
-                    </form>
+                        <div class="card-footer pt-4 row" id="kt_drawer_chat_messenger_footer">
+
+                            <div class="col-10 d-flex flex-stack">
+                                <textarea class="col-8 form-control form-control-flush mb-3" rows="1" data-kt-element="input"
+                                    placeholder="Type a message"></textarea>
+                            </div>
+                            <div class="col-2 d-flex flex-stack">
+                                <button class="btn btn-primary" type="button" data-kt-element="send">Send</button>
+
+                            </div>
+                        </div>
                 </div>
+                <!--end::Messenger-->
             </div>
+            </form>
         </div>
+    </div>
+    </div>
     </div>
 
     <div class="card card-flush">
@@ -132,11 +182,11 @@
                             </td>
                             <!--begin::Action=-->
                             <td class="">
-                                {{-- <div class="menu-item px-3">
-                                    <a onclick="openModal('{{ $tarif->villeRamassage }}','{{ $tarif->ville }}','{{ $tarif->objet }}','{{ $tarif->message }}','{{ $tarif->prixref }}','{{ $tarif->delailiv }}','{{ route('tarif.update', $tarif->id_Tar) }}')"
+                                <div class="menu-item px-3">
+                                    <a onclick="openModal('{{ $item->id_Rec }}','{{ $item->id_Cl }}','{{ route('tarif.update', $item->id_Rec) }}')"
                                         data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"
                                         class="menu-link px-3">Edit</a>
-                                </div> --}}
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -191,15 +241,81 @@
             }
         });
 
-        function openModal(villeRamassage = '', ville = '', objet = '', message = '', prixref = '', delailiv = '',
-            actionUrl = "{{ route('tarif.store') }}") {
-            console.log(ville);
-            document.getElementById('villeRamassage').value = villeRamassage;
-            document.getElementById('ville').value = ville;
-            document.getElementById('objet').value = objet;
-            document.getElementById('message').value = message;
-            document.getElementById('prixref').value = prixref;
-            document.getElementById('delailiv').value = delailiv;
+        var reclamations = @json($reclamations);
+        var messages = @json($messages);
+
+        function openModal(id_Rec = '', id_Cl = '', actionUrl = "{{ route('tarif.store') }}") {
+            let bb = '';
+            messages.forEach(ele => {
+                if (ele['id_Rec'] === id_Rec && ele['id_creater']===id_Cl) {
+                    bb += `<div class="d-flex justify-content-start mb-10">
+                                <!--begin::Wrapper-->
+                                <div class="d-flex flex-column align-items-start">
+                                    <!--begin::User-->
+                                    {{-- <div class="d-flex align-items-center mb-2">
+                                                <!--begin::Avatar-->
+                                                <div class="symbol symbol-35px symbol-circle">
+                                                    <img alt="Pic" src="assets/media/avatars/300-25.jpg">
+                                                </div>
+                                                <!--end::Avatar-->
+                                                <!--begin::Details-->
+                                                <div class="ms-3">
+                                                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">Brian Cox</a>
+                                                    <span class="text-muted fs-7 mb-1">2 mins</span>
+                                                </div>
+                                                <!--end::Details-->
+                                            </div> --}}
+                                    <!--end::User-->
+                                    <div class="p-5 rounded bg-light-info text-dark fw-semibold mw-lg-400px text-start"
+                                                                        data-kt-element="message-text">
+                                                                        ${ele['message']}
+                                                                        </div>
+                                                                       </div>
+                                <!--end::Wrapper-->
+                            </div> `;
+                } else {
+                    bb += `<div class="d-flex justify-content-end mb-10">
+                                <!--begin::Wrapper-->
+                                <div class="d-flex flex-column align-items-end">
+                                    <!--begin::User-->
+                                    <div class="d-flex align-items-center mb-2">
+                                        <!--begin::Details-->
+                                        <div class="me-3">
+                                            <span class="text-muted fs-7 mb-1">5 mins</span>
+                                            <a href="#"
+                                                class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">You</a>
+                                        </div>
+                                        <!--end::Details-->
+                                        <!--begin::Avatar-->
+                                        <div class="symbol symbol-35px symbol-circle">
+                                            <img alt="Pic" src="assets/media/avatars/300-1.jpg">
+                                        </div>
+                                        <!--end::Avatar-->
+                                    </div>
+                                    <!--end::User-->
+                                    <!--begin::Text-->
+                                    <div class="p-5 rounded bg-light-primary text-dark fw-semibold mw-lg-400px text-end"
+                                        data-kt-element="message-text">${ele['message']}</div>
+                                    <!--end::Text-->
+                                </div>
+                                <!--end::Wrapper-->
+                            </div>`;
+                }
+            });
+            // console.log(bb);
+            // messages.forEach(element => {
+            //     // console.log(element['id_Rec']);
+            //     if (element['id_Rec'] === id_Rec) {
+            //         console.log(element['message']);
+
+
+            //         document.getElementById('show').innerHTML = aa;
+            //     }
+            // });
+            document.getElementById('show').innerHTML = bb;
+
+            console.log(reclamations);
+            console.log(messages);
 
             document.getElementById('kt_modal_new_tarif_form').action = actionUrl;
 
