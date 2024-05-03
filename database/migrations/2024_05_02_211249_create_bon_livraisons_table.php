@@ -12,7 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bon_livraisons', function (Blueprint $table) {
-            $table->id();
+            $table->string('id_BL', 15)->primary();
+            $table->string('reference');
+            $table->string('id_Cl');
+            $table->foreign('id_Cl')->references('id_Cl')->on('clients');
+            $table->string('status');
+            // $table->string('id_C');
+            // $table->foreign('id_C')->references('id_C')->on('colis');
             $table->timestamps();
         });
     }

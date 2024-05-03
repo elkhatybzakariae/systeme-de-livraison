@@ -6,7 +6,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5><b>Date de creation:</b> 2024-05-03 16:21</h5>
+                    <h5><b>Date de creation:</b> {{ $bonLivraison->created_at }}</h5>
                 </div>
             </div>
         </div>
@@ -79,7 +79,7 @@
         </thead>
         <tbody>
           @foreach ($colis as $item )
-            <tr id="new-parcel-Autedelenitidelect" role="row" class="odd">
+            {{-- <tr id="new-parcel-Autedelenitidelect" role="row" class="odd">
               <td><b>{{ $item->code_d_envoi }}</b></td>
               <td>{{ $item->destinataire }}</td>
               <td>{{ $item->created_at }}</td>
@@ -88,7 +88,7 @@
               <td>
                 <a href="" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
               </td>
-            </tr>
+            </tr> --}}
           @endforeach
         </tbody>
       </table>

@@ -8,8 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class BonLivraison extends Model
 {
     use HasFactory;
-    public function create()
-    {
-        return view('pages.clients.bonLivraison.create');
-    }
+    protected $fillable = ['id_BL','reference','status','id_Cl'];
 }
