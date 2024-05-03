@@ -13,7 +13,6 @@ use App\Http\Controllers\ReclamationController;
 use App\Http\Controllers\TarifController;
 use App\Http\Controllers\VilleController;
 use App\Http\Controllers\ZoneController;
-use App\Models\BonLivraison;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class,'index'])->name('home');
@@ -59,6 +58,7 @@ Route::controller(NewClientController::class)->prefix('admin')->group(function (
     Route::put('/accept/profile/client/{id}', 'accept')->name('accept.client');
     Route::delete('/deleteclient/{id}', 'deleteclient')->name('deleteclient');
 });
+
 Route::controller(NewLivreurController::class)->prefix('admin')->group(function () {
     Route::get('/new-livreurs', 'newlivreurs')->name('newlivreurs');
     Route::get('/accept/profile/{id}', 'profile')->name('accept.profile.livreur');
@@ -106,12 +106,14 @@ Route::group(['prefix' => 'depenses','midleware'=>'auth'], function () {
 
 Route::group(['prefix' => 'colis'], function () {
     Route::get('/', [ColisController::class, 'index'])->name('colis.index');
+    Route::get('/ramassage', [ColisController::class, 'indexRamassage'])->name('colis.indexRamassage');
     Route::get('/create', [ColisController::class, 'create'])->name('colis.create');
     Route::post('/store', [ColisController::class, 'store'])->name('colis.store');
     Route::get('/edit/{id}', [ColisController::class, 'edit'])->name('colis.edit');
     Route::put('/update/{id}', [ColisController::class, 'update'])->name('colis.update');
     Route::delete('/destroy/{id}', [ColisController::class, 'destroy'])->name('colis.destroy');
 });
+
 Route::group(['prefix' => 'bon-livraison'], function () {
     Route::get('/', [BonLivraisonController::class, 'index'])->name('bon.livraison.index');
     Route::get('/create', [BonLivraisonController::class, 'create'])->name('bon.livraison.create');
@@ -120,6 +122,7 @@ Route::group(['prefix' => 'bon-livraison'], function () {
     Route::put('/update/{id}', [BonLivraisonController::class, 'update'])->name('bon.livraison.update');
     Route::delete('/destroy/{id}', [BonLivraisonController::class, 'destroy'])->name('bon.livraison.destroy');
 });
+
 Route::group(['prefix' => 'reclamation'], function () {
     Route::get('/', [ReclamationController::class, 'index'])->name('reclamation.index');
     Route::get('/all', [ReclamationController::class, 'all'])->name('reclamation.all');

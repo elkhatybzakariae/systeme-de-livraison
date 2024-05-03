@@ -13,8 +13,14 @@ class ColisController extends Controller
 {
     public function index()
     {
-        $colis = Colis::all();
+        $colis = Colis::query()->whereNot('status','nouveau')->get();
         return view('pages.clients.colis.index', compact('colis'));
+    }
+    public function indexRamassage()
+    {
+        $colis = Colis::query()->where('status','nouveau')->get();
+
+        return view('pages.clients.colis.indexRamassage', compact('colis'));
     }
 
     public function create()
