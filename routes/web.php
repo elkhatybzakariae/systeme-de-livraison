@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LivreurController;
 use App\Http\Controllers\NewClientController;
 use App\Http\Controllers\NewLivreurController;
+use App\Http\Controllers\ReclamationController;
 use App\Http\Controllers\TarifController;
 use App\Http\Controllers\VilleController;
 use App\Http\Controllers\ZoneController;
@@ -118,4 +119,12 @@ Route::group(['prefix' => 'bon-livraison'], function () {
     Route::get('/edit/{id}', [BonLivraisonController::class, 'edit'])->name('bon.livraison.edit');
     Route::put('/update/{id}', [BonLivraisonController::class, 'update'])->name('bon.livraison.update');
     Route::delete('/destroy/{id}', [BonLivraisonController::class, 'destroy'])->name('bon.livraison.destroy');
+});
+Route::group(['prefix' => 'reclamation'], function () {
+    Route::get('/', [ReclamationController::class, 'index'])->name('reclamation.index');
+    Route::get('/all', [ReclamationController::class, 'all'])->name('reclamation.all');
+    Route::post('/store', [ReclamationController::class, 'store'])->name('reclamation.store');
+    Route::get('/edit/{id}', [ReclamationController::class, 'edit'])->name('reclamation.edit');
+    Route::put('/update/{id}', [ReclamationController::class, 'update'])->name('reclamation.update');
+    Route::delete('/destroy/{id}', [ReclamationController::class, 'destroy'])->name('reclamation.destroy');
 });

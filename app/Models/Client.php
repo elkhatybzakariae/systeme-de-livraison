@@ -19,4 +19,8 @@ class Client extends Authenticatable
     {
         return $this->hasMany(Produit::class,'id_Pro');
     }
+    public function reclamation()
+    {
+        return $this->hasMany(Reclamation::class,'id_Cl');
+    }
 }

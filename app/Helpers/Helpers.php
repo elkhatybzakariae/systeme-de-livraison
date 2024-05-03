@@ -7,6 +7,8 @@ use App\Models\Client;
 use App\Models\Colis;
 use App\Models\Depense;
 use App\Models\Livreur;
+use App\Models\Message;
+use App\Models\Reclamation;
 use App\Models\Role;
 use App\Models\Tarif;
 use App\Models\Zone;
@@ -76,5 +78,21 @@ class Helpers
             $id_C = Str::random(15);
         }
         return $id_C;
+    }
+    public static function generateIdRec()
+    {
+        $id_Rec = Str::random(15);
+        while (Reclamation::where('id_Rec', $id_Rec)->exists()) {
+            $id_Rec = Str::random(15);
+        }
+        return $id_Rec;
+    }
+    public static function generateIdMess()
+    {
+        $id_Mess = Str::random(15);
+        while (Message::where('id_Mess', $id_Mess)->exists()) {
+            $id_Mess = Str::random(15);
+        }
+        return $id_Mess;
     }
 }
