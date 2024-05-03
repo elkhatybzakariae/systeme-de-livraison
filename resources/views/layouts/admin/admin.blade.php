@@ -23,6 +23,18 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('style')
+		<style>
+			.dataTables_length{
+					 width: 50px !important;
+			}
+			.dataTables_length label{
+					 width: 50px !important;
+			}
+			.dataTables_length select{
+					 width: 50px !important;
+			}
+	
+		</style>
 	</head>
 	<body id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true" data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default">
 

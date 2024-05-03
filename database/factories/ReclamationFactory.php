@@ -19,12 +19,13 @@ class ReclamationFactory extends Factory
      */
     public function definition(): array
     {
-        $colisIds = Colis::pluck('id_C')->toArray();
+        $colisIds = Colis::pluck('id_c')->toArray();
+        
         $clientIds = Client::pluck('id_Cl')->toArray();
         return [
             'id_Rec' => Str::random(10),
             'objet' => fake()->name(),
-            'etat' => fake()->boolean(),
+            'etat' => fake()->boolean(),    
             'id_C' => fake()->randomElement($colisIds),
             'id_Cl' => fake()->randomElement($clientIds),
         ];

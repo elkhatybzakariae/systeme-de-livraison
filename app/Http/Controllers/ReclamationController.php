@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helpers;
+use App\Models\Client;
+use App\Models\Colis;
 use App\Models\Message;
 use App\Models\Reclamation;
 use Illuminate\Http\Request;
@@ -19,7 +21,9 @@ class ReclamationController extends Controller
     }
     public function all()
     {
-        $reclamations = Reclamation::query()->with('client')->get(); 
+
+
+        $reclamations = Reclamation::query()->with('client','message')->get(); 
         $messages = Message::whereIn('id_Rec', $reclamations->pluck('id_Rec'))->get();   
         return view('pages.admin.reclamation.index', compact('reclamations','messages'));
     }

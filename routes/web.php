@@ -7,6 +7,7 @@ use App\Http\Controllers\ColisController;
 use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LivreurController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NewClientController;
 use App\Http\Controllers\NewLivreurController;
 use App\Http\Controllers\ReclamationController;
@@ -130,4 +131,12 @@ Route::group(['prefix' => 'reclamation'], function () {
     Route::get('/edit/{id}', [ReclamationController::class, 'edit'])->name('reclamation.edit');
     Route::put('/update/{id}', [ReclamationController::class, 'update'])->name('reclamation.update');
     Route::delete('/destroy/{id}', [ReclamationController::class, 'destroy'])->name('reclamation.destroy');
+});
+Route::group(['prefix' => 'messages'], function () {
+    Route::get('/', [MessageController::class, 'index'])->name('messages.index');
+    Route::get('/create', [MessageController::class, 'create'])->name('messages.create');
+    Route::post('/store', [MessageController::class, 'store'])->name('messages.store');
+    Route::get('/edit/{id}', [MessageController::class, 'edit'])->name('messages.edit');
+    Route::put('/update/{id}', [MessageController::class, 'update'])->name('messages.update');
+    Route::delete('/destroy/{id}', [MessageController::class, 'destroy'])->name('messages.destroy');
 });

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Admin;
 use App\Models\Reclamation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -19,10 +20,12 @@ class MessageFactory extends Factory
     public function definition(): array
     {
         $reclamationIds = Reclamation::pluck('id_Rec')->toArray();
+        $adminIds = Admin::pluck('id_Ad')->toArray();
         return [
             'id_Mess' => Str::random(10),
             'message' => fake()->name(),
             'id_Rec' => fake()->randomElement($reclamationIds),
+            'id_Ad'=>fake()->randomElement([null,fake()->randomElement($adminIds)]),
             
         ];
     }

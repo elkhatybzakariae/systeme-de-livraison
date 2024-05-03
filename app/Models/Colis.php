@@ -9,10 +9,11 @@ class Colis extends Model
 {
     use HasFactory;
 
+    protected $table='colis';
     protected $primaryKey = 'id_C';
 
     protected $fillable = [
-        'id_C',
+            'id_C',
             'code_d_envoi',
             'date_d_expedition',
             'destinataire',
