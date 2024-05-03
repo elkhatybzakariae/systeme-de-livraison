@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreign('id_Cl')->on('clients')->references('id_Cl');
             $table->string('telephone');
             $table->string('marchandise');
-            $table->string('etat')->default('Nouveau colis');
-            $table->string('status')->default('Nouveau colis');
+            $table->string('etat')->default('non paye');
+            $table->enum('status',['nouveau','recu','livraison','distribution'])->default('nouveau');
             $table->string('zone');
             $table->foreign('zone')->on('zones')->references('id_Z');
             $table->string('ville_id');

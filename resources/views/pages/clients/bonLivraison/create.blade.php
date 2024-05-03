@@ -13,8 +13,8 @@
 
   <div class="card-footer">
       
-<a class="btn btn-primary" style="display:block;margin:0px auto" href="javascript:ajaxLink('delivery-note?action=create');"><i class="fa fa-plus"></i> Creer bon de livraison</a>
-
+<a class="btn btn-primary" style="display:block;margin:0px auto" href="{{ route('bon.livraison.index') }}"><i class="fa fa-plus"></i> Creer bon de livraison</a>
+    
   </div>
 
 </div>

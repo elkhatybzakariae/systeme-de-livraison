@@ -28,8 +28,8 @@ class ColisFactory extends Factory
             },
             'telephone' => fake()->phoneNumber,
             'marchandise' => fake()->word,
-            'etat' => fake()->randomElement(['Pending', 'In Transit', 'Delivered']),
-            'status' => fake()->randomElement(['Pending', 'Processed', 'Shipped']),
+            'etat' => fake()->randomElement(['paye','non paye']),
+            'status' => fake()->randomElement(['nouveau','recu','livraison','distribution']),
             'zone' => function () {
                 return Zone::factory()->create()->id_Z;
             },
