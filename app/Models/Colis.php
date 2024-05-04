@@ -11,7 +11,8 @@ class Colis extends Model
 
     protected $table='colis';
     protected $primaryKey = 'id';
-
+    public $incrementing = false;
+    public $timestamps = true;
     
     protected $fillable = [
             'id',

@@ -16,13 +16,11 @@ class ReclamationController extends Controller
     {
         $idU= Auth::id();
         $reclamations = Reclamation::where('id_Cl',$idU)->get();
-        // $messages = Message::where('id_Rec',$reclamations['id_Rec'])->get();
+        $messages = Message::whereIn('id_Rec', $reclamations->pluck('id_Rec'))->get();  
         return view('pages.clients.reclamation.index', compact('reclamations','messages'));
     }
     public function all()
     {
-
-
         $reclamations = Reclamation::query()->with('client','message')->get(); 
         $messages = Message::whereIn('id_Rec', $reclamations->pluck('id_Rec'))->get();   
         return view('pages.admin.reclamation.index', compact('reclamations','messages'));
@@ -42,7 +40,7 @@ class ReclamationController extends Controller
         $id_C=$request->filled('id_C') ?$request->input('id_C') :'';
         $validatedData = $request->validate([
             'objet' => 'required|string|max:255',
-            'id_C' => 'nullable|string',
+            // 'id_C' => 'nullable|string',
             'message' => 'required|string',
         ]);
 
@@ -56,7 +54,7 @@ class ReclamationController extends Controller
             'id_Mess' => $id_Mess,
             'message' => $validatedData['message'],
             'id_Rec' => $newRec['id_Rec'],
-            'id_creater' => $id_Cl,
+            'id_Ad' => $newRec->id_Cl,
         ]);
         return redirect()->route('reclamation.index')->with('success', 'reclamation created successfully.');
     }
@@ -75,7 +73,7 @@ class ReclamationController extends Controller
         $record->update([
             'etat' => 1,
         ]);
-        return redirect()->route('reclamation.index');
+        return redirect()->route('reclamation.all');
     }
     
 }

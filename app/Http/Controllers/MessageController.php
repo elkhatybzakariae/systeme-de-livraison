@@ -26,7 +26,7 @@ class MessageController extends Controller
             'id_Rec' => $Rec['id_Rec'],
             'id_creater' => $id_Creater,
         ]);
-        return redirect()->route('reclamation.index')->with('success', 'reclamation created successfully.');
+        return back()->with('success', 'message created successfully.');
     }
 
    

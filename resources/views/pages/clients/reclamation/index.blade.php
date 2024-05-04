@@ -18,7 +18,8 @@
                 </div>
 
                 <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
-                    <form id="kt_modal_new_tarif_form" method="POST" class="form" action="{{ route('reclamation.store') }}">
+                    <form id="kt_modal_new_Rec_form" method="POST" class="form"
+                        action="{{ route('reclamation.store') }}">
                         @csrf
                         <div class="mb-13 text-center">
                             <h1 class="mb-3">Nouvelle reclamation</h1>
@@ -28,15 +29,15 @@
                                 <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                     <span class="required">Objet</span>
                                 </label>
-                                <input type="text" class="form-control form-control-solid"
-                                    placeholder="Objet" id="objet" name="objet" />
+                                <input type="text" class="form-control form-control-solid" placeholder="Objet"
+                                    id="objet" name="objet" />
                             </div>
                             <div class=" col-md-12 col mb-8 fv-row">
                                 <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                     <span class="required">Message</span>
                                 </label>
-                                <input type="text" class="form-control form-control-solid"
-                                    placeholder="Message" id="message" name="message" />
+                                <input type="text" class="form-control form-control-solid" placeholder="Message"
+                                    id="message" name="message" />
                             </div>
                         </div>
 
@@ -50,6 +51,48 @@
                             </button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="kt_modal_new_targe" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content rounded">
+                <div class="modal-header pb-0 border-0 justify-content-end">
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                    transform="rotate(45 7.41422 6)" fill="currentColor" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                    <form id="kt_modal_new_message_form" method="POST" class="form" action="">
+                        @csrf
+                        <div class="card-body" id="kt_drawer_chat_messenger_body">
+                            <div class="scroll-y me-n5 pe-5" data-kt-element="messages" data-kt-scroll="true"
+                                data-kt-scroll-activate="true" data-kt-scroll-height="auto"
+                                data-kt-scroll-dependencies="#kt_drawer_chat_messenger_header, #kt_drawer_chat_messenger_footer"
+                                data-kt-scroll-wrappers="#kt_drawer_chat_messenger_body" data-kt-scroll-offset="0px"
+                                style="height:200px" id="show">
+                            </div>
+                        </div>
+                        <div class="card-footer pt-4 row" id="kt_drawer_chat_messenger_footer" >
+
+                            <div class="col-10 d-flex flex-stack">
+                                <textarea class="col-8 form-control form-control-flush mb-3" name="message" rows="1" data-kt-element="input"
+                                    placeholder="Type a message"></textarea>
+                            </div>
+                            <div class="col-2 d-flex flex-stack">
+                                <button class="btn btn-primary" type="submit" data-kt-element="send">Send</button>
+
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -83,7 +126,8 @@
                         <option value="0">Inactive</option>
                     </select>
                 </div>
-                <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_new_target">Nouvelle reclamation</a>
+                <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_new_target">Nouvelle
+                    reclamation</a>
             </div>
         </div>
 
@@ -125,11 +169,11 @@
                             </td>
                             <!--begin::Action=-->
                             <td class="">
-                                {{-- <div class="menu-item px-3">
-                                    <a onclick="openModal('{{ $tarif->villeRamassage }}','{{ $tarif->ville }}','{{ $tarif->objet }}','{{ $tarif->message }}','{{ $tarif->prixref }}','{{ $tarif->delailiv }}','{{ route('tarif.update', $tarif->id_Tar) }}')"
-                                        data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"
+                                <div class="menu-item px-3">
+                                    <a onclick="openModal('{{ $item->id_Rec }}' ,'{{ $item->etat }}' ,'{{ route('message.store', $item->id_Rec) }}')"
+                                        data-bs-toggle="modal" data-bs-target="#kt_modal_new_targe"
                                         class="menu-link px-3">Edit</a>
-                                </div> --}}
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -184,17 +228,93 @@
             }
         });
 
-        function openModal(villeRamassage = '', ville = '', objet = '', message = '', prixref = '', delailiv = '',
-            actionUrl = "{{ route('tarif.store') }}") {
-            console.log(ville);
-            document.getElementById('villeRamassage').value = villeRamassage;
-            document.getElementById('ville').value = ville;
-            document.getElementById('objet').value = objet;
-            document.getElementById('message').value = message;
-            document.getElementById('prixref').value = prixref;
-            document.getElementById('delailiv').value = delailiv;
+        var reclamations = @json($reclamations);
+        var messages = @json($messages);
 
-            document.getElementById('kt_modal_new_tarif_form').action = actionUrl;
+        function openModal(id_Rec,etat, action) {
+            // var message = reclamations.find(element => element.id_Rec == id_Rec).message;
+            var messages = reclamations.filter(element => element.id_Rec == id_Rec);
+            console.log('====================================');
+            console.log(messages);
+            console.log('====================================');
+            let bb = '';
+            if (etat == 1) {
+                document.getElementById('kt_drawer_chat_messenger_footer').style.display = 'none';
+            }
+            message.forEach(ele => {
+                if (ele.id_Ad) {
+                    bb += `<div class="d-flex justify-content-start mb-10">
+                                <!--begin::Wrapper-->
+                                <div class="d-flex flex-column align-items-start">
+                                    <!--begin::User-->
+                                    {{-- <div class="d-flex align-items-center mb-2">
+                                                <!--begin::Avatar-->
+                                                <div class="symbol symbol-35px symbol-circle">
+                                                    <img alt="Pic" src="assets/media/avatars/300-25.jpg">
+                                                </div>
+                                                <!--end::Avatar-->
+                                                <!--begin::Details-->
+                                                <div class="ms-3">
+                                                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">Brian Cox</a>
+                                                    <span class="text-muted fs-7 mb-1">2 mins</span>
+                                                </div>
+                                                <!--end::Details-->
+                                            </div> --}}
+                                    <!--end::User-->
+                                    <div class="p-5 rounded bg-light-info text-dark fw-semibold mw-lg-400px text-start"
+                                                                        data-kt-element="message-text">
+                                                                        ${ele['message']}
+                                                                        </div>
+                                                                       </div>
+                                <!--end::Wrapper-->
+                            </div> `;
+                } else {
+                    bb += `<div class="d-flex justify-content-end mb-10">
+                                <!--begin::Wrapper-->
+                                <div class="d-flex flex-column align-items-end">
+                                    <!--begin::User-->
+                                    <div class="d-flex align-items-center mb-2">
+                                        <!--begin::Details-->
+                                        <div class="me-3">
+                                            <span class="text-muted fs-7 mb-1">5 mins</span>
+                                            <a href="#"
+                                                class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">You</a>
+                                        </div>
+                                        <!--end::Details-->
+                                        <!--begin::Avatar-->
+                                        <div class="symbol symbol-35px symbol-circle">
+                                            <img alt="Pic" src="assets/media/avatars/300-1.jpg">
+                                        </div>
+                                        <!--end::Avatar-->
+                                    </div>
+                                    <!--end::User-->
+                                    <!--begin::Text-->
+                                    <div class="p-5 rounded bg-light-primary text-dark fw-semibold mw-lg-400px text-end"
+                                        data-kt-element="message-text">${ele['message']}</div>
+                                    <!--end::Text-->
+                                </div>
+                                <!--end::Wrapper-->
+                            </div>`;
+                }
+            });
+            // console.log(bb);
+            // messages.forEach(element => {
+            //     // console.log(element['id_Rec']);
+            //     if (element['id_Rec'] === id_Rec) {
+            //         console.log(element['message']);
+
+
+            //         document.getElementById('show').innerHTML = aa;
+            //     }
+            // });
+            if (condition) {
+                
+            }
+            document.getElementById('show').innerHTML = bb;
+            document.getElementById('kt_modal_new_message_form').action = action;
+            console.log(reclamations);
+            console.log(messages);
+
 
         }
     </script>

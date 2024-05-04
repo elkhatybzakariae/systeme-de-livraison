@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('id_Rec')->primary();
             $table->string('objet');
             $table->boolean('etat')->default(0);
-            $table->string('id_C');
+            $table->string('id_C')->nullable();
             $table->foreign('id_C')->references('id')->on('colis');
             $table->string('id_Cl');
             $table->foreign('id_Cl')->references('id_Cl')->on('clients');

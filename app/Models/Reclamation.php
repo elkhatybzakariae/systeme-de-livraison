@@ -12,7 +12,9 @@ class Reclamation extends Model
     protected $primaryKey = 'id_Rec';
     public $incrementing = false;
     public $timestamps = true;
-    protected $fillable = ['id_Rec','objet','etat','id_C','id_Cl'];
+    protected $fillable = ['id_Rec','objet','etat',
+    'id_Ad',
+    'id_Cl'];
 
     public function client()
     {

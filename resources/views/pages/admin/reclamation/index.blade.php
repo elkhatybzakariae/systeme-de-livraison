@@ -1,4 +1,4 @@
-@extends('layouts.client.admin')
+@extends('layouts.admin.admin')
 @section('content')
     <div class="modal fade" id="kt_modal_new_target" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -17,9 +17,7 @@
                     </div>
                 </div>
                 <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
-                    <form id="kt_modal_new_tarif_form" method="POST" class="form"
-                        action="{{ route('reclamation.store') }}">
-
+                    <form id="kt_modal_new_message_form" method="POST" class="form" action="">
                         @csrf
                         <div class="card-body" id="kt_drawer_chat_messenger_body">
                             <div class="scroll-y me-n5 pe-5" data-kt-element="messages" data-kt-scroll="true"
@@ -32,11 +30,11 @@
                         <div class="card-footer pt-4 row" id="kt_drawer_chat_messenger_footer">
 
                             <div class="col-10 d-flex flex-stack">
-                                <textarea class="col-8 form-control form-control-flush mb-3" rows="1" data-kt-element="input"
+                                <textarea class="col-8 form-control form-control-flush mb-3" name="message" rows="1" data-kt-element="input"
                                     placeholder="Type a message"></textarea>
                             </div>
                             <div class="col-2 d-flex flex-stack">
-                                <button class="btn btn-primary" type="button" data-kt-element="send">Send</button>
+                                <button class="btn btn-primary" type="submit" data-kt-element="send">Send</button>
 
                             </div>
                         </div>
@@ -128,9 +126,18 @@
                             <!--begin::Action=-->
                             <td class="">
                                 <div class="menu-item px-3">
-                                    <a onclick="openModal('{{ $item->id_Rec }}')"
+                                    <a onclick="openModal('{{ $item->id_Rec }}' ,'{{ $item->etat }}' ,'{{ route('message.store', $item->id_Rec) }}')"
                                         data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"
-                                        class="menu-link px-3">Edit</a>
+                                        class="menu-link px-3"><i class="fa fa-eye"></i></a>
+                                </div>
+
+                                <div class="menu-item px-3" @if ($item->etat == 1) style='display:none;' @endif>
+                                    <form action="{{ route('reclamation.traiteRec', $item->id_Rec) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="menu-link px-3 btn text-danger"
+                                            data-kt-ecommerce-product-filter="delete_row"><i
+                                                class="fa fa-check"></i></button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
@@ -187,16 +194,18 @@
         });
 
         var reclamations = @json($reclamations);
-        
-        function openModal(id_Rec ) {
 
-            var messages = reclamations.find(element => element.id_Rec == id_Rec ).message;
+        function openModal(id_Rec, etat, action) {
+            var messages = reclamations.find(element => element.id_Rec == id_Rec).message;
             console.log('====================================');
             console.log(messages);
             console.log('====================================');
             let bb = '';
+            if (etat == 1) {
+                document.getElementById('kt_drawer_chat_messenger_footer').style.display = 'none';
+            }
             messages.forEach(ele => {
-                if (ele.id_Ad ) {
+                if (ele.id_Ad) {
                     bb += `<div class="d-flex justify-content-start mb-10">
                                 <!--begin::Wrapper-->
                                 <div class="d-flex flex-column align-items-start">
@@ -262,11 +271,10 @@
             //     }
             // });
             document.getElementById('show').innerHTML = bb;
-
+            document.getElementById('kt_modal_new_message_form').action = action;
             console.log(reclamations);
             console.log(messages);
 
-            document.getElementById('kt_modal_new_tarif_form').action = actionUrl;
 
         }
     </script>
