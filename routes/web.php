@@ -133,15 +133,16 @@ Route::group(['prefix' => 'reclamation'], function () {
     Route::get('/', [ReclamationController::class, 'index'])->name('reclamation.index');
     Route::get('/all', [ReclamationController::class, 'all'])->name('reclamation.all');
     Route::post('/store', [ReclamationController::class, 'store'])->name('reclamation.store');
+    Route::post('/traiteRec/{id}', [ReclamationController::class, 'traiteRec'])->name('reclamation.traiteRec');
     Route::get('/edit/{id}', [ReclamationController::class, 'edit'])->name('reclamation.edit');
     Route::put('/update/{id}', [ReclamationController::class, 'update'])->name('reclamation.update');
     Route::delete('/destroy/{id}', [ReclamationController::class, 'destroy'])->name('reclamation.destroy');
 });
 Route::group(['prefix' => 'messages'], function () {
-    Route::get('/', [MessageController::class, 'index'])->name('messages.index');
-    Route::get('/create', [MessageController::class, 'create'])->name('messages.create');
-    Route::post('/store', [MessageController::class, 'store'])->name('messages.store');
-    Route::get('/edit/{id}', [MessageController::class, 'edit'])->name('messages.edit');
-    Route::put('/update/{id}', [MessageController::class, 'update'])->name('messages.update');
-    Route::delete('/destroy/{id}', [MessageController::class, 'destroy'])->name('messages.destroy');
+    Route::get('/', [MessageController::class, 'index'])->name('message.index');
+    Route::get('/create', [MessageController::class, 'create'])->name('message.create');
+    Route::post('/store/{id}', [MessageController::class, 'store'])->name('message.store');
+    Route::get('/edit/{id}', [MessageController::class, 'edit'])->name('message.edit');
+    Route::put('/update/{id}', [MessageController::class, 'update'])->name('message.update');
+    Route::delete('/destroy/{id}', [MessageController::class, 'destroy'])->name('message.destroy');
 });

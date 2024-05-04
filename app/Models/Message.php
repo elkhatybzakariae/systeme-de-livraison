@@ -12,7 +12,7 @@ class Message extends Model
     protected $primaryKey = 'id_Mess';
     public $incrementing = false;
     public $timestamps = true;
-    protected $fillable = ['id_Mess','message','id_Rec','id_creater'];
+    protected $fillable = ['id_Mess','message','id_Rec','id_Ad'];
 
     public function reclamation()
     {

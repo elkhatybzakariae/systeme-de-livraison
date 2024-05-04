@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('id_Rec');
             $table->foreign('id_Rec')->references('id_Rec')->on('reclamations');
             $table->string('id_Ad')->nullable();
-            $table->foreign('id_Ad')->references('id_Ad')->on('admins');
+            // $table->foreign('id_Ad')->references('id_Ad')->on('admins');
             $table->timestamps();
         });
     }
