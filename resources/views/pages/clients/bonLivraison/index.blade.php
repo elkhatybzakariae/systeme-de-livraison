@@ -107,7 +107,8 @@
       <h4 class="text-center">Obtenir en pdf</h4>
       <div class="row ">
         <div class="col-6 mb-2">
-          <a class="btn btn-block btn-primary w-100" target="_blank" href=""><i class="fa fa-ticket"></i></a>
+          {{-- @dd($bonLivraison) --}}
+          <a class="btn btn-block btn-primary w-100" target="_blank" href="{{ route('generate.stikers',$bonLivraison->id_BL) }}"><i class="fa fa-ticket"></i></a>
         </div>
 
         <div class="col-6">

@@ -15,10 +15,11 @@ use App\Http\Controllers\TarifController;
 use App\Http\Controllers\VilleController;
 use App\Http\Controllers\ZoneController;
 use Illuminate\Support\Facades\Route;
-use Dompdf\Dompdf;
-use Dompdf\Options;
 
-Route::get('/generate-pdf', [BonLivraisonController::class,'generJJateStikers'])->name('generate.stikers');
+
+Route::get('/generate-stikers/{id}', [BonLivraisonController::class,'generateStikers'])->name('generate.stikers');
+Route::get('/generate-etiqueteuse/{id}', [BonLivraisonController::class,'generateEtiqueteuse'])->name('generate.etiqueteuse');
+Route::get('/generate-pdf/{id}', [BonLivraisonController::class,'generateStikers'])->name('generate.stikers');
 
 Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/tarifs', [HomeController::class,'tarifs'])->name('tarifs');
@@ -49,7 +50,7 @@ Route::controller(ClientController::class)->prefix('clients')->group(function ()
     Route::post('/store/new-user',  'storenewuser')->name('newuser.store');
     Route::put('/update/user/{id}',  'updatenewuser')->name('newuser.update');
     Route::put('/update/etat/user/{id}',  'updateetatnewuser')->name('newuser.etat.update');
-    Route::deete('/delete/user/{id}',  'deletenewuser')->name('newuser.delete');
+    Route::delete('/delete/user/{id}',  'deletenewuser')->name('newuser.delete');
 
     });
 
