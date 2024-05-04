@@ -73,11 +73,11 @@ class Helpers
     }
     public static function generateIdC()
     {
-        $id_C = Str::random(15);
-        while (Colis::where('id_C', $id_C)->exists()) {
-            $id_C = Str::random(15);
+        $idC = Str::random(15);
+        while (Colis::where('id', $idC)->exists()) {
+            $idC = Str::random(15);
         }
-        return $id_C;
+        return $idC;
     }
     public static function generateIdRec()
     {

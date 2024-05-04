@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('objet');
             $table->boolean('etat')->default(0);
             $table->string('id_C');
-            $table->foreign('id_C')->references('id_C')->on('colis');
+            $table->foreign('id_C')->references('id')->on('colis');
             $table->string('id_Cl');
             $table->foreign('id_Cl')->references('id_Cl')->on('clients');
             $table->timestamps();

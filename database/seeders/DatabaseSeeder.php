@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Client::factory()->create([
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('password'),
+                'id_Cl'=>'iecFC3g7Jx',
                 'isAccepted'=>0
             ]);
         \App\Models\Client::factory(10)->create([

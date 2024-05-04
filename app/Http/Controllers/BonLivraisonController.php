@@ -5,19 +5,37 @@ namespace App\Http\Controllers;
 use App\Models\BonLivraison;
 use App\Models\Colis;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class BonLivraisonController extends Controller
 {
-    public function index()
+    public function index($id_BL=null) 
     {
-        $colis = Colis::query()->where('status','nouveau')->get();
-       $bonLivraison= BonLivraison::create([
-            'id_BL'=>'BL-'.Str::random(10),
-            'reference'=>'BL-'.Str::random(10),
-            'status'=>'nouveau',
-            'id_Cl'=>session('user')['id_Cl']
-        ]);
+        // dd($id_BL);
+        
+        $colis = DB::select('select * from colis 
+                     inner join villes on villes.id_V = colis.ville_id 
+                     where id_BL is null');
+
+        $user=session('user');
+        if (!$id_BL) {
+            if($user ){
+                // dd($user['id_Cl']);
+                $bonLivraison= BonLivraison::create([
+                    'id_BL'=>'BL-'.Str::random(10),
+                    'reference'=>'BL-'.Str::random(10),
+                    'status'=>'nouveau',
+                    'id_Cl'=>$user['id_Cl']
+                ]);
+            }else{
+                return redirect(route('auth.client.signIn'));
+            }
+        }else{
+            $bonLivraison= BonLivraison::query()->where('id_BL',$id_BL)->with('colis')->first();
+        }
+        
+       
 
         return view('pages.clients.bonLivraison.index',compact("colis", "bonLivraison"));
     }
@@ -25,5 +43,11 @@ class BonLivraisonController extends Controller
     {
         $colis = Colis::query()->where('status','nouveau')->get()->count();
         return view('pages.clients.bonLivraison.create',compact("colis"));
+    }    
+    public function update($id,$id_BL)
+    {
+        $colis = Colis::where('id', $id)
+        ->update(['id_BL' => $id_BL]);
+        return redirect()->route('bon.livraison.index',$id_BL);
     }    
 }

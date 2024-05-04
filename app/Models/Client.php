@@ -23,4 +23,8 @@ class Client extends Authenticatable
     {
         return $this->hasMany(Reclamation::class,'id_Cl');
     }
+    public function colis()
+    {
+        return $this->hasMany(Colis::class,'id_Cl');
+    }
 }

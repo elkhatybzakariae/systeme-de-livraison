@@ -10,7 +10,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('colis', function (Blueprint $table) {
-            $table->string('id_C')->primary();
+            $table->string('id')->primary();
             $table->string('code_d_envoi');
             $table->date('date_d_expedition')->nullable();
             $table->string('destinataire');
@@ -31,6 +31,10 @@ return new class extends Migration
             $table->boolean('fragile')->default(false);
             $table->boolean('ouvrir')->default(false);
             $table->boolean('colis_a_remplacer')->default(false);
+
+            $table->string('id_BL')->nullable();
+            $table->foreign('id_BL')->on('bon_livraisons')->references('id_BL');
+
             $table->timestamps();
 
         });

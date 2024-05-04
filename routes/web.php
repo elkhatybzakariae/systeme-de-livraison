@@ -116,11 +116,11 @@ Route::group(['prefix' => 'colis'], function () {
 });
 
 Route::group(['prefix' => 'bon-livraison'], function () {
-    Route::get('/', [BonLivraisonController::class, 'index'])->name('bon.livraison.index');
+    Route::get('/bon/{id_BL?}', [BonLivraisonController::class, 'index'])->name('bon.livraison.index');
     Route::get('/create', [BonLivraisonController::class, 'create'])->name('bon.livraison.create');
     Route::post('/store', [BonLivraisonController::class, 'store'])->name('bon.livraison.store');
     Route::get('/edit/{id}', [BonLivraisonController::class, 'edit'])->name('bon.livraison.edit');
-    Route::put('/update/{id}', [BonLivraisonController::class, 'update'])->name('bon.livraison.update');
+    Route::get('/update/{id}/bl/{id_BL}', [BonLivraisonController::class, 'update'])->name('bon.livraison.update');
     Route::delete('/destroy/{id}', [BonLivraisonController::class, 'destroy'])->name('bon.livraison.destroy');
 });
 

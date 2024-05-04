@@ -19,7 +19,7 @@ class ColisFactory extends Factory
     public function definition()
     {
         return [
-            'id_C'=>Str::random(10),
+            'id'=>Str::random(10),
             'code_d_envoi' => fake()->unique()->randomNumber(),
             'date_d_expedition' => fake()->dateTimeBetween('-1 year', 'now'),
             'destinataire' => fake()->name,
