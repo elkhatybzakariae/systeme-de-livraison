@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
-Route::get('/generate-pdf', [BonLivraisonController::class,'generateStikers'])->name('generate.stikers');
+Route::get('/generate-pdf', [BonLivraisonController::class,'generJJateStikers'])->name('generate.stikers');
 
 Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/tarifs', [HomeController::class,'tarifs'])->name('tarifs');
