@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Colis;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -34,7 +36,10 @@ class DatabaseSeeder extends Seeder
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('password'),
             ]);
-            
+            Colis::factory(5)->create([
+                'id_Cl'=>'iecFC3g7Jx',
+
+            ]);
         \App\Models\Admin::factory(10)->create();
         $this->call(ZoneSeeder::class);
         $this->call(ColisSeeder::class);
