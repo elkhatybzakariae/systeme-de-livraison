@@ -49,12 +49,12 @@ Route::controller(ClientController::class)->prefix('clients')->group(function ()
     Route::get('/new-user',  'newuser')->name('newuser');
     Route::post('/store/new-user',  'storenewuser')->name('newuser.store');
     Route::put('/update/user/{id}',  'updatenewuser')->name('newuser.update');
-<<<<<<< HEAD
+
     Route::put('/update/etat/user/{id}',  'updateetatnewuser')->name('newuser.etat.update');
-=======
+
     Route::put('/update/valider/user/{id}',  'validernewuser')->name('newuser.valider.update');
     Route::put('/update/nonvalider/user/{id}',  'nonvalidernewuser')->name('newuser.nonvalider.update');
->>>>>>> 081742944cb6e65d133f0ad5f4577efcb1ac5e8b
+
     Route::delete('/delete/user/{id}',  'deletenewuser')->name('newuser.delete');
 
     });
