@@ -44,6 +44,13 @@ Route::controller(ClientController::class)->prefix('clients')->group(function ()
     Route::get('/profile',  'profile')->name('profile');
     Route::put('/profile/update',  'update')->name('update');
     Route::get('/signout',  'signout')->name('signout');
+
+    Route::get('/new-user',  'newuser')->name('newuser');
+    Route::post('/store/new-user',  'storenewuser')->name('newuser.store');
+    Route::put('/update/user/{id}',  'updatenewuser')->name('newuser.update');
+    Route::put('/update/etat/user/{id}',  'updateetatnewuser')->name('newuser.etat.update');
+    Route::deete('/delete/user/{id}',  'deletenewuser')->name('newuser.delete');
+
     });
 
 

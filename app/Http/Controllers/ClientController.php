@@ -37,6 +37,7 @@ class ClientController extends Controller
             'password' => 'required|string|min:8',
         ]);
         $validation['id_Cl']=$id_Cl;
+        $validation['isAdmin']=1;
         $validation['password']=Hash::make($validation['password']);
         if ($request->password === $request->confirmpassword) {
             $newclient = Client::create($validation);
@@ -73,6 +74,11 @@ class ClientController extends Controller
     {
         auth()->logout();
         return redirect()->route('auth.client.signIn');
+    }
+
+    public function newuser()
+    {
+        return view('auth.client.sign-up');
     }
 
 }
