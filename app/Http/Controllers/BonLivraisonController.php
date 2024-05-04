@@ -19,6 +19,7 @@ class BonLivraisonController extends Controller
                      where id_BL is null');
 
         $user=session('user');
+        $colisBon=[];
         if (!$id_BL) {
             if($user ){
                 // dd($user['id_Cl']);
