@@ -14,7 +14,10 @@ class MessageController extends Controller
     {
         $id_Mess = Helpers::generateIdMess();
 
-        $id_Creater= Auth::id();
+       $user=session('user');
+       if(isset($user['id_Ad'])){
+        $id_Ad=$user['id_Ad'];
+       }
         $validatedData = $request->validate([
             'message' => 'required|string',
         ]);
@@ -24,7 +27,7 @@ class MessageController extends Controller
             'id_Mess' => $id_Mess,
             'message' => $validatedData['message'],
             'id_Rec' => $Rec['id_Rec'],
-            'id_creater' => $id_Creater,
+            'id_Ad'=>$id_Ad??null,
         ]);
         return back()->with('success', 'message created successfully.');
     }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class BonLivraison extends Model
 {
@@ -13,5 +14,9 @@ class BonLivraison extends Model
     public function colis()
     {
         return $this->hasMany(Colis::class,'id_BL');
+    }
+    public function client()
+    {
+        return $this->belongsTo(Client::class,'id_Cl');
     }
 }

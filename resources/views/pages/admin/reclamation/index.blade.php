@@ -20,11 +20,8 @@
                     <form id="kt_modal_new_message_form" method="POST" class="form" action="">
                         @csrf
                         <div class="card-body" id="kt_drawer_chat_messenger_body">
-                            <div class="scroll-y me-n5 pe-5" data-kt-element="messages" data-kt-scroll="true"
-                                data-kt-scroll-activate="true" data-kt-scroll-height="auto"
-                                data-kt-scroll-dependencies="#kt_drawer_chat_messenger_header, #kt_drawer_chat_messenger_footer"
-                                data-kt-scroll-wrappers="#kt_drawer_chat_messenger_body" data-kt-scroll-offset="0px"
-                                style="height:200px" id="show">
+                            <div class="scroll-y me-n5 pe-5" 
+                                id="show" style="height: 400px" >
                             </div>
                         </div>
                         <div class="card-footer pt-4 row" id="kt_drawer_chat_messenger_footer">
@@ -38,14 +35,12 @@
 
                             </div>
                         </div>
-                </div>
-                <!--end::Messenger-->
+                        
+                  </form>
             </div>
-            </form>
         </div>
     </div>
-    </div>
-    </div>
+</div>
 
     <div class="card card-flush">
         <div class="card-header align-items-center py-5 gap-2 gap-md-5">
@@ -205,7 +200,7 @@
                 document.getElementById('kt_drawer_chat_messenger_footer').style.display = 'none';
             }
             messages.forEach(ele => {
-                if (ele.id_Ad) {
+                if (!ele.id_Ad) {
                     bb += `<div class="d-flex justify-content-start mb-10">
                                 <!--begin::Wrapper-->
                                 <div class="d-flex flex-column align-items-start">
@@ -239,14 +234,14 @@
                                     <div class="d-flex align-items-center mb-2">
                                         <!--begin::Details-->
                                         <div class="me-3">
-                                            <span class="text-muted fs-7 mb-1">5 mins</span>
+                                            <span class="text-muted fs-7 mb-1">${calculateElapsedTime(ele.created_at)}</span>
                                             <a href="#"
                                                 class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">You</a>
                                         </div>
                                         <!--end::Details-->
                                         <!--begin::Avatar-->
                                         <div class="symbol symbol-35px symbol-circle">
-                                            <img alt="Pic" src="assets/media/avatars/300-1.jpg">
+                                            <i class="bi bi-person-circle"></i>
                                         </div>
                                         <!--end::Avatar-->
                                     </div>
@@ -277,5 +272,25 @@
 
 
         }
+
+        function calculateElapsedTime(created_at) {
+            const createdAtDate = new Date(created_at);
+            const currentDate = new Date();
+            const timeDifference = currentDate - createdAtDate;
+            const seconds = Math.floor(timeDifference / 1000);
+            if (seconds < 60) {
+                return `${seconds} second${seconds !== 1 ? 's' : ''} `;
+            } else if (seconds < 3600) {
+                const minutes = Math.floor(seconds / 60);
+                return `${minutes} minute${minutes !== 1 ? 's' : ''} `;
+            } else if (seconds < 86400) {
+                const hours = Math.floor(seconds / 3600);
+                return `${hours} hour${hours !== 1 ? 's' : ''} `;
+            } else {
+                const days = Math.floor(seconds / 86400);
+                return `${days} day${days !== 1 ? 's' : ''} `;
+            }
+        }
+
     </script>
 @endsection

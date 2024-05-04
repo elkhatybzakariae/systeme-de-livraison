@@ -27,7 +27,7 @@ Route::get('/option', [HomeController::class,'option'])->name('option.index');
 
 
 Route::controller(AdminController::class)->prefix('admin')->group(function () {
-    Route::get('/index',  'index')->name('admin.index')->middleware('check.admin');
+    Route::get('/index',  'index')->name('admin.index');
     Route::get('/signup',  'signuppage')->name('auth.admin.signUp');
     Route::post('/register',  'signup')->name('auth.admin.signUp.store');
     Route::get('/signin',  'signinpage')->name('auth.admin.signIn');
@@ -141,6 +141,15 @@ Route::group(['prefix' => 'bon-livraison'], function () {
     Route::get('/updateDelete/{id}/bl/{id_BL}', [BonLivraisonController::class, 'updateDelete'])->name('bon.livraison.updateDelete');
     Route::delete('/destroy/{id}', [BonLivraisonController::class, 'destroy'])->name('bon.livraison.destroy');
 });
+Route::group(['prefix' => 'admin/bon-livraisons'], function () {
+    Route::get('/', [BonLivraisonController::class, 'list'])->name('bon.livraison.list');
+    Route::get('/create', [BonLivraisonController::class, 'create'])->name('bon.livraison.create');
+    Route::post('/store', [BonLivraisonController::class, 'store'])->name('bon.livraison.store');
+    Route::get('/edit/{id}', [BonLivraisonController::class, 'edit'])->name('bon.livraison.edit');
+    Route::get('/update/{id}/bl/{id_BL}', [BonLivraisonController::class, 'update'])->name('bon.livraison.update');
+    Route::get('/updateDelete/{id}/bl/{id_BL}', [BonLivraisonController::class, 'updateDelete'])->name('bon.livraison.updateDelete');
+    Route::delete('/destroy/{id}', [BonLivraisonController::class, 'destroy'])->name('bon.livraison.destroy');
+});
 
 Route::group(['prefix' => 'reclamation'], function () {
     Route::get('/', [ReclamationController::class, 'index'])->name('reclamation.index');
@@ -148,7 +157,7 @@ Route::group(['prefix' => 'reclamation'], function () {
     Route::post('/store', [ReclamationController::class, 'store'])->name('reclamation.store');
     Route::post('/traiteRec/{id}', [ReclamationController::class, 'traiteRec'])->name('reclamation.traiteRec');
     Route::get('/edit/{id}', [ReclamationController::class, 'edit'])->name('reclamation.edit');
-    Route::put('/update/{id}', [ReclamationController::class, 'update'])->name('reclamation.update');
+    Route::post('/update/{id}', [ReclamationController::class, 'update'])->name('reclamation.update');
     Route::delete('/destroy/{id}', [ReclamationController::class, 'destroy'])->name('reclamation.destroy');
 });
 Route::group(['prefix' => 'messages'], function () {
@@ -156,6 +165,6 @@ Route::group(['prefix' => 'messages'], function () {
     Route::get('/create', [MessageController::class, 'create'])->name('message.create');
     Route::post('/store/{id}', [MessageController::class, 'store'])->name('message.store');
     Route::get('/edit/{id}', [MessageController::class, 'edit'])->name('message.edit');
-    Route::put('/update/{id}', [MessageController::class, 'update'])->name('message.update');
+    Route::post('/update/{id}', [MessageController::class, 'update'])->name('message.update');
     Route::delete('/destroy/{id}', [MessageController::class, 'destroy'])->name('message.destroy');
 });

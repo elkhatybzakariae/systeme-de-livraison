@@ -27,4 +27,8 @@ class Client extends Authenticatable
     {
         return $this->hasMany(Colis::class,'id_Cl');
     }
+    public function bonLivraison()
+    {
+        return $this->hasMany(BonLivraison::class,'id_Cl');
+    }
 }

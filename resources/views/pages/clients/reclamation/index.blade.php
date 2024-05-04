@@ -74,12 +74,9 @@
                 <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                     <form id="kt_modal_new_message_form" method="POST" class="form" action="">
                         @csrf
-                        <div class="card-body" id="kt_drawer_chat_messenger_body">
-                            <div class="scroll-y me-n5 pe-5" data-kt-element="messages" data-kt-scroll="true"
-                                data-kt-scroll-activate="true" data-kt-scroll-height="auto"
-                                data-kt-scroll-dependencies="#kt_drawer_chat_messenger_header, #kt_drawer_chat_messenger_footer"
-                                data-kt-scroll-wrappers="#kt_drawer_chat_messenger_body" data-kt-scroll-offset="0px"
-                                style="height:200px" id="show">
+                        <div class="card-body" id="kt_drawer_chat_messenger_body" style="height: 80%">
+                            <div class="scroll-y me-n5 pe-5" 
+                                id="show" style="height: 400px" >
                             </div>
                         </div>
                         <div class="card-footer pt-4 row" id="kt_drawer_chat_messenger_footer" >
@@ -93,6 +90,7 @@
 
                             </div>
                         </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -232,11 +230,9 @@
         var messages = @json($messages);
 
         function openModal(id_Rec,etat, action) {
-            // var message = reclamations.find(element => element.id_Rec == id_Rec).message;
-            var messages = reclamations.filter(element => element.id_Rec == id_Rec);
-            console.log('====================================');
-            console.log(messages);
-            console.log('====================================');
+            var message = reclamations.find(element => element.id_Rec == id_Rec).message;
+            // var messages = reclamations.filter(element => element.id_Rec == id_Rec);
+         console.log(message);
             let bb = '';
             if (etat == 1) {
                 document.getElementById('kt_drawer_chat_messenger_footer').style.display = 'none';
@@ -256,7 +252,7 @@
                                                 <!--begin::Details-->
                                                 <div class="ms-3">
                                                     <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">Brian Cox</a>
-                                                    <span class="text-muted fs-7 mb-1">2 mins</span>
+                                                    <span class="text-muted fs-7 mb-1">${calculateElapsedTime(ele.created_at)}</span>
                                                 </div>
                                                 <!--end::Details-->
                                             </div> --}}
@@ -276,14 +272,14 @@
                                     <div class="d-flex align-items-center mb-2">
                                         <!--begin::Details-->
                                         <div class="me-3">
-                                            <span class="text-muted fs-7 mb-1">5 mins</span>
+                                            <span class="text-muted fs-7 mb-1">${calculateElapsedTime(ele.created_at)}</span>
                                             <a href="#"
                                                 class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">You</a>
                                         </div>
                                         <!--end::Details-->
                                         <!--begin::Avatar-->
                                         <div class="symbol symbol-35px symbol-circle">
-                                            <img alt="Pic" src="assets/media/avatars/300-1.jpg">
+                                            <i class="bi bi-person-circle"></i>
                                         </div>
                                         <!--end::Avatar-->
                                     </div>
@@ -297,25 +293,30 @@
                             </div>`;
                 }
             });
-            // console.log(bb);
-            // messages.forEach(element => {
-            //     // console.log(element['id_Rec']);
-            //     if (element['id_Rec'] === id_Rec) {
-            //         console.log(element['message']);
-
-
-            //         document.getElementById('show').innerHTML = aa;
-            //     }
-            // });
-            if (condition) {
-                
-            }
+        
             document.getElementById('show').innerHTML = bb;
             document.getElementById('kt_modal_new_message_form').action = action;
-            console.log(reclamations);
-            console.log(messages);
+          
 
 
+        }
+        function calculateElapsedTime(created_at) {
+            const createdAtDate = new Date(created_at);
+            const currentDate = new Date();
+            const timeDifference = currentDate - createdAtDate;
+            const seconds = Math.floor(timeDifference / 1000);
+            if (seconds < 60) {
+                return `${seconds} second${seconds !== 1 ? 's' : ''} `;
+            } else if (seconds < 3600) {
+                const minutes = Math.floor(seconds / 60);
+                return `${minutes} minute${minutes !== 1 ? 's' : ''} `;
+            } else if (seconds < 86400) {
+                const hours = Math.floor(seconds / 3600);
+                return `${hours} hour${hours !== 1 ? 's' : ''} `;
+            } else {
+                const days = Math.floor(seconds / 86400);
+                return `${days} day${days !== 1 ? 's' : ''} `;
+            }
         }
     </script>
 @endsection

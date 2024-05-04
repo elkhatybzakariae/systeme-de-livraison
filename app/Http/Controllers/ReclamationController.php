@@ -15,7 +15,13 @@ class ReclamationController extends Controller
     public function index()
     {
         $idU= Auth::id();
-        $reclamations = Reclamation::where('id_Cl',$idU)->get();
+        // dd($idU);
+        $reclamations = Reclamation::where('id_Cl', $idU)
+        ->with(['client', 'message' => function ($query) {
+            $query->orderBy('created_at', 'asc');
+        }])
+        ->get();
+        // dd($recla.mations);
         $messages = Message::whereIn('id_Rec', $reclamations->pluck('id_Rec'))->get();  
         return view('pages.clients.reclamation.index', compact('reclamations','messages'));
     }
@@ -54,7 +60,7 @@ class ReclamationController extends Controller
             'id_Mess' => $id_Mess,
             'message' => $validatedData['message'],
             'id_Rec' => $newRec['id_Rec'],
-            'id_Ad' => $newRec->id_Cl,
+            'id_Ad' => null,
         ]);
         return redirect()->route('reclamation.index')->with('success', 'reclamation created successfully.');
     }

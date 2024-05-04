@@ -6,7 +6,6 @@ use App\Models\BonLivraison;
 use App\Models\Colis;
 use Dompdf\Dompdf;
 use Dompdf\Options;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -43,11 +42,33 @@ class BonLivraisonController extends Controller
         // dd($colis,$colisBon);
         return view('pages.clients.bonLivraison.index',compact("colis", "bonLivraison",'colisBon'));
     }
+    public function list()
+    {
+        $user=session('user');
+        if(!$user){
+            return redirect(route('auth.admin.signIn'));
+        }
+        $bons = DB::table('bon_livraisons')
+            ->select('bon_livraisons.id_BL', 'bon_livraisons.reference', 'bon_livraisons.id_Cl', 'bon_livraisons.status', 'bon_livraisons.created_at')
+            ->leftJoin('clients', 'bon_livraisons.id_Cl', '=', 'clients.id_Cl')
+            ->select('bon_livraisons.*', 'clients.nomcomplet as client_nomcomplet')
+            ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as colis_count'))
+            ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as total_prix'))
+            ->get();
+    // dd($bons);
+        return view('pages.admin.bonLivraison.index',compact("bons"));
+    } 
     public function create()
     {
-        $colis = Colis::query()->where('status','nouveau')->get()->count();
+        $user=session('user');
+        if(!$user){
+            return redirect(route('auth.client.signIn'));
+        }
+
+        $colis = Colis::query()->where('id_BL',null)->where('id_Cl',$user['id_Cl'])->get()->count();
         return view('pages.clients.bonLivraison.create',compact("colis"));
-    }    
+    } 
+       
     public function update($id,$id_BL)
     {
         $colis = Colis::where('id', $id)
