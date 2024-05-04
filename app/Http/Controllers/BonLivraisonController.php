@@ -32,12 +32,14 @@ class BonLivraisonController extends Controller
                 return redirect(route('auth.client.signIn'));
             }
         }else{
-            $bonLivraison= BonLivraison::query()->where('id_BL',$id_BL)->with('colis')->first();
-        }
-        
-       
+            $bonLivraison= BonLivraison::query()->with('colis')->where('id_BL',$id_BL)->first();
+            $colisBon= DB::select('select * from colis 
+            inner join villes on villes.id_V = colis.ville_id 
+            where id_BL =?',[$id_BL]);
+            // dd($colisBon)  ;
 
-        return view('pages.clients.bonLivraison.index',compact("colis", "bonLivraison"));
+        }
+        return view('pages.clients.bonLivraison.index',compact("colis", "bonLivraison",'colisBon'));
     }
     public function create()
     {
@@ -48,6 +50,12 @@ class BonLivraisonController extends Controller
     {
         $colis = Colis::where('id', $id)
         ->update(['id_BL' => $id_BL]);
+        return redirect()->route('bon.livraison.index',$id_BL);
+    }    
+    public function updateDelete($id,$id_BL)
+    {
+        $colis = Colis::where('id', $id)
+        ->update(['id_BL' => null]);
         return redirect()->route('bon.livraison.index',$id_BL);
     }    
 }

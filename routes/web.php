@@ -121,6 +121,7 @@ Route::group(['prefix' => 'bon-livraison'], function () {
     Route::post('/store', [BonLivraisonController::class, 'store'])->name('bon.livraison.store');
     Route::get('/edit/{id}', [BonLivraisonController::class, 'edit'])->name('bon.livraison.edit');
     Route::get('/update/{id}/bl/{id_BL}', [BonLivraisonController::class, 'update'])->name('bon.livraison.update');
+    Route::get('/updateDelete/{id}/bl/{id_BL}', [BonLivraisonController::class, 'updateDelete'])->name('bon.livraison.updateDelete');
     Route::delete('/destroy/{id}', [BonLivraisonController::class, 'destroy'])->name('bon.livraison.destroy');
 });
 

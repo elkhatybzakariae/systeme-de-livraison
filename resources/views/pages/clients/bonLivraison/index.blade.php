@@ -79,16 +79,16 @@
           </tr>
         </thead>
         <tbody>
-          @dd($bonLivraison->)
-          @foreach ($bonLivraison->colis as $item )
+          {{-- @dd($bonLivraison->colis) --}}
+          @foreach ($colisBon as $item )
             <tr id="new-parcel-Autedelenitidelect" role="row" class="odd">
               <td><b>{{ $item->code_d_envoi }}</b></td>
               <td>{{ $item->destinataire }}</td>
               <td>{{ $item->created_at }}</td>
               <td>{{ $item->prix }}</td>
-              <td>{{ $item->ville->villename }}</td>
+              <td>{{ $item->villename }}</td>
               <td>
-                <a href="" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                <a href="{{ route('bon.livraison.updateDelete',['id'=>$item->id,'id_BL'=>$bonLivraison->id_BL]) }}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
               </td>
             </tr>
           @endforeach
