@@ -627,7 +627,7 @@
                 <!--begin:Menu link-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="">
+                    <a class="menu-link" href="{{route('newuser')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                             <span class="svg-icon svg-icon-2">

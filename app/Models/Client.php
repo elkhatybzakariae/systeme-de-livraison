@@ -14,7 +14,7 @@ class Client extends Authenticatable
     public $incrementing = false;
     public $timestamps = true;
     protected $fillable = ['id_Cl','nommagasin','nomcomplet','typeentreprise','cin','email','Phone'
-    ,'ville','villeRamassage','adress','siteweb','nombanque','numerocompte','isAdmin','password'];
+    ,'ville','villeRamassage','adress','siteweb','nombanque','numerocompte','isAdmin','user','valider','password'];
     public function produit()
     {
         return $this->hasMany(Produit::class,'id_Pro');

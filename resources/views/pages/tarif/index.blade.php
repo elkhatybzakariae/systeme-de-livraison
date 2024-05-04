@@ -213,6 +213,14 @@
                                                 data-kt-ecommerce-product-filter="delete_row" value="Delete">
                                         </form>
                                     </div>
+                                    <div class="menu-item px-3">
+                                        <form action="{{ route('tarif.destroy', $tarif->id_Tar) }}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <input type="submit" class="menu-link px-3 btn text-danger"
+                                                data-kt-ecommerce-product-filter="delete_row" value="Delete">
+                                        </form>
+                                    </div>
                                 </div>
                             </td>
 

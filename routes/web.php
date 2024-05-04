@@ -48,8 +48,9 @@ Route::controller(ClientController::class)->prefix('clients')->group(function ()
     Route::get('/new-user',  'newuser')->name('newuser');
     Route::post('/store/new-user',  'storenewuser')->name('newuser.store');
     Route::put('/update/user/{id}',  'updatenewuser')->name('newuser.update');
-    Route::put('/update/etat/user/{id}',  'updateetatnewuser')->name('newuser.etat.update');
-    Route::deete('/delete/user/{id}',  'deletenewuser')->name('newuser.delete');
+    Route::put('/update/valider/user/{id}',  'validernewuser')->name('newuser.valider.update');
+    Route::put('/update/nonvalider/user/{id}',  'nonvalidernewuser')->name('newuser.nonvalider.update');
+    Route::delete('/delete/user/{id}',  'deletenewuser')->name('newuser.delete');
 
     });
 
