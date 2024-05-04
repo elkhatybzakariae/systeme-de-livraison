@@ -36,13 +36,12 @@ class ClientController extends Controller
             'numerocompte' => 'nullable|string|max:50',
             'password' => 'required|string|min:8',
         ]);
-        $validation['id_Cl']=$id_Cl;
-        $validation['isAdmin']=1;
-        $validation['password']=Hash::make($validation['password']);
+        $validation['id_Cl'] = $id_Cl;
+        $validation['isAdmin'] = 1;
+        $validation['password'] = Hash::make($validation['password']);
         if ($request->password === $request->confirmpassword) {
             $newclient = Client::create($validation);
             return back()->with('success', 'Nous avons bien reçu votre demande de création de compte. Nous vous contacterons ultérieurement.');
-
         } else {
             return redirect()->route('auth.client.signUp');
         }
@@ -78,7 +77,78 @@ class ClientController extends Controller
 
     public function newuser()
     {
-        return view('auth.client.sign-up');
+        $users = Client::where('user', Auth::id())->get();
+        return view('pages.clients.users.index', compact('users'));
     }
+    public function storenewuser(Request $request)
+    {
+        $id_Cl = Helpers::generateIdCl();
+        $id_Mag = Auth::id();
+        $validation = $request->validate([
+            'nomcomplet' => 'required|string|max:50',
+            'email' => 'required|email|max:50',
+            'password' => 'required|string|min:8',
+        ]);
+        $validation['id_Cl'] = $id_Cl;
+        $validation['isAdmin'] = 0;
+        $validation['user'] = $id_Mag;
+        $validation['nommagasin'] = '-';
+        $validation['typeentreprise'] = '-';
+        $validation['cin'] = '-';
+        $validation['ville'] = '-';
+        $validation['adress'] = '-';
+        $validation['password'] = Hash::make($validation['password']);
+        Client::create($validation);
+        return back()->with('success', ' ');
+    }
+    public function updatenewuser(Request $request, Client $client)
+    {
+        $validation = $request->validate([
+            'nomcomplet' => 'required|string|max:50',
+            'email' => 'required|email|max:50',
+            'password' => 'required|string|min:8',
+        ]);
 
+        $validation['password'] = Hash::make($validation['password']);
+
+        $client->update($validation);
+        return back()->with('success', ' ');
+    }
+    public function validernewuser($id)
+    {
+        $client = Client::find($id);
+
+        if ($client) {
+            $client->update([
+                'valider' => 1,
+            ]);
+
+            // Success message (consider using a more descriptive message)
+            return back()->with('success', 'Client updated successfully!');
+        } else {
+            // Handle case where Client with the provided ID is not found
+            return back()->with('error', 'Client not found!');
+        }
+    }
+    public function nonvalidernewuser($id)
+    {
+        $client = Client::find($id);
+
+        if ($client) {
+            $client->update([
+                'valider' => 0,
+            ]);
+
+            // Success message (consider using a more descriptive message)
+            return back()->with('success', 'Client updated successfully!');
+        } else {
+            // Handle case where Client with the provided ID is not found
+            return back()->with('error', 'Client not found!');
+        }
+    }
+    public function deletenewuser($id)
+    {
+        Client::find($id)->delete();
+        return back()->with('success', ' ');
+    }
 }

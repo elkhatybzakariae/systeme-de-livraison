@@ -118,7 +118,7 @@
               </a>
               <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
                 <div class="menu-item px-3">
-                  <a onclick="openModal('{{ $zone->zonename }}','{{ route('zone.update',$zone->id_Z) }}')"data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"
+                  <a onclick="openModal('{{ $zone->zonename }}','{{ route('zone.update',$zone->id_Z) }}')" data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"
                      class="menu-link px-3">Edit</a>
                 </div>
                 <div class="menu-item px-3">
