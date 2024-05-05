@@ -10,6 +10,7 @@ class Colis extends Model
     use HasFactory;
 
     protected $table='colis';
+    protected $keyType='string';
     protected $primaryKey = 'id';
     public $incrementing = false;
     public $timestamps = true;

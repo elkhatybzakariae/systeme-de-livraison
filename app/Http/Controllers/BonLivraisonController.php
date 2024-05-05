@@ -56,6 +56,11 @@ class BonLivraisonController extends Controller
             ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as total_prix'))
             ->get();
     // dd($bons);
+
+        $breads = [
+            ['title' => 'Liste des Bon Livraison', 'url' => null],
+            ['text' => 'home', 'url' => route('home')], // You can set the URL to null for the last breadcrumb
+        ];
         return view('pages.admin.bonLivraison.index',compact("bons"));
     } 
     public function create()
@@ -84,6 +89,149 @@ class BonLivraisonController extends Controller
     }  
      
     
+    public function generateFacture ($id) {
+        // Create a new Dompdf instance
+        $dompdf = new Dompdf();
+    
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
+        $bon=BonLivraison::where('id_BL',$id)->first();
+        $colis=Colis::query()->where('id_BL',$id)->get();
+        // dd($colis);
+        // Set options
+        $dompdf->setOptions($options);
+        $html = '<html>
+
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <meta http-equiv="Content-Style-Type" content="text/css" />
+            <meta name="generator" content="Aspose.Words for .NET 24.4.0" />
+            <title></title>
+            <style type="text/css">
+                body {
+                    font-family: "Times New Roman";
+                    font-size: 12pt
+                }
+        
+                p {
+                    margin: 0pt
+                }
+            </style>
+        </head>
+        
+        <body>
+            <div style="border: 1px solid black;">
+                <div style="display: grid;grid-template-columns: auto auto;">
+                    <div>
+                        <div style=" margin: 10px; padding: 10px;">
+                            <span>Vendeur:</span>
+                            <span>CarolThompson</span><br>
+                            <span>Date:</span>
+                            <span>2024-05-04 16:02</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="margin: 10px; padding: 10px;">Livraison</div>
+                    </div>
+                </div>
+                <table cellspacing="0" cellpadding="0"
+                    style="border:1pt solid #000000; width: 100%; -aw-border:0.5pt single; -aw-border-insideh:0.5pt single #000000; -aw-border-insidev:0.5pt single #000000; border-collapse:collapse">
+                    <tr style="height:15.6pt; -aw-height-rule:exactly">
+                        <td
+                            style="width:36pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single; -aw-border-right:0.5pt single">
+                            <p style="font-size:8pt"><span style="font-family:Calibri">Destinataire</span></p>
+                        </td>
+                        <td
+                            style="width:105.75pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single; -aw-border-left:0.5pt single; -aw-border-right:0.5pt single">
+                            <p style="font-size:8pt"><span style="font-family:Calibri">Fiiiiiiiiii</span></p>
+                        </td>
+                    </tr>
+                    <tr style="height:18.65pt; -aw-height-rule:exactly">
+                        <td
+                            style="width:36pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single; -aw-border-right:0.5pt single; -aw-border-top:0.5pt single">
+                            <p style="font-size:8pt"><span style="font-family:Calibri">Telephone</span></p>
+                        </td>
+                        <td
+                            style="width:82.35pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
+                            <p style="font-size:8pt"><span style="font-family:Calibri">0777777777</span></p>
+                        </td>
+                    </tr>
+                    <tr style="height:18.2pt; -aw-height-rule:exactly">
+                        <td
+                            style="width:36pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single; -aw-border-right:0.5pt single; -aw-border-top:0.5pt single">
+                            <p style="font-size:8pt"><span style="font-family:Calibri">Adresse</span></p>
+                        </td>
+                        <td
+                            style="width:105.75pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
+                            <p style="font-size:8pt"><span style="font-family:Calibri">kkkkkkkk</span></p>
+                        </td>
+                    </tr>
+                    <tr style="height:18.2pt; -aw-height-rule:exactly">
+                        <td
+                            style="width:36pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single; -aw-border-right:0.5pt single; -aw-border-top:0.5pt single">
+                            <p style="font-size:8pt"><span style="font-family:Calibri">Ville</span></p>
+                        </td>
+                        <td
+                            style="width:105.75pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
+                            <p style="font-size:8pt"><span style="font-family:Calibri">fes</span></p>
+                        </td>
+                    </tr>
+                    <tr style="height:18.2pt; -aw-height-rule:exactly">
+                        <td
+                            style="width:36pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single; -aw-border-right:0.5pt single; -aw-border-top:0.5pt single">
+                            <p style="font-size:8pt"><span style="font-family:Calibri">Commentaire</span></p>
+                        </td>
+                        <td
+                            style="width:105.75pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
+                            <p style="font-size:8pt"><span style="font-family:Calibri">ccccccccccc</span></p>
+                        </td>
+                    </tr>
+                    <tr style="height:18.2pt; -aw-height-rule:exactly">
+                        <td
+                            style="width:36pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single; -aw-border-right:0.5pt single; -aw-border-top:0.5pt single">
+                            <p style="font-size:8pt"><span style="font-family:Calibri">Produit</span></p>
+                        </td>
+                        <td
+                            style="width:105.75pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
+                            <p style="font-size:8pt"><span style="font-family:Calibri">llllllllllll</span></p>
+                        </td>
+                    </tr>
+                    <tr style="height:18.2pt; -aw-height-rule:exactly">
+                        <td
+                            style="width:36pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single; -aw-border-right:0.5pt single; -aw-border-top:0.5pt single">
+                            <p style="font-size:8pt"><span style="font-family:Calibri">Ouvrir</span></p>
+                        </td>
+                        <td
+                            style="width:105.75pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
+                            <p style="font-size:8pt"><span style="font-family:Calibri">non</span></p>
+                        </td>
+                    </tr>
+                    <tr style="height:18.2pt; -aw-height-rule:exactly">
+                        <td
+                            style="width:36pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single; -aw-border-right:0.5pt single; -aw-border-top:0.5pt single">
+                            <p style="font-size:8pt"><span style="font-family:Calibri">Crbt :</span></p>
+                        </td>
+                        <td
+                            style="width:105.75pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
+                            <p style="font-size:8pt"><span style="font-family:Calibri">632 Dhs</span></p>
+                        </td>
+                    </tr>
+                </table> <br>
+            </div>
+        </body>
+        
+        </html>';
+
+        // Load HTML content into Dompdf
+        $dompdf->loadHtml($html);
+        // dd($dompdf);
+        // Render the PDF
+        $dompdf->render();
+    
+        // Output the generated PDF to the browser
+        return $dompdf->stream('sample_pdf_with_details.pdf');
+    }
     public function generateStikers ($id) {
         // Create a new Dompdf instance
         $dompdf = new Dompdf();
