@@ -59,9 +59,9 @@ class BonLivraisonController extends Controller
 
         $breads = [
             ['title' => 'Liste des Bon Livraison', 'url' => null],
-            ['text' => 'home', 'url' => route('home')], // You can set the URL to null for the last breadcrumb
+            ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.bonLivraison.index',compact("bons"));
+        return view('pages.admin.bonLivraison.index',compact("bons",'breads'));
     } 
     public function create()
     {

@@ -47,7 +47,7 @@
               
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="{{ route('home') }}">
+                        <a class="menu-link {{ request()->routeIs('admin.index') ?'active':'' }}" href="{{ route('admin.index') }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                                 <span class="svg-icon svg-icon-2">
@@ -258,7 +258,7 @@
                 <!--begin:Menu link-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{ route('bon.livraison.list') }}">
+                    <a class="menu-link {{ request()->routeIs('bon.livraison.list') ?'active':'' }}" href="{{ route('bon.livraison.list') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -501,7 +501,7 @@
                 <!--begin:Menu link-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('reclamation.all')}}">
+                    <a class="menu-link {{ request()->routeIs('reclamation.all') ?'active':'' }}" href="{{route('reclamation.all')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -589,7 +589,7 @@
                 <!--begin:Menu link-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('newclients')}}">
+                    <a class="menu-link {{ request()->routeIs('newclients') ?'active':'' }}" href="{{route('newclients')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -633,7 +633,7 @@
                 <!--begin:Menu link-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('newlivreurs')}}">
+                    <a class="menu-link {{ request()->routeIs('newlivreurs') ?'active':'' }}" href="{{route('newlivreurs')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -656,7 +656,7 @@
                 <div class="menu-item">
                     <!--begin:Menu link-->
 
-                    <a class="menu-link" href="{{ route('depense.index') }}">
+                    <a class="menu-link {{ request()->routeIs('depense.index') ?'active':'' }}" href="{{ route('depense.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -675,7 +675,7 @@
                 <!--end:Menu sub-->
 
                 <!--begin:Menu link-->
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('villes.index')||request()->routeIs('zone.index')||request()->routeIs('tarif.index')||request()->routeIs('option.index') ?'show':'' }} ">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -709,7 +709,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="{{ route('villes.index') }}">
+                            <a class="menu-link {{ request()->routeIs('villes.index') ?'active':'' }}" href="{{ route('villes.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -734,7 +734,7 @@
                         <div class="menu-item">
                             <!--begin:Menu link-->
 
-                            <a class="menu-link" href="{{ route('tarif.index') }}">
+                            <a class="menu-link {{ request()->routeIs('tarif.index') ?'active':'' }}" href="{{ route('tarif.index') }}">
 
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
@@ -747,7 +747,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="{{ route('zone.index') }}">
+                            <a class="menu-link {{ request()->routeIs('zone.index') ?'active':'' }}" href="{{ route('zone.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -759,7 +759,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="{{ route('option.index') }}">
+                            <a class="menu-link {{ request()->routeIs('option.index') ?'active':'' }}" href="{{ route('option.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
