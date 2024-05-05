@@ -59,13 +59,13 @@
           <tr>
             <td>
               <div class="form-check form-check-sm form-check-custom form-check-solid">
-                <input class="form-check-input" type="checkbox" value="{{ $coli->id_C }}" />
+                <input class="form-check-input" type="checkbox" value="{{ $coli->id }}" />
               </div>
             </td>
             <td>
               <div class="">
                 <div class="ms-5">
-                  <a href="" class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $coli->id_C }}</a>
+                  <a href="" class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $coli->id }}</a>
                 </div>
               </div>
             </td>
@@ -103,10 +103,10 @@
               </a>
               <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
                 <div class="menu-item px-3">
-                  <a onclick="openModal('{{ $coli->villename }}','{{ $coli->zonename }}','{{ $coli->ref }}','{{ route('colis.update',$coli->id_C) }}')" data-bs-toggle="modal" data-bs-target="#kt_modal_new_target" class="menu-link px-3">Edit</a>
+                  <a onclick="openModal('{{ $coli->villename }}','{{ $coli->zonename }}','{{ $coli->ref }}','{{ route('colis.update',$coli->id) }}')" data-bs-toggle="modal" data-bs-target="#kt_modal_new_target" class="menu-link px-3">Edit</a>
                 </div>
                 <div class="menu-item px-3">
-                  <form action="{{ route('colis.destroy',$coli->id_C) }}" method="POST">
+                  <form action="{{ route('colis.destroy',$coli->id) }}" method="POST">
                     @method('DELETE')
                     @csrf
                     <input type="submit" class="menu-link px-3 btn text-danger" data-kt-ecommerce-product-filter="delete_row" value="delete">
