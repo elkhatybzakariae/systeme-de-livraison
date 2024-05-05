@@ -112,7 +112,7 @@
         </div>
 
         <div class="col-6">
-          <a class="btn btn-block btn-primary w-100" target="_blank" href=""><i class="fa fa-ticket"></i> Etiqueteuse</a>
+          <a class="btn btn-block btn-primary w-100" target="_blank" href="{{ route('generate.etiqueteuse',$bonLivraison->id_BL) }}"><i class="fa fa-ticket"></i> Etiqueteuse</a>
 
         </div>
         <div class="col-6">
