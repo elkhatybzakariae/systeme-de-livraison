@@ -14,6 +14,6 @@ class Admin extends Authenticatable
     public $incrementing = false;
     public $timestamps = true;
     protected $fillable = ['id_Ad','nommagasin','nomcomplet','email','Phone','ville','adress'
-    ,'nombanque','numerocompte','isAdmin','password'];
+    ,'nombanque','numerocompte','isAdmin','password','cin','user','photo','cinrecto','cinverso','RIB'];
 
 }

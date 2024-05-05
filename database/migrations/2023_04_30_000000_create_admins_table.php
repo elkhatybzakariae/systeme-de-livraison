@@ -13,16 +13,24 @@ return new class extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->string('id_Ad')->primary();
-            $table->string('nommagasin');
+            $table->string('nommagasin')->nullable();
             $table->string('nomcomplet');
             $table->string('email')->unique();
             $table->string('Phone')->nullable();
+            $table->string('cin')->nullable();
             $table->string('ville');
             $table->string('adress');
             $table->string('nombanque')->nullable();
             $table->string('numerocompte')->nullable();
             $table->boolean('isAdmin')->default(0);
             $table->string('password');
+            $table->string('user')->nullable();
+            $table->foreign('user')->references('id_Ad')->on('admins');
+            $table->boolean('valider')->default(0);
+            $table->string('photo')->nullable();
+            $table->string('cinrecto')->nullable();
+            $table->string('cinverso')->nullable();
+            $table->string('RIB')->nullable();
             $table->timestamps();
         });
     }
