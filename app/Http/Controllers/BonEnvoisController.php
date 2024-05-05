@@ -276,71 +276,31 @@ class BonEnvoisController extends Controller
         // dd($colis);
         // Set options
         $dompdf->setOptions($options);
-        $html = '
-            <!DOCTYPE html>
-            <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Colis Sticker</title>
-                    <link href="../../../public/storage/assets/home-page/css/bootstrap.min.css" />
-                    <style>
-                        .sticker {
-                            width: 650px;
-                            height: 450px;
-                            background-color: #fff;
-                            border: 1px solid #000;
-                            border-radius: 5px;
-                            padding: 10px;
-                            box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-                            font-family: sans-serif;
-                            font-size: 14px; 
-                        }
-                        
-                        .sticker .info {
-                            display: flex;
-                            flex-wrap: wrap;
-                        }
-                        .sticker .info span {
-                            margin-right: 10px;
-                        }
-                        .sticker .commentaire {
-                            font-style: italic;
-                        }
-                        td {
-                            border: #000 2px solid;
-                        }
-                        .sticker .barcode {
-                            text-align: center;
-                        }
-                        .row {
-                            display: flex;
-                            flex-wrap: wrap;
-                            margin-right: -15px;
-                            margin-left: -15px;
-                        }
-                        .col-4 {
-                            flex: 0 0 33.333333%;
-                            max-width: 33.333333%;
-                            padding-right: 15px;
-                            padding-left: 15px;
-                        }
-                        .col-8 {
-                            flex: 0 0 66.666667%;
-                            max-width: 66.666667%;
-                            padding-right: 15px;
-                            padding-left: 15px;
-                        }
-                        .table {
-                            display: table;
-                            width: 100%;
-                            max-width: 100%;
-                            margin-bottom: 1rem;
-                            background-color: transparent;
-                        }
-                    </style>
-                </head>
-                <body>';
+        $html = '<html>
+
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <meta http-equiv="Content-Style-Type" content="text/css" />
+            <meta name="generator" content="Aspose.Words for .NET 24.4.0" />
+            <title></title>
+            <style type="text/css">
+                body {
+                    font-family: "Times New Roman";
+                    font-size: 12pt
+                }
+        
+                p {
+                    margin: 0pt
+                }
+        
+                table {
+                    margin-top: 0pt;
+                    margin-bottom: 0pt
+                }
+            </style>
+        </head>
+        
+        <body>';
 
                 foreach ($colis as $c) {
                     $html .= '
