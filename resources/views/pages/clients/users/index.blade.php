@@ -169,7 +169,7 @@
                             <!--begin::Action=-->
                             <td class="row">
                                 <div class="menu-item px-3 col-4">
-                                    <a onclick="openModal('{{ $item->nomcomplet }}','{{ $item->email }}','{{ $item->password }}','{{ route('newuser.update', $item->id_Cl) }}')"
+                                    <a onclick="openModal('{{ $item->nomcomplet }}','{{ $item->email }}','{{ route('newuser.update', $item->id_Cl) }}')"
                                         data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"
                                         class="menu-link px-3"><i class="fa fa-edit"></i></a>
                                 </div>
@@ -346,11 +346,13 @@
 
 
         // }
-        function openModal(nomcomplet, email, password, actionUrl = "{{ route('newuser.store') }}") {
+        function openModal(nomcomplet, email, actionUrl = "{{ route('newuser.store') }}") {
             // Set the zone name input value
             document.getElementById('nomcomplet').value = nomcomplet;
+            document.getElementById('nomcomplet').readOnly = true;
+            document.getElementById('email').readOnly = true;
             document.getElementById('email').value = email;
-            document.getElementById('password').value = password;
+            document.getElementById('kt_modal_new_target_cancel').style.display = 'none';
 
 
             document.getElementById('kt_modal_new_user_form').action = actionUrl;

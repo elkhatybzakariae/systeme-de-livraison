@@ -101,18 +101,18 @@ class ClientController extends Controller
         Client::create($validation);
         return back()->with('success', ' ');
     }
-    public function updatenewuser(Request $request, Client $client)
+    public function updatenewuser(Request $request, $id)
     {
+        $client = Client::find($id);
+
         $validation = $request->validate([
-            'nomcomplet' => 'required|string|max:50',
-            'email' => 'required|email|max:50',
             'password' => 'required|string|min:8',
         ]);
 
         $validation['password'] = Hash::make($validation['password']);
 
         $client->update($validation);
-        return back()->with('success', ' ');
+        return back()->with('success', 'Client mis à jour avec succès !');
     }
     public function validernewuser($id)
     {
