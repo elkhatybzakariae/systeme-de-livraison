@@ -10,7 +10,9 @@ class BonLivraison extends Model
 {
     use HasFactory;
     protected $primaryKey='id_BL';
+    public $incrementing=false;
     protected $keyType='string';
+    public $timestamps=false;
 
     protected $fillable = ['id_BL','reference','status','id_Cl'];
     public function colis()

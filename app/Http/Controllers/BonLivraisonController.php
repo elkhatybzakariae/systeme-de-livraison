@@ -36,9 +36,9 @@ class BonLivraisonController extends Controller
             $colisBon= DB::select('select * from colis 
             inner join villes on villes.id_V = colis.ville_id 
             where id_BL =?',[$id_BL]);
-            // dd($colisBon)  ;
-
+            
         }
+        // dd($bonLivraison)  ;
         // dd($colis,$colisBon);
         $breads = [
             ['title' => 'créer un Bon Livraison', 'url' => null],
@@ -59,7 +59,6 @@ class BonLivraisonController extends Controller
             ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as colis_count'))
             ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as total_prix'))
             ->get();
-    // dd($bons);
 
         $breads = [
             ['title' => 'Liste des Bon Livraison', 'url' => null],
