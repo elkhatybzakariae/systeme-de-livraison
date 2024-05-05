@@ -10,12 +10,20 @@ class NewClientController extends Controller
     public function newclients()
     {
         $list= Client::where('isAccepted',0)->get();
-        return view('pages.admin.clients.newclients',compact('list'));
+        $breads = [
+            ['title' => 'Liste des nouveaux client', 'url' => null],
+            ['text' => 'Nouveaux Clients', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.admin.clients.newclients',compact('list','breads'));
     }
     public function profile($id)
     {
         $client= Client::find($id);
-        return view('pages.admin.clients.profile',compact('client'));
+        $breads = [
+            ['title' => 'Modifier Profile', 'url' => null],
+            ['text' => 'Profile', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.admin.clients.profile',compact('client','breads'));
     }
     public function accept(Request $request,$id)
     {

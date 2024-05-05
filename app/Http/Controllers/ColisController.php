@@ -14,26 +14,41 @@ class ColisController extends Controller
     public function index()
     {
         $colis = Colis::query()->whereNot('status','nouveau')->get();
-        return view('pages.clients.colis.index', compact('colis'));
+        $breads = [
+            ['title' => 'Liste des Colis', 'url' => null],
+            ['text' => 'Colis', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.clients.colis.index', compact('colis','breads'));
     }
     public function indexAdmin()
     {
         $colis = Colis::query()->whereNot('status','nouveau')->get();
-        return view('pages.admin.colis.index', compact('colis'));
+        $breads = [
+            ['title' => 'Liste des Colis', 'url' => null],
+            ['text' => 'Colis', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.admin.colis.index', compact('colis','breads'));
     }
     public function indexRamassage()
     {
         $colis = Colis::query()->where('status','nouveau')->get();
+        $breads = [
+            ['title' => 'Liste des Colis', 'url' => null],
+            ['text' => 'Colis', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
 
-        return view('pages.clients.colis.indexRamassage', compact('colis'));
+        return view('pages.clients.colis.indexRamassage', compact('colis','breads'));
     }
 
     public function create()
     {
         $villes=Ville::all();
         $zones=Zone::all();
-
-        return view('pages.clients.colis.create',compact('zones','villes'));
+        $breads = [
+            ['title' => 'Nouveau Colis', 'url' => null],
+            ['text' => 'Nouveau Colis', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.clients.colis.create',compact('zones','villes','breads'));
     }
 
     public function store(Request $request)
@@ -53,7 +68,7 @@ class ColisController extends Controller
             'ovrire' => 'nullable|boolean',
             'colis_a_remplacer' => 'nullable|boolean',
         ]);
-        $validatedData['id_C']=Helpers::generateIdC();
+        $validatedData['id']=Helpers::generateIdC();
         $validatedData['id_Cl']=session('user')['id_Cl'];
         // $validatedData['id_Cl']=session('user')['id_Cl'];
         // dd($validatedData);
@@ -94,7 +109,11 @@ class ColisController extends Controller
 
     public function edit(Colis $colis)
     {
-        return view('pages.clients.colis.edit', compact('colis'));
+        $breads = [
+            ['title' => 'Liste des Colis', 'url' => null],
+            ['text' => 'Colis', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.clients.colis.edit', compact('colis','breads'));
     }
 
 

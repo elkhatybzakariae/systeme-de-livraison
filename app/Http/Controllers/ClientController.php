@@ -12,7 +12,11 @@ class ClientController extends Controller
 {
     public function index()
     {
-        return view('pages.clients.dashboard');
+        $breads = [
+            ['title' => 'Tableau de bord', 'url' => null],
+            ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.clients.dashboard',compact('breads'));
     }
     public function signuppage()
     {
@@ -78,7 +82,11 @@ class ClientController extends Controller
     public function newuser()
     {
         $users = Client::where('user', Auth::id())->get();
-        return view('pages.clients.users.index', compact('users'));
+        $breads = [
+            ['title' => 'Liste de utilisateurs', 'url' => null],
+            ['text' => 'Utilisateurs', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.clients.users.index', compact('users','breads'));
     }
     public function storenewuser(Request $request)
     {

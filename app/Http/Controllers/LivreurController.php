@@ -12,6 +12,10 @@ class LivreurController extends Controller
 {
     public function index()
     {
+        $breads = [
+            ['title' => 'Taleau de bord', 'url' => null],
+            ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
         return view('pages.livreur.dashboard');
     }
     public function signuppage()

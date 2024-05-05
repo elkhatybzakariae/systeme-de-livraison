@@ -1,4 +1,8 @@
 @extends('layouts.client.admin')
+@section('breads')
+<x-breadcrumb :breads="$breads" />
+
+@endsection
 @section('content')
  
   <div class="container-fluid">

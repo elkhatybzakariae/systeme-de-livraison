@@ -40,7 +40,11 @@ class BonLivraisonController extends Controller
 
         }
         // dd($colis,$colisBon);
-        return view('pages.clients.bonLivraison.index',compact("colis", "bonLivraison",'colisBon'));
+        $breads = [
+            ['title' => 'créer un Bon Livraison', 'url' => null],
+            ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.clients.bonLivraison.index',compact("colis", "bonLivraison",'colisBon','breads'));
     }
     public function list()
     {
@@ -69,9 +73,12 @@ class BonLivraisonController extends Controller
         if(!$user){
             return redirect(route('auth.client.signIn'));
         }
-
+        $breads = [
+            ['title' => 'Creér un Bon Livraison', 'url' => null],
+            ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
         $colis = Colis::query()->where('id_BL',null)->where('id_Cl',$user['id_Cl'])->get()->count();
-        return view('pages.clients.bonLivraison.create',compact("colis"));
+        return view('pages.clients.bonLivraison.create',compact("colis",'breads'));
     } 
        
     public function update($id,$id_BL)

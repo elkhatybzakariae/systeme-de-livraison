@@ -16,7 +16,11 @@ class TarifController extends Controller
         $tarifs = tarif::query()->with('villle', 'villleRamassage')->get();
 
         $villes = Ville::all();
-        return view('pages.tarif.index', compact('tarifs', 'villes'));
+        $breads = [
+            ['title' => 'Liste des Tarifs', 'url' => null],
+            ['text' => 'Tarifs', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.tarif.index', compact('tarifs', 'villes','breads'));
     }
 
 
