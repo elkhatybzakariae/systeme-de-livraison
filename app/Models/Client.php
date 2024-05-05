@@ -12,6 +12,8 @@ class Client extends Authenticatable
     protected $table = 'clients';
     protected $primaryKey = 'id_Cl';
     public $incrementing = false;
+    protected $keyType='string';
+
     public $timestamps = true;
     protected $fillable = ['id_Cl','nommagasin','nomcomplet','typeentreprise','cin','email','Phone'
     ,'ville','villeRamassage','adress','siteweb','nombanque','numerocompte','isAdmin','user','valider','password'];

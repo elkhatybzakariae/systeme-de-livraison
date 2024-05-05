@@ -11,6 +11,8 @@ class Depense extends Model
     protected $table = 'depenses';
     protected $primaryKey = 'id_Dep';
     public $incrementing = false;
+    protected $keyType='string';
+
     public $timestamps = true;
     protected $fillable = ['id_Dep','depense','description','montant','datedep','id_Ad'];
     public function user()

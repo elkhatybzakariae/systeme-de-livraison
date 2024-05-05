@@ -11,6 +11,8 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'users';
+    protected $keyType='string';
+
     protected $primaryKey = 'id_U';
     public $incrementing = false;
     public $timestamps = false;
@@ -52,10 +54,10 @@ class User extends Authenticatable
     //     'email_verified_at' => 'datetime',
     // ];
 
-    public function role()
-    {
-        return $this->belongsTo(Role::class, 'id_R');
-    }
+    // public function role()
+    // {
+    //     return $this->belongsTo(Role::class, 'id_R');
+    // }
     public function depense()
     {
         return $this->hasMany(Depense::class);

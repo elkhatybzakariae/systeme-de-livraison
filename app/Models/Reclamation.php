@@ -10,6 +10,8 @@ class Reclamation extends Model
     use HasFactory;
     protected $table = 'reclamations';
     protected $primaryKey = 'id_Rec';
+    protected $keyType='string';
+
     public $incrementing = false;
     public $timestamps = true;
     protected $fillable = ['id_Rec','objet','etat',

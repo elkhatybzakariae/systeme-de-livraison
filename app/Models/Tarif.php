@@ -10,6 +10,8 @@ class Tarif extends Model
     use HasFactory;
     protected $table = 'tarifs';
     protected $primaryKey = 'id_Tar';
+    protected $keyType='string';
+
     public $incrementing = false;
     public $timestamps = true;
     protected $fillable = ['id_Tar','villeRamassage','ville','prixliv','prixret','prixref','delailiv'];

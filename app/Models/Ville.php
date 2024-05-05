@@ -10,6 +10,8 @@ class Ville extends Model
     use HasFactory;
     protected $table = 'villes';
     protected $primaryKey = 'id_V';
+    protected $keyType='string';
+
     public $incrementing = false;
     public $timestamps = true;
     protected $fillable = ['id_V','ref','villename','statut','id_Z'];
