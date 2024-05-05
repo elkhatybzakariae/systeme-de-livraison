@@ -129,6 +129,7 @@ Route::group(['prefix' => 'depenses','midleware'=>'auth'], function () {
 
 Route::group(['prefix' => 'colis'], function () {
     Route::get('/', [ColisController::class, 'index'])->name('colis.index');
+    Route::get('/admin', [ColisController::class, 'indexAdmin'])->name('colis.indexAdmin');
     Route::get('/ramassage', [ColisController::class, 'indexRamassage'])->name('colis.indexRamassage');
     Route::get('/create', [ColisController::class, 'create'])->name('colis.create');
     Route::post('/store', [ColisController::class, 'store'])->name('colis.store');

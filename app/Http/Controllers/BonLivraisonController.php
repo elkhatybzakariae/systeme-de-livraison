@@ -89,7 +89,7 @@ class BonLivraisonController extends Controller
     }  
      
     
-    public function generateFacture ($id) {
+    public function generateEtiqueteuse ($id) {
         // Create a new Dompdf instance
         $dompdf = new Dompdf();
     
@@ -101,8 +101,7 @@ class BonLivraisonController extends Controller
         // dd($colis);
         // Set options
         $dompdf->setOptions($options);
-        $html = '<html>
-
+         $html = '<html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             <meta http-equiv="Content-Style-Type" content="text/css" />
@@ -411,7 +410,7 @@ class BonLivraisonController extends Controller
         // Output the generated PDF to the browser
         return $dompdf->stream('sample_pdf_with_details.pdf');
     }
-    public function generateEtiqueteuse ($id) {
+    public function generateFacture ($id) {
         // Create a new Dompdf instance
         $dompdf = new Dompdf();
     

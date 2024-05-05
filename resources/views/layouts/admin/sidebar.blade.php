@@ -65,7 +65,7 @@
                     </div>
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="{{ route('colis.index') }}">
+                        <a class="menu-link {{ request()->routeIs('colis.indexAdmin') ?'active':'' }}" href="{{ route('colis.indexAdmin') }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                                 <span class="svg-icon svg-icon-2">

@@ -19,7 +19,7 @@ class ColisController extends Controller
     public function indexAdmin()
     {
         $colis = Colis::query()->whereNot('status','nouveau')->get();
-        return view('pages.clients.colis.index', compact('colis'));
+        return view('pages.admin.colis.index', compact('colis'));
     }
     public function indexRamassage()
     {
