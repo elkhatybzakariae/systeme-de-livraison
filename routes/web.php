@@ -34,6 +34,11 @@ Route::controller(AdminController::class)->prefix('admin')->group(function () {
     Route::post('/login',  'signin')->name('auth.admin.signIn.store');
     Route::get('/signout',  'signout')->name('admin.signout');
 
+    Route::get('/new-user',  'newuser')->name('admin.newuser');
+    Route::post('/store/new-user',  'storenewuser')->name('admin.newuser.store');
+    Route::post('/update/user/{id}',  'updatenewuser')->name('admin.newuser.update');
+    Route::delete('/delete/user/{id}',  'deletenewuser')->name('admin.newuser.delete');
+
 });
 
 Route::controller(ClientController::class)->prefix('clients')->group(function () {

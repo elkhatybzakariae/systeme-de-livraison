@@ -6,6 +6,7 @@ use App\Helpers\Helpers;
 use App\Models\Admin;
 use App\Models\Client;
 use App\Models\Livreur;
+use App\Models\Ville;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -50,6 +51,120 @@ class AdminController extends Controller
         return redirect()->route('auth.admin.signIn');
     }
 
-   
-    
+
+
+    public function newuser()
+    {
+        $users = Admin::where('user', Auth::id())->get();
+        $villes = Ville::all();
+        return view('pages.admin.users.index', compact('users', 'villes'));
+    }
+    public function storenewuser(Request $request)
+    {
+        $id_Ad = Helpers::generateIdAd();
+        $id_A = Auth::id();
+        $validation = $request->validate([
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nomcomplet' => 'required|string|max:50',
+            'cin' => 'required|string|max:50',
+            'email' => 'required|email|max:50',
+            'Phone' => 'nullable|string|max:50',
+            'email' => 'required|email|max:50',
+            'password' => 'required|string|min:8',
+            'ville' => 'required|string|max:150',
+            'adress' => 'required|string|max:150',
+            'nombanque' => 'nullable|string|max:50',
+            'numerocompte' => 'nullable|string|max:50',
+            'cinrecto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'cinverso' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'RIB' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        // dd($validation);
+        if ($request->password === $request->cpassword) {
+            // dd('dd');
+            $photo = $request->file('photo')->store('public/images');
+            $cinrecto = $request->file('cinrecto')->store('public/images');
+            $cinverso = $request->file('cinverso')->store('public/images');
+            $RIB = $request->file('RIB')->store('public/images');
+
+            $validation['photo'] = $photo;
+            $validation['cinverso'] = $cinverso;
+            $validation['cinrecto'] = $cinrecto;
+            $validation['RIB'] = $RIB;
+            $validation['id_Ad'] = $id_Ad;
+            $validation['isAdmin'] = 0;
+            $validation['user'] = $id_A;
+            $validation['password'] = Hash::make($validation['password']);
+            Admin::create($validation);
+
+            return back()->with('success', '');
+        } else {
+            dd('fff');
+            return back()->with('error', '');
+        }
+        // return back()->with('success', ' ');
+    }
+    public function updatenewuser(Request $request, $id)
+    {
+        $admin = Admin::find($id);
+
+        $validation = $request->validate([
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nomcomplet' => 'required|string|max:50',
+            'cin' => 'required|string|max:50',
+            'email' => 'required|email|max:50',
+            'Phone' => 'nullable|string|max:50',
+            'email' => 'required|email|max:50',
+            'password' => 'required|string|min:8',
+            'ville' => 'required|string|max:150',
+            'adress' => 'required|string|max:150',
+            'nombanque' => 'nullable|string|max:50',
+            'numerocompte' => 'nullable|string|max:50',
+            'cinrecto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'cinverso' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'RIB' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $validation['password'] = Hash::make($validation['password']);
+
+        $admin->update($validation);
+        return back()->with('success', 'person mis à jour avec succès !');
+    }
+    // public function validernewuser($id)
+    // {
+    //     $client = Client::find($id);
+
+    //     if ($client) {
+    //         $client->update([
+    //             'valider' => 1,
+    //         ]);
+
+    //         // Success message (consider using a more descriptive message)
+    //         return back()->with('success', 'Client updated successfully!');
+    //     } else {
+    //         // Handle case where Client with the provided ID is not found
+    //         return back()->with('error', 'Client not found!');
+    //     }
+    // }
+    // public function nonvalidernewuser($id)
+    // {
+    //     $client = Client::find($id);
+
+    //     if ($client) {
+    //         $client->update([
+    //             'valider' => 0,
+    //         ]);
+
+    //         // Success message (consider using a more descriptive message)
+    //         return back()->with('success', 'Client updated successfully!');
+    //     } else {
+    //         // Handle case where Client with the provided ID is not found
+    //         return back()->with('error', 'Client not found!');
+    //     }
+    // }
+    public function deletenewuser($id)
+    {
+        Admin::find($id)->delete();
+        return back()->with('success', ' ');
+    }
 }
