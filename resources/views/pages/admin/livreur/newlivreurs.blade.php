@@ -17,7 +17,7 @@
                                             style="width: 864px;">
                                             <thead>
                                                 <tr role="row">
-                                                    <th >User</th>
+                                                    <th >Utilisateur</th>
                                                     <th >Informations</th>
                                                     <th >Actions</th>
                                                 </tr>
