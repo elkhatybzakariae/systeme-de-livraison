@@ -12,7 +12,11 @@ class ZoneController extends Controller
     public function index()
     {
         $zones = Zone::all();
-        return view('pages.zone.index', compact('zones'));
+        $breads = [
+            ['title' => 'Liste des Zones', 'url' => null],
+            ['text' => 'Zones', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.zone.index', compact('zones','breads'));
     }
 
 

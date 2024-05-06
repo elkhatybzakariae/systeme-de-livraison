@@ -10,12 +10,20 @@ class NewLivreurController extends Controller
     public function newlivreurs()
     {
         $list= Livreur::where('isAccepted',0)->get();
-        return view('pages.admin.livreur.newlivreurs',compact('list'));
+        $breads = [
+            ['title' => 'Liste des nouveaux Livreurs', 'url' => null],
+            ['text' => 'Nouveax livreurs', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.admin.livreur.newlivreurs',compact('list','breads'));
     }
     public function profile($id)
     {
         $livreur= Livreur::find($id);
-        return view('pages.admin.livreur.profile',compact('livreur'));
+        $breads = [
+            ['title' => 'Modifier Profile', 'url' => null],
+            ['text' => 'Profile', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.admin.livreur.profile',compact('livreur','breads'));
     }
     public function accept(Request $request,$id)
     {

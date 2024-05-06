@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class BonDistribution extends Model
 {
     use HasFactory;
+    protected $keyType='string';
+
 }

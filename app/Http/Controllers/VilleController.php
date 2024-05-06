@@ -14,7 +14,11 @@ class VilleController extends Controller
     {
         $villes = Ville::all();
         $zones = Zone::all();
-        return view('pages.ville.index', compact('villes', 'zones'));
+        $breads = [
+            ['title' => 'Liste des Villes', 'url' => null],
+            ['text' => 'Villes', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.ville.index', compact('villes', 'zones','breads'));
     }
 
 

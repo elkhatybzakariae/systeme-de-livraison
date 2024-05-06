@@ -13,7 +13,11 @@ class DepenseController extends Controller
     public function index()
     {
         $depenses = Depense::all();
-        return view('pages.depense.index', compact('depenses'));
+        $breads = [
+            ['title' => 'Liste des depenses', 'url' => null],
+            ['text' => 'Depenses', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.depense.index', compact('depenses','breads'));
     }
     public function store(DepenseRequest $request)
     {

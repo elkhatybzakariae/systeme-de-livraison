@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class BonEnvois extends Model
 {
     use HasFactory;
+    protected $keyType='string';
+
 }

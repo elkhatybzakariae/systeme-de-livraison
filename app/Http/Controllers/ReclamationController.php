@@ -23,13 +23,21 @@ class ReclamationController extends Controller
         ->get();
         // dd($recla.mations);
         $messages = Message::whereIn('id_Rec', $reclamations->pluck('id_Rec'))->get();  
-        return view('pages.clients.reclamation.index', compact('reclamations','messages'));
+        $breads = [
+            ['title' => 'Liste des Reclamations', 'url' => null],
+            ['text' => 'Reclamations', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.clients.reclamation.index', compact('reclamations','messages','breads'));
     }
     public function all()
     {
         $reclamations = Reclamation::query()->with('client','message')->get(); 
-        $messages = Message::whereIn('id_Rec', $reclamations->pluck('id_Rec'))->get();   
-        return view('pages.admin.reclamation.index', compact('reclamations','messages'));
+        $messages = Message::whereIn('id_Rec', $reclamations->pluck('id_Rec'))->get(); 
+        $breads = [
+            ['title' => 'Liste des Reclamations', 'url' => null],
+            ['text' => 'Reclamations', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.admin.reclamation.index', compact('reclamations','messages','breads'));
     }
 
     // public function create()

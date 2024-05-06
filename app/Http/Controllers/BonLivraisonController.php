@@ -36,11 +36,15 @@ class BonLivraisonController extends Controller
             $colisBon= DB::select('select * from colis 
             inner join villes on villes.id_V = colis.ville_id 
             where id_BL =?',[$id_BL]);
-            // dd($colisBon)  ;
-
+            
         }
+        // dd($bonLivraison)  ;
         // dd($colis,$colisBon);
-        return view('pages.clients.bonLivraison.index',compact("colis", "bonLivraison",'colisBon'));
+        $breads = [
+            ['title' => 'créer un Bon Livraison', 'url' => null],
+            ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.clients.bonLivraison.index',compact("colis", "bonLivraison",'colisBon','breads'));
     }
     public function list()
     {
@@ -55,7 +59,6 @@ class BonLivraisonController extends Controller
             ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as colis_count'))
             ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as total_prix'))
             ->get();
-    // dd($bons);
 
         $breads = [
             ['title' => 'Liste des Bon Livraison', 'url' => null],
@@ -69,9 +72,12 @@ class BonLivraisonController extends Controller
         if(!$user){
             return redirect(route('auth.client.signIn'));
         }
-
+        $breads = [
+            ['title' => 'Creér un Bon Livraison', 'url' => null],
+            ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
         $colis = Colis::query()->where('id_BL',null)->where('id_Cl',$user['id_Cl'])->get()->count();
-        return view('pages.clients.bonLivraison.create',compact("colis"));
+        return view('pages.clients.bonLivraison.create',compact("colis",'breads'));
     } 
        
     public function update($id,$id_BL)

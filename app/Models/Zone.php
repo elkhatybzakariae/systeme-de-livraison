@@ -9,6 +9,8 @@ class Zone extends Model
 {
     use HasFactory;
     protected $table = 'zones';
+    protected $keyType='string';
+
     protected $primaryKey = 'id_Z';
     public $incrementing = false;
     public $timestamps = true;

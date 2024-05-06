@@ -12,7 +12,11 @@ class LivreurController extends Controller
 {
     public function index()
     {
-        return view('pages.livreur.dashboard');
+        $breads = [
+            ['title' => 'Taleau de bord', 'url' => null],
+            ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.livreur.dashboard',compact('breads'));
     }
     public function signuppage()
     {
@@ -73,7 +77,7 @@ class LivreurController extends Controller
 
                 Auth::login($Livreur);
                 session(["user" => $Livreur]);
-                return redirect()->route('index');
+                return redirect()->route('livreur.index');
             }
         } else {
             return back()->with('error', 'Invalid email or password.');

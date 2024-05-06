@@ -9,6 +9,8 @@ class Produit extends Model
 {
     use HasFactory;
     protected $table = 'produits';
+
+    protected $keyType='string';
     protected $primaryKey = 'id_Pro';
     public $incrementing = false;
     public $timestamps = true;

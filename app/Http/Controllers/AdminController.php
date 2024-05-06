@@ -15,7 +15,11 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view('pages.admin.index');
+        $breads = [
+            ['title' => 'Tableau de bord', 'url' => null],
+            ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.admin.index' ,compact('breads'));
     }
     public function signuppage()
     {
@@ -23,6 +27,7 @@ class AdminController extends Controller
     }
     public function signinpage()
     {
+
         return view('auth.admin.sign-in');
     }
 
@@ -57,7 +62,11 @@ class AdminController extends Controller
     {
         $users = Admin::where('user', Auth::id())->get();
         $villes = Ville::all();
-        return view('pages.admin.users.index', compact('users', 'villes'));
+        $breads = [
+            ['title' => 'liste des nouveaux clients ', 'url' => null],
+            ['text' => 'nouveau client', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.admin.users.index', compact('users', 'villes','breads'));
     }
     public function storenewuser(Request $request)
     {
@@ -69,7 +78,6 @@ class AdminController extends Controller
             'cin' => 'required|string|max:50',
             'email' => 'required|email|max:50',
             'Phone' => 'nullable|string|max:50',
-            'email' => 'required|email|max:50',
             'password' => 'required|string|min:8',
             'ville' => 'required|string|max:150',
             'adress' => 'required|string|max:150',
