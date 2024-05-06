@@ -1,7 +1,6 @@
 @extends('layouts.admin.admin')
 @section('breads')
-<x-breadcrumb :breads="$breads" />
-
+    <x-breadcrumb :breads="$breads" />
 @endsection
 @section('content')
     <div class="modal fade" id="kt_modal_new_target" tabindex="-1" aria-hidden="true">
@@ -24,8 +23,7 @@
                     <form id="kt_modal_new_message_form" method="POST" class="form" action="">
                         @csrf
                         <div class="card-body" id="kt_drawer_chat_messenger_body">
-                            <div class="scroll-y me-n5 pe-5" 
-                                id="show" style="height: 400px" >
+                            <div class="scroll-y me-n5 pe-5" id="show" style="height: 400px">
                             </div>
                         </div>
                         <div class="card-footer pt-4 row" id="kt_drawer_chat_messenger_footer">
@@ -39,12 +37,12 @@
 
                             </div>
                         </div>
-                        
-                  </form>
+
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <div class="card card-flush">
         <div class="card-header align-items-center py-5 gap-2 gap-md-5">
@@ -295,6 +293,5 @@
                 return `${days} day${days !== 1 ? 's' : ''} `;
             }
         }
-
     </script>
 @endsection

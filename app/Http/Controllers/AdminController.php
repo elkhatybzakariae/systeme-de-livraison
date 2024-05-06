@@ -175,4 +175,14 @@ class AdminController extends Controller
         Admin::find($id)->delete();
         return back()->with('success', ' ');
     }
+
+    public function clients()
+    {
+        $users = Client::where('isAdmin', 1)->get();
+        $breads = [
+            ['title' => 'liste des  clients ', 'url' => null],
+            ['text' => 'Clients', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.admin.clients.index', compact('users','breads'));
+    }
 }
