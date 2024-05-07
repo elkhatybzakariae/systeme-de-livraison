@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BonEnvoisController;
 use App\Http\Controllers\BonLivraisonController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ColisController;
@@ -150,12 +151,23 @@ Route::group(['prefix' => 'bon-livraison'], function () {
 });
 Route::group(['prefix' => 'admin/bon-livraisons'], function () {
     Route::get('/', [BonLivraisonController::class, 'list'])->name('bon.livraison.list');
-    Route::get('/create', [BonLivraisonController::class, 'create'])->name('bon.livraison.create');
-    Route::post('/store', [BonLivraisonController::class, 'store'])->name('bon.livraison.store');
-    Route::get('/edit/{id}', [BonLivraisonController::class, 'edit'])->name('bon.livraison.edit');
-    Route::get('/update/{id}/bl/{id_BL}', [BonLivraisonController::class, 'update'])->name('bon.livraison.update');
-    Route::get('/updateDelete/{id}/bl/{id_BL}', [BonLivraisonController::class, 'updateDelete'])->name('bon.livraison.updateDelete');
-    Route::delete('/destroy/{id}', [BonLivraisonController::class, 'destroy'])->name('bon.livraison.destroy');
+    // Route::get('/create', [BonLivraisonController::class, 'create'])->name('bon.livraison.create');
+    // Route::post('/store', [BonLivraisonController::class, 'store'])->name('bon.livraison.store');
+    // Route::get('/edit/{id}', [BonLivraisonController::class, 'edit'])->name('bon.livraison.edit');
+    // Route::get('/update/{id}/bl/{id_BL}', [BonLivraisonController::class, 'update'])->name('bon.livraison.update');
+    // Route::get('/updateDelete/{id}/bl/{id_BL}', [BonLivraisonController::class, 'updateDelete'])->name('bon.livraison.updateDelete');
+    // Route::delete('/destroy/{id}', [BonLivraisonController::class, 'destroy'])->name('bon.livraison.destroy');
+});
+Route::group(['prefix' => 'admin/bon-envoi'], function () {
+    Route::get('/bon/{id_BE?}', [BonEnvoisController::class, 'index'])->name('bon.envoi.index');
+
+    Route::get('/', [BonEnvoisController::class, 'list'])->name('bon.envoi.list');
+    Route::get('/create', [BonEnvoisController::class, 'create'])->name('bon.envoi.create');
+    Route::post('/store', [BonEnvoisController::class, 'store'])->name('bon.envoi.store');
+    Route::get('/edit/{id}', [BonEnvoisController::class, 'edit'])->name('bon.envoi.edit');
+    Route::get('/update/{id}/bl/{id_BE}', [BonEnvoisController::class, 'update'])->name('bon.envoi.update');
+    Route::get('/updateDelete/{id}/bl/{id_BE}', [BonEnvoisController::class, 'updateDelete'])->name('bon.envoi.updateDelete');
+    Route::delete('/destroy/{id}', [BonEnvoisController::class, 'destroy'])->name('bon.envoi.destroy');
 });
 
 Route::group(['prefix' => 'reclamation'], function () {

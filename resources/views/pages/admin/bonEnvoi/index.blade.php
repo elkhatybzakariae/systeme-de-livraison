@@ -1,4 +1,4 @@
-@extends('layouts.client.admin')
+@extends('layouts.admin.admin')
 @section('breads')
 <x-breadcrumb :breads="$breads" />
 
@@ -49,7 +49,7 @@
             <td>{{ $item->villename }}</td>
             <td>
               
-              <a href="{{ route('bon.livraison.update',['id'=>$item->id,'id_BL'=>$bonLivraison->id_BL]) }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
+              <a href="{{ route('bon.envoi.update',['id'=>$item->id,'id_BE'=>$bonLivraison->id_BE]) }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
             </td>
           </tr>
           @endforeach
@@ -92,7 +92,7 @@
               <td>{{ $item->prix }}</td>
               <td>{{ $item->villename }}</td>
               <td>
-                <a href="{{ route('bon.livraison.updateDelete',['id'=>$item->id,'id_BL'=>$bonLivraison->id_BL]) }}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                <a href="{{ route('bon.envoi.updateDelete',['id'=>$item->id,'id_BE'=>$bonLivraison->id_BE]) }}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
               </td>
             </tr>
           @endforeach
@@ -112,7 +112,7 @@
       <div class="row ">
         <div class="col-6 mb-2">
           {{-- @dd($bonLivraison) --}}
-          <a class="btn btn-block btn-primary w-100" target="_blank" href="{{ route('generate.stikers',$bonLivraison->id_BL) }}"><i class="fa fa-ticket"></i></a>
+          <a class="btn btn-block btn-primary w-100" target="_blank" href="{{ route('generate.stikers',$bonLivraison->id_BE) }}"><i class="fa fa-ticket"></i></a>
         </div>
 
         <div class="col-6">

@@ -1,4 +1,4 @@
-@extends('layouts.client.admin')
+@extends('layouts.admin.admin')
 @section('breads')
 <x-breadcrumb :breads="$breads" />
 
@@ -6,18 +6,21 @@
 @section('content')
 <div class="card">
   <div class="card-header">
-      <h5>Ajouter Bon de livraison<!--5-->
-  </h5></div>
-
-  <div class="card-body">
-
-  </div>
-
-  <div class="card-footer">
-      
-<a class="btn btn-primary" style="display:block;margin:0px auto" href="{{ route('bon.livraison.index') }}"><i class="fa fa-plus"></i> Creer bon de livraison</a>
+      <h5>Ajouter Bon d'envoi </h5></div>
+  <form action="{{ route('bon.envoi.index') }}">
     
-  </div>
+    <div class="card-body">
+        <select name="zone" id="" class="form-select">
+          @foreach ($zones as $item )
+            <option value="{{ $item->id_Z }}">{{ $item->zonename }} ({{ $item->colis_count }})</option>
+          @endforeach
+        </select>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary" style="display:block;margin:0px auto"><i class="fa fa-plus"></i> Creer bon de'envoi</button>
+    </div>
+  </form>
+ 
 
 </div>
 @endsection

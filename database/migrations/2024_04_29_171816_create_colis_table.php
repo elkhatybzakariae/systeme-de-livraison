@@ -34,6 +34,8 @@ return new class extends Migration
 
             $table->string('id_BL')->nullable();
             $table->foreign('id_BL')->on('bon_livraisons')->references('id_BL');
+            $table->string('id_BE')->nullable();
+            $table->foreign('id_BE')->on('bon_envois')->references('id_BE');
 
             $table->timestamps();
 

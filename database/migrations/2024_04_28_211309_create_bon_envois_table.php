@@ -12,14 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bon_envois', function (Blueprint $table) {
-            $table->id();
+           
+            $table->string('id_BE', 15)->primary();
+            $table->string('reference');
+            // $table->string('id_Cl');
+            // $table->foreign('id_Cl')->references('id_Cl')->on('clients');
+            $table->string('id_Liv')->nullable();
+            $table->foreign('id_Liv')->references('id_Liv')->on('livreurs');
+            $table->string('status');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+  
     public function down(): void
     {
         Schema::dropIfExists('bon_envois');
