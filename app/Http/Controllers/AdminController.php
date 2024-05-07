@@ -185,4 +185,32 @@ class AdminController extends Controller
         ];
         return view('pages.admin.clients.index', compact('users','breads'));
     }
+
+    public function getsendSMS(Request $request)
+    {
+        return view('pages.admin.SMS.index');
+
+    }
+    public function sendSMS(Request $request)
+    {
+        $twilio_sid = env('TWILIO_SID');
+        $twilio_token = env('TWILIO_TOKEN');
+        $twilio_phone_number = env('TWILIO_PHONE_NUMBER');
+
+        $client = new Client($twilio_sid, $twilio_token);
+        
+        $message = $client->messages->create(
+            $request->input('to'), // Receiver's phone number
+            [
+                'from' => $twilio_phone_number, // Sender's Twilio phone number
+                'body' => $request->input('text') // Message body
+            ]
+        );
+
+        if ($message->sid) {
+            return response()->json(['message' => 'Message sent successfully'], 200);
+        } else {
+            return response()->json(['error' => 'Failed to send message'], 500);
+        }
+    }
 }
