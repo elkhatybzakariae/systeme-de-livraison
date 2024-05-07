@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+use Twilio\Rest\Client as CL;
+
 class AdminController extends Controller
 {
     public function index()
@@ -197,7 +199,7 @@ class AdminController extends Controller
         $twilio_token = env('TWILIO_TOKEN');
         $twilio_phone_number = env('TWILIO_PHONE_NUMBER');
 
-        $client = new Client($twilio_sid, $twilio_token);
+        $client = new CL($twilio_sid, $twilio_token);
         
         $message = $client->messages->create(
             $request->input('to'), // Receiver's phone number
@@ -208,9 +210,9 @@ class AdminController extends Controller
         );
 
         if ($message->sid) {
-            return response()->json(['message' => 'Message sent successfully'], 200);
+            return back()->with('error', 'Message sent successfully');
         } else {
-            return response()->json(['error' => 'Failed to send message'], 500);
+            return back()->with('error', 'Failed to send message');
         }
     }
 }
