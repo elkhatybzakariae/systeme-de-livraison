@@ -513,7 +513,8 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Reclamatoins</span>
+                        <span class="menu-title">Reclamations</span>
+                        <span class="icon-number">{{ $numberOfItems }}</span>
                     </a>
                     <!--end:Menu link-->
                 </div>

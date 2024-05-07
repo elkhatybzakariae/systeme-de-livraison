@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Reclamation;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -17,8 +18,11 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot()
     {
-        //
+        view()->composer('layouts.admin.sidebar', function ($view) {
+            $numberOfItems = Reclamation::where('etat', 0)->count();
+            $view->with('numberOfItems', $numberOfItems);
+        });
     }
 }
