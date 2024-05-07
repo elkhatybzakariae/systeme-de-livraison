@@ -187,3 +187,7 @@ Route::group(['prefix' => 'messages'], function () {
     Route::post('/update/{id}', [MessageController::class, 'update'])->name('message.update');
     Route::delete('/destroy/{id}', [MessageController::class, 'destroy'])->name('message.destroy');
 });
+Route::get('/sms', [AdminController::class, 'getsendSMS'])->name('message.getsendSMS');
+Route::post('/send-sms', [AdminController::class, 'sendSMS'])->name('message.sendSMS');
+
+
