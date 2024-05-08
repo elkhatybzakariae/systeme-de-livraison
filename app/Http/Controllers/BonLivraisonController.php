@@ -8,6 +8,7 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use TCPDF;
 
 class BonLivraisonController extends Controller
 {
@@ -95,6 +96,7 @@ class BonLivraisonController extends Controller
     }  
      
     
+
     public function generateEtiqueteuse ($id) {
         // Create a new Dompdf instance
         $dompdf = new Dompdf();
@@ -235,8 +237,9 @@ class BonLivraisonController extends Controller
         $dompdf->render();
     
         // Output the generated PDF to the browser
-        return $dompdf->stream('sample_pdf_with_details.pdf');
+        return $dompdf->stream('Ettiquettes-'.$bon->id_BL.'.pdf');
     }
+    
     public function generateStikers ($id) {
         // Create a new Dompdf instance
         $dompdf = new Dompdf();
@@ -414,7 +417,7 @@ class BonLivraisonController extends Controller
         $dompdf->render();
     
         // Output the generated PDF to the browser
-        return $dompdf->stream('sample_pdf_with_details.pdf');
+        return $dompdf->stream('Stikers-'.$bon->id_BL.'.pdf');
     }
     public function generateFacture ($id) {
         // Create a new Dompdf instance
@@ -454,9 +457,9 @@ class BonLivraisonController extends Controller
         
         <body>
             <div style="margin-left: 5px;margin-left: 5px;">
-                <div style=" display: grid;grid-template-columns: auto auto;">
-                    <div class="">Livraison</div>
-                    <div class="">
+                <span>
+                    <span style=" width:300px">Livraison</span>
+                    <span style=" width:300px">
                         <p>LIVRAISON</p>
                         <p>
                             Adresse: SYSTEME GESTION SOCIETE LIVRAISON :<br>
@@ -464,17 +467,17 @@ class BonLivraisonController extends Controller
                             Email: Contact@livraison.com<br>
                             Website: https://livraison.com/
                         </p>
-                    </div>
-                </div>
+                    </span>
+                </span>
                 <hr>
-                <div style=" display: grid;grid-template-columns: auto auto;">
-                    <div style=" border-style: solid; margin: 10px; padding: 10px;">
+                <div >
+                    <div style=" border-style: solid; margin: 10px; padding: 10px; width:400px">
                         <span >Client:</span>
                         <span>CarolThompson</span><br>
                         <span >Téléphone:</span> 
                         <span>+1 (919)584-7463</span>
                     </div>
-                    <div style=" border-style: solid;margin: 10px; padding: 10px;">
+                    <div style=" border-style: solid;margin: 10px; padding: 10px;width:400px">
                         <div class="colis grid-item--full">
                             <span >Bon de livraison:</span>
                             <span>BL-040524-016220-34-264</span>
@@ -518,81 +521,42 @@ class BonLivraisonController extends Controller
                             style="width:83.65pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single; -aw-border-left:0.5pt single">
                             <p style="font-size:8pt"><span style="font-family:Calibri">Crbt</span></p>
                         </td>
-                    </tr>
+                    </tr>';
+                    foreach($colis as $i=>$item){
+
+                    $html .='
                     <tr style="height:18.65pt; -aw-height-rule:exactly">
                         <td
                             style="width:36pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single; -aw-border-right:0.5pt single; -aw-border-top:0.5pt single">
-                            <p style="font-size:8pt"><span style="font-family:Calibri">1</span></p>
+                            <p style="font-size:8pt"><span style="font-family:Calibri">'. $i+1 . '</span></p>
                         </td>
                         <td
                             style="width:105.75pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
-                            <p style="font-size:8pt"><span style="font-family:Calibri">PariaturAliquaEa</span></p>
+                            <p style="font-size:8pt"><span style="font-family:Calibri">'. $item->code_d_envoi . '</span></p>
                         </td>
                         <td
                             style="width:82.35pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
-                            <p style="font-size:8pt"><span style="font-family:Calibri">0777777777</span></p>
+                            <p style="font-size:8pt"><span style="font-family:Calibri">'. $item->telephone . '</</span></p>
                         </td>
                         <td
                             style="width:106.2pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
-                            <p style="font-size:8pt"><span style="font-family:Calibri">khkj</span></p>
+                            <p style="font-size:8pt"><span style="font-family:Calibri">'. $item->ville->villename . '</</span></p>
                         </td>
                         <td
                             style="width:83.65pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single; -aw-border-left:0.5pt single; -aw-border-top:0.5pt single">
-                            <p style="font-size:8pt"><span style="font-family:Calibri">632 Dhs</span></p>
+                            <p style="font-size:8pt"><span style="font-family:Calibri">'. $item->prix . '</ Dhs</span></p>
                         </td>
-                    </tr>
-                    <tr style="height:18.2pt; -aw-height-rule:exactly">
-                        <td
-                            style="width:36pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single; -aw-border-right:0.5pt single; -aw-border-top:0.5pt single">
-                            <p style="font-size:8pt"><span style="font-family:Calibri">2</span></p>
-                        </td>
-                        <td
-                            style="width:105.75pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
-                            <p style="font-size:8pt"><span style="font-family:Calibri">sfa</span></p>
-                        </td>
-                        <td
-                            style="width:82.35pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
-                            <p style="font-size:8pt"><span style="font-family:Calibri">0777777777</span></p>
-                        </td>
-                        <td
-                            style="width:106.2pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
-                            <p style="font-size:8pt"><span style="font-family:Calibri">khkj</span></p>
-                        </td>
-                        <td
-                            style="width:83.65pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single; -aw-border-left:0.5pt single; -aw-border-top:0.5pt single">
-                            <p style="font-size:8pt"><span style="font-family:Calibri">632 Dhs</span></p>
-                        </td>
-                    </tr>
-                    <tr style="height:13pt; -aw-height-rule:exactly">
-                        <td
-                            style="width:36pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-right:0.5pt single; -aw-border-top:0.5pt single">
-                            <p style="font-size:12pt"><span style="-aw-import:ignore">&#xa0;</span></p>
-                        </td>
-                        <td
-                            style="width:105.75pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-left:0.5pt single; -aw-border-right:0.5pt single; -aw-border-top:0.5pt single">
-                            <p style="font-size:12pt"><span style="-aw-import:ignore">&#xa0;</span></p>
-                        </td>
-                        <td
-                            style="width:82.35pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-left:0.5pt single; -aw-border-right:0.5pt single; -aw-border-top:0.5pt single">
-                            <p style="font-size:12pt"><span style="-aw-import:ignore">&#xa0;</span></p>
-                        </td>
-                        <td
-                            style="width:106.2pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-left:0.5pt single; -aw-border-right:0.5pt single; -aw-border-top:0.5pt single">
-                            <p style="font-size:8pt"><span style="font-family:Calibri">Total</span></p>
-                        </td>
-                        <td
-                            style="width:83.65pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-left:0.5pt single; -aw-border-top:0.5pt single">
-                            <p style="font-size:8pt"><span style="font-family:Calibri">1264 Dhs</span></p>
-                        </td>
-                    </tr>
-                </table> <br>
-                <div style=" display: grid;grid-template-columns: auto auto;">
-                    <span style="margin: 10px; padding: 10px;">Signature Client</span>
-                    <span style="margin: 10px; padding: 10px;">Signature Ramasseur</span>
-                </div>
-        
-        
-        
+                    </tr>';
+                    }
+                    $html .='
+                    </table> <br>
+                    <div style=" display: grid;grid-template-columns: auto auto;">
+                        <span style="margin: 10px; padding: 10px;">Signature Client</span>
+                        <span style="margin: 10px; padding: 10px;">Signature Ramasseur</span>
+                    </div>
+            
+            
+            
             </div>
             
         </body>

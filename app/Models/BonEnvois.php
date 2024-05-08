@@ -11,7 +11,7 @@ class BonEnvois extends Model
     protected $primaryKey='id_BE';
     public $incrementing=false;
     protected $keyType='string';
-    public $timestamps=false;
+    public $timestamps=true;
 
     protected $fillable = ['id_BE','reference','status','id_Liv'];
     public function colis()

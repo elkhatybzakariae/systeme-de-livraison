@@ -120,7 +120,7 @@
 
         </div>
         <div class="col-6">
-          <a class="btn btn-block btn-secondary w-100" target="_blank" href="pdf-delivery-note?dn-ref=BL-030524-016160-25-264"><i class="fa fa-clipboard"></i></a>
+          <a class="btn btn-block btn-secondary w-100" target="_blank"  href="{{ route('generate.facture',$bonLivraison->id_BL) }}"><i class="fa fa-clipboard"></i></a>
         </div>
       </div>
 

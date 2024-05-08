@@ -16,13 +16,12 @@ class CheckLivreur
      */
     public function handle(Request $request, Closure $next)
     {
-        $user=Livreur::find(session('user')['id_Ad']);
+        $user=Livreur::find(session('user')['id_Liv']);
 
         if ($user && $user->isAccepted) {
             return $next($request);
         }
         
-        // Redirect or abort here if the user is not an accepted livreur
-        abort(403); // Replace 'forbidden' with your forbidden route
+        return redirect(route('auth.livreur.signIn'));
     }
 }

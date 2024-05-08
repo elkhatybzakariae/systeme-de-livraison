@@ -73,7 +73,7 @@ class BonEnvoisController extends Controller
         ->leftJoin('colis', 'bon_envois.id_BE', '=', 'colis.id_BE')
         ->leftJoin('clients', 'colis.id_Cl', '=', 'clients.id_Cl')
         ->get();
-    
+    // $bons=BonEnvois::all();
     // dd($bons);
     $breads = [
         ['title' => 'Liste des Bons d\'Envoi', 'url' => null],
@@ -106,7 +106,7 @@ $zones = Zone::whereHas('colis', function ($query) {
     public function update($id,$id_BE)
     {
         $colis = Colis::where('id', $id)
-        ->update(['id_BE' => $id_BE]);
+        ->update(['id_BE' => $id_BE,'status'=>'distribution']);
         return redirect()->route('bon.envoi.index',$id_BE);
     }    
     public function updateDelete($id,$id_BE)

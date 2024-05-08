@@ -16,8 +16,13 @@
   </div>
 
   <div class="card-footer">
-      
-<a class="btn btn-primary" style="display:block;margin:0px auto" href="{{ route('bon.livraison.index') }}"><i class="fa fa-plus"></i> Creer bon de livraison</a>
+    @if ($colis!==0)
+    <a class="btn btn-primary" style="display:block;margin:0px auto" href="{{ route('bon.livraison.index') }}"><i class="fa fa-plus"></i> Creer bon de livraison</a>
+
+    @else
+
+    <a class="btn btn-primary" style="display:block;margin:0px auto" href="{{ route('colis.create') }}"><i class="fa fa-plus"></i> Ajouter Colis</a>
+    @endif
     
   </div>
 

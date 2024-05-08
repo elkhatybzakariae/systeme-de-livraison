@@ -16,14 +16,15 @@ class CheckClient
      */
     public function handle(Request $request, Closure $next)
     {
-        $user=Client::find(session('user')['id_Ad']);
+        if(isset(session('user')['id_Cl'])){
 
-        if ($user && $user->isAccepted) {
-            return $next($request);
+            $user=Client::find(session('user')['id_Cl']);
+            // dd($user);
+            if ($user && $user->isAccepted) {
+                return $next($request);
+            }
         }
         
-        // Redirect or abort here if the user is not an accepted client
-        abort(403);
-         // Replace 'forbidden' with your forbidden route
+        return redirect(route('auth.client.signIn'));
     }
 }

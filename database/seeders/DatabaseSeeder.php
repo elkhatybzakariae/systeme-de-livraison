@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('password'),
                 'id_Cl'=>'iecFC3g7Jx',
-                'isAccepted'=>0
+                'isAccepted'=>1
             ]);
         \App\Models\Client::factory(10)->create([
                 'isAccepted'=>0

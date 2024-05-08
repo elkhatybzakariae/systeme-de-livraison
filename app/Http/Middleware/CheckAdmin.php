@@ -22,7 +22,7 @@ class CheckAdmin
             return $next($request);
         }else{
 
-            abort(403); // Replace 'forbidden' with your forbidden route
+            return redirect(route('auth.admin.signIn')); // Replace 'forbidden' with your forbidden route
         }
         
         // Redirect or abort here if the user is not an admin
