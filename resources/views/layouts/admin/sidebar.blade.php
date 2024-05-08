@@ -603,6 +603,8 @@
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-title">Nouveaux clients</span>
+                        <span class="icon-number">{{ $numberOfClients }}</span>
+
                     </a>
                     <!--end:Menu link-->
                 </div>
@@ -647,6 +649,8 @@
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-title">Nouveaux Livreur</span>
+                        <span class="icon-number">{{ $numberOfLivreurs }}</span>
+
                     </a>
                     <!--end:Menu link-->
                 </div>

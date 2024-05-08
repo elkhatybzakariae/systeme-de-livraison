@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Client;
+use App\Models\Livreur;
 use App\Models\Reclamation;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,7 +24,9 @@ class AppServiceProvider extends ServiceProvider
     {
         view()->composer('layouts.admin.sidebar', function ($view) {
             $numberOfItems = Reclamation::where('etat', 0)->count();
-            $view->with('numberOfItems', $numberOfItems);
+            $numberOfClients = Client::where('isAccepted', 0)->count();
+            $numberOfLivreurs = Livreur::where('isAccepted', 0)->count();
+            $view->with(['numberOfItems'=> $numberOfItems,'numberOfLivreurs'=> $numberOfLivreurs,'numberOfClients'=> $numberOfClients]);
         });
     }
 }
