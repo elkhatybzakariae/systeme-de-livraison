@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('remarque');
             $table->string('telephone');
             $table->string('adresse');
-            $table->string('tybe')->default('Ramassage Colis');
+            $table->string('type')->default('Ramassage Colis');
             $table->string('ville');
             $table->enum('etat', ['Nouvelle demande', 'Demande recue', 'Demande traitee'])->default('Nouvelle demande');
             $table->string('id_Cl')->nullable();

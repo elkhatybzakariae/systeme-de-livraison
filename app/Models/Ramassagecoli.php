@@ -13,7 +13,12 @@ class Ramassagecoli extends Model
     protected $keyType='string';
     public $incrementing = false;
     public $timestamps = true;
-    protected $fillable = ['id_Ram','remarque','telephone','adresse','tybe','ville',
+    protected $fillable = ['id_Ram','remarque','telephone','adresse','type','ville',
     'etat',
     'id_Cl'];
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class,'id_Cl');
+    }
 }

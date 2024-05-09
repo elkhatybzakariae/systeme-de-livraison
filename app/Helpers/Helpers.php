@@ -8,6 +8,7 @@ use App\Models\Colis;
 use App\Models\Depense;
 use App\Models\Livreur;
 use App\Models\Message;
+use App\Models\Ramassagecoli;
 use App\Models\Reclamation;
 use App\Models\Role;
 use App\Models\Tarif;
@@ -86,6 +87,14 @@ class Helpers
             $id_Rec = Str::random(15);
         }
         return $id_Rec;
+    }
+    public static function generateIdRam()
+    {
+        $id_Ram = Str::random(15);
+        while (Ramassagecoli::where('id_Ram', $id_Ram)->exists()) {
+            $id_Ram = Str::random(15);
+        }
+        return $id_Ram;
     }
     public static function generateIdMess()
     {

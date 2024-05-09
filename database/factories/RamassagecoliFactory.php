@@ -24,7 +24,7 @@ class RamassagecoliFactory extends Factory
             'remarque' => fake()->sentence,
             'telephone' => fake()->phoneNumber,
             'adresse' => fake()->address,
-            'tybe' => fake()->sentence, 
+            'type' => fake()->sentence, 
             'ville' => fake()->city,
             'etat' => fake()->randomElement(['Nouvelle demande', 'Demande recue', 'Demande traitee']),
             'id_Cl' => fake()->randomElement($userIds),

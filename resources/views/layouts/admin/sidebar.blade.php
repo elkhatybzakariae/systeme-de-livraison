@@ -568,7 +568,7 @@
                 <!--begin:Menu link-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="">
+                    <a class="menu-link" href="{{route('ramassagecolis.all')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -580,7 +580,8 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Demande Ramassage</span>
+                        <span class="menu-title">Demande Ramassage</span>                        
+                        <span class="icon-number">{{ $numberOfRC }}</span>
                     </a>
                     <!--end:Menu link-->
                 </div>

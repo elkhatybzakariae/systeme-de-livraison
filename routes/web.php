@@ -12,6 +12,7 @@ use App\Http\Controllers\LivreurController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NewClientController;
 use App\Http\Controllers\NewLivreurController;
+use App\Http\Controllers\RamassagecoliController;
 use App\Http\Controllers\ReclamationController;
 use App\Http\Controllers\TarifController;
 use App\Http\Controllers\VilleController;
@@ -198,6 +199,15 @@ Route::group(['prefix' => 'messages'], function () {
     Route::get('/edit/{id}', [MessageController::class, 'edit'])->name('message.edit');
     Route::post('/update/{id}', [MessageController::class, 'update'])->name('message.update');
     Route::delete('/destroy/{id}', [MessageController::class, 'destroy'])->name('message.destroy');
+});
+
+Route::group(['prefix' => 'ramassagecolis'], function () {
+    Route::get('/', [RamassagecoliController::class, 'index'])->name('ramassagecolis.index');
+    Route::get('/all', [RamassagecoliController::class, 'all'])->name('ramassagecolis.all');
+    Route::post('/store', [RamassagecoliController::class, 'store'])->name('ramassagecolis.store');
+    // Route::get('/edit/{id}', [RamassagecoliController::class, 'edit'])->name('ramassagecolis.edit');
+    Route::post('/update-etat', [RamassagecoliController::class, 'update'])->name('ramassagecolis.update');
+    // Route::delete('/destroy/{id}', [RamassagecoliController::class, 'destroy'])->name('ramassagecolis.destroy');
 });
 Route::get('/sms', [AdminController::class, 'getsendSMS'])->name('message.getsendSMS');
 Route::post('/send-sms', [AdminController::class, 'sendSMS'])->name('message.sendSMS');
