@@ -9,22 +9,18 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CheckAdmin
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
+    
     public function handle(Request $request, Closure $next)
     {
+        if(isset(session('user')['id_Ad'])){
+
         $user=Admin::find(session('user')['id_Ad']);
 
         if ($user) {
             return $next($request);
-        }else{
-
-            return redirect(route('auth.admin.signIn')); // Replace 'forbidden' with your forbidden route
         }
-        
-        // Redirect or abort here if the user is not an admin
+
+    }
+            return redirect(route('auth.admin.signIn')); 
     }
 }

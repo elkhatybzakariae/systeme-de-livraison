@@ -1,154 +1,3 @@
-{{-- @extends('layouts.admin.admin')
-@section('breads')
-    <x-breadcrumb :breads="$breads" />
-@endsection
-@section('content')
-    <div class="modal fade" id="kt_modal_new_target" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered mw-650px">
-            <div class="modal-content rounded">
-                <div class="modal-header pb-0 border-0 justify-content-end">
-                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                        <span class="svg-icon svg-icon-1">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
-                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
-                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                    transform="rotate(45 7.41422 6)" fill="currentColor" />
-                            </svg>
-                        </span>
-                    </div>
-                </div>
-
-                <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
-                    <form id="kt_modal_new_user_form" method="POST" class="form" action="{{ route('newuser.store') }}">
-                        @csrf
-                        <div class="mb-13 text-center">
-                            <h1 class="mb-3">Nouvelle Utilisateur</h1>
-                        </div>
-                        <div class="row">
-                            <div class=" col-md-12 col mb-8 fv-row">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">Nom complet</span>
-                                </label>
-                                <input type="text" class="form-control form-control-solid" placeholder="Nom complet"
-                                    id="nomcomplet" name="nomcomplet" />
-                            </div>
-                            <div class=" col-md-12 col mb-8 fv-row">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">Email</span>
-                                </label>
-                                <input type="email" class="form-control form-control-solid" placeholder="Email"
-                                    id="email" name="email" />
-                            </div>
-                            <div class=" col-md-12 col mb-8 fv-row">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">Mot de passe</span>
-                                </label>
-                                <input type="password" class="form-control form-control-solid" placeholder="Mot de passe"
-                                    id="password" name="password" />
-                            </div>
-                        </div>
-
-                        <div class="text-center">
-                            <button type="reset" id="kt_modal_new_target_cancel"
-                                class="btn btn-light me-3">Cancel</button>
-                            <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">
-                                <span class="indicator-label">Enregister</span>
-                                <span class="indicator-progress">Please wait...
-                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="page-body">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-
-                            <div id="customers_table_json_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-12">
-                                        <table id="customers_table_json"
-                                            class="table table-striped table-bordered table-sm mb-0 no-footer dataTable"
-                                            role="grid" aria-describedby="customers_table_json_info"
-                                            style="width: 864px;">
-                                            <thead>
-                                                <tr role="row">
-                                                    <th>Utilisateur</th>
-                                                    <th>Informations</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($users as $item)
-                                                    <tr id="{{ $item->id_Cl }}" role="row" class="odd">
-                                                        <td>
-                                                            <b>Nom Client : </b>{{ $item->nomcomplet }}<br>
-                                                            <b>CIN : </b>{{ $item->cin }}<br>
-                                                        </td>
-                                                        <td><b>Adresse electronique : </b>{{ $item->email }}<br>
-
-                                                            <b>Numero de telephone : </b>?{{ $item->Phone }}?<br>
-
-                                                        </td>
-                                                        <td class="text-center align-middle">
-                                                            <div class="btn-group" role="group">
-                                                                <a onclick="openModal('{{ $item }}')"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#kt_modal_new_target"
-                                                                    class="menu-link px-3"><i class="fa fa-edit"></i></a>
-                                                                
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-
-                                            </tbody>
-                                        </table>
-                                        <div id="customers_table_json_processing"
-                                            class="dataTables_processing panel panel-default" style="display: none;">
-                                            Processing...</div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>
-            $(function() {
-                tableNewCstmrs('customers_table_json');
-            });
-
-            function openModal(nomcomplet, email, actionUrl = "{{ route('newuser.store') }}") {
-                // Set the zone name input value
-                document.getElementById('nomcomplet').value = nomcomplet;
-                document.getElementById('nomcomplet').readOnly = true;
-                document.getElementById('email').readOnly = true;
-                document.getElementById('email').value = email;
-                document.getElementById('kt_modal_new_target_cancel').style.display = 'none';
-
-
-                document.getElementById('kt_modal_new_user_form').action = actionUrl;
-                // document.getElementById('kt_modal_new_user_form').method = 'put';
-
-
-            }
-        </script>
-    </div>
-@endsection --}}
-
 @extends('layouts.admin.admin')
 @section('breads')
     <x-breadcrumb :breads="$breads" />
@@ -212,7 +61,7 @@
                     <!--begin::Tab nav-->
                     <ul class="nav nav-pills me-6 mb-2 mb-sm-0" role="tablist">
                         <li class="nav-item m-0" role="presentation">
-                            <a class="btn btn-sm btn-icon btn-light btn-color-muted btn-active-primary me-3 active"
+                            <a class="btn btn-sm btn-icon btn-light btn-color-muted btn-active-primary me-3 "
                                 data-bs-toggle="tab" href="#kt_project_users_card_pane" aria-selected="true" role="tab">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
                                 <span class="svg-icon svg-icon-2">
@@ -234,7 +83,7 @@
                             </a>
                         </li>
                         <li class="nav-item m-0" role="presentation">
-                            <a class="btn btn-sm btn-icon btn-light btn-color-muted btn-active-primary" data-bs-toggle="tab"
+                            <a class="btn btn-sm btn-icon btn-light btn-color-muted btn-active-primary active" data-bs-toggle="tab"
                                 href="#kt_project_users_table_pane" aria-selected="false" tabindex="-1" role="tab">
                                 <!--begin::Svg Icon | path: icons/duotune/abstract/abs015.svg-->
                                 <span class="svg-icon svg-icon-2">
@@ -260,7 +109,7 @@
             <!--begin::Tab Content-->
             <div class="tab-content">
                 <!--begin::Tab pane-->
-                <div id="kt_project_users_card_pane" class="tab-pane fade show active" role="tabpanel">
+                <div id="kt_project_users_card_pane" class="tab-pane fade  " role="tabpanel">
                     <!--begin::Row-->
                     <div class="row g-6 g-xl-9">
                         @foreach ($users as $item)
@@ -271,7 +120,7 @@
                                     <div class="card-body d-flex flex-center flex-column pt-12 p-9">
                                         <!--begin::Avatar-->
                                         <div class="symbol symbol-65px symbol-circle mb-5">
-                                            <img src="" alt="image">
+                                            <img src="{{ $item->img?'':asset('storage/images/profile.jpg') }}" alt="image">
                                             <div
                                                 class="bg-success position-absolute border border-4 border-body h-15px w-15px rounded-circle translate-middle start-100 top-100 ms-n3 mt-n3">
                                             </div>
@@ -286,9 +135,9 @@
                                         <!--end::Position-->
                                         <!--begin::Info-->
                                         <div class="d-flex flex-center flex-wrap">
-                                            <a onclick="openModal('{{ $item->id_Cl }}')" data-bs-toggle="modal"
-                                                data-bs-target="#kt_modal_new_target" class="menu-link px-3"><i
-                                                    class="fa fa-eye"></i></a>
+                                            <button onclick="openModal('{{ $item->id_Cl }}')" data-bs-toggle="modal"
+                                                data-bs-target="#kt_modal_new_target" class="btn"><i
+                                                    class="fa fa-eye"></i></button>
                                         </div>
                                         <!--end::Info-->
                                     </div>
@@ -298,48 +147,10 @@
                             </div>
                         @endforeach
                     </div>
-                    <!--end::Row-->
-                    <!--begin::Pagination-->
-                    <div class="d-flex flex-stack flex-wrap pt-10">
-                        <div class="fs-6 fw-semibold text-gray-700">Showing 1 to 10 of 50 entries</div>
-                        <!--begin::Pages-->
-                        <ul class="pagination">
-                            <li class="page-item previous">
-                                <a href="#" class="page-link">
-                                    <i class="previous"></i>
-                                </a>
-                            </li>
-                            <li class="page-item active">
-                                <a href="#" class="page-link">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link">4</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link">5</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link">6</a>
-                            </li>
-                            <li class="page-item next">
-                                <a href="#" class="page-link">
-                                    <i class="next"></i>
-                                </a>
-                            </li>
-                        </ul>
-                        <!--end::Pages-->
-                    </div>
-                    <!--end::Pagination-->
                 </div>
                 <!--end::Tab pane-->
                 <!--begin::Tab pane-->
-                <div id="kt_project_users_table_pane" class="tab-pane fade" role="tabpanel">
+                <div id="kt_project_users_table_pane" class="tab-pane  show active " role="tabpanel">
                     <!--begin::Card-->
                     <div class="card card-flush">
                         <!--begin::Card body-->
@@ -382,8 +193,8 @@
                                                                 <div class="me-5 position-relative">
                                                                     <!--begin::Avatar-->
                                                                     <div class="symbol symbol-35px symbol-circle">
-                                                                        <img alt="Pic"
-                                                                            src="assets/media/avatars/300-6.jpg">
+                                                                        <img src="{{ $item->img?'':asset('storage/images/profile.jpg') }}" alt="image">
+
                                                                     </div>
                                                                     <!--end::Avatar-->
                                                                 </div>
@@ -404,9 +215,9 @@
                                                             </div>
                                                         </td>
                                                         <td class="text-end">
-                                                            <a onclick="openModal('{{ $item->id_Cl }}')" data-bs-toggle="modal"
-                                                                data-bs-target="#kt_modal_new_target" class="menu-link px-3"><i
-                                                                    class="fa fa-eye"></i></a>
+                                                            <button onclick="openModal('{{ $item->id_Cl }}')" data-bs-toggle="modal"
+                                                                data-bs-target="#kt_modal_new_target" class="btn"><i
+                                                                    class="fa fa-eye"></i></button>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -429,36 +240,59 @@
         <!--end::Content container-->
     </div>
     <script>
-        function openModal(item) {
+        function openModal(id) {
+            var users = @json($users);
             let bb = '';
-            bb += `<div class="d-flex justify-content-center mb-10">
-                        <div class="d-flex flex-column align-items-center">
-                            <div class="d-flex align-items-center mb-2">
-                                        <div class="symbol symbol-35px symbol-circle">
-                                            <img alt="Pic" src="assets/media/avatars/300-25.jpg">
-                                        </div>
-                                        <div class="ms-3">
-                                            <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">Brian Cox</a>
-                                        </div>
-                                    </div>
-                            <div class="p-5 rounded bg-light-info text-dark fw-semibold mw-lg-400px text-start"
-                                                                data-kt-element="message-text">
-                                                                
-                                                            <b>Nom Livreur : </b>{{ $item->nomcomplet }}<br>
-                                                            <b>CIN : </b>{{ $item->cin }}<br>
-                                                            <b>Bank : </b>{{ $item->nombanque }}<br>
-                                                       <b>Adresse electronique : </b>{{ $item->email }}<br>
-                                                            <b>Numero de telephone : </b>?{{ $item->Phone }}?<br>
-                                                            <b>Ville : </b>{{ $item->ville }}<br>
-                                                            <b>Adresse : </b>{{ $item->adress }}
-                                                        
-                                                                </div>
-                                                               </div>
-                    </div> `;
+            let item =users.find(ele=>ele.id_Cl==id)
+            console.log(item);
+            bb += `
+                <div class="">
+                    <div class="d-flex flex-column ">
+                        <div class="d-flex justify-content-center align-items-center  mb-2">
+                            <div class="symbol symbol-35px symbol-circle">
+                                <img src="{{ $item->img?'':asset('storage/images/profile.jpg') }}" alt="image">
+
+                            </div>
+                            <div class="ms-3">
+                                <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">Brian Cox</a>
+                            </div>
+                        </div>
+                        <div class=" rounded text-dark fw-semibold text-start row" data-kt-element="message-text">
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="nom_livreur">Nom Client:</label>
+                                <input type="text" id="nom_livreur" class="form-control" value="${item.nomcomplet}" readonly>
+                            </div>
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="cin">CIN:</label>
+                                <input type="text" id="cin" class="form-control" value="${item.cin}" readonly>
+                            </div>
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="bank">Bank:</label>
+                                <input type="text" id="bank" class="form-control" value="${item.nombanque}" readonly>
+                            </div>
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="email">Adresse electronique:</label>
+                                <input type="text" id="email" class="form-control" value="${item.email}" readonly>
+                            </div>
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="phone">Numero de telephone:</label>
+                                <input type="text" id="phone" class="form-control" value="${item.Phone}" readonly>
+                            </div>
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="ville">Ville:</label>
+                                <input type="text" id="ville" class="form-control" value="${item.ville}" readonly>
+                            </div>
+                            <div class="form-group mb-3 col col-md-12">
+                                <label class="fw-bold" for="adresse">Adresse:</label>
+                                <textarea  id="adresse" class="form-control"  readonly> ${item.adress}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
 
             document.getElementById('show').innerHTML = bb;
-
-
         }
+
     </script>
 @endsection
