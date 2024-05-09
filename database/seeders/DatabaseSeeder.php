@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Colis;
+use App\Models\Ramassagecoli;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -17,6 +18,8 @@ class DatabaseSeeder extends Seeder
     {
         
         $this->call(ZoneSeeder::class);
+        $this->call(VilleSeeder::class);
+
         \App\Models\Admin::factory()->create([
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('password'),
@@ -45,8 +48,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ColisSeeder::class);
         $this->call(DepenseSeeder::class);
         $this->call(TarifSeeder::class);
-        $this->call(VilleSeeder::class);
         $this->call(ReclamationSeeder::class);
         $this->call(MessageSeeder::class);
+        $this->call(RamassagecoliSeeder::class);
     }
 }

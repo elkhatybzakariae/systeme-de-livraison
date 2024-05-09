@@ -18,4 +18,8 @@ class Livreur extends Authenticatable
     public $timestamps = true;
     protected $fillable = ['id_Liv','nomcomplet','cin','email','Phone','ville','adress','id_Z'
     ,'fraislivraison','fraisrefus','nombanque','numerocompte','password','cinrecto','cinverso','RIB'];
+
+    public function zone(){
+        return $this->belongsTo(Zone::class,'id_Z');
+    }
 }

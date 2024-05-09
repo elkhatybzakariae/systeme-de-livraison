@@ -90,11 +90,11 @@ class BonDistributionController extends Controller
         $zones = Zone::whereHas('colis', function ($query) {
             $query->where('status', 'recu');
         })
-        ->with(['colis', 'livreurs']) // Load the relationships 'colis' and 'livreur'
-        ->withCount('colis') // Count the number of 'colis'
+        ->with(['colis', 'livreurs']) 
+        ->withCount('colis')
         ->get();
 
-        dd($zones);
+        
 
         $breads = [
             ['title' => 'créer un Bon Distribution', 'url' => null],
