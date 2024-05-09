@@ -183,6 +183,8 @@ Route::controller(LivreurController::class)->prefix('livreurs')->group(function 
 
 
 
+Route::get('/generate-pdf', [HomeController::class, 'generatePDF'])->name('generate.pdf');
+
 
 Route::group(['prefix' => 'messages'], function () {
     Route::get('/', [MessageController::class, 'index'])->name('message.index');
