@@ -16,6 +16,6 @@ class Livreur extends Authenticatable
 
     public $incrementing = false;
     public $timestamps = true;
-    protected $fillable = ['id_Liv','nomcomplet','cin','email','Phone','ville','adress'
+    protected $fillable = ['id_Liv','nomcomplet','cin','email','Phone','ville','adress','id_Z'
     ,'fraislivraison','fraisrefus','nombanque','numerocompte','password','cinrecto','cinverso','RIB'];
 }

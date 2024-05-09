@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Zone;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -18,6 +19,8 @@ class LivreurFactory extends Factory
      */
     public function definition(): array
     {
+        $adminIds = Zone::pluck('id_Z')->toArray();
+        // dump($adminIds);
         return [
             'id_Liv' => Str::random(10),
             'nomcomplet' => fake()->name(),
@@ -35,6 +38,8 @@ class LivreurFactory extends Factory
             'cinverso' => fake()->imageUrl(), // Example for cinverso, you should replace this with proper logic to handle file uploads
             'RIB' => fake()->imageUrl(), // Example for RIB, you should replace this with proper logic to handle file uploads
             'isAccepted' => fake()->boolean(),
+            'id_Z'=>fake()->randomElement($adminIds),
+
         ];
     }
 }

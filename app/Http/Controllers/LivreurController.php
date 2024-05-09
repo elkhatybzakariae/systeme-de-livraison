@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helpers;
 use App\Models\Livreur;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -20,8 +21,9 @@ class LivreurController extends Controller
     }
     public function signuppage()
     {
-
-        return view('auth.livreur.sign-up');
+        $zones=Zone::query()->with('ville')->get();
+        // dd($zones->ville);
+        return view('auth.livreur.sign-up',compact('zones'));
     }
     public function signup(Request $request)
     {
@@ -32,6 +34,7 @@ class LivreurController extends Controller
             'email' => 'required|email|max:50',
             'Phone' => 'nullable|string|max:50',
             'ville' => 'required|string|max:150',
+            'id_Z' => 'required',
             'adress' => 'required|string|max:150',
             'fraislivraison' => 'required|integer',
             'fraisrefus' => 'required|integer',

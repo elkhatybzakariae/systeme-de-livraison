@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BonDistributionController;
 use App\Http\Controllers\BonEnvoisController;
 use App\Http\Controllers\BonLivraisonController;
 use App\Http\Controllers\ClientController;
@@ -87,6 +88,16 @@ Route::middleware('check.admin')->group(function(){
         Route::get('/update/{id}/bl/{id_BE}', [BonEnvoisController::class, 'update'])->name('bon.envoi.update');
         Route::get('/updateDelete/{id}/bl/{id_BE}', [BonEnvoisController::class, 'updateDelete'])->name('bon.envoi.updateDelete');
         Route::delete('/destroy/{id}', [BonEnvoisController::class, 'destroy'])->name('bon.envoi.destroy');
+    });
+    Route::group(['prefix' => 'admin/bon-distribution'], function () {
+        Route::get('/bon/{id_BD?}', [BonDistributionController::class, 'index'])->name('bon.distribution.index');
+        Route::get('/', [BonDistributionController::class, 'list'])->name('bon.distribution.list');
+        Route::get('/create', [BonDistributionController::class, 'create'])->name('bon.distribution.create');
+        Route::post('/store', [BonDistributionController::class, 'store'])->name('bon.distribution.store');
+        Route::get('/edit/{id}', [BonDistributionController::class, 'edit'])->name('bon.distribution.edit');
+        Route::get('/update/{id}/bl/{id_BD}', [BonDistributionController::class, 'update'])->name('bon.distribution.update');
+        Route::get('/updateDelete/{id}/bl/{id_BD}', [BonDistributionController::class, 'updateDelete'])->name('bon.distribution.updateDelete');
+        Route::delete('/destroy/{id}', [BonDistributionController::class, 'destroy'])->name('bon.distribution.destroy');
     });
     Route::group(['prefix' => 'admin/reclamation'], function () {
         Route::get('/all', [ReclamationController::class, 'all'])->name('reclamation.all');
@@ -176,12 +187,6 @@ Route::controller(LivreurController::class)->prefix('livreurs')->group(function 
     Route::get('/dashboard',  'index')->name('livreur.index');
     Route::get('/signoutr',  'signout')->name('signout.livreur');
 });
-
-
-
-
-
-
 
 Route::get('/generate-pdf', [HomeController::class, 'generatePDF'])->name('generate.pdf');
 

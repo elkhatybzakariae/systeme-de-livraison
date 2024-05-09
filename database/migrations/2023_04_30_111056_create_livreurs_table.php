@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('Phone')->nullable();
             $table->string('ville');
             $table->string('adress');
+            $table->string('id_Z');
+            $table->foreign('id_Z')->references('id_Z')->on('zones');
             $table->integer('fraislivraison');
             $table->integer('fraisrefus');
             $table->string('nombanque')->nullable();

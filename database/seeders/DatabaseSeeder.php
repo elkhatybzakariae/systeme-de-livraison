@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         
+        $this->call(ZoneSeeder::class);
         \App\Models\Admin::factory()->create([
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('password'),
@@ -29,7 +30,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Client::factory(10)->create([
                 'isAccepted'=>0
             ]);
-        \App\Models\Livreur::factory(10)->create([
+        \App\Models\Livreur::factory(60)->create([
                 'isAccepted'=>0
             ]);
         \App\Models\Livreur::factory()->create([
@@ -41,7 +42,6 @@ class DatabaseSeeder extends Seeder
 
             ]);
         \App\Models\Admin::factory(10)->create();
-        $this->call(ZoneSeeder::class);
         $this->call(ColisSeeder::class);
         $this->call(DepenseSeeder::class);
         $this->call(TarifSeeder::class);

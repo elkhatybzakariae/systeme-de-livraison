@@ -189,18 +189,26 @@
                             <div class="fv-row mb-8 col-6">
                                 <!--begin::Repeat Password-->
                                 <input placeholder="Repeat Password" name="confirmpassword" type="password"
-                                    autocomplete="off" class="form-control bg-transparent" />
+                                autocomplete="off" class="form-control bg-transparent" />
                                 <!--end::Repeat Password-->
                             </div>
-                            <!--end::Input group=-->
-
-                            <!--begin::Input group=-->
                             <div class="fv-row mb-8 col-6">
-
-                                <input type="text" placeholder="Ville" name="ville" autocomplete="off"
-                                    class="form-control bg-transparent" />
-
+                                <label class="" >Zone </label>
+                                <select name="id_Z" id="zone_select" class="form-select">
+                                    @foreach ($zones as $item)
+                                        <option value="{{ $item->id_Z }}">{{ $item->zonename }}</option>
+                                    @endforeach
+                                </select>
                             </div>
+                            
+                            <div class="fv-row mb-8 col-6">
+                                
+                                <label class="" >Ville </label>
+                                <select name="ville" id="ville_select" class="form-select">
+
+                                </select>
+                            </div>
+                            
                             <!--end::Input group=-->
 
                             <!--begin::Input group=-->
@@ -311,6 +319,28 @@
     <x-alert :message="session('error')" type="error" />
     <x-alert :message="session('success')" type="success" />
     <x-alert :message="session('warning')" type="warning" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const zoneSelect = document.getElementById('zone_select');
+            const villeSelect = document.getElementById('ville_select');
+            var zones = @json($zones);
+            zoneSelect.addEventListener('change', function() {
+                // Get the selected zone ID
+                const selectedZoneId = this.value;
+                let data= zones.find(ele=>ele.id_Z==selectedZoneId).ville
+                // console.log(data);
+                
+                villeSelect.innerHTML = '';
+                        data.forEach(city => {
+                            const option = document.createElement('option');
+                            option.value = city.id_V;
+                            option.textContent = city.villename;
+                            villeSelect.appendChild(option);
+                        });
+        });
+        });
+    </script>
+    
     <script>
         var defaultThemeMode = "light";
         var themeMode;

@@ -23,4 +23,8 @@ class Zone extends Model
     {
         return $this->hasMany(Colis::class,'zone');
     }
+    public function livreurs()
+    {
+        return $this->hasMany(Livreur::class,'id_Z');
+    }
 }
