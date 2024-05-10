@@ -51,5 +51,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ReclamationSeeder::class);
         $this->call(MessageSeeder::class);
         $this->call(RamassagecoliSeeder::class);
+        $this->call(RemarqueSeeder::class);
     }
 }

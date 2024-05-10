@@ -317,7 +317,7 @@
                 <!--end:Menu sub-->
 
                 <!--begin:Menu link-->
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('bon.payment.livreur.list')||request()->routeIs('bon.payment.zone.list') ?'show':'' }}">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
