@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BonDistribution;
+use App\Models\BonPaymentLivreur;
 use App\Models\Colis;
 use App\Models\Zone;
-use Dompdf\Dompdf;
-use Dompdf\Options;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class BonDistributionController extends Controller
+class BonPaymentLivreurController extends Controller
 {
-    public function index(Request $request ,$id_BD=null) 
+    
+    public function index(Request $request ,$id_BPL=null) 
     {
         // dd($request);
         $id_Z = $request->input('zone');
@@ -24,14 +23,14 @@ class BonDistributionController extends Controller
         }
         // dd(session('zone'));
         $user=session('user');
-        $colis =Colis::query()->with('ville')->whereNull('id_BD')->where('zone',$id_Z)->get();
+        $colis =Colis::query()->with('ville')->whereNull('id_BPL')->where('zone',$id_Z)->get();
 
         $colisBon=[];
         // dd($colis);
-        if (!$id_BD) {
+        if (!$id_BPL) {
             if($user ){
-                $bonLivraison= BonDistribution::create([
-                    'id_BD'=>'BD-'.Str::random(12),
+                $bonLivraison= BonPaymentLivreur::create([
+                    'id_BPL'=>'BD-'.Str::random(12),
                     'reference'=>'BD-'.Str::random(10),
                     'status'=>'nouveau',
                     'id_Z'=>$id_Z,
@@ -41,10 +40,10 @@ class BonDistributionController extends Controller
                 return redirect(route('auth.client.signIn'));
             }
         }else{
-            $bonLivraison= BonDistribution::query()->with('colis')->where('id_BD',$id_BD)->first();
+            $bonLivraison= BonPaymentLivreur::query()->with('colis')->where('id_BPL',$id_BPL)->first();
             $colisBon= DB::select('select * from colis 
             inner join villes on villes.id_V = colis.ville_id 
-            where id_BD =?',[$id_BD]);
+            where id_BPL =?',[$id_BPL]);
         // dd($colisBon)  ;
 
         }
@@ -52,7 +51,7 @@ class BonDistributionController extends Controller
             ['title' => 'créer un Bon Envoi', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.bonDistribution.index',compact("colis", "bonLivraison",'colisBon','breads'));
+        return view('pages.admin.bonPaymentLivreur.index',compact("colis", "bonLivraison",'colisBon','breads'));
     }
     public function list()
     {
@@ -60,36 +59,33 @@ class BonDistributionController extends Controller
         if(!$user){
             return redirect(route('auth.admin.signIn'));
         }
-        $bons = DB::table('bon_distributions')
+        $bons = DB::table('bon_payment_livreurs')
         ->select(
-            'bon_distributions.id_BD', 
-            'bon_distributions.reference',  
-            'bon_distributions.status', 
-            'bon_distributions.created_at',
+            'bon_payment_livreurs.id_BPL', 
+            'bon_payment_livreurs.reference',  
+            'bon_payment_livreurs.status', 
+            'bon_payment_livreurs.created_at',
             'livreurs.nomcomplet as liv_nomcomplet',
             'zones.zonename as zone',
-            DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BD = bon_distributions.id_BD) as colis_count'),
-            DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BD = bon_distributions.id_BD) as total_prix')
+            // DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BPL = bon_payment_livreurs.id_BPL) as colis_count'),
+            // DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BPL = bon_payment_livreurs.id_BPL) as total_prix')
         )
-        ->leftJoin('colis', 'bon_distributions.id_BD', '=', 'colis.id_BD')
-        ->leftJoin('livreurs', 'bon_distributions.id_Liv', '=', 'livreurs.id_Liv')
-        ->leftJoin('zones', 'bon_distributions.id_Z', '=', 'zones.id_Z')
+        // ->leftJoin('colis', 'bon_payment_livreurs.id_BPL', '=', 'colis.id_BPL')
+        ->leftJoin('livreurs', 'bon_payment_livreurs.id_Liv', '=', 'livreurs.id_Liv')
+        ->leftJoin('zones', 'bon_payment_livreurs.id_Z', '=', 'zones.id_Z')
         ->get();
-    // $bons=BonDistribution::all();
+    // $bons=BonPaymentLivreur::all();
     // dd($bons);
     $breads = [
         ['title' => 'Liste des Bons de distributions ', 'url' => null],
         ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
     ];
-        return view('pages.admin.bonDistribution.list',compact("bons",'breads'));
+        return view('pages.admin.bonPaymentLivreur.list',compact("bons",'breads'));
     } 
     public function create()
     {
         $user=session('user');
-        if(!$user){
-            return redirect(route('auth.client.signIn'));
-        }
-
+      
         $zones = Zone::whereHas('colis', function ($query) {
             $query->where('status', 'recu');
         })
@@ -103,25 +99,22 @@ class BonDistributionController extends Controller
             ['title' => 'créer un Bon Distribution', 'url' => null],
             ['text' => 'Bons', 'url' => null], 
         ];
-        return view('pages.admin.bonDistribution.create',compact("zones",'breads'));
+        return view('pages.admin.bonPaymentLivreur.create',compact("zones",'breads'));
     } 
        
-    public function update($id,$id_BD)
+    public function update($id,$id_BPL)
     {
         $colis = Colis::where('id', $id)
-        ->update(['id_BD' => $id_BD,'status'=>'distribution']);
-        return redirect()->route('bon.distribution.index',$id_BD);
+        ->update(['id_BPL' => $id_BPL,'status'=>'distribution']);
+        return redirect()->route('bon.distribution.index',$id_BPL);
     }    
-    public function updateDelete($id,$id_BD)
+    public function updateDelete($id,$id_BPL)
     {
         $colis = Colis::where('id', $id)
-        ->update(['id_BD' => null,'status'=>'recu']);
+        ->update(['id_BPL' => null,'status'=>'recu']);
 
         // dd($colis);
-        return redirect()->route('bon.distribution.index',$id_BD);
+        return redirect()->route('bon.distribution.index',$id_BPL);
     
     }  
-     
-    
-   
 }

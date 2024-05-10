@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bon_distributions', function (Blueprint $table) {
-            $table->string('id_BD', 15)->primary();
+        Schema::create('bon_payment_livreurs', function (Blueprint $table) {
+            $table->string('id_BPL', 15)->primary();
             $table->string('reference');
             $table->string('id_Liv');
             $table->foreign('id_Liv')->references('id_Liv')->on('livreurs');
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bon_distributions');
+        Schema::dropIfExists('bon_payment_livreurs');
     }
 };
