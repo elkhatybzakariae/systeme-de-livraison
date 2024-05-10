@@ -14,12 +14,13 @@ class Remarque extends Model
 
     public $incrementing = false;
     public $timestamps = true;
-    protected $fillable = ['id_Rem','objet','etat',
-    'id_Ad',
-    'id_Cl'];
+    protected $fillable = ['id_Rem','remarque','type',
+    'cible',
+    'section',
+    'id_Ad'];
 
-    public function client()
+    public function admin()
     {
-        return $this->belongsTo(Client::class,'id_Cl');
+        return $this->belongsTo(Admin::class,'id_Ad');
     }
 }

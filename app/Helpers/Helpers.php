@@ -10,6 +10,7 @@ use App\Models\Livreur;
 use App\Models\Message;
 use App\Models\Ramassagecoli;
 use App\Models\Reclamation;
+use App\Models\Remarque;
 use App\Models\Role;
 use App\Models\Tarif;
 use App\Models\Zone;
@@ -95,6 +96,14 @@ class Helpers
             $id_Ram = Str::random(15);
         }
         return $id_Ram;
+    }
+    public static function generateIdRem()
+    {
+        $id_Rem = Str::random(15);
+        while (Remarque::where('id_Rem', $id_Rem)->exists()) {
+            $id_Rem = Str::random(15);
+        }
+        return $id_Rem;
     }
     public static function generateIdMess()
     {
