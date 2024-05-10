@@ -4,7 +4,7 @@
 
 @endsection
 @section('content')
-<form action="{{ route('bon.envoi.index') }}">
+<form action="{{ route('bon.distribution.index') }}">
   <div class="card">
     <div class="card-header">
       <h5>Ajouter Bon d'envoi </h5>

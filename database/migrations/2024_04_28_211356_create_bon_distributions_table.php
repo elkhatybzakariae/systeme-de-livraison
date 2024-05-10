@@ -12,7 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bon_distributions', function (Blueprint $table) {
-            $table->id();
+            $table->string('id_BD', 15)->primary();
+            $table->string('reference');
+            $table->string('id_Liv')->nullable();
+            $table->foreign('id_Liv')->references('id_Liv')->on('livreurs');
+            $table->string('id_Z');
+            $table->foreign('id_Z')->references('id_Z')->on('zones');
+        
+            $table->string('status');
             $table->timestamps();
         });
     }

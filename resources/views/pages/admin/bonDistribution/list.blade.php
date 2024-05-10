@@ -43,11 +43,11 @@
         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
           
           <th class="min-w-200px">reference</th>
-          <th class="min-w-100px">client</th>
+          <th class="min-w-70px">Zone</th>
+          <th class="min-w-100px">Livreurs</th>
           <th class="min-w-100px">Date de creation</th>
           <th class="min-w-100px">statut</th>
           <th class="min-w-100px">colis</th>
-          <th class="min-w-70px">Prix Total</th>
           <th class="min-w-70px">Actions</th>
         </tr>
       </thead>
@@ -62,7 +62,10 @@
               </div>
             </td>
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="code">{{ $item->client_nomcomplet }}</span>
+              <span class="fw-bold" data-kt-ecommerce-product-filter="prix">{{ $item->zone }}</span>
+            </td>
+            <td class="pe-0">
+              <span class="fw-bold" data-kt-ecommerce-product-filter="code">{{ $item->liv_nomcomplet }}</span>
             </td>
             <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="date">{{ $item->created_at }}</span>
@@ -74,9 +77,7 @@
             <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="ville">{{ $item->colis_count}}</span>
             </td>
-            <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="prix">{{ $item->total_prix }}</span>
-            </td>
+           
             <td>
               <a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                 <span class="svg-icon svg-icon-5 m-0">

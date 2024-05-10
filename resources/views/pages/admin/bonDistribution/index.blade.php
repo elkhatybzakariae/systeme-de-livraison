@@ -49,7 +49,7 @@
             <td>{{ $item->villename }}</td>
             <td>
               
-              <a href="{{ route('bon.envoi.update',['id'=>$item->id,'id_BE'=>$bonLivraison->id_BE]) }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
+              <a href="{{ route('bon.distribution.update',['id'=>$item->id,'id_BD'=>$bonLivraison->id_BD]) }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
             </td>
           </tr>
           @endforeach
@@ -92,7 +92,7 @@
               <td>{{ $item->prix }}</td>
               <td>{{ $item->villename }}</td>
               <td>
-                <a href="{{ route('bon.envoi.updateDelete',['id'=>$item->id,'id_BE'=>$bonLivraison->id_BE]) }}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                <a href="{{ route('bon.distribution.updateDelete',['id'=>$item->id,'id_BD'=>$bonLivraison->id_BD]) }}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
               </td>
             </tr>
           @endforeach
@@ -102,31 +102,5 @@
    </div>
 </div>
 
-<div class="container-fluid mt-4">
-  <div class="card">
-    <div class="card-header">
-      <h5><b>Tickets Et Bon De Livraison</b></h5>
-    </div>
-    <div class="card-body">
-      <h4 class="text-center">Obtenir en pdf</h4>
-      <div class="row ">
-        <div class="col-6 mb-2">
-          {{-- @dd($bonLivraison) --}}
-          <a class="btn btn-block btn-primary w-100" target="_blank" href="{{ route('generate.stikers',$bonLivraison->id_BE) }}"><i class="fa fa-ticket"></i></a>
-        </div>
 
-        <div class="col-6">
-          <a class="btn btn-block btn-primary w-100" target="_blank" href=""><i class="fa fa-ticket"></i> Etiqueteuse</a>
-
-        </div>
-        <div class="col-6">
-          <a class="btn btn-block btn-secondary w-100" target="_blank" href="pdf-delivery-note?dn-ref=BL-030524-016160-25-264"><i class="fa fa-clipboard"></i></a>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-</div> 
-</div>
 @endsection

@@ -102,31 +102,4 @@
    </div>
 </div>
 
-<div class="container-fluid mt-4">
-  <div class="card">
-    <div class="card-header">
-      <h5><b>Tickets Et Bon De Livraison</b></h5>
-    </div>
-    <div class="card-body">
-      <h4 class="text-center">Obtenir en pdf</h4>
-      <div class="row ">
-        <div class="col-6 mb-2">
-          {{-- @dd($bonLivraison) --}}
-          <a class="btn btn-block btn-primary w-100" target="_blank" href="{{ route('generate.stikers',$bonLivraison->id_BE) }}"><i class="fa fa-ticket"></i></a>
-        </div>
-
-        <div class="col-6">
-          <a class="btn btn-block btn-primary w-100" target="_blank" href=""><i class="fa fa-ticket"></i> Etiqueteuse</a>
-
-        </div>
-        <div class="col-6">
-          <a class="btn btn-block btn-secondary w-100" target="_blank" href="pdf-delivery-note?dn-ref=BL-030524-016160-25-264"><i class="fa fa-clipboard"></i></a>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-</div> 
-</div>
 @endsection
