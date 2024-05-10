@@ -54,9 +54,10 @@ class RamassagecoliController extends Controller
         $newEtat = $request->input('newEtat');
 
         $Rcoli = Ramassagecoli::find($itemId);
-        $Rcoli::update([
-            'etat'=>$newEtat,
+        $Rcoli->update([
+            'etat' => $newEtat,
         ]);
+        
         return redirect()->route('ramassagecolis.index')->with('success', 'Ramassage coli up successfully.');
     }
 

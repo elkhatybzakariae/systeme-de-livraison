@@ -146,19 +146,19 @@
                             </td>
                             <td class="pe-0">
                                 <span class="fw-bold"
-                                    data-kt-ecommerce-product-filter="villename">{{ $item->etat }}</span>
+                                    data-kt-ecommerce-product-filter="villename" id="etat{{$item->id_Ram}}">{{ $item->etat }}</span>
                             </td>
                             <!--begin::Action=-->
                             <td class="">
                                 <div class="menu-item px-3">
-                                    <select class="form-select form-select-solid" onchange="change()">
+                                    <select class="form-select form-select-solid" id="{{ $item->id_Ram }}"
+                                        onchange="change(this)">
                                         <option @if ($item->etat === 'Nouvelle demande') selected @endif value="Nouvelle demande">
                                             Nouvelle demande</option>
                                         <option @if ($item->etat === 'Demande recue') selected @endif value="Demande recue">
                                             Demande recue</option>
                                         <option @if ($item->etat === 'Demande traitee') selected @endif value="Demande traitee">
                                             Demande traitee</option>
-
                                     </select>
                                     {{-- <form action="{{ route('reclamation.traiteRec', $item->id_Rec) }}" method="POST">
                                         @csrf
@@ -178,21 +178,27 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
-        function change() {
-            // $('#etat_colis_select').change(function() {
+        function change(selectElement) {
             // Get the new value of 'etat colis'
-            var newEtatColis = $(this).val();
-console.log(newEtatColis);
+            var newEtatColis = selectElement.value;
+            var id = selectElement.id;
+            var csrfToken = '{{ csrf_token() }}';
+            console.log(newEtatColis);
+            console.log(selectElement.id);
             // Send AJAX request to update 'etat' in the database
             $.ajax({
                 url: '{{ route('ramassagecolis.update') }}',
                 method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
+                },
                 data: {
                     newEtat: newEtatColis, // Pass the new 'etat' value
-                    itemId: '{{ $item->id_Ram }}' // Pass the ID of the item being updated
+                    itemId: id // Pass the ID of the item being updated
                 },
                 success: function(response) {
                     console.log('Etat updated successfully');
+                    document.getElementById(`etat${id}`).innerHTML = newEtatColis;
                 },
                 error: function(xhr, status, error) {
                     console.error('Error updating etat:', error);
