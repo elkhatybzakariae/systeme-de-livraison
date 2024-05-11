@@ -11,7 +11,7 @@ class BonPaymentLivreur extends Model
     protected $primaryKey='id_BPL';
     public $incrementing=false;
     protected $keyType='string';
-    public $timestamps=false;
+    
 
     protected $fillable = ['id_BPL','reference','status','id_Z','id_Liv'];
     public function colis()

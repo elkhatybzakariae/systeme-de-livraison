@@ -11,7 +11,7 @@ class BonRetourZone extends Model
     protected $primaryKey='id_BRZ';
     public $incrementing=false;
     protected $keyType='string';
-    public $timestamps=false;
+    public $timestamps=true;
 
     protected $fillable = ['id_BRZ','reference','status','id_Cl'];
     public function colis()

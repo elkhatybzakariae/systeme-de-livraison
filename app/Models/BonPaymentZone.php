@@ -11,7 +11,7 @@ class BonPaymentZone extends Model
     protected $primaryKey='id_BPZ';
     public $incrementing=false;
     protected $keyType='string';
-    public $timestamps=false;
+    public $timestamps=true;
 
     protected $fillable = ['id_BPZ','reference','status','id_Cl'];
     public function colis()

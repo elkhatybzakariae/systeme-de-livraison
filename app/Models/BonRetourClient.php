@@ -11,7 +11,7 @@ class BonRetourClient extends Model
     protected $primaryKey='id_BRC';
     public $incrementing=false;
     protected $keyType='string';
-    public $timestamps=false;
+    public $timestamps=true;
 
     protected $fillable = ['id_BRC','reference','status','id_Cl'];
     public function colis()

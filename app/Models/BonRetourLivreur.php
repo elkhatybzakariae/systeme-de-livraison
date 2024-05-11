@@ -11,7 +11,7 @@ class BonRetourLivreur extends Model
     protected $primaryKey='id_BRL';
     public $incrementing=false;
     protected $keyType='string';
-    public $timestamps=false;
+    public $timestamps=true;
 
     protected $fillable = ['id_BRL','reference','status','id_Cl'];
     public function colis()
