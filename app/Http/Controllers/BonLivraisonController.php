@@ -16,32 +16,31 @@ use TCPDF;
 
 class BonLivraisonController extends Controller
 {
-    public function index($id_BL=null) 
+    public function index($id_BL = null)
     {
-        $user=session('user');
+        $user = session('user');
         $colis = DB::select('select * from colis 
                      inner join villes on villes.id_V = colis.ville_id 
                      where id_BL is null and id_Cl=?', [$user['id_Cl']]);
 
-        $colisBon=[];
+        $colisBon = [];
         // dd($colis);
         if (!$id_BL) {
-            if($user ){
-                $bonLivraison= BonLivraison::create([
-                    'id_BL'=>'BL-'.Str::random(12),
-                    'reference'=>'BL-'.Str::random(10),
-                    'status'=>'nouveau',
-                    'id_Cl'=>$user['id_Cl']
+            if ($user) {
+                $bonLivraison = BonLivraison::create([
+                    'id_BL' => 'BL-' . Str::random(12),
+                    'reference' => 'BL-' . Str::random(10),
+                    'status' => 'nouveau',
+                    'id_Cl' => $user['id_Cl']
                 ]);
-            }else{
+            } else {
                 return redirect(route('auth.client.signIn'));
             }
-        }else{
-            $bonLivraison= BonLivraison::query()->with('colis')->where('id_BL',$id_BL)->first();
-            $colisBon= DB::select('select * from colis 
+        } else {
+            $bonLivraison = BonLivraison::query()->with('colis')->where('id_BL', $id_BL)->first();
+            $colisBon = DB::select('select * from colis 
             inner join villes on villes.id_V = colis.ville_id 
-            where id_BL =?',[$id_BL]);
-            
+            where id_BL =?', [$id_BL]);
         }
         // dd($bonLivraison)  ;
         // dd($colis,$colisBon);
@@ -49,91 +48,109 @@ class BonLivraisonController extends Controller
             ['title' => 'créer un Bon Livraison', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.clients.bonLivraison.index',compact("colis", "bonLivraison",'colisBon','breads'));
+        return view('pages.clients.bonLivraison.index', compact("colis", "bonLivraison", 'colisBon', 'breads'));
     }
     public function list()
     {
-        $user=session('user');
-        if(!$user){
+        $user = session('user');
+        if (!$user) {
             return redirect(route('auth.admin.signIn'));
         }
-        $bons = DB::table('bon_livraisons')
-            ->select('bon_livraisons.id_BL', 'bon_livraisons.reference', 'bon_livraisons.id_Cl', 'bon_livraisons.status', 'bon_livraisons.created_at')
-            ->leftJoin('clients', 'bon_livraisons.id_Cl', '=', 'clients.id_Cl')
-            ->select('bon_livraisons.*', 'clients.nomcomplet as client_nomcomplet')
-            ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as colis_count'))
-            ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as total_prix'))
-            ->get();
+        // $bons = DB::table('bon_livraisons')
+        //     ->select(
+        //         'bon_livraisons.id_BL',
+        //         'bon_livraisons.reference',
+        //         'bon_livraisons.id_Cl',
+        //         'bon_livraisons.status',
+        //         'bon_livraisons.created_at'
+        //     )
+        //     ->leftJoin('clients', 'bon_livraisons.id_Cl', '=', 'clients.id_Cl')
+        //     ->select('bon_livraisons.*', 'clients.nomcomplet as client_nomcomplet')
+        //     ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as colis_count'))
+        //     ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as total_prix'))
+        //     ->leftJoin('colis', 'bon_livraisons.id_BL', '=', 'colis.id_BL')
+        //     // ->select('bon_livraisons.*','colis.*')
+        //     // ->with('colis','colis.ville')
+        //     ->get();
+        $bons = BonLivraison::withCount('colis') // Count related colis
+                   ->withSum('colis', 'prix') // Sum prices of related colis
+                   ->leftJoin('clients', 'bon_livraisons.id_Cl', '=', 'clients.id_Cl')
+                   ->select('bon_livraisons.*', 'clients.nomcomplet as client_nomcomplet')
+                   ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as colis_count'))
+                   ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as total_prix'))
+                   ->leftJoin('colis', 'bon_livraisons.id_BL', '=', 'colis.id_BL')
+                   ->with('colis','colis.ville')
+                   ->distinct()
+                   ->get();
 
         $breads = [
             ['title' => 'Liste des Bon Livraison', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.bonLivraison.index',compact("bons",'breads'));
-    } 
+        return view('pages.admin.bonLivraison.index', compact("bons", 'breads'));
+    }
     public function create()
     {
-        $user=session('user');
-        if(!$user){
+        $user = session('user');
+        if (!$user) {
             return redirect(route('auth.client.signIn'));
         }
         $breads = [
             ['title' => 'Creér un Bon Livraison', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        $colis = Colis::query()->where('id_BL',null)->where('id_Cl',$user['id_Cl'])->get()->count();
-        return view('pages.clients.bonLivraison.create',compact("colis",'breads'));
-    } 
-       
-    public function update($id,$id_BL)
+        $colis = Colis::query()->where('id_BL', null)->where('id_Cl', $user['id_Cl'])->get()->count();
+        return view('pages.clients.bonLivraison.create', compact("colis", 'breads'));
+    }
+
+    public function update($id, $id_BL)
     {
         $colis = Colis::where('id', $id)
-        ->update(['id_BL' => $id_BL]);
-        return redirect()->route('bon.livraison.index',$id_BL);
-    }    
-    public function updateDelete($id,$id_BL)
+            ->update(['id_BL' => $id_BL]);
+        return redirect()->route('bon.livraison.index', $id_BL);
+    }
+    public function updateDelete($id, $id_BL)
     {
         $colis = Colis::where('id', $id)
-        ->update(['id_BL' => null]);
-        return redirect()->route('bon.livraison.index',$id_BL);
-    
-    }  
-    public function updateAll(Request $request,$id_BL)
+            ->update(['id_BL' => null]);
+        return redirect()->route('bon.livraison.index', $id_BL);
+    }
+    public function updateAll(Request $request, $id_BL)
     {
         // dd($request);
-        foreach($request->colis as $colis){
+        foreach ($request->colis as $colis) {
 
             $colis = Colis::where('id', $colis)
-            ->update(['id_BL' => $id_BL]);
+                ->update(['id_BL' => $id_BL]);
         }
-        return redirect()->route('bon.livraison.index',$id_BL);
-    }    
-    public function updateDeleteAll(Request $request,$id_BL)
+        return redirect()->route('bon.livraison.index', $id_BL);
+    }
+    public function updateDeleteAll(Request $request, $id_BL)
     {
-        foreach($request->colisDelete as $colis){
+        foreach ($request->colisDelete as $colis) {
 
             $colis = Colis::where('id', $colis)
-            ->update(['id_BL' => null]);
+                ->update(['id_BL' => null]);
         }
-        return redirect()->route('bon.livraison.index',$id_BL);
-    
-    }  
-     
-    
+        return redirect()->route('bon.livraison.index', $id_BL);
+    }
 
-    public function generateEtiqueteuse ($id) {
+
+
+    public function generateEtiqueteuse($id)
+    {
         // Create a new Dompdf instance
         $dompdf = new Dompdf();
-    
+
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isPhpEnabled', true);
-        $bon=BonLivraison::where('id_BL',$id)->first();
-        $colis=Colis::query()->where('id_BL',$id)->get();
+        $bon = BonLivraison::where('id_BL', $id)->first();
+        $colis = Colis::query()->where('id_BL', $id)->get();
         // dd($colis);
         // Set options
         $dompdf->setOptions($options);
-         $html = '<html>
+        $html = '<html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             <meta http-equiv="Content-Style-Type" content="text/css" />
@@ -259,20 +276,21 @@ class BonLivraisonController extends Controller
         // dd($dompdf);
         // Render the PDF
         $dompdf->render();
-    
+
         // Output the generated PDF to the browser
-        return $dompdf->stream('Ettiquettes-'.$bon->id_BL.'.pdf');
+        return $dompdf->stream('Ettiquettes-' . $bon->id_BL . '.pdf');
     }
-    
-    public function generateStikers ($id) {
+
+    public function generateStikers($id)
+    {
         // Create a new Dompdf instance
         $dompdf = new Dompdf();
-    
+
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isPhpEnabled', true);
-        $bon=BonLivraison::where('id_BL',$id)->first();
-        $colis=Colis::query()->where('id_BL',$id)->get();
+        $bon = BonLivraison::where('id_BL', $id)->first();
+        $colis = Colis::query()->where('id_BL', $id)->get();
         // dd($colis);
         // Set options
         $dompdf->setOptions($options);
@@ -342,8 +360,8 @@ class BonLivraisonController extends Controller
                 </head>
                 <body>';
 
-                foreach ($colis as $c) {
-                    $html .= '
+        foreach ($colis as $c) {
+            $html .= '
                     <div class="sticker " style="margin-top:50px;margin-bottom:360px">
                         <div class="row">
                             <div class="col-8">
@@ -428,9 +446,9 @@ class BonLivraisonController extends Controller
                         </table>
                         <div class="barcode"></div>
                     </div>';
-                }
+        }
 
-                $html .= '
+        $html .= '
                 </body>
                 </html>';
 
@@ -439,19 +457,19 @@ class BonLivraisonController extends Controller
         // dd($dompdf);
         // Render the PDF
         $dompdf->render();
-    
+
         // Output the generated PDF to the browser
-        return $dompdf->stream('Stikers-'.$bon->id_BL.'.pdf');
+        return $dompdf->stream('Stikers-' . $bon->id_BL . '.pdf');
     }
-    public function generateFacture ($id) {
-        $bon=BonLivraison::where('id_BL',$id)->first();
-        $colis=Colis::query()->where('id_BL',$id)->get();
-        $data=[
-            'bon'=>$bon,
-            'colis'=>$colis
+    public function generateFacture($id)
+    {
+        $bon = BonLivraison::where('id_BL', $id)->first();
+        $colis = Colis::query()->where('id_BL', $id)->get();
+        $data = [
+            'bon' => $bon,
+            'colis' => $colis
         ];
         $pdf = PDF::loadView('pages.clients.pdfs.pdf1', $data);
-        return $pdf->download('Facture-'.$bon->id_BL.'.pdf');
-        
+        return $pdf->download('Facture-' . $bon->id_BL . '.pdf');
     }
 }

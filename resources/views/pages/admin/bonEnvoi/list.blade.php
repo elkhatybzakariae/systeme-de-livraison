@@ -164,6 +164,7 @@ function openModal(id) {
   // Set the default values or update them based on the clicked item
   var modal=document.getElementById('modal-body') ;
   let bons=@json($bons);
+  console.log(bons);
   let BE=bons.find(ele=>ele.id_BE==id)
   console.log(BE);
   let text=''

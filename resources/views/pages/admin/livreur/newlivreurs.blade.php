@@ -4,6 +4,32 @@
 
 @endsection
 @section('content')
+
+<div class="modal fade" id="kt_modal_new_target" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <div class="modal-content rounded">
+            <div class="modal-header pb-0 border-0 justify-content-end">
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <span class="svg-icon svg-icon-1">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                transform="rotate(45 7.41422 6)" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            <div class="modal-body scroll-y px-10 px-lg-5 pt-0 pb-5">
+                <div class="card-body" id="kt_drawer_chat_messenger_body">
+                    <div class="scroll-y " id="show">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <div class="page-body">
         <div class="container-fluid">
             <div class="row">
@@ -28,20 +54,24 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($list as $item)
-                                                    <tr id="{{ $item->id_Cl }}" role="row" class="odd">
+                                                    <tr id="{{ $item->id_Liv }}" role="row" class="odd">
                                                         <td>
                                                             <b>Nom Livreur : </b>{{ $item->nomcomplet }}<br>
                                                             <b>CIN : </b>{{ $item->cin }}<br>
-                                                            <b>Bank : </b>{{ $item->nombanque }}<br>
+                                                            {{-- <b>Bank : </b>{{ $item->nombanque }}<br> --}}
                                                         </td>
                                                         <td><b>Adresse electronique : </b>{{ $item->email }}<br>
-                                                            <b>Mot de passe : </b>{{ $item->password }}<br>
+                                                            {{-- <b>Mot de passe : </b>{{ $item->password }}<br> --}}
                                                             <b>Numero de telephone : </b>?{{ $item->Phone }}?<br>
-                                                            <b>Ville : </b>{{ $item->ville }}<br>
-                                                            <b>Adresse : </b>{{ $item->adress }}
+                                                            {{-- <b>Ville : </b>{{ $item->ville }}<br> --}}
+                                                            {{-- <b>Adresse : </b>{{ $item->adress }} --}}
                                                         </td>
                                                         <td class="text-center align-middle">
                                                             <div class="btn-group" role="group">
+                                                                <button onclick="openModal('{{ $item->id_Liv }}')"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#kt_modal_new_target" class="btn"><i
+                                                                        class="fa fa-eye"></i></button>
                                                                 <a href="{{ route('accept.profile.livreur', $item->id_Liv) }}"  class="btn btn-primary">
                                                                         <i class="fa fa-plus"></i>
                                                                 </a>
@@ -77,6 +107,56 @@
             $(function() {
                 tableNewCstmrs('customers_table_json');
             });
+            function openModal(id) {
+                var users = @json($list);
+                let bb = '';
+                let item = users.find(ele => ele.id_Liv == id)
+                console.log(item);
+                bb += `
+                <div class="">
+                    <div class="d-flex flex-column ">
+                        <div class="d-flex justify-content-center align-items-center  mb-2">
+                            <div class="symbol symbol-35px symbol-circle">
+                                <img src="{{ $item->img ? '' : asset('storage/images/profile.jpg') }}" alt="image">
+
+                            </div>
+                        </div>
+                        <div class=" rounded text-dark fw-semibold text-start row" data-kt-element="message-text">
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="nom_livreur">Nom Client:</label>
+                                <input type="text" id="nom_livreur" class="form-control" value="${item.nomcomplet}" readonly>
+                            </div>
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="cin">CIN:</label>
+                                <input type="text" id="cin" class="form-control" value="${item.cin}" readonly>
+                            </div>
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="bank">Bank:</label>
+                                <input type="text" id="bank" class="form-control" value="${item.nombanque}" readonly>
+                            </div>
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="email">Adresse electronique:</label>
+                                <input type="text" id="email" class="form-control" value="${item.email}" readonly>
+                            </div>
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="phone">Numero de telephone:</label>
+                                <input type="text" id="phone" class="form-control" value="${item.Phone}" readonly>
+                            </div>
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="ville">Ville:</label>
+                                <input type="text" id="ville" class="form-control" value="${item.ville}" readonly>
+                            </div>
+                            <div class="form-group mb-3 col col-md-12">
+                                <label class="fw-bold" for="adresse">Adresse:</label>
+                                <textarea  id="adresse" class="form-control"  readonly> ${item.adress}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+                document.getElementById('show').innerHTML = bb;
+            }
         </script>
     </div>
 @endsection

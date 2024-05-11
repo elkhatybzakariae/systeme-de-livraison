@@ -18,5 +18,9 @@ class BonDistribution extends Model
     {
         return $this->hasMany(Colis::class,'id_BD');
     }
+    public function zone()
+    {
+        return $this->belongsTo(Zone::class);
+    }
 
 }

@@ -5,9 +5,28 @@
 @endsection
 @section('content')
 
-<!-- Modal -->
-<div class="modal fade" id="kt_modal_new_target" tabindex="-1" aria-hidden="true">
-  <!-- Modal content -->
+<div class="modal  fade" id="kt_modal_new_target" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content rounded">
+          <div class="modal-header pb-0 border-0 justify-content-end">
+              <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                  <span class="svg-icon svg-icon-1">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                              transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                          <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                              transform="rotate(45 7.41422 6)" fill="currentColor" />
+                      </svg>
+                  </span>
+              </div>
+          </div>
+          <div id="modal-body" class="modal-body scroll-y px-5 px-lg-5 pt-0 pb-15">
+           
+        
+          </div>
+      </div>
+  </div>
 </div>
 
 <div class="card card-flush">
@@ -88,7 +107,7 @@
               </a>
               <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-250px py-4" data-kt-menu="true">
                 <div class="menu-item px-3">
-                  <a  class="btn"><i class="fa fa-eye"></i>Details du bon</a>
+                  <a  class="btn" onclick="openModal('{{ $item->id_BD }}')"  data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"><i class="fa fa-eye"></i>Details du bon</a>
                 </div>
                 <div class="menu-item px-3">
                   <a  class="btn"><i class="far fa-file-excel"></i>Exporter les colis</a>
@@ -143,19 +162,69 @@ $(document).ready(function() {
   }
 });
 
-function openModal() {
+function openModal(id) {
   // Set the default values or update them based on the clicked item
-  document.getElementById('villename').value = villename;
-  document.getElementById('ref').value = ref;
-  var zoneSelect = document.getElementById('id_Z');
-  for (var i = 0; i < zoneSelect.options.length; i++) {
-    if (zoneSelect.options[i].text === zonename) {
-      zoneSelect.selectedIndex = i;
-      break;
-    }
-  }
-  // Set the form action URL
-  document.getElementById('kt_modal_new_target_form').action = actionUrl;
+  var modal=document.getElementById('modal-body') ;
+  let bons=@json($bons);
+  console.log(bons);
+  let BD=bons.find(ele=>ele.id_BD==id)
+  console.log(BD);
+  let text=''
+  text= `<div class="row">
+    <div class="dn-inv-infos-box col-6">
+      <b>Bon d envoie : </b> ${BD.id_BD}<br>
+      <b>Date :</b>${BD.created_at}<br>
+      <b>Colis :</b> ${BD.colis_count}<br>
+      <b>Total :</b> ${BD.total_prix} Dhs
+    </div>
+  </div>
+
+
+  <div >
+    <table class="table table-striped table-bordered    mb-0">
+    <thead>
+    <tr class="dn-inv-table-head">
+      <th>N°</th>
+      <th>Code d envoi</th>
+      <th>Telephone</th>
+      <th>Ville</th>
+      <th>Adresse</th>
+      <th>Commentaire</th>
+      <th>Status</th>
+      <th>Crbt</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    `
+  BD.colis.forEach(element => {
+    
+    text +=`
+          <tr>
+                  <td>${element.id}</td>
+                  <td>${element.code_d_envoi}</td>
+                  <td>${element.telephone}</td>
+                  <td>${element.ville.villename}</td>
+                  <td>${element.adresse}  </td>
+                  <td>${element.commentaire}  </td>
+            <td ><span class="badge" style="color:#835476; border:1px solid #835476">${element.status}</span></td>
+                  <td>${element.prix} Dhs</td>
+              </tr>`
+  });
+
+    text +=`           
+              <tr class="dn-inv-table-body">
+              <td colspan="6" style="text-align:right"><b>Total</b></td>
+              <td>${BD.total_prix} Dhs</td>
+            </tr>
+            </tbody>
+            </table>
+          </div>`;
+
+
+          modal.innerHTML=text
+// Set the form action URL
+  // document.getElementById('kt_modal_new_target_form').action = actionUrl;
 }
 </script>
 @endsection

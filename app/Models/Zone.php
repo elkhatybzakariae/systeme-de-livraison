@@ -27,4 +27,8 @@ class Zone extends Model
     {
         return $this->hasMany(Livreur::class,'id_Z');
     }
+    public function BOND()
+    {
+        return $this->hasMany(BonDistribution::class,'id_Z');
+    }
 }
