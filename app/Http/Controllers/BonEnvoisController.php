@@ -60,19 +60,22 @@ class BonEnvoisController extends Controller
         if(!$user){
             return redirect(route('auth.admin.signIn'));
         }
-        $bons = DB::table('bon_envois')
-        ->select(
-            'bon_envois.id_BE', 
-            'bon_envois.reference',  
-            'bon_envois.status', 
-            'bon_envois.created_at',
-            'clients.nomcomplet as client_nomcomplet',
-            DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BE = bon_envois.id_BE) as colis_count'),
-            DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BE = bon_envois.id_BE) as total_prix')
-        )
-        ->leftJoin('colis', 'bon_envois.id_BE', '=', 'colis.id_BE')
-        ->leftJoin('clients', 'colis.id_Cl', '=', 'clients.id_Cl')
-        ->get();
+   
+        $bons = BonEnvois::select(
+                'bon_envois.id_BE', 
+                'bon_envois.reference',  
+                'bon_envois.status', 
+                'bon_envois.created_at',
+                'clients.nomcomplet as client_nomcomplet',
+            )
+            ->withCount('colis') // Count the number of related colis
+            ->withSum('colis', 'prix') // Sum the prices of related colis
+            ->leftJoin('colis', 'bon_envois.id_BE', '=', 'colis.id_BE')
+            ->leftJoin('clients', 'colis.id_Cl', '=', 'clients.id_Cl')
+            ->with('colis','colis.ville')
+            ->distinct()
+            ->get();
+
     // $bons=BonEnvois::all();
     // dd($bons);
     $breads = [
