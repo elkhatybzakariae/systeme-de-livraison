@@ -4,7 +4,7 @@
 
 @endsection
 @section('content')
-<form action="{{ route('bon.distribution.index') }}">
+<form action="{{ route('bon.payment.livreur.index') }}">
   <div class="card">
     <div class="card-header">
       <h5>Ajouter Bon d'envoi </h5>
@@ -14,23 +14,21 @@
         <select name="zone" id="zone_select" class="form-select" >
           <option value="" selected disabled>Choisir une zone</option>
           @foreach ($zones as $item )
-            <option value="{{ $item->id_Z }}">{{ $item->zonename }} ({{ $item->colis_count }} Colis Recu)</option>
+            <option value="{{ $item->id_Z }}">{{ $item->zonename }} ({{ $item->colis_count }} Colis livrer non paye)</option>
           @endforeach
         </select>
     </div>
   </div>
   <div class="card" id="cardLiv" style="display: none">
     
-    <button id="btn"  class="btn btn-warning" style="display:block;margin:0px auto"></button>
+    <button id="btn"  class="btn btn-warning" style="display:block;margin:0px auto">Veuiller choisir un livreur</button>
     <div class="card-body">
         <select name="id_Liv" id="id_Liv" class="form-select" >
-          @foreach ($zones as $item )
-            <option value="{{ $item->id_Z }}">{{ $item->zonename }} ({{ $item->colis_count }})</option>
-          @endforeach
+          
         </select>
     </div>
     <div class="card-footer">
-      <button type="submit" class="btn btn-primary" style="display:block;margin:0px auto"><i class="fa fa-plus"></i> Creer bon de'envoi</button>
+      <button type="submit" class="btn btn-primary" style="display:block;margin:0px auto"><i class="fa fa-plus"></i> Creer bon de payment</button>
     </div>
     
     
@@ -39,25 +37,24 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
       const cardLiv = document.getElementById('cardLiv');
-      const btn = document.getElementById('btn');
       const zoneSelect = document.getElementById('zone_select');
       const liv = document.getElementById('id_Liv');
       var zones = @json($zones);
       console.log(zones);
       zoneSelect.addEventListener('change', function() {
         cardLiv.style.display='block'
-        // Get the selected zone ID
         const selectedZoneId = this.value;
         let data= zones.find(ele=>ele.id_Z==selectedZoneId)
-        btn.innerHTML=`Cette zone a   ${data.colis_count} colis recus`
+        
           console.log(data);
           
           liv.innerHTML = '';
                   data.livreurs.forEach(city => {
+                    console.log(city);
                       const option = document.createElement('option');
                       option.value = city.id_Liv;
-                      option.textContent = city.nomcomplet;
-                      liv.appendChild(option);
+                      option.textContent = city.nomcomplet+ ' (Colis non pays)'
+                      liv.appendChild(option)
                   });
   });
   });

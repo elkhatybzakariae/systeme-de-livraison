@@ -31,7 +31,7 @@ class ColisFactory extends Factory
             'telephone' => fake()->phoneNumber,
             'marchandise' => fake()->word,
             'etat' => fake()->randomElement(['paye','non paye']),
-            'status' => fake()->randomElement(['nouveau','recu','livraison','distribution']),
+            'status' => fake()->randomElement(['nouveau','recu','livraison','distribution','livre']),
             'zone' => fake()->randomElement($zones),
             'ville_id' => fake()->randomElement($villes),
             'prix' => fake()->randomFloat(2, 10, 1000),

@@ -49,7 +49,7 @@
             <td>{{ $item->villename }}</td>
             <td>
               
-              <a href="{{ route('bon.distribution.update',['id'=>$item->id,'id_BD'=>$bonLivraison->id_BD]) }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
+              <a href="{{ route('bon.payment.livreur.update',['id'=>$item->id,'id_BPL'=>$bonLivraison->id_BPL]) }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
             </td>
           </tr>
           @endforeach
@@ -92,7 +92,7 @@
               <td>{{ $item->prix }}</td>
               <td>{{ $item->villename }}</td>
               <td>
-                <a href="{{ route('bon.distribution.updateDelete',['id'=>$item->id,'id_BD'=>$bonLivraison->id_BD]) }}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                <a href="{{ route('bon.payment.livreur.updateDelete',['id'=>$item->id,'id_BPL'=>$bonLivraison->id_BPL]) }}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
               </td>
             </tr>
           @endforeach

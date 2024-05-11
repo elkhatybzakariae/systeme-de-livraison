@@ -33,7 +33,7 @@
           <option value="0">Inactive</option>
         </select>
       </div>
-      <a href="{{ route('bon.distribution.create') }}" class="btn btn-primary" >Ajouter  Bon Distribution</a>
+      <a href="{{ route('bon.payment.livreur.create') }}" class="btn btn-primary" >Ajouter  Bon Payment</a>
     </div>
   </div>
 

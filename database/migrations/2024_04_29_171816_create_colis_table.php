@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('telephone');
             $table->string('marchandise');
             $table->string('etat')->default('non paye');
-            $table->enum('status',['nouveau','recu','livraison','distribution'])->default('nouveau');
+            $table->enum('status',['nouveau','recu','livraison','distribution','livre'])->default('nouveau');
             $table->string('zone');
             $table->foreign('zone')->on('zones')->references('id_Z');
             $table->string('ville_id');

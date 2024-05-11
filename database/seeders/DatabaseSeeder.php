@@ -33,14 +33,14 @@ class DatabaseSeeder extends Seeder
         \App\Models\Client::factory(10)->create([
                 'isAccepted'=>0
             ]);
-        \App\Models\Livreur::factory(60)->create([
+        \App\Models\Livreur::factory(20)->create([
                 'isAccepted'=>0
             ]);
         \App\Models\Livreur::factory()->create([
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('password'),
             ]);
-            Colis::factory(5)->create([
+            Colis::factory(30)->create([
                 'id_Cl'=>'iecFC3g7Jx',
 
             ]);

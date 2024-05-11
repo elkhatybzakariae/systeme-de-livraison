@@ -26,7 +26,7 @@ class BonPaymentLivreurController extends Controller
         $colis =Colis::query()->with('ville')->whereNull('id_BPL')->where('zone',$id_Z)->get();
 
         $colisBon=[];
-        // dd($colis);
+        // dd($request->id_Liv);
         if (!$id_BPL) {
             if($user ){
                 $bonLivraison= BonPaymentLivreur::create([
@@ -34,7 +34,7 @@ class BonPaymentLivreurController extends Controller
                     'reference'=>'BD-'.Str::random(10),
                     'status'=>'nouveau',
                     'id_Z'=>$id_Z,
-                    'id_Liv'=>$request->input('id_Liv'),
+                    'id_Liv'=>$request->id_Liv,
                 ]);
             }else{
                 return redirect(route('auth.client.signIn'));
@@ -87,16 +87,16 @@ class BonPaymentLivreurController extends Controller
         $user=session('user');
       
         $zones = Zone::whereHas('colis', function ($query) {
-            $query->where('status', 'recu');
+            $query->where('status', 'livre')->where('etat', 'non paye');
         })
         ->with(['colis', 'livreurs']) 
         ->withCount('colis')
         ->get();
 
-        
+        // dd($zones);
 
         $breads = [
-            ['title' => 'créer un Bon Distribution', 'url' => null],
+            ['title' => 'créer un Bon Payement', 'url' => null],
             ['text' => 'Bons', 'url' => null], 
         ];
         return view('pages.admin.bonPaymentLivreur.create',compact("zones",'breads'));
@@ -106,7 +106,7 @@ class BonPaymentLivreurController extends Controller
     {
         $colis = Colis::where('id', $id)
         ->update(['id_BPL' => $id_BPL,'status'=>'distribution']);
-        return redirect()->route('bon.distribution.index',$id_BPL);
+        return redirect()->route('bon.payment.livreur.index',$id_BPL);
     }    
     public function updateDelete($id,$id_BPL)
     {
@@ -114,7 +114,7 @@ class BonPaymentLivreurController extends Controller
         ->update(['id_BPL' => null,'status'=>'recu']);
 
         // dd($colis);
-        return redirect()->route('bon.distribution.index',$id_BPL);
+        return redirect()->route('bon.payment.livreur.index',$id_BPL);
     
     }  
 }

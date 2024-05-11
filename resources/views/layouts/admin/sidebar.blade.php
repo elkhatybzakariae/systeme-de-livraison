@@ -339,7 +339,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link {{ request()->routeIs('bon.payment.livereur.list') ?'active':'' }}" href="{{ route('bon.payment.livreur.list') }}">
+                            <a class="menu-link {{ request()->routeIs('bon.payment.livreur.list') ?'active':'' }}" href="{{ route('bon.payment.livreur.list') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
