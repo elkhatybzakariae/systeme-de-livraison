@@ -104,6 +104,8 @@ Route::middleware('check.admin')->group(function(){
         Route::get('/update/{id}/bl/{id_BPL}', [BonPaymentLivreurController::class, 'update'])->name('bon.payment.livreur.update');
         Route::get('/updateDelete/{id}/bl/{id_BPL}', [BonPaymentLivreurController::class, 'updateDelete'])->name('bon.payment.livreur.updateDelete');
         Route::delete('/destroy/{id}', [BonPaymentLivreurController::class, 'destroy'])->name('bon.payment.livreur.destroy');
+        Route::post('/update/all/{id_BL}', [BonPaymentLivreurController::class, 'updateAll'])->name('bon.payment.livreur.update.all');
+        Route::post('/update/delete/all/{id_BL}', [BonPaymentLivreurController::class, 'updateDeleteAll'])->name('bon.payment.livreur.updateDelete.all');
     });
     Route::group(['prefix' => 'admin/bon-payment-zone'], function () {
         Route::get('/bon/{id_BD?}', [BonPaymentZoneController::class, 'index'])->name('bon.payment.zone.index');
@@ -124,6 +126,8 @@ Route::middleware('check.admin')->group(function(){
         Route::get('/update/{id}/bl/{id_BD}', [BonDistributionController::class, 'update'])->name('bon.distribution.update');
         Route::get('/updateDelete/{id}/bl/{id_BD}', [BonDistributionController::class, 'updateDelete'])->name('bon.distribution.updateDelete');
         Route::delete('/destroy/{id}', [BonDistributionController::class, 'destroy'])->name('bon.distribution.destroy');
+        Route::post('/update/all/{id_BL}', [BonDistributionController::class, 'updateAll'])->name('bon.distribution.update.all');
+        Route::post('/update/delete/all/{id_BL}', [BonDistributionController::class, 'updateDeleteAll'])->name('bon.distribution.updateDelete.all');
     });
     Route::group(['prefix' => 'admin/reclamation'], function () {
         Route::get('/all', [ReclamationController::class, 'all'])->name('reclamation.all');

@@ -81,8 +81,10 @@
       <table class="table table-striped dataTable" >
         <thead>
           <tr role="row">
-            <input type="checkbox" id="checkDeleteAll">
-            
+            <td>
+
+              <input type="checkbox" id="checkDeleteAll">
+            </td>
             <th >Code d envoi</th>
             <th>Destinataire</th>
             <th>Date de creation</th>

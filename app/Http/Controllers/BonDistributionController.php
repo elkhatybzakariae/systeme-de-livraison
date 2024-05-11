@@ -49,7 +49,7 @@ class BonDistributionController extends Controller
 
         }
         $breads = [
-            ['title' => 'créer un Bon Envoi', 'url' => null],
+            ['title' => 'créer un Bon Distribution', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
         return view('pages.admin.bonDistribution.index',compact("colis", "bonLivraison",'colisBon','breads'));
@@ -122,6 +122,25 @@ class BonDistributionController extends Controller
     
     }  
      
+    public function updateAll(Request $request,$id_BD)
+    {
+        // dd($request);
+        foreach($request->colis as $colis){
+
+            $colis = Colis::where('id', $colis)
+            ->update(['id_BD' => $id_BD]);
+        }
+        return redirect()->route('bon.distribution.index',$id_BD);
+    }    
+    public function updateDeleteAll(Request $request,$id_BD)
+    {
+        foreach($request->colisDelete as $colis){
+
+            $colis = Colis::where('id', $colis)
+            ->update(['id_BD' => null]);
+        }
+        return redirect()->route('bon.distribution.index',$id_BD);
     
+    }  
    
 }

@@ -18,18 +18,21 @@
   </div>
 
 <div class="container-fluid mt-4">
+  <form action="{{ route('bon.distribution.update.all',$bonLivraison->id_BD) }}" method="POST">
+  @csrf
   <div class="card">
     <div class="card-header">
-        <h5><b>List des nouveaux colis</b></h5>
+      <h5><b>List des nouveaux colis</b></h5>
     </div>
     <div class="card-body">
+      
       <table  class="table table-striped    dataTable " >
         <thead>
           <tr role="row">
             <th >
-              <input type="checkbox" >
+              <input type="checkbox" id="checkAll">
             </th>
-            <th >Code d envoi</th>
+            <th >Code d distribution</th>
             <th >Destinataire</th>
             <th >Date de creation</th>
             <th >Prix</th>
@@ -39,9 +42,9 @@
         </thead>
         <tbody>
 
-          @foreach ($colis as $item )
+          @foreach ($colis as $i=>$item )
           <tr id="new-parcel-Autedelenitidelect" role="row" class="odd">
-            <td><input class="table-add-checkbox" type="checkbox" ></td>
+            <td><input class="table-add-checkbox" name="colis[{{ $i }}]" value="{{ $item->id }}" type="checkbox" ></td>
             <td><b>{{ $item->code_d_envoi }}</b></td>
             <td>{{ $item->destinataire }}</td>
             <td>{{ $item->created_at }}</td>
@@ -59,13 +62,17 @@
     </div>
     <div class="card-footer">  
       <div class="text-right float-end">
-      <a class="btn btn-primary" ><i class="fa fa-plus"></i> Ajouter</a>
-        </div>
+        <button type="submit" id="btnSubmit
+        " class="btn btn-primary" ><i class="fa fa-plus"></i> Ajouter</button>
+      </div>
     </div>
   </div>
+</form>
 </div>
 
 <div class="container-fluid mt-4">
+  <form action="{{ route('bon.distribution.updateDelete.all',$bonLivraison->id_BD) }}" method="POST">
+  @csrf
   <div class="card">
     <div class="card-header">
       <h5><b>List des colis ajoutes</b></h5>
@@ -74,6 +81,11 @@
       <table class="table table-striped dataTable" >
         <thead>
           <tr role="row">
+            <td>
+
+              <input type="checkbox" id="checkDeleteAll">
+            </td>
+            
             <th >Code d envoi</th>
             <th>Destinataire</th>
             <th>Date de creation</th>
@@ -84,8 +96,10 @@
         </thead>
         <tbody>
           {{-- @dd($bonLivraison->colis) --}}
-          @foreach ($colisBon as $item )
+          @foreach ($colisBon as $i=>$item )
             <tr id="new-parcel-Autedelenitidelect" role="row" class="odd">
+            <td><input class="table-delete-checkbox" name="colisDelete[{{ $i }}]" value="{{ $item->id }}" type="checkbox" ></td>
+
               <td><b>{{ $item->code_d_envoi }}</b></td>
               <td>{{ $item->destinataire }}</td>
               <td>{{ $item->created_at }}</td>
@@ -99,8 +113,60 @@
         </tbody>
       </table>
     </div>
-   </div>
+    <div class="card-footer">  
+      <div class="text-right float-end">
+        <button type="submit" id="btnSubmit
+        " class="btn btn-danger" ><i class="fa fa-times"></i> annuler</button>
+      </div>
+    </div>
+  </div>
+</form>
 </div>
+  
 
+<script>
+  // JavaScript code to handle checkbox click event
+  document.addEventListener('DOMContentLoaded', function () {
+      const checkAll = document.getElementById('checkAll');
+      const checkboxes = document.querySelectorAll('.table-add-checkbox');
 
+      checkAll.addEventListener('change', function () {
+          checkboxes.forEach(checkbox => {
+              checkbox.checked = checkAll.checked;
+          });
+      });
+
+      const btnSubmit = document.getElementById('btnSubmit');
+      btnSubmit.addEventListener('click', function () {
+          const checkedIds = [];
+          checkboxes.forEach(checkbox => {
+              if (checkbox.checked) {
+                  checkedIds.push(checkbox.value);
+              }
+          });
+
+      });
+  });
+  document.addEventListener('DOMContentLoaded', function () {
+      const checkAll = document.getElementById('checkDeleteAll');
+      const checkboxes = document.querySelectorAll('.table-delete-checkbox');
+
+      checkAll.addEventListener('change', function () {
+          checkboxes.forEach(checkbox => {
+              checkbox.checked = checkAll.checked;
+          });
+      });
+
+      const btnSubmit = document.getElementById('btnSubmit');
+      btnSubmit.addEventListener('click', function () {
+          const checkedIds = [];
+          checkboxes.forEach(checkbox => {
+              if (checkbox.checked) {
+                  checkedIds.push(checkbox.value);
+              }
+          });
+
+      });
+  });
+</script>
 @endsection

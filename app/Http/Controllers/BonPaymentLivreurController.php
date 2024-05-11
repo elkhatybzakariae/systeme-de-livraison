@@ -26,7 +26,7 @@ class BonPaymentLivreurController extends Controller
 
         $colisBon=[];
         if (!$id_BPL) {
-            dd($id_BPL);
+            // dd($id_BPL);
             if($user ){
                 $bon= BonPaymentLivreur::create([
                     'id_BPL'=>'BPL-'.Str::random(10),
@@ -114,6 +114,26 @@ class BonPaymentLivreurController extends Controller
         ->update(['id_BPL' => null,'etat'=>'non paye']);
 
         // dd($colis);
+        return redirect()->route('bon.payment.livreur.index',$id_BPL);
+    
+    }  
+    public function updateAll(Request $request,$id_BPL)
+    {
+        // dd($request);
+        foreach($request->colis as $colis){
+
+            $colis = Colis::where('id', $colis)
+            ->update(['id_BPL' => $id_BPL]);
+        }
+        return redirect()->route('bon.payment.livreur.index',$id_BPL);
+    }    
+    public function updateDeleteAll(Request $request,$id_BPL)
+    {
+        foreach($request->colisDelete as $colis){
+
+            $colis = Colis::where('id', $colis)
+            ->update(['id_BPL' => null]);
+        }
         return redirect()->route('bon.payment.livreur.index',$id_BPL);
     
     }  
