@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\BonLivraison;
 use App\Models\Colis;
-use PDF;
-
 use Dompdf\Dompdf;
+
 use Dompdf\Options;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
 use Illuminate\Support\Str;
+use PDF;
 use TCPDF;
 
 class BonLivraisonController extends Controller
@@ -93,6 +95,26 @@ class BonLivraisonController extends Controller
     {
         $colis = Colis::where('id', $id)
         ->update(['id_BL' => null]);
+        return redirect()->route('bon.livraison.index',$id_BL);
+    
+    }  
+    public function updateAll(Request $request,$id_BL)
+    {
+        // dd($request);
+        foreach($request->colis as $colis){
+
+            $colis = Colis::where('id', $colis)
+            ->update(['id_BL' => $id_BL]);
+        }
+        return redirect()->route('bon.livraison.index',$id_BL);
+    }    
+    public function updateDeleteAll(Request $request,$id_BL)
+    {
+        foreach($request->colisDelete as $colis){
+
+            $colis = Colis::where('id', $colis)
+            ->update(['id_BL' => null]);
+        }
         return redirect()->route('bon.livraison.index',$id_BL);
     
     }  

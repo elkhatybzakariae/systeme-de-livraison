@@ -10,7 +10,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5><b>Date de creation:</b> {{ $bonLivraison->created_at }}</h5>
+                    <h5><b>Date de creation:</b> {{ $bon->created_at }}</h5>
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
             <td>{{ $item->villename }}</td>
             <td>
               
-              <a href="{{ route('bon.payment.livreur.update',['id'=>$item->id,'id_BPL'=>$bonLivraison->id_BPL]) }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
+              <a href="{{ route('bon.payment.livreur.update',['id'=>$item->id,'id_BPL'=>$bon->id_BPL]) }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
             </td>
           </tr>
           @endforeach
@@ -83,7 +83,7 @@
           </tr>
         </thead>
         <tbody>
-          {{-- @dd($bonLivraison->colis) --}}
+          {{-- @dd($bon->colis) --}}
           @foreach ($colisBon as $item )
             <tr id="new-parcel-Autedelenitidelect" role="row" class="odd">
               <td><b>{{ $item->code_d_envoi }}</b></td>
@@ -92,7 +92,7 @@
               <td>{{ $item->prix }}</td>
               <td>{{ $item->villename }}</td>
               <td>
-                <a href="{{ route('bon.payment.livreur.updateDelete',['id'=>$item->id,'id_BPL'=>$bonLivraison->id_BPL]) }}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                <a href="{{ route('bon.payment.livreur.updateDelete',['id'=>$item->id,'id_BPL'=>$bon->id_BPL]) }}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
               </td>
             </tr>
           @endforeach

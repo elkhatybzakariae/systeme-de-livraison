@@ -94,13 +94,13 @@ Route::middleware('check.admin')->group(function(){
         Route::delete('/destroy/{id}', [BonEnvoisController::class, 'destroy'])->name('bon.envoi.destroy');
     });
     Route::group(['prefix' => 'admin/bon-payment-livreur'], function () {
-        Route::get('/bon/{id_BD?}', [BonPaymentLivreurController::class, 'index'])->name('bon.payment.livreur.index');
+        Route::get('/bon/{id_BPL?}', [BonPaymentLivreurController::class, 'index'])->name('bon.payment.livreur.index');
         Route::get('/', [BonPaymentLivreurController::class, 'list'])->name('bon.payment.livreur.list');
         Route::get('/create', [BonPaymentLivreurController::class, 'create'])->name('bon.payment.livreur.create');
         Route::post('/store', [BonPaymentLivreurController::class, 'store'])->name('bon.payment.livreur.store');
         Route::get('/edit/{id}', [BonPaymentLivreurController::class, 'edit'])->name('bon.payment.livreur.edit');
-        Route::get('/update/{id}/bl/{id_BD}', [BonPaymentLivreurController::class, 'update'])->name('bon.payment.livreur.update');
-        Route::get('/updateDelete/{id}/bl/{id_BD}', [BonPaymentLivreurController::class, 'updateDelete'])->name('bon.payment.livreur.updateDelete');
+        Route::get('/update/{id}/bl/{id_BPL}', [BonPaymentLivreurController::class, 'update'])->name('bon.payment.livreur.update');
+        Route::get('/updateDelete/{id}/bl/{id_BPL}', [BonPaymentLivreurController::class, 'updateDelete'])->name('bon.payment.livreur.updateDelete');
         Route::delete('/destroy/{id}', [BonPaymentLivreurController::class, 'destroy'])->name('bon.payment.livreur.destroy');
     });
     Route::group(['prefix' => 'admin/bon-payment-zone'], function () {
@@ -164,6 +164,8 @@ Route::middleware('check.client')->group(function(){
         Route::get('/update/{id}/bl/{id_BL}', [BonLivraisonController::class, 'update'])->name('bon.livraison.update');
         Route::get('/updateDelete/{id}/bl/{id_BL}', [BonLivraisonController::class, 'updateDelete'])->name('bon.livraison.updateDelete');
         Route::delete('/destroy/{id}', [BonLivraisonController::class, 'destroy'])->name('bon.livraison.destroy');
+        Route::post('/update/all/{id_BL}', [BonLivraisonController::class, 'updateAll'])->name('bon.livraison.update.all');
+        Route::post('/update/delete/all/{id_BL}', [BonLivraisonController::class, 'updateDeleteAll'])->name('bon.livraison.updateDelete.all');
     });
     Route::group(['prefix' => 'reclamation'], function () {
         Route::get('/', [ReclamationController::class, 'index'])->name('reclamation.index');
