@@ -92,6 +92,8 @@ Route::middleware('check.admin')->group(function(){
         Route::get('/update/{id}/bl/{id_BE}', [BonEnvoisController::class, 'update'])->name('bon.envoi.update');
         Route::get('/updateDelete/{id}/bl/{id_BE}', [BonEnvoisController::class, 'updateDelete'])->name('bon.envoi.updateDelete');
         Route::delete('/destroy/{id}', [BonEnvoisController::class, 'destroy'])->name('bon.envoi.destroy');
+        Route::post('/update/all/{id_BL}', [BonEnvoisController::class, 'updateAll'])->name('bon.envoi.update.all');
+        Route::post('/update/delete/all/{id_BL}', [BonEnvoisController::class, 'updateDeleteAll'])->name('bon.envoi.updateDelete.all');
     });
     Route::group(['prefix' => 'admin/bon-payment-livreur'], function () {
         Route::get('/bon/{id_BPL?}', [BonPaymentLivreurController::class, 'index'])->name('bon.payment.livreur.index');

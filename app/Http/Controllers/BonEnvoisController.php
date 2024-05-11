@@ -119,7 +119,26 @@ $zones = Zone::whereHas('colis', function ($query) {
     
     }  
      
+    public function updateAll(Request $request,$id_BE)
+    {
+        // dd($request);
+        foreach($request->colis as $colis){
+
+            $colis = Colis::where('id', $colis)
+            ->update(['id_BE' => $id_BE]);
+        }
+        return redirect()->route('bon.envoi.index',$id_BE);
+    }    
+    public function updateDeleteAll(Request $request,$id_BE)
+    {
+        foreach($request->colisDelete as $colis){
+
+            $colis = Colis::where('id', $colis)
+            ->update(['id_BE' => null]);
+        }
+        return redirect()->route('bon.envoi.index',$id_BE);
     
+    }  
     public function generateStikers ($id) {
         // Create a new Dompdf instance
         $dompdf = new Dompdf();
