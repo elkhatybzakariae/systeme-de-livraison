@@ -84,7 +84,7 @@
               <span class="fw-bold" data-kt-ecommerce-product-filter="prix">{{ $item->zone }}</span>
             </td>
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="code">{{ $item->liv_nomcomplet }}</span>
+              <span class="fw-bold" data-kt-ecommerce-product-filter="code">{{ $item->nomComplet }}</span>
             </td>
             <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="date">{{ $item->created_at }}</span>

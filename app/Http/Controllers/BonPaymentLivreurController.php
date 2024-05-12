@@ -57,24 +57,26 @@ class BonPaymentLivreurController extends Controller
         $user=session('user');
         if(!$user){
             return redirect(route('auth.admin.signIn'));
-        }
+        } 
         $bons = BonPaymentLivreur::select(
             'bon_payment_livreurs.id_BPL', 
             'bon_payment_livreurs.reference',  
             'bon_payment_livreurs.status', 
             'bon_payment_livreurs.created_at',
-            'livreurs.nomcomplet as client_nomcomplet',
-        )
-        ->withCount('colis') // Count the number of related colis
-        ->withSum('colis', 'prix') // Sum the prices of related colis
+            'livreurs.nomcomplet as nomComplet',
+            'zones.zonename as zone',
+            
+            )
+            ->withCount('colis') // Count the number of related colis
+            ->withSum('colis', 'prix') // Sum the prices of related colis
+            ->leftJoin('zones', 'bon_payment_livreurs.id_Z', '=', 'zones.id_Z')
         ->leftJoin('colis', 'bon_payment_livreurs.id_BPL', '=', 'colis.id_BPL')
         ->leftJoin('livreurs', 'bon_payment_livreurs.id_Liv', '=', 'livreurs.id_Liv')
         ->with('colis','colis.ville')
         ->distinct()
         ->get();
-
     // $bons=BonPaymentLivreur::all();
-    dd($bons);
+    // dd($bons);
     $breads = [
         ['title' => 'Liste des Bons de payment livreur ', 'url' => null],
         ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
