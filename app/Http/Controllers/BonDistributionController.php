@@ -10,6 +10,7 @@ use Dompdf\Options;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use League\Csv\Writer;
 
 class BonDistributionController extends Controller
 {
@@ -60,24 +61,7 @@ class BonDistributionController extends Controller
         if (!$user) {
             return redirect(route('auth.admin.signIn'));
         }
-        // $bons = DB::table('bon_distributions')
-        // ->select(
-        //     'bon_distributions.id_BD', 
-        //     'bon_distributions.reference',  
-        //     'bon_distributions.status', 
-        //     'bon_distributions.created_at',
-        //     'livreurs.nomcomplet as liv_nomcomplet',
-        //     'zones.zonename as zone',
-        //     DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BD = bon_distributions.id_BD) as colis_count'),
-        //     DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BD = bon_distributions.id_BD) as total_prix')
-        // )
-        // ->leftJoin('colis', 'bon_distributions.id_BD', '=', 'colis.id_BD')
-        // ->leftJoin('livreurs', 'bon_distributions.id_Liv', '=', 'livreurs.id_Liv')
-        // ->leftJoin('zones', 'bon_distributions.id_Z', '=', 'zones.id_Z')
-        // // ->with('colis','colis.ville')
-        // ->distinct()
-
-        // ->get();
+  
         $bons = BonDistribution::withCount('colis') // Count related colis
             ->withSum('colis', 'prix') // Sum prices of related colis
             ->leftJoin('livreurs', 'bon_distributions.id_Liv', '=', 'livreurs.id_Liv')
@@ -153,5 +137,24 @@ class BonDistributionController extends Controller
                 ->update(['id_BD' => null]);
         }
         return redirect()->route('bon.distribution.index', $id_BD);
+    }
+    public function exportColis($id_BD)
+    {
+        $colis = Colis::where('id_BD', $id_BD)->get();
+        $csv = Writer::createFromString('');
+        $csv->insertOne(['Code d\'envoi', 'Destinataire', 'Date de creation', 'Prix', 'Ville']);
+        foreach ($colis as $colisItem) {
+            $csv->insertOne([
+                $colisItem->code_d_envoi,
+                $colisItem->destinataire,
+                $colisItem->created_at,
+                $colisItem->prix,
+                $colisItem->ville->villename 
+            ]);
+        }
+        $fileName = 'colis_' . $id_BD . '.csv';
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="' . $fileName . '"');
+        echo $csv->getContent();
     }
 }

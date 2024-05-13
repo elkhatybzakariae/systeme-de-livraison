@@ -108,7 +108,7 @@
                   <a  class="btn" onclick="openModal('{{ $item->id_BE }}')"  data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"><i class="fa fa-eye"></i>Details du bon</a>
                 </div>
                 <div class="menu-item px-3">
-                  <a  class="btn"><i class="far fa-file-excel"></i>Exporter les colis</a>
+                  <a  class="btn" href="{{ route('bon.envoi.exportColis',$item->id_BE) }}"><i class="far fa-file-excel"></i>Exporter les colis</a>
                 </div>
                 <div class="menu-item px-3">
                   <a  class="btn"><i class="fa fa-check"></i>bon bien recu</a>

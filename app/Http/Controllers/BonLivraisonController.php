@@ -6,6 +6,7 @@ use App\Models\BonLivraison;
 use App\Models\Colis;
 use Dompdf\Dompdf;
 
+use League\Csv\Writer;
 use Dompdf\Options;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -56,22 +57,6 @@ class BonLivraisonController extends Controller
         if (!$user) {
             return redirect(route('auth.admin.signIn'));
         }
-        // $bons = DB::table('bon_livraisons')
-        //     ->select(
-        //         'bon_livraisons.id_BL',
-        //         'bon_livraisons.reference',
-        //         'bon_livraisons.id_Cl',
-        //         'bon_livraisons.status',
-        //         'bon_livraisons.created_at'
-        //     )
-        //     ->leftJoin('clients', 'bon_livraisons.id_Cl', '=', 'clients.id_Cl')
-        //     ->select('bon_livraisons.*', 'clients.nomcomplet as client_nomcomplet')
-        //     ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as colis_count'))
-        //     ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as total_prix'))
-        //     ->leftJoin('colis', 'bon_livraisons.id_BL', '=', 'colis.id_BL')
-        //     // ->select('bon_livraisons.*','colis.*')
-        //     // ->with('colis','colis.ville')
-        //     ->get();
         $bons = BonLivraison::withCount('colis') // Count related colis
                    ->withSum('colis', 'prix') // Sum prices of related colis
                    ->leftJoin('clients', 'bon_livraisons.id_Cl', '=', 'clients.id_Cl')
@@ -137,6 +122,26 @@ class BonLivraisonController extends Controller
 
 
 
+    public function exportColis($id_BL)
+    {
+        $colis = Colis::where('id_BL', $id_BL)->get();
+        $csv = Writer::createFromString('');
+        $csv->insertOne(['Code d\'envoi', 'Destinataire', 'Date de creation', 'Prix', 'Ville']);
+        foreach ($colis as $colisItem) {
+            $csv->insertOne([
+                $colisItem->code_d_envoi,
+                $colisItem->destinataire,
+                $colisItem->created_at,
+                $colisItem->prix,
+                $colisItem->ville->villename 
+            ]);
+        }
+        $fileName = 'colis_' . $id_BL . '.csv';
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="' . $fileName . '"');
+        echo $csv->getContent();
+    }
+    
     public function generateEtiqueteuse($id)
     {
         // Create a new Dompdf instance

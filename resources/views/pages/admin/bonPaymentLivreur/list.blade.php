@@ -111,7 +111,7 @@
                   
                 </div>
                 <div class="menu-item px-3">
-                  <a  class="btn"><i class="far fa-file-excel"></i>Exporter les colis</a>
+                  <a  class="btn"  href="{{ route('bon.payment.livreur.exportColis',$item->id_BPL) }}"><i class="far fa-file-excel"></i>Exporter les colis</a>
                 </div>
                 <div class="menu-item px-3">
                   <a  class="btn"><i class="fa fa-check"></i>bon bien recu</a>

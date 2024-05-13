@@ -92,8 +92,9 @@ Route::middleware('check.admin')->group(function(){
         Route::get('/update/{id}/bl/{id_BE}', [BonEnvoisController::class, 'update'])->name('bon.envoi.update');
         Route::get('/updateDelete/{id}/bl/{id_BE}', [BonEnvoisController::class, 'updateDelete'])->name('bon.envoi.updateDelete');
         Route::delete('/destroy/{id}', [BonEnvoisController::class, 'destroy'])->name('bon.envoi.destroy');
-        Route::post('/update/all/{id_BL}', [BonEnvoisController::class, 'updateAll'])->name('bon.envoi.update.all');
-        Route::post('/update/delete/all/{id_BL}', [BonEnvoisController::class, 'updateDeleteAll'])->name('bon.envoi.updateDelete.all');
+        Route::post('/update/all/{id_BE}', [BonEnvoisController::class, 'updateAll'])->name('bon.envoi.update.all');
+        Route::post('/update/delete/all/{id_BE}', [BonEnvoisController::class, 'updateDeleteAll'])->name('bon.envoi.updateDelete.all');
+        Route::get('/export/colis/{id_BE}', [BonEnvoisController::class, 'exportColis'])->name('bon.envoi.exportColis');
     });
     Route::group(['prefix' => 'admin/bon-payment-livreur'], function () {
         Route::get('/bon/{id_BPL?}', [BonPaymentLivreurController::class, 'index'])->name('bon.payment.livreur.index');
@@ -106,6 +107,8 @@ Route::middleware('check.admin')->group(function(){
         Route::delete('/destroy/{id}', [BonPaymentLivreurController::class, 'destroy'])->name('bon.payment.livreur.destroy');
         Route::post('/update/all/{id_BL}', [BonPaymentLivreurController::class, 'updateAll'])->name('bon.payment.livreur.update.all');
         Route::post('/update/delete/all/{id_BL}', [BonPaymentLivreurController::class, 'updateDeleteAll'])->name('bon.payment.livreur.updateDelete.all');
+        Route::get('/export/colis/{id}', [BonPaymentLivreurController::class, 'exportColis'])->name('bon.payment.livreur.exportColis');
+
     });
     Route::group(['prefix' => 'admin/bon-payment-zone'], function () {
         Route::get('/bon/{id_BD?}', [BonPaymentZoneController::class, 'index'])->name('bon.payment.zone.index');
@@ -116,6 +119,8 @@ Route::middleware('check.admin')->group(function(){
         Route::get('/update/{id}/bl/{id_BD}', [BonPaymentZoneController::class, 'update'])->name('bon.payment.zone.update');
         Route::get('/updateDelete/{id}/bl/{id_BD}', [BonPaymentZoneController::class, 'updateDelete'])->name('bon.payment.zone.updateDelete');
         Route::delete('/destroy/{id}', [BonPaymentZoneController::class, 'destroy'])->name('bon.payment.zone.destroy');
+        Route::get('/export/colis/{id}', [BonPaymentLivreurController::class, 'exportColis'])->name('bon.payment.livreur.exportColis');
+
     });
     Route::group(['prefix' => 'admin/bon-distribution'], function () {
         Route::get('/bon/{id_BD?}', [BonDistributionController::class, 'index'])->name('bon.distribution.index');
@@ -128,6 +133,8 @@ Route::middleware('check.admin')->group(function(){
         Route::delete('/destroy/{id}', [BonDistributionController::class, 'destroy'])->name('bon.distribution.destroy');
         Route::post('/update/all/{id_BL}', [BonDistributionController::class, 'updateAll'])->name('bon.distribution.update.all');
         Route::post('/update/delete/all/{id_BL}', [BonDistributionController::class, 'updateDeleteAll'])->name('bon.distribution.updateDelete.all');
+        Route::get('/export/colis/{id}', [BonDistributionController::class, 'exportColis'])->name('bon.distribution.exportColis');
+
     });
     Route::group(['prefix' => 'admin/reclamation'], function () {
         Route::get('/all', [ReclamationController::class, 'all'])->name('reclamation.all');
@@ -135,6 +142,8 @@ Route::middleware('check.admin')->group(function(){
     });
     Route::get('/admin/colis', [ColisController::class, 'indexAdmin'])->name('colis.indexAdmin');
     Route::get('admin/bon-livraisons/', [BonLivraisonController::class, 'list'])->name('bon.livraison.list');
+    Route::get('admin/bon-livraisons//export/colis/{id}', [BonLivraisonController::class, 'exportColis'])->name('bon.livraison.exportColis');
+
 
 });
 Route::middleware('check.client')->group(function(){
