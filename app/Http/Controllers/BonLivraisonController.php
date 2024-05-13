@@ -474,7 +474,14 @@ class BonLivraisonController extends Controller
             'bon' => $bon,
             'colis' => $colis
         ];
-        $pdf = PDF::loadView('pages.clients.pdfs.pdf1', $data);
-        return $pdf->download('Facture-' . $bon->id_BL . '.pdf');
+        $dompdf = new Dompdf();
+// 
+//     // Load the HTML content into Dompdf
+        $html = view('pages.admin.livraiosn.getPdf', $data)->render();
+        $dompdf->loadHtml($html);
+
+        // Render the PDF
+        $dompdf->render();
+        return $dompdf->stream('bon-'.$bon->id_BL . '.pdf');
     }
 }

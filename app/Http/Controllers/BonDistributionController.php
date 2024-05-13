@@ -178,7 +178,14 @@ class BonDistributionController extends Controller
             'bon' => $bon,
             'colis' => $colis
         ];
-        $pdf = PDF::loadView('pages.admin.bonDistribution.getPdf', $data);
-        return $pdf->download('bon' . $bon->id_BD . '.pdf');
+        $dompdf = new Dompdf();
+        // 
+        //     // Load the HTML content into Dompdf
+                $html = view('pages.admin.bonDistribution.getPdf', $data)->render();
+                $dompdf->loadHtml($html);
+        
+                // Render the PDF
+                $dompdf->render();
+                return $dompdf->stream('bon'.$bon->id_BD . '.pdf');
     }
 }
