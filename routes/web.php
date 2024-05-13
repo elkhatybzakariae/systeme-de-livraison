@@ -95,6 +95,7 @@ Route::middleware('check.admin')->group(function(){
         Route::post('/update/all/{id_BE}', [BonEnvoisController::class, 'updateAll'])->name('bon.envoi.update.all');
         Route::post('/update/delete/all/{id_BE}', [BonEnvoisController::class, 'updateDeleteAll'])->name('bon.envoi.updateDelete.all');
         Route::get('/export/colis/{id_BE}', [BonEnvoisController::class, 'exportColis'])->name('bon.envoi.exportColis');
+        Route::get('/get/pdf/{id_BE}', [BonEnvoisController::class, 'getPdf'])->name('bon.envoi.getPdf');
     });
     Route::group(['prefix' => 'admin/bon-payment-livreur'], function () {
         Route::get('/bon/{id_BPL?}', [BonPaymentLivreurController::class, 'index'])->name('bon.payment.livreur.index');
@@ -134,6 +135,8 @@ Route::middleware('check.admin')->group(function(){
         Route::post('/update/all/{id_BL}', [BonDistributionController::class, 'updateAll'])->name('bon.distribution.update.all');
         Route::post('/update/delete/all/{id_BL}', [BonDistributionController::class, 'updateDeleteAll'])->name('bon.distribution.updateDelete.all');
         Route::get('/export/colis/{id}', [BonDistributionController::class, 'exportColis'])->name('bon.distribution.exportColis');
+        Route::get('/get/pdf/{id_BE}', [BonDistributionController::class, 'getPdf'])->name('bon.distribution.getPdf');
+
 
     });
     Route::group(['prefix' => 'admin/reclamation'], function () {
