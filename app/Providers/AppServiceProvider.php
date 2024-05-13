@@ -2,10 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\BonDistribution;
+use App\Models\BonEnvois;
+use App\Models\BonLivraison;
 use App\Models\Client;
 use App\Models\Livreur;
 use App\Models\Ramassagecoli;
 use App\Models\Reclamation;
+use App\Models\Remarque;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,8 +31,21 @@ class AppServiceProvider extends ServiceProvider
             $numberOfItems = Reclamation::where('etat', 0)->count();
             $numberOfClients = Client::where('isAccepted', 0)->count();
             $numberOfLivreurs = Livreur::where('isAccepted', 0)->count();
+            $numberOfRem = Remarque::count();
             $numberOfRC = Ramassagecoli::where('etat', 'Nouvelle demande')->count();
-            $view->with(['numberOfItems'=> $numberOfItems,'numberOfLivreurs'=> $numberOfLivreurs,'numberOfClients'=> $numberOfClients,'numberOfRC'=> $numberOfRC]);
+            $numberOfBL = BonLivraison::where('status', 'nouveau')->count();
+            $numberOfBE = BonEnvois::where('status', 'nouveau')->count();
+            $numberOfBD = BonDistribution::where('status', 'nouveau')->count();
+            $view->with([
+                'numberOfItems' => $numberOfItems,
+                'numberOfLivreurs' => $numberOfLivreurs,
+                'numberOfClients' => $numberOfClients,
+                'numberOfRem' => $numberOfRem,
+                'numberOfRC' => $numberOfRC,
+                'numberOfBL' => $numberOfBL,
+                'numberOfBE' => $numberOfBE,
+                'numberOfBD' => $numberOfBD
+            ]);
         });
     }
 }

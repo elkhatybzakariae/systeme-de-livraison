@@ -271,6 +271,7 @@
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-title">Bons de livraison</span>
+                        <span class="icon-number">{{ $numberOfBL }}</span>
                     </a>
                     <!--end:Menu link-->
                 </div>
@@ -291,6 +292,7 @@
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-title">Bons d envoie</span>
+                        <span class="icon-number">{{ $numberOfBE }}</span>
                     </a>
                     <!--end:Menu link-->
                 </div>
@@ -311,6 +313,7 @@
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-title">Bons de distribution</span>
+                        <span class="icon-number">{{ $numberOfBD }}</span>
                     </a>
                     <!--end:Menu link-->
                 </div>
@@ -493,6 +496,7 @@
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-title">Remarques</span>
+                        <span class="icon-number">{{ $numberOfRem }}</span>
                     </a>
                     <!--end:Menu link-->
                 </div>

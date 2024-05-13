@@ -49,7 +49,7 @@
             <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10">
                 <div class="d-flex flex-center flex-column flex-lg-row-fluid">
                     <div class="w-lg-500px p-10">
-                        <form action="{{ route('auth.client.signIn.store') }}" method="post" class="form w-100" novalidate="novalidate"
+                        <form action="{{ route('auth.livreur.signIn.store') }}" method="post" class="form w-100" novalidate="novalidate"
 
                             id="kt_sign_in_form">
                             @csrf

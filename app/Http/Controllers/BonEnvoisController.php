@@ -14,37 +14,36 @@ use Illuminate\Support\Str;
 
 class BonEnvoisController extends Controller
 {
-    public function index(Request $request ,$id_BE=null) 
+    public function index(Request $request, $id_BE = null)
     {
         $id_Z = $request->input('zone');
-        if($id_Z == null){
-            $id_Z=session('zone');
-        }else{
-            session(['zone'=>$id_Z]);
+        if ($id_Z == null) {
+            $id_Z = session('zone');
+        } else {
+            session(['zone' => $id_Z]);
         }
         // dd(session('zone'));
-        $user=session('user');
-        $colis =Colis::query()->with('ville')->whereNull('id_BE')->where('zone',$id_Z)->get();
+        $user = session('user');
+        $colis = Colis::query()->with('ville')->whereNull('id_BE')->where('zone', $id_Z)->get();
 
-        $colisBon=[];
-        // dd($colis);
+        $colisBon = [];
         if (!$id_BE) {
-            if($user ){
-                $bonLivraison= BonEnvois::create([
-                    'id_BE'=>'BE-'.Str::random(12),
-                    'reference'=>'BE-'.Str::random(10),
-                    'status'=>'nouveau',
+            if ($user) {
+                $bonLivraison = BonEnvois::create([
+                    'id_BE' => 'BE-' . Str::random(12),
+                    'reference' => 'BE-' . Str::random(10),
+                    'status' => 'nouveau',
                     // 'id_Cl'=>$user['id_Cl']
                 ]);
-            }else{
+            } else {
                 return redirect(route('auth.client.signIn'));
             }
-        }else{
-            $bonLivraison= BonEnvois::query()->with('colis')->where('id_BE',$id_BE)->first();
-            $colisBon= DB::select('select * from colis 
+        } else {
+            $bonLivraison = BonEnvois::query()->with('colis')->where('id_BE', $id_BE)->first();
+            $colisBon = DB::select('select * from colis 
             inner join villes on villes.id_V = colis.ville_id 
-            where id_BE =?',[$id_BE]);
-        // dd($colisBon)  ;
+            where id_BE =?', [$id_BE]);
+            // dd($colisBon)  ;
 
         }
         // dd($colis,$colisBon);
@@ -52,105 +51,104 @@ class BonEnvoisController extends Controller
             ['title' => 'créer un Bon Envoi', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.bonEnvoi.index',compact("colis", "bonLivraison",'colisBon','breads'));
+        return view('pages.admin.bonEnvoi.index', compact("colis", "bonLivraison", 'colisBon', 'breads'));
     }
     public function list()
     {
-        $user=session('user');
-        if(!$user){
+        $user = session('user');
+        if (!$user) {
             return redirect(route('auth.admin.signIn'));
         }
-   
+
         $bons = BonEnvois::select(
-                'bon_envois.id_BE', 
-                'bon_envois.reference',  
-                'bon_envois.status', 
-                'bon_envois.created_at',
-                'clients.nomcomplet as client_nomcomplet',
-            )
+            'bon_envois.id_BE',
+            'bon_envois.reference',
+            'bon_envois.status',
+            'bon_envois.created_at',
+            'clients.nomcomplet as client_nomcomplet',
+        )
             ->withCount('colis') // Count the number of related colis
             ->withSum('colis', 'prix') // Sum the prices of related colis
             ->leftJoin('colis', 'bon_envois.id_BE', '=', 'colis.id_BE')
             ->leftJoin('clients', 'colis.id_Cl', '=', 'clients.id_Cl')
-            ->with('colis','colis.ville')
+            ->with('colis', 'colis.ville')
             ->distinct()
             ->get();
 
-    // $bons=BonEnvois::all();
-    // dd($bons);
-    $breads = [
-        ['title' => 'Liste des Bons d\'Envoi', 'url' => null],
-        ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
-    ];
-        return view('pages.admin.bonEnvoi.list',compact("bons",'breads'));
-    } 
+        // $bons=BonEnvois::all();
+        // dd($bons);
+        $breads = [
+            ['title' => 'Liste des Bons d\'Envoi', 'url' => null],
+            ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.admin.bonEnvoi.list', compact("bons", 'breads'));
+    }
     public function create()
     {
-        $user=session('user');
-        if(!$user){
+        $user = session('user');
+        if (!$user) {
             return redirect(route('auth.client.signIn'));
         }
 
-  
-$zones = Zone::whereHas('colis', function ($query) {
-    $query->where('status', 'recu');
-})->with('colis')->withCount('colis')->get();
 
-        
+        $zones = Zone::whereHas('colis', function ($query) {
+            $query->where('status', 'recu');
+        })->with('colis')->withCount('colis')->get();
+
+
 
         $breads = [
             ['title' => 'créer un Bon Envoi', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
         // dd($zones);
-        return view('pages.admin.bonEnvoi.create',compact("zones",'breads'));
-    } 
-       
-    public function update($id,$id_BE)
+        return view('pages.admin.bonEnvoi.create', compact("zones", 'breads'));
+    }
+
+    public function update($id, $id_BE)
     {
         $colis = Colis::where('id', $id)
-        ->update(['id_BE' => $id_BE,'status'=>'distribution']);
-        return redirect()->route('bon.envoi.index',$id_BE);
-    }    
-    public function updateDelete($id,$id_BE)
+            ->update(['id_BE' => $id_BE, 'status' => 'distribution']);
+        return redirect()->route('bon.envoi.index', $id_BE);
+    }
+    public function updateDelete($id, $id_BE)
     {
         $colis = Colis::where('id', $id)
-        ->update(['id_BE' => null]);
+            ->update(['id_BE' => null]);
 
         // dd($colis);
-        return redirect()->route('bon.envoi.index',$id_BE);
-    
-    }  
-     
-    public function updateAll(Request $request,$id_BE)
+        return redirect()->route('bon.envoi.index', $id_BE);
+    }
+
+    public function updateAll(Request $request, $id_BE)
     {
         // dd($request);
-        foreach($request->colis as $colis){
+        foreach ($request->colis as $colis) {
 
             $colis = Colis::where('id', $colis)
-            ->update(['id_BE' => $id_BE]);
+                ->update(['id_BE' => $id_BE]);
         }
-        return redirect()->route('bon.envoi.index',$id_BE);
-    }    
-    public function updateDeleteAll(Request $request,$id_BE)
+        return redirect()->route('bon.envoi.index', $id_BE);
+    }
+    public function updateDeleteAll(Request $request, $id_BE)
     {
-        foreach($request->colisDelete as $colis){
+        foreach ($request->colisDelete as $colis) {
 
             $colis = Colis::where('id', $colis)
-            ->update(['id_BE' => null]);
+                ->update(['id_BE' => null]);
         }
-        return redirect()->route('bon.envoi.index',$id_BE);
-    
-    }  
-    public function generateStikers ($id) {
+        return redirect()->route('bon.envoi.index', $id_BE);
+    }
+    public function generateStikers($id)
+    {
         // Create a new Dompdf instance
         $dompdf = new Dompdf();
-    
+
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isPhpEnabled', true);
-        $bon=BonLivraison::where('id_BE',$id)->first();
-        $colis=Colis::query()->where('id_BE',$id)->get();
+        $bon = BonLivraison::where('id_BE', $id)->first();
+        $colis = Colis::query()->where('id_BE', $id)->get();
         // dd($colis);
         // Set options
         $dompdf->setOptions($options);
@@ -220,8 +218,8 @@ $zones = Zone::whereHas('colis', function ($query) {
                 </head>
                 <body>';
 
-                foreach ($colis as $c) {
-                    $html .= '
+        foreach ($colis as $c) {
+            $html .= '
                     <div class="sticker " style="margin-top:50px;margin-bottom:360px">
                         <div class="row">
                             <div class="col-8">
@@ -306,9 +304,9 @@ $zones = Zone::whereHas('colis', function ($query) {
                         </table>
                         <div class="barcode"></div>
                     </div>';
-                }
+        }
 
-                $html .= '
+        $html .= '
                 </body>
                 </html>';
 
@@ -317,19 +315,20 @@ $zones = Zone::whereHas('colis', function ($query) {
         // dd($dompdf);
         // Render the PDF
         $dompdf->render();
-    
+
         // Output the generated PDF to the browser
         return $dompdf->stream('sample_pdf_with_details.pdf');
     }
-    public function generateEtiqueteuse ($id) {
+    public function generateEtiqueteuse($id)
+    {
         // Create a new Dompdf instance
         $dompdf = new Dompdf();
-    
+
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isPhpEnabled', true);
-        $bon=BonLivraison::where('id_BE',$id)->first();
-        $colis=Colis::query()->where('id_BE',$id)->get();
+        $bon = BonLivraison::where('id_BE', $id)->first();
+        $colis = Colis::query()->where('id_BE', $id)->get();
         // dd($colis);
         // Set options
         $dompdf->setOptions($options);
@@ -359,8 +358,8 @@ $zones = Zone::whereHas('colis', function ($query) {
         
         <body>';
 
-                foreach ($colis as $c) {
-                    $html .= '
+        foreach ($colis as $c) {
+            $html .= '
                     <div class="sticker " style="margin-top:50px;margin-bottom:360px">
                         <div class="row">
                             <div class="col-8">
@@ -445,9 +444,9 @@ $zones = Zone::whereHas('colis', function ($query) {
                         </table>
                         <div class="barcode"></div>
                     </div>';
-                }
+        }
 
-                $html .= '
+        $html .= '
                 </body>
                 </html>';
 
@@ -456,9 +455,8 @@ $zones = Zone::whereHas('colis', function ($query) {
         // dd($dompdf);
         // Render the PDF
         $dompdf->render();
-    
+
         // Output the generated PDF to the browser
         return $dompdf->stream('sample_pdf_with_details.pdf');
     }
-
 }
