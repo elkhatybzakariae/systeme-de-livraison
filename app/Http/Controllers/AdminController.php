@@ -40,17 +40,17 @@ class AdminController extends Controller
             'password' => 'required|string|min:8',
         ]);
         $u = Admin::where('email', $request->email)->first();
+        // dd($u);
         if ($u) {
             if (Hash::check($request->password, $u->password)) {
 
                 Auth::login($u);
                 session(["user" => $u]);
-                // dd(session('user'));
                 return redirect()->route('admin.index');
             }
-        } else {
-            return back()->with('error', 'Invalid email or password.');
-        }
+        } 
+        return back()->with('error', 'Invalid email or password.');
+        
     }
     public function signout()
     {

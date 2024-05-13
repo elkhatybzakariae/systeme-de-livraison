@@ -8,6 +8,7 @@ use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use League\Csv\Writer;
 
 class BonPaymentLivreurController extends Controller
 {
@@ -138,4 +139,23 @@ class BonPaymentLivreurController extends Controller
         return redirect()->route('bon.payment.livreur.index',$id_BPL);
     
     }  
+    public function exportColis($id_BPL)
+    {
+        $colis = Colis::where('id_BPL', $id_BPL)->get();
+        $csv = Writer::createFromString('');
+        $csv->insertOne(['Code d\'envoi', 'Destinataire', 'Date de creation', 'Prix', 'Ville']);
+        foreach ($colis as $colisItem) {
+            $csv->insertOne([
+                $colisItem->code_d_envoi,
+                $colisItem->destinataire,
+                $colisItem->created_at,
+                $colisItem->prix,
+                $colisItem->ville->villename 
+            ]);
+        }
+        $fileName = 'colis_' . $id_BPL . '.csv';
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="' . $fileName . '"');
+        echo $csv->getContent();
+    }
 }
