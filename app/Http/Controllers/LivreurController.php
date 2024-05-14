@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helpers;
+use App\Models\BonDistribution;
 use App\Models\Livreur;
 use App\Models\Zone;
 use Illuminate\Http\Request;
@@ -91,4 +92,16 @@ class LivreurController extends Controller
         Auth::logout();
         return redirect()->route('auth.livreur.signIn');
     }
+    public function allcolis()
+    {
+        $liv=Auth::id();
+        $breads = [
+            ['title' => 'Liste des colid', 'url' => null],
+            ['text' => 'colis', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        $colis= BonDistribution::where('id_Liv',$liv)->with('colis')->get();
+        dd($colis);
+        return view('pages.livreur.colis.index',compact('colis','breads'));
+    }
+
 }

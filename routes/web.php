@@ -230,6 +230,10 @@ Route::controller(LivreurController::class)->prefix('livreurs')->group(function 
     Route::post('/login',  'signin')->name('auth.livreur.signIn.store');
     Route::get('/dashboard',  'index')->name('livreur.index');
     Route::get('/signoutr',  'signout')->name('signout.livreur');
+
+
+
+    Route::get('/colis',  'allcolis')->name('livreur.colis');
 });
 
 Route::get('/generate-pdf', [HomeController::class, 'generatePDF'])->name('generate.pdf');
