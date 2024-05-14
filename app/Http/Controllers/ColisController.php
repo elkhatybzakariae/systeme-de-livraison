@@ -7,7 +7,6 @@ use App\Models\Colis;
 use App\Models\Ville;
 use App\Models\Zone;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Str;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkProcessor;
 use Picqer\Barcode\BarcodeGeneratorPNG;
