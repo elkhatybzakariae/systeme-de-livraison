@@ -20,9 +20,13 @@ class BonLivraisonController extends Controller
     public function index($id_BL = null)
     {
         $user = session('user');
-        $colis = DB::select('select * from colis 
-                     inner join villes on villes.id_V = colis.ville_id 
-                     where id_BL is null and id_Cl=?', [$user['id_Cl']]);
+        // $colis = DB::select('select * from colis 
+        //              inner join villes on villes.id_V = colis.ville_id 
+        //              where id_BL is null and status= nouveau and id_Cl=?', [$user['id_Cl']]);
+        $colis = Colis::where('id_BL', null)
+            ->where('status', 'nouveau')
+            ->with('ville') // Eager load related city information (optional)
+            ->get();
 
         $colisBon = [];
         // dd($colis);
@@ -58,15 +62,15 @@ class BonLivraisonController extends Controller
             return redirect(route('auth.admin.signIn'));
         }
         $bons = BonLivraison::withCount('colis') // Count related colis
-                   ->withSum('colis', 'prix') // Sum prices of related colis
-                   ->leftJoin('clients', 'bon_livraisons.id_Cl', '=', 'clients.id_Cl')
-                   ->select('bon_livraisons.*', 'clients.nomcomplet as client_nomcomplet')
-                   ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as colis_count'))
-                   ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as total_prix'))
-                   ->leftJoin('colis', 'bon_livraisons.id_BL', '=', 'colis.id_BL')
-                   ->with('colis','colis.ville')
-                   ->distinct()
-                   ->get();
+            ->withSum('colis', 'prix') // Sum prices of related colis
+            ->leftJoin('clients', 'bon_livraisons.id_Cl', '=', 'clients.id_Cl')
+            ->select('bon_livraisons.*', 'clients.nomcomplet as client_nomcomplet')
+            ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as colis_count'))
+            ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as total_prix'))
+            ->leftJoin('colis', 'bon_livraisons.id_BL', '=', 'colis.id_BL')
+            ->with('colis', 'colis.ville')
+            ->distinct()
+            ->get();
 
         $breads = [
             ['title' => 'Liste des Bon Livraison', 'url' => null],
@@ -84,15 +88,23 @@ class BonLivraisonController extends Controller
             ['title' => 'Creér un Bon Livraison', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        $colis = Colis::query()->where('id_BL', null)->where('id_Cl', $user['id_Cl'])->get()->count();
+        $colis = Colis::query()->where('id_BL', null)->where(['id_Cl' => $user['id_Cl'], 'status' => 'nouveau'])->get()->count();
         return view('pages.clients.bonLivraison.create', compact("colis", 'breads'));
     }
 
     public function update($id, $id_BL)
     {
         $colis = Colis::where('id', $id)
-            ->update(['id_BL' => $id_BL]);
+            ->update(['id_BL' => $id_BL,'status' => 'Attente de Ramassage']);
         return redirect()->route('bon.livraison.index', $id_BL);
+    }
+    public function recu($id_BL)
+    {
+        Colis::where('id_BL', $id_BL)
+            ->update(['status' => 'Ramasse']);
+        BonLivraison::where('id_BL', $id_BL)
+            ->update(['status' => 'Ramasse']);
+        return redirect()->route('bon.livraison.list');
     }
     public function updateDelete($id, $id_BL)
     {
@@ -106,7 +118,10 @@ class BonLivraisonController extends Controller
         foreach ($request->colis as $colis) {
 
             $colis = Colis::where('id', $colis)
-                ->update(['id_BL' => $id_BL]);
+                ->update([
+                    'id_BL' => $id_BL,
+                    'status' => 'Attente de Ramassage'
+                ]);
         }
         return redirect()->route('bon.livraison.index', $id_BL);
     }
@@ -133,7 +148,7 @@ class BonLivraisonController extends Controller
                 $colisItem->destinataire,
                 $colisItem->created_at,
                 $colisItem->prix,
-                $colisItem->ville->villename 
+                $colisItem->ville->villename
             ]);
         }
         $fileName = 'colis_' . $id_BL . '.csv';
@@ -141,7 +156,7 @@ class BonLivraisonController extends Controller
         header('Content-Disposition: attachment; filename="' . $fileName . '"');
         echo $csv->getContent();
     }
-    
+
     public function generateEtiqueteuse($id)
     {
         // Create a new Dompdf instance
@@ -482,6 +497,6 @@ class BonLivraisonController extends Controller
 
         // Render the PDF
         $dompdf->render();
-        return $dompdf->stream('bon-'.$bon->id_BL . '.pdf');
+        return $dompdf->stream('bon-' . $bon->id_BL . '.pdf');
     }
 }

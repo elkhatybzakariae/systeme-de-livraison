@@ -146,6 +146,7 @@ Route::middleware('check.admin')->group(function(){
     });
     Route::get('/admin/colis', [ColisController::class, 'indexAdmin'])->name('colis.indexAdmin');
     Route::get('admin/bon-livraisons/', [BonLivraisonController::class, 'list'])->name('bon.livraison.list');
+    Route::post('admin/bon-livraisons/bl/{id_BL}', [BonLivraisonController::class, 'recu'])->name('bon.livraison.recu');
     Route::get('admin/bon-livraisons//export/colis/{id}', [BonLivraisonController::class, 'exportColis'])->name('bon.livraison.exportColis');
 
 

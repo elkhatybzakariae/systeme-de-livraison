@@ -93,10 +93,12 @@ class BonEnvoisController extends Controller
         }
 
 
+        // $zones = Zone::whereHas('colis', function ($query) {
+        //     $query->where('status', 'Ramasse');
+        // })->with('colis')->withCount('colis')->get();
         $zones = Zone::whereHas('colis', function ($query) {
-            $query->where('status', 'recu');
+            $query->where('status', 'Ramasse'); // Filter colis with status 'Ramasse'
         })->with('colis')->withCount('colis')->get();
-
 
 
         $breads = [
@@ -110,8 +112,16 @@ class BonEnvoisController extends Controller
     public function update($id, $id_BE)
     {
         $colis = Colis::where('id', $id)
-            ->update(['id_BE' => $id_BE, 'status' => 'distribution']);
+            ->update(['id_BE' => $id_BE, 'status' => 'en voyage']);
         return redirect()->route('bon.envoi.index', $id_BE);
+    }
+    public function recu($id_BE)
+    {
+        Colis::where('id_BE', $id_BE)
+            ->update(['status' => 'distribution']);
+        BonEnvois::where('id_BE', $id_BE)
+            ->update(['status' => 'distribution']);
+        return redirect()->route('bon.envoi.list');
     }
     public function updateDelete($id, $id_BE)
     {
@@ -124,11 +134,10 @@ class BonEnvoisController extends Controller
 
     public function updateAll(Request $request, $id_BE)
     {
-        // dd($request);
         foreach ($request->colis as $colis) {
 
             $colis = Colis::where('id', $colis)
-                ->update(['id_BE' => $id_BE]);
+                ->update(['id_BE' => $id_BE, 'status' => 'en voyage']);
         }
         return redirect()->route('bon.envoi.index', $id_BE);
     }
@@ -143,9 +152,8 @@ class BonEnvoisController extends Controller
     }
     public function generateStikers($id)
     {
-        return redirect()->route('bon.envoi.index',$id_BE);
-    
-    }  
+        return redirect()->route('bon.envoi.index', $id_BE);
+    }
     public function exportColis($id_BE)
     {
         $colis = Colis::where('id_BE', $id_BE)->get();
@@ -157,7 +165,7 @@ class BonEnvoisController extends Controller
                 $colisItem->destinataire,
                 $colisItem->created_at,
                 $colisItem->prix,
-                $colisItem->ville->villename 
+                $colisItem->ville->villename
             ]);
         }
         $fileName = 'colis_' . $id_BE . '.csv';
@@ -165,7 +173,7 @@ class BonEnvoisController extends Controller
         header('Content-Disposition: attachment; filename="' . $fileName . '"');
         echo $csv->getContent();
     }
-    
+
     public function getPdf($id)
     {
         $bon = BonEnvois::where('id_BE', $id)->first();
@@ -174,7 +182,7 @@ class BonEnvoisController extends Controller
             'bon' => $bon,
             'colis' => $colis
         ];
-//         $pdf = PDF::loadView();
+        //         $pdf = PDF::loadView();
         $dompdf = new Dompdf();
 
         $options = new Options();
@@ -344,8 +352,8 @@ class BonEnvoisController extends Controller
                 </html>';
 
         // Load HTML content into Dompdf
-// 
-//     // Load the HTML content into Dompdf
+        // 
+        //     // Load the HTML content into Dompdf
         $html = view('pages.admin.bonEnvoi.getPdf', $data)->render();
         $dompdf->loadHtml($html);
 
