@@ -90,7 +90,7 @@ class BonPaymentLivreurController extends Controller
         $user = session('user');
 
         $zones = Zone::whereHas('colis', function ($query) {
-            $query->where('status', 'livre')->where('etat', 'non paye');
+            $query->where('status', 'recu')->where('etat', 'non paye');
         })
             ->with(['colis', 'livreurs'])
             ->withCount('colis')

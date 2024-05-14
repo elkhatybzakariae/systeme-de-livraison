@@ -112,9 +112,16 @@
                 <div class="menu-item px-3">
                   <a  class="btn" href="{{ route('bon.distribution.exportColis',$item->id_BD) }}"><i class="far fa-file-excel"></i>Exporter les colis</a>
                 </div>
-                <div class="menu-item px-3">
-                  <a  class="btn"><i class="fa fa-check"></i>bon bien recu</a>
+                @if ($item->status != 'recu')
+                    <div class="menu-item px-3">
+                  <form action="{{route('bon.distribution.recu',$item->id_BD)}}" method="post">
+                    @csrf
+                    <button type="submit"class="btn">
+                      <i class="fa fa-check"></i>bon bien recu
+                    </button>
+                  </form>
                 </div>
+                @endif
                 <div class="menu-item px-3">
                   <a  class="btn"  href="{{ route('bon.distribution.getPdf',$item->id_BD) }}"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
                 </div>
