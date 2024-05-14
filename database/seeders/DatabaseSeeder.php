@@ -40,12 +40,12 @@ class DatabaseSeeder extends Seeder
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('password'),
             ]);
-            Colis::factory(30)->create([
+            Colis::factory(10)->create([
                 'id_Cl'=>'iecFC3g7Jx',
 
             ]);
         \App\Models\Admin::factory(10)->create();
-        $this->call(ColisSeeder::class);
+        // $this->call(ColisSeeder::class);
         $this->call(DepenseSeeder::class);
         $this->call(TarifSeeder::class);
         $this->call(ReclamationSeeder::class);

@@ -116,14 +116,14 @@ class BonLivraisonController extends Controller
     public function updateDelete($id, $id_BL)
     {
         $colis = Colis::where('id', $id)
-            ->update(['id_BL' => null]);
+            ->update(['id_BL' => null,'status' => 'nouveau']);
         return redirect()->route('bon.livraison.index', $id_BL);
     }
   
     public function updateAll(Request $request, $id_BL)
     {
         // dd($request->input('query'));
-        if($request->query){
+        if($request->input('query')){
             $colis = Colis::where('id', $request->input('query'))
             ->update(['id_BL' => $id_BL, 'status' => 'Attente de Ramassage']);
         }else{
@@ -175,7 +175,37 @@ class BonLivraisonController extends Controller
         header('Content-Disposition: attachment; filename="' . $fileName . '"');
         echo $csv->getContent();
     }
+    public function getPdf($id)
+    {
+        // $bon = BonDistribution::where('id_BD', $id)->first();
+        $bon = BonLivraison::where('bon_livraisons.id_BL', $id) // Specify the table for id_BL
+            ->withCount('colis') // Count related colis
+            ->withSum('colis', 'prix') // Sum prices of related colis
+            // ->leftJoin('livreurs', 'bon_livraisons.id_Liv', '=', 'l.ivreurs.id_Liv')
+            ->leftJoin('colis', 'bon_livraisons.id_BL', '=', 'colis.id_BL')
+            // ->leftJoin('colis', 'colis.zone', '=', 'zones.id_Z')
+            // ->select('bon_livraisons.*', 'livreurs.nomcomplet as liv_nom', 'livreurs.Phone as liv_tele', 'zones.zonename as liv_zone')
+            ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as colis_count'))
+            ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as prix_total')) // Corrected table name (BL -> BD)
+            // ->with('colis', 'colis.ville')
+            ->first();
 
+        // dd($bon);
+        $colis = Colis::query()->where('id_BL', $id)->get();
+        $data = [
+            'bon' => $bon,
+            'colis' => $colis
+        ];
+        $dompdf = new Dompdf();
+        // 
+        //     // Load the HTML content into Dompdf
+        $html = view('pages.admin.bonLivraison.getPdf', $data)->render();
+        $dompdf->loadHtml($html);
+
+        // Render the PDF
+        $dompdf->render();
+        return $dompdf->stream('bon' . $bon->id_BD . '.pdf');
+    }
     public function generateEtiqueteuse($id)
     {
         // Create a new Dompdf instance

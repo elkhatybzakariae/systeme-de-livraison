@@ -125,12 +125,12 @@
                 <div class="menu-item px-3">
                   <a  class="btn"  href="{{ route('bon.distribution.getPdf',$item->id_BD) }}"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
                 </div>
-                <div class="menu-item px-3">
+                {{-- <div class="menu-item px-3">
                   <a  class="btn"><<i class="fas fa-ticket-alt"></i>Voir les etiqutte</a>
                 </div>
                 <div class="menu-item px-3">
                   <a  class="btn"><i class="fas fa-ticket-alt"></i> etiquetteuse</a>
-                </div>
+                </div> --}}
                 
               </div>
             </td>

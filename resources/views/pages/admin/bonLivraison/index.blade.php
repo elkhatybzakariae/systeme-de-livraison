@@ -191,7 +191,7 @@
                 @endif
                 
                 <div class="menu-item px-3">
-                  <a  class="btn"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
+                  <a  class="btn"  href="{{ route('bon.livraison.getPdf',$item->id_BL) }}"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
                 </div>
                 <div class="menu-item px-3">
                   <a  class="btn"><<i class="fas fa-ticket-alt"></i>Voir les etiqutte</a>

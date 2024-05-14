@@ -85,7 +85,7 @@ class ColisController extends Controller
         $barcode = base64_encode($generator->getBarcode($colis->id, $generator::TYPE_CODE_128));
         $bon=Colis::where('id',$colis->id)->update(['barcode'=>$barcode]);
         $bonLivraison=Colis::where('id',$colis->id)->first();
-        return redirect()->route('colis.index')->with('success', 'Colis created successfully.');
+        return redirect()->route('colis.indexRamassage')->with('success', 'Colis created successfully.');
     }
 
     public function update(Request $request, Colis $colis)
@@ -108,7 +108,7 @@ class ColisController extends Controller
 
         $colis->update($validatedData);
 
-        return redirect()->route('colis.index')->with('success', 'Colis updated successfully.');
+        return redirect()->route('colis.indexRamassage')->with('success', 'Colis updated successfully.');
     }
 
 

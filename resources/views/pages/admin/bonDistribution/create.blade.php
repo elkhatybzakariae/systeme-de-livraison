@@ -6,7 +6,7 @@
     <form action="{{ route('bon.distribution.index') }}">
         <div class="card">
             <div class="card-header">
-                <h5>Ajouter Bon d'envoi </h5>
+                <h5>Ajouter Bon de distribution </h5>
             </div>
 
             <div class="card-body">
@@ -33,7 +33,7 @@
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary" style="display:block;margin:0px auto"><i
-                        class="fa fa-plus"></i> Creer bon de'envoi</button>
+                        class="fa fa-plus"></i> Creer bon de distribution</button>
             </div>
 
 
