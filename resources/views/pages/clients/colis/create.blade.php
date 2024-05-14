@@ -21,7 +21,7 @@
           <form method="POST" action="{{ route('colis.store') }}">
               @csrf
             <div class="form-group row">
-              <div class="form-group col-md-6 ">
+              {{-- <div class="form-group col-md-6 ">
                   <label for="code_d_envoi" class=" col-md-4 col-form-label text-md-right">{{ __('Code d\'envoi') }}</label>
 
                   <div class="">
@@ -29,10 +29,10 @@
 
                       <x-error field='code_d_envoi' />
                   </div>
-              </div>
+              </div> --}}
 
 
-              <div class="form-group col-md-6 ">
+              <div class="form-group col-md-12 ">
                   <label for="destinataire" class="col-md-4 col-form-label text-md-right">{{ __('Destinataire') }}</label>
 
                   <div class="">

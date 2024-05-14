@@ -475,8 +475,8 @@ class BonLivraisonController extends Controller
             'colis' => $colis
         ];
         $dompdf = new Dompdf();
-// 
-//     // Load the HTML content into Dompdf
+        // 
+        //     // Load the HTML content into Dompdf
         $html = view('pages.admin.livraiosn.getPdf', $data)->render();
         $dompdf->loadHtml($html);
 

@@ -46,7 +46,7 @@
               <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_products_table .form-check-input" value="1" />
             </div>
           </th>
-          <th class="min-w-200px">Id</th>
+          {{-- <th class="min-w-200px">Id</th> --}}
           <th class="min-w-100px">Code d'Envoi</th>
           <th class="min-w-100px">Date d'Expedition</th>
           {{-- <th class="min-w-100px">Telephone</th>
@@ -66,13 +66,13 @@
                 <input class="form-check-input" type="checkbox" value="{{ $coli->id }}" />
               </div>
             </td>
-            <td>
+            {{-- <td>
               <div class="">
                 <div class="ms-5">
                   <a href="" class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $coli->id }}</a>
                 </div>
               </div>
-            </td>
+            </td> --}}
             <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="code">{{ $coli->code_d_envoi }}</span>
             </td>

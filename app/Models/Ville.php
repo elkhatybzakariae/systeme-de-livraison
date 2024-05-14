@@ -27,4 +27,8 @@ class Ville extends Model
     {
         return $this->hasMany(Tarif::class,'id_V','ville');
     }
+    public function colis()
+    {
+        return $this->hasMany(Colis::class,'ville_id');
+    }
 }

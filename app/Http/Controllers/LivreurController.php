@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helpers;
 use App\Models\BonDistribution;
+use App\Models\Colis;
 use App\Models\Livreur;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+
 
 class LivreurController extends Controller
 {
@@ -18,13 +21,13 @@ class LivreurController extends Controller
             ['title' => 'Taleau de bord', 'url' => null],
             ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.livreur.dashboard',compact('breads'));
+        return view('pages.livreur.dashboard', compact('breads'));
     }
     public function signuppage()
     {
-        $zones=Zone::query()->with('ville')->get();
+        $zones = Zone::query()->with('ville')->get();
         // dd($zones->ville);
-        return view('auth.livreur.sign-up',compact('zones'));
+        return view('auth.livreur.sign-up', compact('zones'));
     }
     public function signup(Request $request)
     {
@@ -50,15 +53,14 @@ class LivreurController extends Controller
             $cinrecto = $request->file('cinrecto')->store('public/images');
             $cinverso = $request->file('cinverso')->store('public/images');
             $RIB = $request->file('RIB')->store('public/images');
-            $validation['id_Liv']=$id_Liv;
-            $validation['cinverso']=$cinverso;
-            $validation['cinrecto']=$cinrecto;
-            $validation['RIB']=$RIB;
-            $validation['password']=Hash::make($validation['password']);
+            $validation['id_Liv'] = $id_Liv;
+            $validation['cinverso'] = $cinverso;
+            $validation['cinrecto'] = $cinrecto;
+            $validation['RIB'] = $RIB;
+            $validation['password'] = Hash::make($validation['password']);
             $newLivreur = Livreur::create($validation);
-            
-            return back()->with('success', 'Nous avons bien reçu votre demande de création de compte. Nous vous contacterons ultérieurement.');
 
+            return back()->with('success', 'Nous avons bien reçu votre demande de création de compte. Nous vous contacterons ultérieurement.');
         } else {
             return redirect()->route('auth.livreur.signUp');
         }
@@ -74,7 +76,7 @@ class LivreurController extends Controller
             'email' => 'required|email|max:50',
             'password' => 'required|string|min:8',
         ]);
-        
+
         $Livreur = Livreur::where('email', $request->email)->first();
         if ($Livreur) {
             if (Hash::check($request->password, $Livreur->password)) {
@@ -94,14 +96,41 @@ class LivreurController extends Controller
     }
     public function allcolis()
     {
-        $liv=Auth::id();
+        $liv = Auth::id();
         $breads = [
             ['title' => 'Liste des colid', 'url' => null],
             ['text' => 'colis', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        $colis= BonDistribution::where('id_Liv',$liv)->with('colis')->get();
-        dd($colis);
-        return view('pages.livreur.colis.index',compact('colis','breads'));
-    }
+        // $colis= BonDistribution::where('id_Liv',$liv)->with('colis')->get();
+        // $colis= Colis::where('id_Liv',$liv)->with('colis')->get();
+        // $colis = DB::table('colis')
+        //     ->join('bon_distributions', 'bon_distributions.id_BD', '=', 'colis.id_BD')
+        //     ->where('bon_distributions.id_Liv', $liv)
+        //     ->select('colis.*', 'bon_distributions.id_BD')
+        //     ->get();
+        $colis = Colis::whereHas('bonDistribution', function ($query) use ($liv) {
+            $query->where('id_Liv', $liv);
+        })->with(['bonDistribution', 'client'])->get();
 
+        // dd($colis);
+        return view('pages.livreur.colis.index', compact('colis', 'breads'));
+    }
+    public function allBD()
+    {
+        $liv = Auth::id();
+        $breads = [
+            ['title' => 'Liste des Bons de distributions', 'url' => null],
+            ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        $bons = BonDistribution::where('id_Liv', $liv)
+            ->with('zone', 'colis')
+            ->withCount('colis')
+            ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BD = bon_distributions.id_BD) as total_prix'))
+            ->leftJoin('colis', 'bon_distributions.id_BD', '=', 'colis.id_BD')
+            ->with('colis', 'colis.ville')            
+            ->distinct()
+            ->get();
+
+        return view('pages.livreur.bonDistribution.index', compact('bons', 'breads'));
+    }
 }

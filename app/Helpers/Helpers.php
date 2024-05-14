@@ -81,6 +81,7 @@ class Helpers
         }
         return $idC;
     }
+    
     public static function generateIdRec()
     {
         $id_Rec = Str::random(15);

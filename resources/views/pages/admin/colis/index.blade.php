@@ -1,4 +1,4 @@
-@extends('layouts.client.admin')
+@extends('layouts.admin.admin')
 @section('breads')
 <x-breadcrumb :breads="$breads" />
 

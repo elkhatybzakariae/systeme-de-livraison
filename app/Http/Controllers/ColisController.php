@@ -7,6 +7,8 @@ use App\Models\Colis;
 use App\Models\Ville;
 use App\Models\Zone;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Str;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkProcessor;
 
 class ColisController extends Controller
@@ -54,7 +56,7 @@ class ColisController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'code_d_envoi' => 'required|string|max:255',
+            // 'code_d_envoi' => 'required|string|max:255',
             'destinataire' => 'required|string|max:255',
             'telephone' => 'required|string|max:255',
             'marchandise' => 'required|string|max:255',
@@ -69,6 +71,7 @@ class ColisController extends Controller
             'colis_a_remplacer' => 'nullable|boolean',
         ]);
         $validatedData['id']=Helpers::generateIdC();
+        $validatedData['code_d_envoi'] = 'Colis-' . Str::random(7);
         $validatedData['id_Cl']=session('user')['id_Cl'];
         // $validatedData['id_Cl']=session('user')['id_Cl'];
         // dd($validatedData);
@@ -81,7 +84,7 @@ class ColisController extends Controller
     public function update(Request $request, Colis $colis)
     {
         $validatedData = $request->validate([
-            'code_d_envoi' => 'required|string|max:255',
+            // 'code_d_envoi' => 'required|string|max:255',
             'destinataire' => 'required|string|max:255',
             'telephone' => 'required|string|max:255',
             'marchandise' => 'required|string|max:255',

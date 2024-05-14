@@ -6,139 +6,138 @@ use App\Models\BonPaymentLivreur;
 use App\Models\Colis;
 use App\Models\Zone;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use League\Csv\Writer;
 
 class BonPaymentLivreurController extends Controller
 {
-    
-    public function index(Request $request ,$id_BPL=null) 
+
+    public function index(Request $request, $id_BPL = null)
     {
         $id_Z = $request->input('zone');
-        if($id_Z == null){
-            $id_Z=session('zone');
-        }else{
-            session(['zone'=>$id_Z]);
+        if ($id_Z == null) {
+            $id_Z = session('zone');
+        } else {
+            session(['zone' => $id_Z]);
         }
         // dd(session('zone'));
-        $user=session('user');
-        $colis =Colis::query()->with('ville')->whereNull('id_BPL')->where('zone',$id_Z)->get();
+        $user = session('user');
+        $colis = Colis::query()->with('ville')->whereNull('id_BPL')->where('zone', $id_Z)->get();
 
-        $colisBon=[];
+        $colisBon = [];
         if (!$id_BPL) {
             // dd($id_BPL);
-            if($user ){
-                $bon= BonPaymentLivreur::create([
-                    'id_BPL'=>'BPL-'.Str::random(10),
-                    'reference'=>'BPL-'.Str::random(10),
-                    'status'=>'nouveau',
-                    'id_Z'=>$id_Z,
-                    'id_Liv'=>$request->id_Liv,
+            if ($user) {
+                $bon = BonPaymentLivreur::create([
+                    'id_BPL' => 'BPL-' . Str::random(10),
+                    'reference' => 'BPL-' . Str::random(10),
+                    'status' => 'nouveau',
+                    'id_Z' => $id_Z,
+                    'id_Liv' => $request->id_Liv,
                 ]);
-            }else{
+            } else {
                 return redirect(route('auth.client.signIn'));
             }
-        }else{
-            $bon= BonPaymentLivreur::query()->with('colis')->where('id_BPL',$id_BPL)->first();
-            $colisBon= DB::select('select * from colis 
+        } else {
+            $bon = BonPaymentLivreur::query()->with('colis')->where('id_BPL', $id_BPL)->first();
+            $colisBon = DB::select('select * from colis 
             inner join villes on villes.id_V = colis.ville_id 
-            where id_BPL =?',[$id_BPL]);
-        // dd($colisBon)  ;
+            where id_BPL =?', [$id_BPL]);
+            // dd($colisBon)  ;
 
         }
         $breads = [
             ['title' => 'créer un Bon payment pour livreur', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.bonPaymentLivreur.index',compact("colis", "bon",'colisBon','breads'));
+        return view('pages.admin.bonPaymentLivreur.index', compact("colis", "bon", 'colisBon', 'breads'));
     }
     public function list()
     {
-        $user=session('user');
-        if(!$user){
+        $user = session('user');
+        if (!$user) {
             return redirect(route('auth.admin.signIn'));
-        } 
+        }
         $bons = BonPaymentLivreur::select(
-            'bon_payment_livreurs.id_BPL', 
-            'bon_payment_livreurs.reference',  
-            'bon_payment_livreurs.status', 
+            'bon_payment_livreurs.id_BPL',
+            'bon_payment_livreurs.reference',
+            'bon_payment_livreurs.status',
             'bon_payment_livreurs.created_at',
             'livreurs.nomcomplet as nomComplet',
             'zones.zonename as zone',
-            
-            )
+
+        )
             ->withCount('colis') // Count the number of related colis
             ->withSum('colis', 'prix') // Sum the prices of related colis
             ->leftJoin('zones', 'bon_payment_livreurs.id_Z', '=', 'zones.id_Z')
-        ->leftJoin('colis', 'bon_payment_livreurs.id_BPL', '=', 'colis.id_BPL')
-        ->leftJoin('livreurs', 'bon_payment_livreurs.id_Liv', '=', 'livreurs.id_Liv')
-        ->with('colis','colis.ville')
-        ->distinct()
-        ->get();
-    // $bons=BonPaymentLivreur::all();
-    // dd($bons);
-    $breads = [
-        ['title' => 'Liste des Bons de payment livreur ', 'url' => null],
-        ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
-    ];
-        return view('pages.admin.bonPaymentLivreur.list',compact("bons",'breads'));
-    } 
+            ->leftJoin('colis', 'bon_payment_livreurs.id_BPL', '=', 'colis.id_BPL')
+            ->leftJoin('livreurs', 'bon_payment_livreurs.id_Liv', '=', 'livreurs.id_Liv')
+            ->with('colis', 'colis.ville')
+            ->distinct()
+            ->get();
+        // $bons=BonPaymentLivreur::all();
+        // dd($bons);
+        $breads = [
+            ['title' => 'Liste des Bons de payment livreur ', 'url' => null],
+            ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.admin.bonPaymentLivreur.list', compact("bons", 'breads'));
+    }
     public function create()
     {
-        $user=session('user');
-      
+        $user = session('user');
+
         $zones = Zone::whereHas('colis', function ($query) {
             $query->where('status', 'livre')->where('etat', 'non paye');
         })
-        ->with(['colis', 'livreurs']) 
-        ->withCount('colis')
-        ->get();
+            ->with(['colis', 'livreurs'])
+            ->withCount('colis')
+            ->get();
 
         // dd($zones);
 
         $breads = [
             ['title' => 'créer un Bon Payement', 'url' => null],
-            ['text' => 'Bons', 'url' => null], 
+            ['text' => 'Bons', 'url' => null],
         ];
-        return view('pages.admin.bonPaymentLivreur.create',compact("zones",'breads'));
-    } 
-       
-    public function update($id,$id_BPL)
+        return view('pages.admin.bonPaymentLivreur.create', compact("zones", 'breads'));
+    }
+
+    public function update($id, $id_BPL)
     {
         $colis = Colis::where('id', $id)
-        ->update(['id_BPL' => $id_BPL,'etat'=>'paye']);
-        return redirect()->route('bon.payment.livreur.index',$id_BPL);
-    }    
-    public function updateDelete($id,$id_BPL)
+            ->update(['id_BPL' => $id_BPL, 'etat' => 'paye']);
+        return redirect()->route('bon.payment.livreur.index', $id_BPL);
+    }
+    public function updateDelete($id, $id_BPL)
     {
         $colis = Colis::where('id', $id)
-        ->update(['id_BPL' => null,'etat'=>'non paye']);
+            ->update(['id_BPL' => null, 'etat' => 'non paye']);
 
         // dd($colis);
-        return redirect()->route('bon.payment.livreur.index',$id_BPL);
-    
-    }  
-    public function updateAll(Request $request,$id_BPL)
+        return redirect()->route('bon.payment.livreur.index', $id_BPL);
+    }
+    public function updateAll(Request $request, $id_BPL)
     {
         // dd($request);
-        foreach($request->colis as $colis){
+        foreach ($request->colis as $colis) {
 
             $colis = Colis::where('id', $colis)
-            ->update(['id_BPL' => $id_BPL]);
+                ->update(['id_BPL' => $id_BPL]);
         }
-        return redirect()->route('bon.payment.livreur.index',$id_BPL);
-    }    
-    public function updateDeleteAll(Request $request,$id_BPL)
+        return redirect()->route('bon.payment.livreur.index', $id_BPL);
+    }
+    public function updateDeleteAll(Request $request, $id_BPL)
     {
-        foreach($request->colisDelete as $colis){
+        foreach ($request->colisDelete as $colis) {
 
             $colis = Colis::where('id', $colis)
-            ->update(['id_BPL' => null]);
+                ->update(['id_BPL' => null]);
         }
-        return redirect()->route('bon.payment.livreur.index',$id_BPL);
-    
-    }  
+        return redirect()->route('bon.payment.livreur.index', $id_BPL);
+    }
     public function exportColis($id_BPL)
     {
         $colis = Colis::where('id_BPL', $id_BPL)->get();
@@ -150,12 +149,60 @@ class BonPaymentLivreurController extends Controller
                 $colisItem->destinataire,
                 $colisItem->created_at,
                 $colisItem->prix,
-                $colisItem->ville->villename 
+                $colisItem->ville->villename
             ]);
         }
         $fileName = 'colis_' . $id_BPL . '.csv';
         header('Content-Type: text/csv');
         header('Content-Disposition: attachment; filename="' . $fileName . '"');
         echo $csv->getContent();
+    }
+
+
+
+    public function livreurBP()
+    {
+        $liv = Auth::id();
+        // $bons = BonPaymentLivreur::select(
+        //     'bon_payment_livreurs.id_BPL',
+        //     'bon_payment_livreurs.reference',
+        //     'bon_payment_livreurs.status',
+        //     'bon_payment_livreurs.created_at',
+        //     'livreurs.nomcomplet as nomComplet',
+        //     'zones.zonename as zone',
+
+        // )
+        //     ->withCount('colis') // Count the number of related colis
+        //     ->withSum('colis', 'prix') // Sum the prices of related colis
+        //     ->leftJoin('zones', 'bon_payment_livreurs.id_Z', '=', 'zones.id_Z')
+        //     ->leftJoin('colis', 'bon_payment_livreurs.id_BPL', '=', 'colis.id_BPL')
+        //     ->leftJoin('livreurs', 'bon_payment_livreurs.id_Liv', '=', $user)
+        //     ->with('colis', 'colis.ville')
+        //     ->distinct()
+        //     ->get();
+        $bons = BonPaymentLivreur::select(
+            'bon_payment_livreurs.id_BPL',
+            'bon_payment_livreurs.reference',
+            'bon_payment_livreurs.status',
+            'bon_payment_livreurs.created_at',
+            'livreurs.nomcomplet as nomComplet',
+            'zones.zonename as zone',
+        )
+            ->withCount('colis') // Count the number of related colis
+            ->withSum('colis', 'prix') // Sum the prices of related colis
+            ->leftJoin('zones', 'bon_payment_livreurs.id_Z', '=', 'zones.id_Z')
+            ->leftJoin('colis', 'bon_payment_livreurs.id_BPL', '=', 'colis.id_BPL')
+            ->leftJoin('livreurs', 'bon_payment_livreurs.id_Liv', '=', 'livreurs.id_Liv') // assuming 'id_Liv' is the foreign key in 'livreurs' table
+            ->where('bon_payment_livreurs.id_Liv', $liv) // Filter by user ID
+            ->with('colis', 'colis.ville')
+            ->distinct() // Ensure unique results
+            ->get();
+        // $bons=BonPaymentLivreur::all();
+        // dd($bons);
+        $breads = [
+            ['title' => 'Liste des Bons de payment ', 'url' => null],
+            ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.livreur.bonPaymentLivreur.list', compact("bons", 'breads'));
     }
 }

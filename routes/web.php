@@ -111,6 +111,7 @@ Route::middleware('check.admin')->group(function(){
         Route::get('/export/colis/{id}', [BonPaymentLivreurController::class, 'exportColis'])->name('bon.payment.livreur.exportColis');
 
     });
+    
     Route::group(['prefix' => 'admin/bon-payment-zone'], function () {
         Route::get('/bon/{id_BD?}', [BonPaymentZoneController::class, 'index'])->name('bon.payment.zone.index');
         Route::get('/', [BonPaymentZoneController::class, 'list'])->name('bon.payment.zone.list');
@@ -234,6 +235,7 @@ Route::controller(LivreurController::class)->prefix('livreurs')->group(function 
 
 
     Route::get('/colis',  'allcolis')->name('livreur.colis');
+    Route::get('/bons_distributions',  'allBD')->name('livreur.BD');
 });
 
 Route::get('/generate-pdf', [HomeController::class, 'generatePDF'])->name('generate.pdf');
@@ -264,7 +266,10 @@ Route::group(['prefix' => 'remarque'], function () {
     Route::delete('/destroy/{id}', [RemarqueController::class, 'destroy'])->name('remarque.destroy');
 });
 
+Route::group(['prefix' => 'livreur/bon-payment'], function () {
+    Route::get('/', [BonPaymentLivreurController::class, 'livreurBP'])->name('bon.payment.list');
 
+});
 
 
 Route::get('/sms', [AdminController::class, 'getsendSMS'])->name('message.getsendSMS');

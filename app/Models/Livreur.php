@@ -22,4 +22,7 @@ class Livreur extends Authenticatable
     public function zone(){
         return $this->belongsTo(Zone::class,'id_Z');
     }
+    public function BD(){
+        return $this->hasMany(Livreur::class,'id_Liv');
+    }
 }
