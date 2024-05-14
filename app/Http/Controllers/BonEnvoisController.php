@@ -6,6 +6,7 @@ use App\Models\BonEnvois;
 use App\Models\BonLivraison;
 use App\Models\Colis;
 use App\Models\Zone;
+use PDF;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Http\Request;
@@ -165,8 +166,15 @@ class BonEnvoisController extends Controller
         echo $csv->getContent();
     }
     
-    public function generateStikers ($id) {
-        // Create a new Dompdf instance
+    public function getPdf($id)
+    {
+        $bon = BonEnvois::where('id_BE', $id)->first();
+        $colis = Colis::query()->where('id_BE', $id)->get();
+        $data = [
+            'bon' => $bon,
+            'colis' => $colis
+        ];
+//         $pdf = PDF::loadView();
         $dompdf = new Dompdf();
 
         $options = new Options();
@@ -336,8 +344,11 @@ class BonEnvoisController extends Controller
                 </html>';
 
         // Load HTML content into Dompdf
+// 
+//     // Load the HTML content into Dompdf
+        $html = view('pages.admin.bonEnvoi.getPdf', $data)->render();
         $dompdf->loadHtml($html);
-        // dd($dompdf);
+
         // Render the PDF
         $dompdf->render();
 

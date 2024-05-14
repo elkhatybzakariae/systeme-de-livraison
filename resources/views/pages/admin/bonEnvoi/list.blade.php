@@ -114,7 +114,7 @@
                   <a  class="btn"><i class="fa fa-check"></i>bon bien recu</a>
                 </div>
                 <div class="menu-item px-3">
-                  <a  class="btn"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
+                  <a  class="btn" href="{{ route('bon.envoi.getPdf',$item->id_BE) }}"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
                 </div>
                 <div class="menu-item px-3">
                   <a  class="btn"><<i class="fas fa-ticket-alt"></i>Voir les etiqutte</a>
