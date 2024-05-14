@@ -31,6 +31,7 @@ return new class extends Migration
             $table->boolean('fragile')->default(false);
             $table->boolean('ouvrir')->default(false);
             $table->boolean('colis_a_remplacer')->default(false);
+            $table->text('barcode')->nullable(); 
 
             $table->string('id_BL')->nullable();
             $table->foreign('id_BL')->on('bon_livraisons')->references('id_BL');

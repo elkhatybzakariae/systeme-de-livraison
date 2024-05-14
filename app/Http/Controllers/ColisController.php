@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Str;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkProcessor;
+use Picqer\Barcode\BarcodeGeneratorPNG;
 
 class ColisController extends Controller
 {
@@ -70,14 +71,20 @@ class ColisController extends Controller
             'ovrire' => 'nullable|boolean',
             'colis_a_remplacer' => 'nullable|boolean',
         ]);
+        
+        
         $validatedData['id']=Helpers::generateIdC();
         $validatedData['code_d_envoi'] = 'Colis-' . Str::random(7);
         $validatedData['id_Cl']=session('user')['id_Cl'];
         // $validatedData['id_Cl']=session('user')['id_Cl'];
         // dd($validatedData);
-
-        Colis::create($validatedData);
-
+        
+        $colis=Colis::create($validatedData);
+        
+        $generator = new BarcodeGeneratorPNG();
+        $barcode = base64_encode($generator->getBarcode($colis->id, $generator::TYPE_CODE_128));
+        $bon=Colis::where('id',$colis->id)->update(['barcode'=>$barcode]);
+        $bonLivraison=Colis::where('id',$colis->id)->first();
         return redirect()->route('colis.index')->with('success', 'Colis created successfully.');
     }
 

@@ -32,6 +32,7 @@
             <th >
               <input type="checkbox" id="checkAll">
             </th>
+            <th >id</th>
             <th >Code d envoi</th>
             <th >Destinataire</th>
             <th >Date de creation</th>
@@ -45,6 +46,7 @@
           @foreach ($colis as $i=>$item )
           <tr id="new-parcel-Autedelenitidelect" role="row" class="odd">
             <td><input class="table-add-checkbox" name="colis[{{ $i }}]" value="{{ $item->id }}" type="checkbox" ></td>
+            <td><b>{{ $item->id }}</b></td>
             <td><b>{{ $item->code_d_envoi }}</b></td>
             <td>{{ $item->destinataire }}</td>
             <td>{{ $item->created_at }}</td>
@@ -60,10 +62,19 @@
         </tbody>
       </table>
     </div>
-    <div class="card-footer">  
-      <div class="text-right float-end">
-        <button type="submit" id="btnSubmit
-        " class="btn btn-primary" ><i class="fa fa-plus"></i> Ajouter</button>
+    <div class="card-footer row">  
+      <div class="search-bar col-8">
+       
+          <input type="text" id="query" class="form-control"   name="query" placeholder="Click Ici avant de scanner le barcode " 
+          title="Enter search keyword" autocomplete="off">
+       
+      </div>
+      <div class="col-4 ">
+        <div class="text-right float-end">
+
+          <button type="submit" id="btnSubmit
+          " class="btn btn-primary" ><i class="fa fa-plus"></i> Ajouter</button>
+        </div>
       </div>
     </div>
   </div>
@@ -85,6 +96,7 @@
 
               <input type="checkbox" id="checkDeleteAll">
             </td>
+            <th >id</th>
             <th >Code d envoi</th>
             <th>Destinataire</th>
             <th>Date de creation</th>
@@ -99,6 +111,7 @@
             <tr id="new-parcel-Autedelenitidelect" role="row" class="odd">
             <td><input class="table-delete-checkbox" name="colisDelete[{{ $i }}]" value="{{ $item->id }}" type="checkbox" ></td>
 
+              <td><b>{{ $item->id }}</b></td>
               <td><b>{{ $item->code_d_envoi }}</b></td>
               <td>{{ $item->destinataire }}</td>
               <td>{{ $item->created_at }}</td>
@@ -112,11 +125,20 @@
         </tbody>
       </table>
     </div>
-    <div class="card-footer">  
+    <div class="card-footer row"> 
+      <div class="search-bar col-8">
+       
+        <input type="text" id="query" class="form-control"   name="query" placeholder="Click Ici avant de scanner le barcode " 
+        title="Enter search keyword" autocomplete="off">
+     
+    </div>
+    <div class="col-4 ">
       <div class="text-right float-end">
+
         <button type="submit" id="btnSubmit
         " class="btn btn-danger" ><i class="fa fa-times"></i> annuler</button>
       </div>
+    </div>
     </div>
   </div>
 </form>
