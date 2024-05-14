@@ -89,12 +89,17 @@ class BonDistributionController extends Controller
             return redirect(route('auth.client.signIn'));
         }
 
-        $zones = Zone::whereHas('colis', function ($query) {
-            $query->where('status', 'distribution');
-        })
-            ->with(['colis', 'livreurs'])
-            ->withCount('colis')
-            ->get();
+        $zones = Zone::withCount([
+            'colis' => function ($query) {
+                $query->where('status', 'Ramasse');
+            }
+        ])->with(['colis', 'livreurs'])->get();
+        // $zones = Zone::whereHas('colis', function ($query) {
+        //     $query->where('status', 'distribution');
+        // })
+            
+        //     ->withCount('colis')
+        //     ->get();
 
 
 

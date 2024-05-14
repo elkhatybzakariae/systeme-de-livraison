@@ -46,6 +46,10 @@ class Colis extends Model
     {
         return $this->belongsTo(Client::class, 'id_Cl');
     }
+    public function zone()
+    {
+        return $this->belongsTo(Zone::class, 'zone');
+    }
 
     public function ville()
     {

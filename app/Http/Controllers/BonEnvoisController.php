@@ -96,10 +96,22 @@ class BonEnvoisController extends Controller
         // $zones = Zone::whereHas('colis', function ($query) {
         //     $query->where('status', 'Ramasse');
         // })->with('colis')->withCount('colis')->get();
-        $zones = Zone::whereHas('colis', function ($query) {
-            $query->where('status', 'Ramasse'); // Filter colis with status 'Ramasse'
-        })->withCount('colis')->get();
-        dd($zones);
+
+        // $zones = Zone::whereHas('colis', function ($query) {
+        //     $query->where('status', 'Ramasse');
+        // })->withCount('colis')
+        //     ->get();
+        // $zones = Zone::withCount([
+        //     'colis' => function ($query) {
+        //         $query->where('status', 'Ramasse');                 
+        //     }
+        // ])->having('colis_count', '>', 1)->get();
+        $zones = Zone::withCount([
+            'colis' => function ($query) {
+                $query->where('status', 'Ramasse');
+            }
+        ])->get();
+        // dd($zones);
 
         $breads = [
             ['title' => 'créer un Bon Envoi', 'url' => null],
