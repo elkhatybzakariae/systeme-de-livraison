@@ -125,22 +125,17 @@ class BonLivraisonController extends Controller
         // dd($request->input('query'));
         if($request->query){
             $colis = Colis::where('id', $request->input('query'))
-            ->update(['id_BL' => $id_BL]);
+            ->update(['id_BL' => $id_BL, 'status' => 'Attente de Ramassage']);
         }else{
 
-<<<<<<< HEAD
+
             foreach ($request->colis as $colis) {
     
                 $colis = Colis::where('id', $colis)
-                    ->update(['id_BL' => $id_BL]);
+                    ->update(['id_BL' => $id_BL, 'status' => 'Attente de Ramassage']);
             }
-=======
-            $colis = Colis::where('id', $colis)
-                ->update([
-                    'id_BL' => $id_BL,
-                    'status' => 'Attente de Ramassage'
-                ]);
->>>>>>> 75e91b36de1407f573718dfe5b9c5229538c6278
+
+           
         }
         return redirect()->route('bon.livraison.index', $id_BL);
     }
