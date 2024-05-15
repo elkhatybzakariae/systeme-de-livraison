@@ -64,7 +64,7 @@
                     <!--begin:Menu link-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="{{route('livreur.colis')}}">
+                        <a class="menu-link {{ request()->routeIs('livreur.colis') ?'active':'' }}" href="{{route('livreur.colis')}}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                                 <span class="svg-icon svg-icon-2">
@@ -106,7 +106,7 @@
                 <!--begin:Menu link-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('livreur.BD')}}">
+                    <a class="menu-link {{ request()->routeIs('livreur.BD') ?'active':'' }}" href="{{route('livreur.BD')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -147,7 +147,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="{{route('bon.payment.list')}}">
+                            <a class="menu-link {{ request()->routeIs('bon.payement.list') ?'active':'' }}" href="{{route('bon.payment.list')}}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>

@@ -61,7 +61,7 @@
                         <!--end:Menu link-->
                     </div>
                 </div>
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('colis.create')||request()->routeIs('colis.index') ||request()->routeIs('colis.indexRamassage') ?'show':'' }}">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
@@ -81,7 +81,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="{{ route('colis.create') }}">
+                            <a class="menu-link {{ request()->routeIs('colis.create') ?'active':'' }}" href="{{ route('colis.create') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -93,7 +93,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="{{ route('colis.index') }}">
+                            <a class="menu-link {{ request()->routeIs('colis.index') ?'active':'' }}" href="{{ route('colis.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -117,7 +117,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="{{ route('colis.indexRamassage') }}">
+                            <a class="menu-link {{ request()->routeIs('colis.indexRamassage') ?'active':'' }}" href="{{ route('colis.indexRamassage') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -312,7 +312,7 @@
                 <!--begin:Menu link-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{ route('bon.livraison.create') }}">
+                    <a class="menu-link {{ request()->routeIs('bon.livraison.create') ?'active':'' }}" href="{{ route('bon.livraison.create') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -374,19 +374,6 @@
                             </a>
                             <!--end:Menu link-->
                         </div>
-                        <!--end:Menu item-->
-                        <!--begin:Menu item-->
-                        <div class="menu-item">
-                            <!--begin:Menu link-->
-                            <a class="menu-link" href="">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Pour client</span>
-                            </a>
-                            <!--end:Menu link-->
-                        </div>
-                        <!--end:Menu item-->
                     </div>
                     <!--end:Menu sub-->
                 </div>
@@ -447,7 +434,7 @@
                 <!--begin:Menu link-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{ route('reclamation.index') }}">
+                    <a class="menu-link {{ request()->routeIs('reclamation.index') ?'active':'' }}" href="{{ route('reclamation.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -469,7 +456,7 @@
                 <!--begin:Menu link-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('ramassagecolis.index')}}">
+                    <a class="menu-link {{ request()->routeIs('ramassagecolis.index') ?'active':'' }}" href="{{route('ramassagecolis.index')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -493,7 +480,7 @@
                 <!--begin:Menu link-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('newuser')}}">
+                    <a class="menu-link {{ request()->routeIs('newuser') ?'active':'' }}" href="{{route('newuser')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                             <span class="svg-icon svg-icon-2">
