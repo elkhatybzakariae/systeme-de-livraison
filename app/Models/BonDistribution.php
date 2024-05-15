@@ -16,14 +16,16 @@ class BonDistribution extends Model
     protected $fillable = ['id_BD', 'reference', 'status', 'id_Liv', 'id_Z'];
     public function colis()
     {
-        return $this->hasMany(Colis::class, 'id_BD');
+        return $this->hasMany(Colis::class, 'id_BD', 'id_BD');
+    }
+
+    public function livreur()
+    {
+        return $this->belongsTo(Livreur::class, 'id_Liv', 'id_Liv');
     }
     public function zone()
     {
         return $this->belongsTo(Zone::class,'id_Z');
     }
-    public function livreur()
-    {
-        return $this->belongsTo(Livreur::class,'id_Liv');
-    }
+   
 }

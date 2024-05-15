@@ -205,6 +205,12 @@ Route::middleware('check.client')->group(function(){
 });
 Route::middleware('check.livreur')->group(function(){
 
+    Route::controller(LivreurController::class)->prefix('livreurs')->group(function () {
+        Route::get('/dashboard',  'index')->name('livreur.index');
+        Route::get('/signoutr',  'signout')->name('signout.livreur');
+        Route::get('/colis',  'allcolis')->name('livreur.colis');
+        Route::get('/bons_distributions',  'allBD')->name('livreur.BD');
+    });
 });
 Route::get('/generate-stikers/{id}', [BonLivraisonController::class,'generateStikers'])->name('generate.stikers');
 Route::get('/generate-etiqueteuse/{id}', [BonLivraisonController::class,'generateEtiqueteuse'])->name('generate.etiqueteuse');
@@ -237,14 +243,7 @@ Route::controller(LivreurController::class)->prefix('livreurs')->group(function 
     Route::post('/register',  'signup')->name('auth.livreur.signUp.store');
     Route::get('/signin',  'signinpage')->name('auth.livreur.signIn');
     Route::post('/login',  'signin')->name('auth.livreur.signIn.store');
-    Route::get('/dashboard',  'index')->name('livreur.index');
-    Route::get('/signoutr',  'signout')->name('signout.livreur');
-
-
-
-    Route::get('/colis',  'allcolis')->name('livreur.colis');
-    Route::get('/bons_distributions',  'allBD')->name('livreur.BD');
-});
+   });
 
 Route::get('/generate-pdf', [HomeController::class, 'generatePDF'])->name('generate.pdf');
 

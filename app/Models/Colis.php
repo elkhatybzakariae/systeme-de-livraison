@@ -57,10 +57,11 @@ class Colis extends Model
     }
     public function bonLivraison()
     {
-        return $this->belongsTo(BonLivraison::class, 'id_BL');
+        return $this->belongsTo(BonLivraison::class, 'id_BL', 'id_BL');
     }
+   
     public function bonDistribution()
     {
-        return $this->belongsTo(BonDistribution::class, 'id_BD');
+        return $this->belongsTo(BonDistribution::class, 'id_BD', 'id_BD');
     }
 }

@@ -25,4 +25,9 @@ class Livreur extends Authenticatable
     public function BD(){
         return $this->hasMany(Livreur::class,'id_Liv');
     }
+    public function bonDistributions()
+    {
+        return $this->hasMany(BonDistribution::class, 'id_Liv', 'id_Liv');
+    }
+
 }

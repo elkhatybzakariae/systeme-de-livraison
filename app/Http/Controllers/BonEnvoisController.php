@@ -162,10 +162,10 @@ class BonEnvoisController extends Controller
         }
         return redirect()->route('bon.envoi.index', $id_BE);
     }
-    public function generateStikers($id)
-    {
-        return redirect()->route('bon.envoi.index', $id_BE);
-    }
+    // public function generateStikers($id)
+    // {
+    //     return redirect()->route('bon.envoi.index', $id_BE);
+    // }
     public function exportColis($id_BE)
     {
         $colis = Colis::where('id_BE', $id_BE)->get();

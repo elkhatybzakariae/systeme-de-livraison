@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helpers;
 use App\Models\Colis;
+use App\Models\Livreur;
 use App\Models\Ville;
 use App\Models\Zone;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class ColisController extends Controller
         ];
         return view('pages.clients.colis.index', compact('colis','breads'));
     }
+ 
     public function indexAdmin()
     {
         $colis = Colis::query()->whereNot('status','nouveau')->get();
