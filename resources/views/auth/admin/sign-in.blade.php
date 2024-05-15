@@ -81,7 +81,6 @@
                             id="kt_sign_in_form">
                             @csrf
 
-                            <!--begin::Heading-->
                             <div class="text-center mb-11">
                                 <!--begin::Title-->
                                 <h1 class="text-dark fw-bolder mb-3">Sign In</h1>

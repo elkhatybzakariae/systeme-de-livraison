@@ -1,41 +1,6 @@
 <!DOCTYPE html>
-<!--
-Author: Keenthemes
-Product Name: Keen
-Product Version: 3.0.3
-Purchase: https://themes.getbootstrap.com/product/keen-the-ultimate-bootstrap-admin-theme/
-Website: http://www.keenthemes.com
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Dribbble: www.dribbble.com/keenthemes
-Like: www.facebook.com/keenthemes
-License: For each use you must have a valid license purchased only from above link in order to legally use the theme for your project.
--->
-<html lang="en">
-<!--begin::Head-->
-{{-- <head>
-		<base href="../../../"/>
-		<title>Keen - Multi-demo Bootstrap 5 HTML Admin Dashboard Template by Keenthemes</title>
-		<meta charset="utf-8" />
-		<meta name="description" content="The most advanced Bootstrap Admin Theme on Bootstrap Market trusted by over 4,000 beginners and professionals. Multi-demo, Dark Mode, RTL support. Grab your copy now and get life-time updates for free." />
-		<meta name="keywords" content="keen, bootstrap, bootstrap 5, bootstrap 4, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta property="og:locale" content="en_US" />
-		<meta property="og:type" content="article" />
-		<meta property="og:title" content="Keen - Multi-demo Bootstrap 5 HTML Admin Dashboard Theme" />
-		<meta property="og:url" content="https://keenthemes.com/keen" />
-		<meta property="og:site_name" content="Keenthemes | Keen" />
-		<link rel="canonical" href="https://preview.keenthemes.com/keen" />
-		<link rel="shortcut icon" href="{{asset('storage/assets/media/logos/favicon.ico')}}" />
-		<!--begin::Fonts(mandatory for all pages)-->
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
-		<!--end::Fonts-->
-		<!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
-		<link href="{{asset('storage/assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
-		<link href="{{asset('storage/assets/css/style.bundle.css" rel="stylesheet')}}" type="text/css" />
-		<!--end::Global Stylesheets Bundle-->
-	</head> --}}
 
+<html lang="en">
 <head>
     <base href="../../../" />
     <title>Keen - Multi-demo Bootstrap 5 HTML Admin Dashboard Template by Keenthemes</title>
@@ -92,34 +57,7 @@ License: For each use you must have a valid license purchased only from above li
             <!--begin::Aside-->
             <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center"
                 style="background-image: url({{ asset('storage/images/client.png)') }}">
-                <!--begin::Content-->
-                {{-- <div class="d-flex flex-column flex-center p-6 p-lg-10 w-100">
-                    <!--begin::Logo-->
-                    <a href="../../demo1/dist/index.html" class="mb-0 mb-lg-20">
-                        <img alt="Logo" src="{{ asset('storage/assets/media/logos/default-white.svg') }}"
-                            class="h-40px h-lg-50px" />
-                    </a>
-                    <!--end::Logo-->
-                    <!--begin::Image-->
-                    <img class="d-none d-lg-block mx-auto w-300px w-lg-75 w-xl-500px mb-10 mb-lg-20"
-                        src="{{ asset('storage/assets/media/misc/auth-screens.png') }}" alt="" />
-                    <!--end::Image-->
-                    <!--begin::Title-->
-                    <h1 class="d-none d-lg-block text-white fs-2qx fw-bold text-center mb-7">Fast, Efficient and
-                        Productive</h1>
-                    <!--end::Title-->
-                    <!--begin::Text-->
-                    <div class="d-none d-lg-block text-white fs-base text-center">In this kind of post,
-                        <a href="#" class="opacity-75-hover text-warning fw-semibold me-1">the
-                            blogger</a>introduces a person they’ve interviewed
-                        <br />and provides some background information about
-                        <a href="#" class="opacity-75-hover text-warning fw-semibold me-1">the interviewee</a>and
-                        their
-                        <br />work following this is a transcript of the interview.
-                    </div>
-                    <!--end::Text-->
-                </div> --}}
-                <!--end::Content-->
+                
             </div>
             <!--begin::Aside-->
             <!--begin::Body-->
@@ -144,7 +82,7 @@ License: For each use you must have a valid license purchased only from above li
                             <!--begin::Input group=-->
                             <div class="fv-row mb-8">
                                 <!--begin::Email-->
-                                <input type="text" placeholder="Email" name="email" autocomplete="off"
+                                <input type="text" placeholder="Email" name="email" value="{{ old('email') }}"
                                     class="form-control bg-transparent" />
                                 <!--end::Email-->
                             </div>

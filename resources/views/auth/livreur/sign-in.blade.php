@@ -57,7 +57,7 @@
                                 <h1 class="text-dark fw-bolder mb-3">Sign In</h1>
                             </div>
                             <div class="fv-row mb-8">
-                                <input type="text" placeholder="Email" name="email" autocomplete="off"
+                                <input type="text" placeholder="Email" name="email" value="{{ old('email') }}"
                                     class="form-control bg-transparent" />
                             </div>
                             <div class="fv-row mb-3">
