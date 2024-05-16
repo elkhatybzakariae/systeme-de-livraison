@@ -29,6 +29,7 @@ return new class extends Migration
             $table->boolean('isAdmin')->default(0);
             $table->boolean('isAccepted')->default(0);
             $table->string('password');
+            $table->text('token')->nullable();
             $table->string('user')->nullable();
             $table->foreign('user')->references('id_Cl')->on('clients');
             $table->boolean('valider')->default(0);

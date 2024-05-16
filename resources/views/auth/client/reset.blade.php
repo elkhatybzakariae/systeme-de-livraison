@@ -63,67 +63,61 @@
             <!--begin::Body-->
             <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10">
                 <!--begin::Form-->
-                <div class="d-flex flex-center flex-column flex-lg-row-fluid">
+                <div class="p-15">
                     <!--begin::Wrapper-->
-                    <div class="w-lg-500px p-10">
+                    <div class="p-10">
                         <!--begin::Form-->
 
-                        <form action="{{ route('auth.client.signIn.store') }}" method="post" class="form w-100" novalidate="novalidate"
-
-                            id="kt_sign_in_form">
+                        <form method="POST" action="{{ route('auth.client.password.update') }}" class="w-100">
                             @csrf
-
-                            <!--begin::Heading-->
-                            <div class="text-center mb-11">
-                                <!--begin::Title-->
-                                <h1 class="text-dark fw-bolder mb-3">Sign In</h1>
+    
+                            <input type="hidden" name="token" value="{{ $token }}">
+    
+                            <div class="form-group mb-4">
+                                <label for="email" class=" col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+    
+                                <div class="">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+    
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
-                            <!--end::Separator-->
-                            <!--begin::Input group=-->
-                            <div class="fv-row mb-8">
-                                <!--begin::Email-->
-                                <input type="text" placeholder="Email" name="email" value="{{ old('email') }}"
-                                    class="form-control bg-transparent" />
-                                <!--end::Email-->
+    
+                            <div class="form-group mb-4">
+                                <label for="password" class=" col-form-label text-md-right">{{ __('Password') }}</label>
+    
+                                <div >
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+    
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
-                            <!--end::Input group=-->
-                            <div class="fv-row mb-3">
-                                <!--begin::Password-->
-                                <input type="password" placeholder="Password" name="password" autocomplete="off"
-                                    class="form-control bg-transparent" />
-                                <!--end::Password-->
+    
+                            <div class="form-group mb-4">
+                                <label for="password-confirm" class=" col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+    
+                                <div class="">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                </div>
                             </div>
-                            <!--end::Input group=-->
-                            <!--begin::Wrapper-->
-                            <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
-                                <div></div>
-                                <!--begin::Link-->
-                                <a href="{{ route('auth.client.password.request') }}"
-                                    class="link-primary">Forgot Password ?</a>
-                                <!--end::Link-->
+    
+                            <div class="form-group  mb-0">
+                                <div class="w-100">
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        {{ __('Reset Password') }}
+                                    </button>
+                                </div>
                             </div>
-                            <!--end::Wrapper-->
-                            <!--begin::Submit button-->
-                            <div class="d-grid mb-10">
-                                <button type="submit" 
-								 {{-- id="kt_sign_in_submit" --}}
-								 class="btn btn-primary">
-                                    <!--begin::Indicator label-->
-                                    <span class="indicator-label">Sign In</span>
-                                    <!--end::Indicator label-->
-                                    <!--begin::Indicator progress-->
-                                    <span class="indicator-progress">Please wait...
-                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                    <!--end::Indicator progress-->
-                                </button>
-                            </div>
-                            <!--end::Submit button-->
-                            <!--begin::Sign up-->
-                            <div class="text-gray-500 text-center fw-semibold fs-6">Not a Member yet?
-                                <a href="{{ route('auth.client.signUp') }}" class="link-primary">Sign up</a>
-                            </div>
-                            <!--end::Sign up-->
                         </form>
+    
                         <!--end::Form-->
                     </div>
                     <!--end::Wrapper-->

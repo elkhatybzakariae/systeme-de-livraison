@@ -235,6 +235,12 @@ Route::controller(ClientController::class)->prefix('clients')->group(function ()
     Route::post('/register',  'signup')->name('auth.client.signUp.store');
     Route::get('/signin',  'signinpage')->name('auth.client.signIn');
     Route::post('/login',  'signin')->name('auth.client.signIn.store');
+    
+    Route::get('forgot-password', 'showLinkRequestForm')->name('auth.client.password.request');
+    Route::post('forgot-password', 'sendResetLinkEmail')->name('auth.client.password.email');
+
+    Route::get('reset-password/{token}', 'showResetForm')->name('auth.client.password.reset');
+    Route::post('reset-password', 'reset')->name('auth.client.password.update');
  });
 
 
