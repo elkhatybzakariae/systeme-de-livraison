@@ -27,11 +27,12 @@ class ColisController extends Controller
     public function indexAdmin()
     {
         $colis = Colis::query()->whereNot('status','nouveau')->get();
+        $status = Colis::query()->select('status')->distinct()->get();
         $breads = [
             ['title' => 'Liste des Colis', 'url' => null],
             ['text' => 'Colis', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.colis.index', compact('colis','breads'));
+        return view('pages.admin.colis.index', compact('colis','status','breads'));
     }
     public function indexRamassage()
     {

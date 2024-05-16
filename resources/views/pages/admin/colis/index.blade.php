@@ -26,11 +26,13 @@
     </div>
     <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
       <div class="w-100 mw-150px">
+        {{-- @dd($status) --}}
         <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-product-filter="status">
-          <option></option>
+       
           <option value="all">All</option>
-          <option value="1">Active</option>
-          <option value="0">Inactive</option>
+          @foreach ($status as $st)
+            <option value="{{ $st->status }}">{{ ucfirst($st->status) }}</option>
+          @endforeach
         </select>
       </div>
       <button class="btn btn-primary" >Filtrer  Colis</button>
@@ -89,7 +91,7 @@
               <span class="fw-bold" data-kt-ecommerce-product-filter="etat">{{ $coli->etat }}</span>
             </td>
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="status">{{ $coli->status }}</span>
+              <span class="fw-bold" data-order="{{ $coli->status }}" data-kt-ecommerce-product-filter="status">{{ $coli->status }}</span>
             </td>
             <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="ville">{{ $coli->ville->villename }}</span>
@@ -166,10 +168,22 @@ $(document).ready(function() {
                 });
             }
 
-  // Function to filter table by status
-  function filterTableByStatus(status) {
-    // Filter table by status logic
-  }
+
+            function filterTableByStatus(status) {
+              if (status === 'all') {
+                $('#kt_ecommerce_products_table tbody tr').show();
+              } else {
+                $('#kt_ecommerce_products_table tbody tr').each(function() {
+                  var rowStatus = $(this).find('[data-kt-ecommerce-product-filter="status"]').text().trim().toLowerCase();
+                  if (rowStatus === status) {
+                    $(this).show();
+                  } else {
+                    $(this).hide();
+                  }
+                });
+              }
+            }
+
 });
 
 function openModal(villename = '', zonename = '', ref = '', actionUrl = "{{ route('colis.store') }}") {
