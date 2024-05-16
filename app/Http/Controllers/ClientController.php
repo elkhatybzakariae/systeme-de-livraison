@@ -180,7 +180,7 @@ class ClientController extends Controller
         $request->validate(['email' => 'required|email']);
 
         // Check if the user exists
-        $user = DB::table('clients')->where('email', $request->email)->first();
+        $user = Client::where('email', $request->email)->first();
         if (!$user) {
             return back()->withErrors(['email' => 'We can\'t find a user with that email address.']);
         }
@@ -189,14 +189,12 @@ class ClientController extends Controller
         $token = Str::random(60);
 
         // Insert the token into the password_resets table
-        DB::table('password_resets')->insert([
-            'email' => $request->email,
+        $user->update([
             'token' => Hash::make($token),
-            'created_at' => Carbon::now(),
         ]);
 
         // Send the reset link via email
-        Mail::send('auth.emails.password', ['token' => $token], function ($message) use ($request) {
+        Mail::send('auth.client.email', ['token' => $token], function ($message) use ($request) {
             $message->to($request->email);
             $message->subject('Your Password Reset Link');
         });
