@@ -91,7 +91,7 @@ class BonDistributionController extends Controller
 
         $zones = Zone::withCount([
             'colis' => function ($query) {
-                $query->where('status', 'Ramasse');
+                $query->where('status', 'distribution');
             }
         ])->with(['colis', 'livreurs'])->get();    
 
