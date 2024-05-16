@@ -63,12 +63,12 @@
             </div>
             <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
                 <div class="w-100 mw-150px">
-                    <select class="form-select form-select-solid" data-control="select3" data-hide-search="true"
-                        data-placeholder="Status" data-kt-ecommerce-product-filter="status">
+                    <select class="form-select form-select-solid"  data-control="select2" data-hide-search="true" data-placeholder="Etat" data-kt-ecommerce-product-filter="status">
                         <option></option>
                         <option value="all">All</option>
-                        <option value="1">Active</option>
-                        <option value="0">Inactive</option>
+                        <option value="Nouvelle Demande">Nouvelle Demande</option>
+                        <option value="demande recue">Recu</option>
+                        <option value="demande traitee">Traite</option>
                     </select>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                             <td>
                                 <div class="">
                                     <div class="ms-5">
-                                        <a href=""
+                                        <a href="" data-kt-ecommerce-product-filter="type" 
                                             class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $item->type }}</a>
                                     </div>
                                 </div>
@@ -103,7 +103,7 @@
                             <td>
                                 <div class="">
                                     <div class="ms-5">
-                                        <a href=""
+                                        <a href="" data-kt-ecommerce-product-filter="magasin" 
                                             class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $item->client->nommagasin }}</a>
                                     </div>
                                 </div>
@@ -111,7 +111,7 @@
                             <td>
                                 <div class="">
                                     <div class="ms-5">
-                                        <a href=""
+                                        <a href="" data-kt-ecommerce-product-filter="remarque" 
                                             class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $item->remarque }}</a>
                                     </div>
                                 </div>
@@ -119,7 +119,7 @@
                             <td>
                                 <div class="">
                                     <div class="ms-5">
-                                        <a href=""
+                                        <a href="" data-kt-ecommerce-product-filter="telephone" 
                                             class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $item->telephone }}</a>
                                     </div>
                                 </div>
@@ -127,7 +127,7 @@
                             <td>
                                 <div class="">
                                     <div class="ms-5">
-                                        <a href=""
+                                        <a href="" data-kt-ecommerce-product-filter="ville" 
                                             class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $item->ville }}</a>
                                     </div>
                                 </div>
@@ -135,18 +135,18 @@
                             <td>
                                 <div class="">
                                     <div class="ms-5">
-                                        <a href=""
+                                        <a href=""data-kt-ecommerce-product-filter="adresse" 
                                             class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $item->adresse }}</a>
                                     </div>
                                 </div>
                             </td>
                             <td class="pe-0">
                                 <span class="fw-bold"
-                                    data-kt-ecommerce-product-filter="objet">{{ $item->created_at }}</span>
+                                    data-kt-ecommerce-product-filter="date">{{ $item->created_at }}</span>
                             </td>
                             <td class="pe-0">
-                                <span class="fw-bold"
-                                    data-kt-ecommerce-product-filter="villename" id="etat{{$item->id_Ram}}">{{ $item->etat }}</span>
+                                <span class="fw-bold" data-order="{{ $item->etat }}"
+                                    data-kt-ecommerce-product-filter="etat" id="etat{{$item->id_Ram}}">{{ $item->etat }}</span>
                             </td>
                             <!--begin::Action=-->
                             <td class="">
@@ -219,32 +219,43 @@
                 filterTableByStatus(status);
             });
 
-            // Function to filter table by search text
             function filterTable(searchText) {
                 $('#kt_ecommerce_products_table tbody tr').each(function() {
-                    var villename = $(this).find('[data-kt-ecommerce-product-filter="villename"]').text()
-                        .toLowerCase();
-                    if (villename.includes(searchText)) {
-                        $(this).show();
+                    var type = $(this).find('[data-kt-ecommerce-product-filter="type"]').text().toLowerCase();
+                    var remarque = $(this).find('[data-kt-ecommerce-product-filter="remarque"]').text().toLowerCase();
+                    var magasin = $(this).find('[data-kt-ecommerce-product-filter="magasin"]').text().toLowerCase();
+                    var etat = $(this).find('[data-kt-ecommerce-product-filter="etat"]').text().toLowerCase();
+                    var date = $(this).find('[data-kt-ecommerce-product-filter="date"]').text().toLowerCase();
+                    var adresse = $(this).find('[data-kt-ecommerce-product-filter="adresse"]').text().toLowerCase();
+                    var ville = $(this).find('[data-kt-ecommerce-product-filter="ville"]').text().toLowerCase();
+                    var telephone = $(this).find('[data-kt-ecommerce-product-filter="telephone"]').text().toLowerCase();
+                    if (adresse.includes(searchText) ||
+                    remarque.includes(searchText) || 
+                    magasin.includes(searchText) || 
+                    etat.includes(searchText) || 
+                    date.includes(searchText) || 
+                    telephone.includes(searchText) || 
+                    ville.includes(searchText) || 
+                    type.includes(searchText) ) {
+                    $(this).show();
                     } else {
-                        $(this).hide();
+                    $(this).hide();
                     }
                 });
             }
 
-            // Function to filter table by status
             function filterTableByStatus(status) {
                 if (status === 'all') {
-                    $('#kt_ecommerce_products_table tbody tr').show();
+                $('#kt_ecommerce_products_table tbody tr').show();
                 } else {
-                    $('#kt_ecommerce_products_table tbody tr').each(function() {
-                        var zoneStatus = $(this).find('td:eq(3)').text().trim().toLowerCase();
-                        if (zoneStatus === status) {
-                            $(this).show();
-                        } else {
-                            $(this).hide();
-                        }
-                    });
+                $('#kt_ecommerce_products_table tbody tr').each(function() {
+                    var rowStatus = $(this).find('[data-kt-ecommerce-product-filter="etat"]').text().trim().toLowerCase();
+                    if (rowStatus === status) {
+                    $(this).show();
+                    } else {
+                    $(this).hide();
+                    }
+                });
                 }
             }
 
