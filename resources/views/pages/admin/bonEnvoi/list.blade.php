@@ -47,8 +47,8 @@
         <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-product-filter="status">
           <option></option>
           <option value="all">All</option>
-          <option value="1">Active</option>
-          <option value="0">Inactive</option>
+          <option value="nouveau">Nouveau</option>
+          <option value="distribution">distribution</option>
         </select>
       </div>
       <a href="{{ route('bon.envoi.create') }}" class="btn btn-primary" >Ajouter  Bon Envoi</a>
@@ -75,25 +75,25 @@
             <td>
               <div class="">
                 <div class="ms-5">
-                  <a href="" class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $item->reference }}</a>
+                  <a href="" class="text-gray-800 text-hover-primary fs-5 fw-bold" data-kt-ecommerce-product-filter="code">{{ $item->id_BE }}</a>
                 </div>
               </div>
             </td>
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="code">{{ $item->client_nomcomplet }}</span>
+              <span class="fw-bold" data-kt-ecommerce-product-filter="nomcomplet">{{ $item->client_nomcomplet }}</span>
             </td>
             <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="date">{{ $item->created_at }}</span>
             </td>
             
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="status">{{ $item->status }}</span>
+              <span class="fw-bold" data-order="{{ $item->status }}" data-kt-ecommerce-product-filter="status">{{ $item->status }}</span>
             </td>
             <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="ville">{{ $item->colis_count}}</span>
             </td>
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="prix">{{ $item->total_prix }}</span>
+              <span class="fw-bold" data-kt-ecommerce-product-filter="prix">{{ $item->colis_sum_prix }}</span>
             </td>
             <td>
               <a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
@@ -123,12 +123,7 @@
                 <div class="menu-item px-3">
                   <a  class="btn" href="{{ route('bon.envoi.getPdf',$item->id_BE) }}"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
                 </div>
-                <div class="menu-item px-3">
-                  <a  class="btn"><<i class="fas fa-ticket-alt"></i>Voir les etiqutte</a>
-                </div>
-                <div class="menu-item px-3">
-                  <a  class="btn"><i class="fas fa-ticket-alt"></i> etiquetteuse</a>
-                </div>
+               
                 
               </div>
             </td>
@@ -156,15 +151,43 @@ $(document).ready(function() {
     filterTableByStatus(status);
   });
 
-  // Function to filter table by search text
   function filterTable(searchText) {
-    // Filter table logic
+    $('#kt_ecommerce_products_table tbody tr').each(function() {
+        var code = $(this).find('[data-kt-ecommerce-product-filter="code"]').text().toLowerCase();
+        var colis_count = $(this).find('[data-kt-ecommerce-product-filter="colis_count"]').text().toLowerCase();
+        var prix = $(this).find('[data-kt-ecommerce-product-filter="prix"]').text().toLowerCase();
+        var status = $(this).find('[data-kt-ecommerce-product-filter="status"]').text().toLowerCase();
+        var date = $(this).find('[data-kt-ecommerce-product-filter="date"]').text().toLowerCase();
+        var nomcomplet = $(this).find('[data-kt-ecommerce-product-filter="nomcomplet"]').text().toLowerCase();
+        if (nomcomplet.includes(searchText) ||
+          code.includes(searchText) || 
+          colis_count.includes(searchText) || 
+          prix.includes(searchText) || 
+          status.includes(searchText) || 
+          date.includes(searchText)  ) {
+        $(this).show();
+        } else {
+        $(this).hide();
+        }
+    });
   }
 
-  // Function to filter table by status
+
   function filterTableByStatus(status) {
-    // Filter table by status logic
+    if (status === 'all') {
+      $('#kt_ecommerce_products_table tbody tr').show();
+    } else {
+      $('#kt_ecommerce_products_table tbody tr').each(function() {
+        var rowStatus = $(this).find('[data-kt-ecommerce-product-filter="status"]').text().trim().toLowerCase();
+        if (rowStatus === status) {
+          $(this).show();
+        } else {
+          $(this).hide();
+        }
+      });
+    }
   }
+
 });
 
 function openModal(id) {

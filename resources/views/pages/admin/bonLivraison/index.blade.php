@@ -239,7 +239,7 @@ $(document).ready(function() {
           prix.includes(searchText) || 
           status.includes(searchText) || 
           date.includes(searchText) || 
-          nomcomplet.includes(searchText) ) {
+          code.includes(searchText) ) {
         $(this).show();
         } else {
         $(this).hide();
