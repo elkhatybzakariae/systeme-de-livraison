@@ -116,8 +116,8 @@
         <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-product-filter="status">
           <option></option>
           <option value="all">All</option>
-          <option value="1">Active</option>
-          <option value="0">Inactive</option>
+          <option value="nouveau">Nouveau</option>
+          <option value="ramasse">Ramasse</option>
         </select>
       </div>
       <button class="btn btn-primary" >Filtrer  Bon livraison</button>
@@ -144,22 +144,22 @@
             <td>
               <div class="">
                 <div class="ms-5">
-                  <a href="" class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $item->reference }}</a>
+                  <a href="" class="text-gray-800 text-hover-primary fs-5 fw-bold" data-kt-ecommerce-product-filter="code">{{ $item->id_BL }}</a>
                 </div>
               </div>
             </td>
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="code">{{ $item->client_nomcomplet }}</span>
+              <span class="fw-bold" data-kt-ecommerce-product-filter="nomcomplet">{{ $item->client_nomcomplet }}</span>
             </td>
             <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="date">{{ $item->created_at }}</span>
             </td>
             
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="status">{{ $item->status }}</span>
+              <span class="fw-bold" data-order="{{ $item->status }}" data-kt-ecommerce-product-filter="status">{{ $item->status }}</span>
             </td>
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="ville">{{ $item->colis_count}}</span>
+              <span class="fw-bold" data-kt-ecommerce-product-filter="colis_count">{{ $item->colis_count}}</span>
             </td>
             <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="prix">{{ $item->total_prix }}</span>
@@ -226,31 +226,44 @@ $(document).ready(function() {
     filterTableByStatus(status);
   });
 
-  // Function to filter table by search text
   function filterTable(searchText) {
-    // Filter table logic
+    $('#kt_ecommerce_products_table tbody tr').each(function() {
+        var code = $(this).find('[data-kt-ecommerce-product-filter="code"]').text().toLowerCase();
+        var colis_count = $(this).find('[data-kt-ecommerce-product-filter="colis_count"]').text().toLowerCase();
+        var prix = $(this).find('[data-kt-ecommerce-product-filter="prix"]').text().toLowerCase();
+        var status = $(this).find('[data-kt-ecommerce-product-filter="status"]').text().toLowerCase();
+        var date = $(this).find('[data-kt-ecommerce-product-filter="date"]').text().toLowerCase();
+        var nomcomplet = $(this).find('[data-kt-ecommerce-product-filter="nomcomplet"]').text().toLowerCase();
+        if (nomcomplet.includes(searchText) ||
+          colis_count.includes(searchText) || 
+          prix.includes(searchText) || 
+          status.includes(searchText) || 
+          date.includes(searchText) || 
+          nomcomplet.includes(searchText) ) {
+        $(this).show();
+        } else {
+        $(this).hide();
+        }
+    });
   }
 
-  // Function to filter table by status
   function filterTableByStatus(status) {
-    // Filter table by status logic
+    if (status === 'all') {
+      $('#kt_ecommerce_products_table tbody tr').show();
+    } else {
+      $('#kt_ecommerce_products_table tbody tr').each(function() {
+        var rowStatus = $(this).find('[data-kt-ecommerce-product-filter="status"]').text().trim().toLowerCase();
+        if (rowStatus === status) {
+          $(this).show();
+        } else {
+          $(this).hide();
+        }
+      });
+    }
   }
-});
 
-// function openModal() {
-//   // Set the default values or update them based on the clicked item
-//   document.getElementById('villename').value = villename;
-//   document.getElementById('ref').value = ref;
-//   var zoneSelect = document.getElementById('id_Z');
-//   for (var i = 0; i < zoneSelect.options.length; i++) {
-//     if (zoneSelect.options[i].text === zonename) {
-//       zoneSelect.selectedIndex = i;
-//       break;
-//     }
-//   }
-//   // Set the form action URL
-//   document.getElementById('kt_modal_new_target_form').action = actionUrl;
-// }
+
+});
 function openModal(id) {
   // Set the default values or update them based on the clicked item
   var modal=document.getElementById('modal-body') ;
