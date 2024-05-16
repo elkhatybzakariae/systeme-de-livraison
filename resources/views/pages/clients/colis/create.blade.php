@@ -128,9 +128,9 @@
                                 <select id="ville_id" class="form-control @error('ville_id') is-invalid @enderror"
                                     name="ville_id">
                                     <option value="">Select Ville</option>
-                                    @foreach ($villes as $item)
+                                    {{-- @foreach ($villes as $item)
                                         <option value="{{ $item->id_V }}">{{ $item->villename }}</option>
-                                    @endforeach
+                                    @endforeach --}}
                                 </select>
                                 <x-error field='ville_id' />
                             </div>
@@ -146,4 +146,24 @@
             </div>
         </div>
     </div>
+    <script>
+        var villes = @json($villes);
+        const zoneSelect = document.getElementById('zone');
+        const villeSelect = document.getElementById('ville_id');
+
+        zoneSelect.addEventListener('change', () => {
+            const selectedZoneId = zoneSelect.value; 
+            const matchingVilles = villes.filter(ville => ville.id_Z === selectedZoneId);
+            villeSelect.innerHTML = '<option value="">Select Ville</option>';
+
+            if (matchingVilles.length > 0) {
+                const options = matchingVilles.map(ville => (
+                    `<option value="${ville.id_V}">${ville.villename}</option>`
+                ));
+                villeSelect.innerHTML = options.join('');
+            } else {
+                villeSelect.innerHTML = '<option value="">No villes found</option>';
+            }
+        });
+    </script>
 @endsection
