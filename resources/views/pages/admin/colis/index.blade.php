@@ -69,7 +69,7 @@
             <td>
               <div class="">
                 <div class="ms-5">
-                  <a href="" class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $coli->id }}</a>
+                  <a href="" class="text-gray-800 text-hover-primary fs-5 fw-bold" data-kt-ecommerce-product-filter="id">{{ $coli->id }}</a>
                 </div>
               </div>
             </td>
@@ -144,8 +144,27 @@ $(document).ready(function() {
 
   // Function to filter table by search text
   function filterTable(searchText) {
-    // Filter table logic
-  }
+                $('#kt_ecommerce_products_table tbody tr').each(function() {
+                    var ville = $(this).find('[data-kt-ecommerce-product-filter="ville"]').text().toLowerCase();
+                    var etat = $(this).find('[data-kt-ecommerce-product-filter="etat"]').text().toLowerCase();
+                    var prix = $(this).find('[data-kt-ecommerce-product-filter="prix"]').text().toLowerCase();
+                    var status = $(this).find('[data-kt-ecommerce-product-filter="status"]').text().toLowerCase();
+                    var id = $(this).find('[data-kt-ecommerce-product-filter="id"]').text().toLowerCase();
+                    var code = $(this).find('[data-kt-ecommerce-product-filter="code"]').text().toLowerCase();
+                    var date = $(this).find('[data-kt-ecommerce-product-filter="date"]').text().toLowerCase();
+                    if (ville.includes(searchText) ||
+                     etat.includes(searchText) || 
+                     prix.includes(searchText) || 
+                     status.includes(searchText) || 
+                     date.includes(searchText) || 
+                     code.includes(searchText) || 
+                     id.includes(searchText) ) {
+                    $(this).show();
+                    } else {
+                    $(this).hide();
+                    }
+                });
+            }
 
   // Function to filter table by status
   function filterTableByStatus(status) {
