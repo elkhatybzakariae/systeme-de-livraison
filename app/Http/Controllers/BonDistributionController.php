@@ -125,22 +125,37 @@ class BonDistributionController extends Controller
         return redirect()->route('bon.distribution.index', $id_BD);
     }
 
+  
     public function updateAll(Request $request, $id_BD)
     {
-        // dd($request);
-        foreach ($request->colis as $colis) {
+        // dd($request->input('query'));
+        if($request->input('query')){
+            $colis = Colis::where('id', $request->input('query'))
+            ->update(['id_BD' => $id_BD, 'status' => 'en livraison']);
+        }else{
 
-            $colis = Colis::where('id', $colis)
-                ->update(['id_BD' => $id_BD, 'status' => 'en livraison']);
+
+            foreach ($request->colis as $colis) {
+    
+                $colis = Colis::where('id', $colis)
+                    ->update(['id_BD' => $id_BD, 'status' => 'en livraison']);
+            }
+
+           
         }
         return redirect()->route('bon.distribution.index', $id_BD);
     }
     public function updateDeleteAll(Request $request, $id_BD)
     {
-        foreach ($request->colisDelete as $colis) {
+        if($request->query){
+            $colis = Colis::where('id', $request->input('query'))
+            ->update(['id_BD' => null,'status'=>'distribution']);
+        }else{
+            foreach ($request->colisDelete as $colis) {
 
-            $colis = Colis::where('id', $colis)
-                ->update(['id_BD' => null, 'status' => 'distribution']);
+                $colis = Colis::where('id', $colis)
+                    ->update(['id_BD' => null,'status'=>'distribution']);
+            }
         }
         return redirect()->route('bon.distribution.index', $id_BD);
     }
