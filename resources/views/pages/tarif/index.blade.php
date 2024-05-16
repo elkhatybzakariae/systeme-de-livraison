@@ -113,7 +113,7 @@
                 </div>
             </div>
             <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-                <div class="w-100 mw-150px">
+                {{-- <div class="w-100 mw-150px">
                     <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
                         data-placeholder="Status" data-kt-ecommerce-product-filter="status">
                         <option></option>
@@ -121,7 +121,7 @@
                         <option value="1">Active</option>
                         <option value="0">Inactive</option>
                     </select>
-                </div>
+                </div> --}}
                 <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_new_target">Add Tarif</a>
             </div>
         </div>
@@ -167,7 +167,7 @@
 
                             <td class="pe-0">
                                 <span class="fw-bold"
-                                    data-kt-ecommerce-product-filter="villename">{{ $tarif->villleRamassage->villename }}</span>
+                                    data-kt-ecommerce-product-filter="villenameRamassage">{{ $tarif->villleRamassage->villename }}</span>
                             </td>
                             <td class="pe-0">
                                 <span class="fw-bold"
@@ -254,12 +254,26 @@
             // Function to filter table by search text
             function filterTable(searchText) {
                 $('#kt_ecommerce_products_table tbody tr').each(function() {
-                    var villename = $(this).find('[data-kt-ecommerce-product-filter="villename"]').text()
-                        .toLowerCase();
-                    if (villename.includes(searchText)) {
-                        $(this).show();
+                    var villename = $(this).find('[data-kt-ecommerce-product-filter="villename"]').text().toLowerCase();
+                    var villenameRamassage = $(this).find('[data-kt-ecommerce-product-filter="villenameRamassage"]').text().toLowerCase();
+                    var delailiv = $(this).find('[data-kt-ecommerce-product-filter="delailiv"]').text().toLowerCase();
+                    var prixref = $(this).find('[data-kt-ecommerce-product-filter="prixref"]').text().toLowerCase();
+                    var prixret = $(this).find('[data-kt-ecommerce-product-filter="prixret"]').text().toLowerCase();
+                    var prixliv = $(this).find('[data-kt-ecommerce-product-filter="prixliv"]').text().toLowerCase();
+                    var zonename = $(this).find('[data-kt-ecommerce-product-filter="zonename"]').text().toLowerCase();
+                    var ref = $(this).find('[data-kt-ecommerce-product-filter="ref"]').text().toLowerCase();
+                    if (villename.includes(searchText) ||
+                     zonename.includes(searchText) || 
+                     villenameRamassage.includes(searchText) || 
+                     delailiv.includes(searchText) || 
+                     prixliv.includes(searchText) || 
+                     prixref.includes(searchText) || 
+                     prixref.includes(searchText) || 
+                     prixret.includes(searchText) || 
+                     ref.includes(searchText)) {
+                    $(this).show();
                     } else {
-                        $(this).hide();
+                    $(this).hide();
                     }
                 });
             }

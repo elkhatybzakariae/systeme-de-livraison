@@ -75,26 +75,26 @@
           <tr>
             <td>
               <div class="">
-                <div class="ms-5">
-                  <a href="" class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $item->reference }}</a>
+                <div class="ms-5" >
+                  <a href="" class="text-gray-800 text-hover-primary fs-5 fw-bold" data-kt-ecommerce-product-filter="reference">{{ $item->reference }}</a>
                 </div>
               </div>
             </td>
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="prix">{{ $item->zone->zonename }}</span>
+              <span class="fw-bold" data-kt-ecommerce-product-filter="zonename">{{ $item->zone->zonename }}</span>
             </td>
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="code">{{ $item->livreur->nomcomplet }}</span>
+              <span class="fw-bold" data-kt-ecommerce-product-filter="nomcomplet">{{ $item->livreur->nomcomplet }}</span>
             </td>
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="date">{{ $item->created_at }}</span>
+              <span class="fw-bold" data-kt-ecommerce-product-filter="created_at">{{ $item->created_at }}</span>
             </td>
             
             <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="status">{{ $item->status }}</span>
             </td>
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="ville">{{ $item->colis_count}}</span>
+              <span class="fw-bold" data-kt-ecommerce-product-filter="colis_count">{{ $item->colis_count}}</span>
             </td>
            
             <td>
@@ -142,10 +142,28 @@ $(document).ready(function() {
     filterTableByStatus(status);
   });
 
-  // Function to filter table by search text
   function filterTable(searchText) {
-    // Filter table logic
-  }
+                $('#kt_ecommerce_products_table tbody tr').each(function() {
+                    var refence = $(this).find('[data-kt-ecommerce-product-filter="refence"]').text().toLowerCase();
+                    var colis_count = $(this).find('[data-kt-ecommerce-product-filter="colis_count"]').text().toLowerCase();
+                    var status = $(this).find('[data-kt-ecommerce-product-filter="status"]').text().toLowerCase();
+                    var created_at = $(this).find('[data-kt-ecommerce-product-filter="created_at"]').text().toLowerCase();
+                    var nomcomplet = $(this).find('[data-kt-ecommerce-product-filter="nomcomplet"]').text().toLowerCase();
+                    var zonename = $(this).find('[data-kt-ecommerce-product-filter="zonename"]').text().toLowerCase();
+                    var ref = $(this).find('[data-kt-ecommerce-product-filter="ref"]').text().toLowerCase();
+                    if (villename.includes(searchText) ||
+                     zonename.includes(searchText) || 
+                     colis_count.includes(searchText) || 
+                     status.includes(searchText) || 
+                     created_at.includes(searchText) || 
+                     prixref.includes(searchText) || 
+                     nomcomplet.includes(searchText) ) {
+                    $(this).show();
+                    } else {
+                    $(this).hide();
+                    }
+                });
+            }
 
   // Function to filter table by status
   function filterTableByStatus(status) {
