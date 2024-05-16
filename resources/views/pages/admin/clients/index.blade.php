@@ -240,6 +240,45 @@
         <!--end::Content container-->
     </div>
     <script>
+    $(document).ready(function() {
+    $('#kt_filter_search').on('input', function() {
+        filterClients();
+    });
+
+    $('#kt_filter_status').on('change', function() {
+        filterClients();
+    });
+
+    function filterClients() {
+        var searchText = $('#kt_filter_search').val().toLowerCase();
+        var status = $('#kt_filter_status').val().toLowerCase();
+
+        // Filter card view
+        $('#kt_project_users_card_pane .card').each(function() {
+            var cardText = $(this).text().toLowerCase();
+            var cardStatus = $(this).data('status').toLowerCase(); // Assuming you have data-status attribute in cards
+            if ((cardText.includes(searchText) || searchText === '') &&
+                (cardStatus === status || status === 'all')) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+
+        // Filter table view
+        $('#kt_project_users_table tbody tr').each(function() {
+            var rowText = $(this).text().toLowerCase();
+            var rowStatus = $(this).data('status').toLowerCase(); // Assuming you have data-status attribute in rows
+            if ((rowText.includes(searchText) || searchText === '') &&
+                (rowStatus === status || status === 'all')) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    }
+});
+
         function openModal(id) {
             var users = @json($users);
             let bb = '';

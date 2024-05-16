@@ -4,8 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helpers;
 use App\Models\Admin;
+use App\Models\BonDistribution;
+use App\Models\BonEnvois;
+use App\Models\BonLivraison;
+use App\Models\BonPaymentLivreur;
+use App\Models\BonPaymentZone;
+use App\Models\BonRetourClient;
+use App\Models\BonRetourZone;
 use App\Models\Client;
+use App\Models\Colis;
+use App\Models\Facture;
 use App\Models\Livreur;
+use App\Models\Reclamation;
 use App\Models\Ville;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,11 +27,22 @@ class AdminController extends Controller
 {
     public function index()
     {
+        $colis = Colis::all()->count();
+        $liv = BonLivraison::all()->count();
+        $env = BonEnvois::all()->count();
+        $dis = BonDistribution::all()->count();
+        $payLiv = BonPaymentLivreur::all()->count();
+        $retourC = BonRetourClient::all()->count();
+        $payZ = BonPaymentZone::all()->count();
+        $fact = Facture::all()->count();
+        $rec = Reclamation::all()->count();
+        $clients = Client::all()->count();
+        $retourZ = BonRetourZone::all()->count();
         $breads = [
             ['title' => 'Tableau de bord', 'url' => null],
             ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.index' ,compact('breads'));
+        return view('pages.admin.index' ,compact('breads','colis','liv','env','dis','payLiv','retourC','payZ','fact','clients','rec','retourZ'));
     }
     public function signuppage()
     {

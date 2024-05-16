@@ -130,15 +130,15 @@
        
         <input type="text" id="query" class="form-control"   name="query" placeholder="Click Ici avant de scanner le barcode " 
         title="Enter search keyword" autocomplete="off">
-     
-    </div>
-    <div class="col-4 ">
-      <div class="text-right float-end">
-
-        <button type="submit" id="btnSubmit
-        " class="btn btn-danger" ><i class="fa fa-times"></i> annuler</button>
+      
       </div>
-    </div>
+      <div class="col-4 ">
+        <div class="text-right float-end">
+
+          <button type="submit" id="btnSubmit
+          " class="btn btn-danger" ><i class="fa fa-times"></i> annuler</button>
+        </div>
+      </div>
     </div>
   </div>
 </form>

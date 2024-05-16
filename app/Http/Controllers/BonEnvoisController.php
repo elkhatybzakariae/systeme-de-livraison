@@ -91,19 +91,7 @@ class BonEnvoisController extends Controller
         if (!$user) {
             return redirect(route('auth.client.signIn'));
         }
-                // $zones = Zone::whereHas('colis', function ($query) {
-        //     $query->where('status', 'Ramasse');
-        // })->with('colis')->withCount('colis')->get();
-
-        // $zones = Zone::whereHas('colis', function ($query) {
-        //     $query->where('status', 'Ramasse');
-        // })->withCount('colis')
-        //     ->get();
-        // $zones = Zone::withCount([
-        //     'colis' => function ($query) {
-        //         $query->where('status', 'Ramasse');                 
-        //     }
-        // ])->having('colis_count', '>', 1)->get();
+        
         $zones = Zone::withCount([
             'colis' => function ($query) {
                 $query->where('status', 'Ramasse');
@@ -144,26 +132,37 @@ class BonEnvoisController extends Controller
 
     public function updateAll(Request $request, $id_BE)
     {
-        foreach ($request->colis as $colis) {
+        // dd($request->input('query'));
+        if($request->input('query')){
+            $colis = Colis::where('id', $request->input('query'))
+            ->update(['id_BE' => $id_BE, 'status' => 'en voyage']);
+        }else{
 
-            $colis = Colis::where('id', $colis)
-                ->update(['id_BE' => $id_BE, 'status' => 'en voyage']);
+
+            foreach ($request->colis as $colis) {
+    
+                $colis = Colis::where('id', $colis)
+                    ->update(['id_BE' => $id_BE, 'status' => 'en voyage']);
+            }
+
+           
         }
         return redirect()->route('bon.envoi.index', $id_BE);
     }
     public function updateDeleteAll(Request $request, $id_BE)
     {
-        foreach ($request->colisDelete as $colis) {
+        if($request->query){
+            $colis = Colis::where('id', $request->input('query'))
+            ->update(['id_BE' => null,'status' => 'Ramasse']);
+        }else{
+            foreach ($request->colisDelete as $colis) {
 
-            $colis = Colis::where('id', $colis)
-                ->update(['id_BE' => null, 'status' => 'Ramasse']);
+                $colis = Colis::where('id', $colis)
+                    ->update(['id_BE' => null,'status' => 'Ramasse']);
+            }
         }
         return redirect()->route('bon.envoi.index', $id_BE);
     }
-    // public function generateStikers($id)
-    // {
-    //     return redirect()->route('bon.envoi.index', $id_BE);
-    // }
     public function exportColis($id_BE)
     {
         $colis = Colis::where('id_BE', $id_BE)->get();

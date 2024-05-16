@@ -119,22 +119,38 @@ class BonPaymentLivreurController extends Controller
         // dd($colis);
         return redirect()->route('bon.payment.livreur.index', $id_BPL);
     }
+
+   
     public function updateAll(Request $request, $id_BPL)
     {
-        // dd($request);
-        foreach ($request->colis as $colis) {
+        // dd($request->input('query'));
+        if($request->input('query')){
+            $colis = Colis::where('id', $request->input('query'))
+            ->update(['id_BPL' => $id_BPL, 'status' => 'livre']);
+        }else{
 
-            $colis = Colis::where('id', $colis)
-                ->update(['id_BPL' => $id_BPL]);
+
+            foreach ($request->colis as $colis) {
+    
+                $colis = Colis::where('id', $colis)
+                    ->update(['id_BPL' => $id_BPL, 'status' => 'livre']);
+            }
+
+           
         }
         return redirect()->route('bon.payment.livreur.index', $id_BPL);
     }
     public function updateDeleteAll(Request $request, $id_BPL)
     {
-        foreach ($request->colisDelete as $colis) {
+        if($request->query){
+            $colis = Colis::where('id', $request->input('query'))
+            ->update(['id_BPL' => null,'status'=>'en Livraison']);
+        }else{
+            foreach ($request->colisDelete as $colis) {
 
-            $colis = Colis::where('id', $colis)
-                ->update(['id_BPL' => null]);
+                $colis = Colis::where('id', $colis)
+                    ->update(['id_BPL' => null,'status'=>'en Livraison']);
+            }
         }
         return redirect()->route('bon.payment.livreur.index', $id_BPL);
     }

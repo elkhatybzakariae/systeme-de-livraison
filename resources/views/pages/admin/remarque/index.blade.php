@@ -102,6 +102,16 @@
                 </div>
             </div>
             <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+                <div class="w-100 mw-150px">
+                    <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Type" data-kt-ecommerce-product-filter="status">
+                      <option></option>
+                      <option value="all">All</option>
+                      <option value="important">Important</option>
+                      <option value="information">Information</option>
+                      <option value="urgence">Urgence</option>
+                    </select>
+                  </div>
+
                 <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_new_target">Nouvelle
                     reclamation</a>
             </div>
@@ -125,22 +135,22 @@
                                 <div class="">
                                     <div class="ms-5">
                                         <a href=""
-                                            class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $item->cible }}</a>
+                                            class="text-gray-800 text-hover-primary fs-5 fw-bold"data-kt-ecommerce-product-filter="cible">{{ $item->cible }}</a>
                                     </div>
                                 </div>
                             </td>
 
                             <td class="pe-0">
-                                <span class="fw-bold" data-kt-ecommerce-product-filter="villename">{{ $item->section }}
+                                <span class="fw-bold" data-kt-ecommerce-product-filter="section">{{ $item->section }}
                                 </span>
                             </td>
                             <td class="pe-0">
-                                <span class="fw-bold"
-                                    data-kt-ecommerce-product-filter="villename">{{ $item->type }}</span>
+                                <span class="fw-bold" data-order="{{ $item->type }}"
+                                    data-kt-ecommerce-product-filter="type">{{ $item->type }}</span>
                             </td>
                             <td class="pe-0">
                                 <span class="fw-bold"
-                                    data-kt-ecommerce-product-filter="objet">{{ $item->remarque }}</span>
+                                    data-kt-ecommerce-product-filter="remarque">{{ $item->remarque }}</span>
                             </td>
                             <!--begin::Action=-->
                             <td class="row ">
@@ -186,32 +196,37 @@
 
             // Function to filter table by search text
             function filterTable(searchText) {
-                $('#kt_ecommerce_products_table tbody tr').each(function() {
-                    var villename = $(this).find('[data-kt-ecommerce-product-filter="villename"]').text()
-                        .toLowerCase();
-                    if (villename.includes(searchText)) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
-                    }
-                });
-            }
+    $('#kt_ecommerce_products_table tbody tr').each(function() {
+        var cible = $(this).find('[data-kt-ecommerce-product-filter="cible"]').text().toLowerCase();
+        var remarque = $(this).find('[data-kt-ecommerce-product-filter="remarque"]').text().toLowerCase();
+        var type = $(this).find('[data-kt-ecommerce-product-filter="type"]').text().toLowerCase();
+        var section = $(this).find('[data-kt-ecommerce-product-filter="section"]').text().toLowerCase();
+         if (
+          remarque.includes(searchText) || 
+          type.includes(searchText) || 
+          section.includes(searchText) || 
+          cible.includes(searchText) ) {
+        $(this).show();
+        } else {
+        $(this).hide();
+        }
+    });
+  }
 
-            // Function to filter table by status
-            function filterTableByStatus(status) {
-                if (status === 'all') {
-                    $('#kt_ecommerce_products_table tbody tr').show();
-                } else {
-                    $('#kt_ecommerce_products_table tbody tr').each(function() {
-                        var zoneStatus = $(this).find('td:eq(3)').text().trim().toLowerCase();
-                        if (zoneStatus === status) {
-                            $(this).show();
-                        } else {
-                            $(this).hide();
-                        }
-                    });
-                }
-            }
+  function filterTableByStatus(status) {
+    if (status === 'all') {
+      $('#kt_ecommerce_products_table tbody tr').show();
+    } else {
+      $('#kt_ecommerce_products_table tbody tr').each(function() {
+        var rowStatus = $(this).find('[data-kt-ecommerce-product-filter="type"]').text().trim().toLowerCase();
+        if (rowStatus === status) {
+          $(this).show();
+        } else {
+          $(this).hide();
+        }
+      });
+    }
+  }
         });
 
         function openModal(id_Rem, cible, section, type, remarque, action) {

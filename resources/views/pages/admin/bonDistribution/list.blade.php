@@ -48,8 +48,8 @@
         <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-product-filter="status">
           <option></option>
           <option value="all">All</option>
-          <option value="1">Active</option>
-          <option value="0">Inactive</option>
+          <option value="nouveau">Nouveau</option>
+          <option value="recu">recu</option>
         </select>
       </div>
       <a href="{{ route('bon.distribution.create') }}" class="btn btn-primary" >Ajouter  Bon Distribution</a>
@@ -76,25 +76,25 @@
             <td>
               <div class="">
                 <div class="ms-5">
-                  <a href="" class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $item->reference }}</a>
+                  <a href="" class="text-gray-800 text-hover-primary fs-5 fw-bold" data-kt-ecommerce-product-filter="code">{{ $item->reference }}</a>
                 </div>
               </div>
             </td>
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="prix">{{ $item->zone }}</span>
+              <span class="fw-bold" data-kt-ecommerce-product-filter="zonename">{{ $item->zone }}</span>
             </td>
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="code">{{ $item->liv_nomcomplet }}</span>
+              <span class="fw-bold" data-kt-ecommerce-product-filter="nomcomplet">{{ $item->liv_nomcomplet }}</span>
             </td>
             <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="date">{{ $item->created_at }}</span>
             </td>
             
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="status">{{ $item->status }}</span>
+              <span class="fw-bold" data-order="{{ $item->status }}" data-kt-ecommerce-product-filter="status">{{ $item->status }}</span>
             </td>
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="ville">{{ $item->colis_count}}</span>
+              <span class="fw-bold" data-kt-ecommerce-product-filter="colis_count">{{ $item->colis_count}}</span>
             </td>
            
             <td>
@@ -158,14 +158,40 @@ $(document).ready(function() {
     filterTableByStatus(status);
   });
 
-  // Function to filter table by search text
   function filterTable(searchText) {
-    // Filter table logic
+    $('#kt_ecommerce_products_table tbody tr').each(function() {
+        var code = $(this).find('[data-kt-ecommerce-product-filter="code"]').text().toLowerCase();
+        var colis_count = $(this).find('[data-kt-ecommerce-product-filter="colis_count"]').text().toLowerCase();
+        var zonename = $(this).find('[data-kt-ecommerce-product-filter="zonename"]').text().toLowerCase();
+        var status = $(this).find('[data-kt-ecommerce-product-filter="status"]').text().toLowerCase();
+        var date = $(this).find('[data-kt-ecommerce-product-filter="date"]').text().toLowerCase();
+        var nomcomplet = $(this).find('[data-kt-ecommerce-product-filter="nomcomplet"]').text().toLowerCase();
+        if (nomcomplet.includes(searchText) ||
+          colis_count.includes(searchText) || 
+          zonename.includes(searchText) || 
+          status.includes(searchText) || 
+          date.includes(searchText) || 
+          code.includes(searchText) ) {
+        $(this).show();
+        } else {
+        $(this).hide();
+        }
+    });
   }
 
-  // Function to filter table by status
   function filterTableByStatus(status) {
-    // Filter table by status logic
+    if (status === 'all') {
+      $('#kt_ecommerce_products_table tbody tr').show();
+    } else {
+      $('#kt_ecommerce_products_table tbody tr').each(function() {
+        var rowStatus = $(this).find('[data-kt-ecommerce-product-filter="status"]').text().trim().toLowerCase();
+        if (rowStatus === status) {
+          $(this).show();
+        } else {
+          $(this).hide();
+        }
+      });
+    }
   }
 });
 
