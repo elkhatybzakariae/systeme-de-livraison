@@ -91,9 +91,7 @@ class BonEnvoisController extends Controller
         if (!$user) {
             return redirect(route('auth.client.signIn'));
         }
-
-
-        // $zones = Zone::whereHas('colis', function ($query) {
+                // $zones = Zone::whereHas('colis', function ($query) {
         //     $query->where('status', 'Ramasse');
         // })->with('colis')->withCount('colis')->get();
 
@@ -138,7 +136,7 @@ class BonEnvoisController extends Controller
     public function updateDelete($id, $id_BE)
     {
         $colis = Colis::where('id', $id)
-            ->update(['id_BE' => null]);
+            ->update(['id_BE' => null, 'status' => 'Ramasse']);
 
         // dd($colis);
         return redirect()->route('bon.envoi.index', $id_BE);
@@ -158,7 +156,7 @@ class BonEnvoisController extends Controller
         foreach ($request->colisDelete as $colis) {
 
             $colis = Colis::where('id', $colis)
-                ->update(['id_BE' => null]);
+                ->update(['id_BE' => null, 'status' => 'Ramasse']);
         }
         return redirect()->route('bon.envoi.index', $id_BE);
     }

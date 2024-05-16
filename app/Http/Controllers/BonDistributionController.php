@@ -93,10 +93,7 @@ class BonDistributionController extends Controller
             'colis' => function ($query) {
                 $query->where('status', 'Ramasse');
             }
-        ])->with(['colis', 'livreurs'])->get();
-       
-
-
+        ])->with(['colis', 'livreurs'])->get();    
 
         $breads = [
             ['title' => 'créer un Bon Distribution', 'url' => null],
@@ -122,7 +119,7 @@ class BonDistributionController extends Controller
     public function updateDelete($id, $id_BD)
     {
         $colis = Colis::where('id', $id)
-            ->update(['id_BD' => null, 'status' => 'recu']);
+            ->update(['id_BD' => null, 'status' => 'distribution']);
 
         // dd($colis);
         return redirect()->route('bon.distribution.index', $id_BD);
@@ -143,7 +140,7 @@ class BonDistributionController extends Controller
         foreach ($request->colisDelete as $colis) {
 
             $colis = Colis::where('id', $colis)
-                ->update(['id_BD' => null]);
+                ->update(['id_BD' => null, 'status' => 'distribution']);
         }
         return redirect()->route('bon.distribution.index', $id_BD);
     }
