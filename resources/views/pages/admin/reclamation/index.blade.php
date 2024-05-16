@@ -65,11 +65,11 @@
             <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
                 <div class="w-100 mw-150px">
                     <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
-                        data-placeholder="Status" data-kt-ecommerce-product-filter="status">
+                        data-placeholder="Etat" data-kt-ecommerce-product-filter="status">
                         <option></option>
                         <option value="all">All</option>
-                        <option value="1">Active</option>
-                        <option value="0">Inactive</option>
+                        <option value="0">En Reponse</option>
+                        <option value="1">Traité</option>
                     </select>
                 </div>
             </div>
@@ -94,14 +94,14 @@
                                 <div class="">
                                     <div class="ms-5">
                                         <a href=""
-                                            class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $item->client->nomcomplet }}</a>
+                                            class="text-gray-800 text-hover-primary fs-5 fw-bold" data-kt-ecommerce-product-filter="nomcomplet">{{ $item->client->nomcomplet }}</a>
                                     </div>
                                 </div>
                             </td>
                             <td>
                                 <div class="">
                                     <div class="ms-5">
-                                        <a href=""
+                                        <a href="" data-kt-ecommerce-product-filter="objet"
                                             class="text-gray-800 text-hover-primary fs-5 fw-bold">{{ $item->objet }}</a>
                                     </div>
                                 </div>
@@ -109,16 +109,16 @@
 
                             <td class="pe-0">
                                 <span class="fw-bold"
-                                    data-kt-ecommerce-product-filter="villename">{{ $item->id_C ? $item->id_C : 'General' }}
+                                    data-kt-ecommerce-product-filter="colis">{{ $item->id ? $item->id : 'General' }}
                                 </span>
                             </td>
                             <td class="pe-0">
-                                <span class="fw-bold"
-                                    data-kt-ecommerce-product-filter="villename">{{ $item->etat === 0 ? 'Reponse de client en attente' : 'Reclamation traite' }}</span>
+                                <span class="fw-bold" data-order="{{ $item->etat }}"
+                                    data-kt-ecommerce-product-filter="etat">{{ $item->etat === 0 ? 'Reponse de client en attente' : 'Reclamation traite' }}</span>
                             </td>
                             <td class="pe-0">
                                 <span class="fw-bold"
-                                    data-kt-ecommerce-product-filter="objet">{{ $item->created_at }}</span>
+                                    data-kt-ecommerce-product-filter="date">{{ $item->created_at }}</span>
                             </td>
                             <!--begin::Action=-->
                             <td class="">
@@ -163,29 +163,37 @@
             // Function to filter table by search text
             function filterTable(searchText) {
                 $('#kt_ecommerce_products_table tbody tr').each(function() {
-                    var villename = $(this).find('[data-kt-ecommerce-product-filter="villename"]').text()
-                        .toLowerCase();
-                    if (villename.includes(searchText)) {
-                        $(this).show();
+                    var objet = $(this).find('[data-kt-ecommerce-product-filter="objet"]').text().toLowerCase();
+                    var etat = $(this).find('[data-kt-ecommerce-product-filter="etat"]').text().toLowerCase();
+                    var colis = $(this).find('[data-kt-ecommerce-product-filter="colis"]').text().toLowerCase();
+                    var date = $(this).find('[data-kt-ecommerce-product-filter="date"]').text().toLowerCase();
+                    var nomcomplet = $(this).find('[data-kt-ecommerce-product-filter="nomcomplet"]').text().toLowerCase();
+                    if (nomcomplet.includes(searchText) ||
+                    etat.includes(searchText) || 
+                    colis.includes(searchText) || 
+                    date.includes(searchText) || 
+                    objet.includes(searchText) ) {
+                    $(this).show();
                     } else {
-                        $(this).hide();
+                    $(this).hide();
                     }
                 });
             }
 
-            // Function to filter table by status
             function filterTableByStatus(status) {
+                
                 if (status === 'all') {
                     $('#kt_ecommerce_products_table tbody tr').show();
                 } else {
                     $('#kt_ecommerce_products_table tbody tr').each(function() {
-                        var zoneStatus = $(this).find('td:eq(3)').text().trim().toLowerCase();
-                        if (zoneStatus === status) {
-                            $(this).show();
-                        } else {
-                            $(this).hide();
-                        }
-                    });
+                        var rowStatus = $(this).find('[data-kt-ecommerce-product-filter="etat"]').attr('data-order');
+                        
+                    if (rowStatus == status) {
+                    $(this).show();
+                    } else {
+                    $(this).hide();
+                    }
+                });
                 }
             }
         });
