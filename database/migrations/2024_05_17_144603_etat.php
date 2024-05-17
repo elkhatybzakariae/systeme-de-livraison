@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('typebank', function (Blueprint $table) {
-            $table->id('id_TB')->autoIncrement();
+        Schema::create('etat', function (Blueprint $table) {
+            $table->id('id_Et')->autoIncrement();
             $table->string('code');
             $table->string('nom');
             $table->string('couleur');
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('typebank');
+        Schema::dropIfExists('etat');
     }
 };
