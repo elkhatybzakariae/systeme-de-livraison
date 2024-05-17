@@ -19,8 +19,12 @@ use App\Http\Controllers\RamassagecoliController;
 use App\Http\Controllers\ReclamationController;
 use App\Http\Controllers\RemarqueController;
 use App\Http\Controllers\TarifController;
+use App\Http\Controllers\typeBankController;
+use App\Http\Controllers\typeClientController;
 use App\Http\Controllers\VilleController;
 use App\Http\Controllers\ZoneController;
+use App\Models\typeBank;
+use App\Models\typeClient;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('check.admin')->group(function () {
@@ -217,6 +221,16 @@ Route::controller(Option::class)->prefix('options')->group(function () {
     Route::post('/store', 'store')->name('option.store');
     Route::post('/update/{id}', 'update')->name('option.update');
     Route::delete('/delete/{id}', 'delete')->name('option.delete');
+});
+Route::controller(typeClientController::class)->prefix('typeclient')->group(function () {
+    Route::post('/store', 'store')->name('typeclient.store');
+    Route::post('/update/{id}', 'update')->name('typeclient.update');
+    Route::delete('/delete/{id}', 'delete')->name('typeclient.delete');
+});
+Route::controller(typeBankController::class)->prefix('bank')->group(function () {
+    Route::post('/store', 'store')->name('bank.store');
+    Route::post('/update/{id}', 'update')->name('bank.update');
+    Route::delete('/delete/{id}', 'delete')->name('bank.delete');
 });
 
 Route::controller(AdminController::class)->prefix('admin')->group(function () {

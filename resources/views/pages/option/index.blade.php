@@ -3,6 +3,169 @@
     <x-breadcrumb :breads="$breads" />
 @endsection
 @section('content')
+    <div class="modal fade" id="kt_modal_new_option" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content rounded">
+                <div class="modal-header pb-0 border-0 justify-content-end">
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                    transform="rotate(45 7.41422 6)" fill="currentColor" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+
+
+                    <form id="kt_modal_new_target_form" action="{{ route('option.store') }}" method="post">
+                        @csrf
+                        <div class="mb-13 text-center">
+                            <h1 class="mb-3">Ajouter une option</h1>
+                        </div>
+                        <div class="d-flex flex-column mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">Code</span>
+                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                    title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder="Code *"
+                                id="code" name="code" />
+                        </div>
+                        <div class="d-flex flex-column mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">Nom</span>
+                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                    title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder="Nom *" id="nom"
+                                name="nom" />
+                        </div>
+                        <div class="d-flex flex-column mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">Couleur</span>
+                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                    title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input type="color" class="form-control form-control-solid" placeholder="Couleur *"
+                                id="couleur" name="couleur" />
+                        </div>
+
+                        <div class="text-center">
+                            <button type="reset" id="kt_modal_new_target_cancel"
+                                class="btn btn-light me-3">Cancel</button>
+                            <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">
+                                <span class="indicator-label">Submit</span>
+                                <span class="indicator-progress">Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="kt_modal_new_typeclient" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content rounded">
+                <div class="modal-header pb-0 border-0 justify-content-end">
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                    transform="rotate(45 7.41422 6)" fill="currentColor" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                    <form id="kt_modal_new_target_form" method="POST" class="form"
+                        action="{{ route('typeclient.store') }}">
+                        @csrf
+                        <div class="mb-13 text-center">
+                            <h1 class="mb-3">Ajouter type</h1>
+                        </div>
+                        <div class="d-flex flex-column mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">Nom</span>
+                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                    title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder="Nom *"
+                                id="nom" name="nom" />
+                        </div>
+
+                        <div class="text-center">
+                            <button type="reset" id="kt_modal_new_target_cancel"
+                                class="btn btn-light me-3">Cancel</button>
+                            <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">
+                                <span class="indicator-label">Submit</span>
+                                <span class="indicator-progress">Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="kt_modal_new_bank" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content rounded">
+                <div class="modal-header pb-0 border-0 justify-content-end">
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                    transform="rotate(45 7.41422 6)" fill="currentColor" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                    <form id="kt_modal_new_target_form" method="POST" class="form"
+                        action="{{ route('bank.store') }}">
+                        @csrf
+                        <div class="mb-13 text-center">
+                            <h1 class="mb-3">Ajouter Bank</h1>
+                        </div>
+                        <div class="d-flex flex-column mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                <span class="required">Nom</span>
+                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                    title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" placeholder="Nom *"
+                                id="nom" name="nom" />
+                        </div>
+
+                        <div class="text-center">
+                            <button type="reset" id="kt_modal_new_target_cancel"
+                                class="btn btn-light me-3">Cancel</button>
+                            <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">
+                                <span class="indicator-label">Submit</span>
+                                <span class="indicator-progress">Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="main-body">
         <div class="page-wrapper">
             <div class="page-body">
@@ -13,70 +176,13 @@
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h5>Status Colis<!--5-->
+                                            <h5>Status Colis
                                             </h5>
                                         </div>
-
                                         <div class="card-body">
-
-                                            <form action="{{ route('option.store') }}" method="post">
-                                                @csrf
-                                                <table class="add-statut-table">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td style="width:25%">
-                                                                <div class="col-md-12 m-auto">
-                                                                    <div class="form-group">
-                                                                        <label>Code *</label>
-                                                                        <input type="text" class="form-control"
-                                                                            name="code" value=""
-                                                                            placeholder="Code *">
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td style="width:40%">
-                                                                <div class="col-md-12 m-auto">
-                                                                    <div class="form-group">
-                                                                        <label>Nom *</label>
-                                                                        <input type="text" class="form-control"
-                                                                            name="nom" value=""
-                                                                            placeholder="Nom *">
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td style="width:25%">
-                                                                <div class="col-md-12 m-auto">
-                                                                    <div class="form-group">
-                                                                        <label>Couleur *</label>
-                                                                        <input type="color" class="form-control"
-                                                                            name="couleur" value=""
-                                                                            placeholder="Couleur *">
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td style="width:10%"><button type="submit"
-                                                                    class="btn btn-sm btn-primary"><i
-                                                                        class="fas fa-plus"></i></button></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </form>
-
                                             <div id="settings_statut_table_wrapper"
                                                 class="dataTables_wrapper dt-bootstrap4 no-footer">
                                                 <div class="row">
-                                                    <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
-                                                        <div class="dataTables_length" id="settings_statut_table_length">
-                                                            <label>Afficher <select name="settings_statut_table_length"
-                                                                    aria-controls="settings_statut_table"
-                                                                    class="form-control input-sm">
-                                                                    <option value="10">10</option>
-                                                                    <option value="25">25</option>
-                                                                    <option value="50">50</option>
-                                                                    <option value="100">100</option>
-                                                                </select> entrees par page</label>
-                                                        </div>
-                                                    </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-6">
                                                         <div id="settings_statut_table_filter" class="dataTables_filter">
                                                             <label>Rechercher :<input type="search"
@@ -84,6 +190,14 @@
                                                                     aria-controls="settings_statut_table"></label>
                                                         </div>
                                                     </div>
+                                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                                        <div id="settings_statut_table_filter" class="dataTables_filter">
+                                                            <a class="btn btn-primary" data-bs-toggle="modal"
+                                                                data-bs-target="#kt_modal_new_option">Ajouter une
+                                                                option</a>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xs-12 col-sm-12">
@@ -93,23 +207,23 @@
                                                             <thead>
                                                                 <tr role="row">
                                                                     <th class="sorting" tabindex="0"
-                                                                        aria-controls="settings_statut_table" rowspan="1"
-                                                                        colspan="1"
+                                                                        aria-controls="settings_statut_table"
+                                                                        rowspan="1" colspan="1"
                                                                         aria-label="Code: activate to sort column ascending"
                                                                         style="width: 107.135px;">Code</th>
                                                                     <th class="sorting" tabindex="0"
-                                                                        aria-controls="settings_statut_table" rowspan="1"
-                                                                        colspan="1"
+                                                                        aria-controls="settings_statut_table"
+                                                                        rowspan="1" colspan="1"
                                                                         aria-label="Nom: activate to sort column ascending"
                                                                         style="width: 138.125px;">Nom</th>
                                                                     <th class="sorting" tabindex="0"
-                                                                        aria-controls="settings_statut_table" rowspan="1"
-                                                                        colspan="1"
+                                                                        aria-controls="settings_statut_table"
+                                                                        rowspan="1" colspan="1"
                                                                         aria-label="Couleur: activate to sort column ascending"
                                                                         style="width: 54.8958px;">Couleur</th>
                                                                     <th class="sorting" tabindex="0"
-                                                                        aria-controls="settings_statut_table" rowspan="1"
-                                                                        colspan="1"
+                                                                        aria-controls="settings_statut_table"
+                                                                        rowspan="1" colspan="1"
                                                                         aria-label="Actions: activate to sort column ascending"
                                                                         style="width: 52.0417px;">Actions</th>
                                                                 </tr>
@@ -131,9 +245,17 @@
                                                                                 <button type="submit"
                                                                                     class="btn btn-sm btn-primary"><i
                                                                                         class="far fa-save"></i></button>
-
-                                                                            </td>
                                                                         </form>
+                                                                        <form
+                                                                            action="{{ route('option.delete', $item->id_Op) }}"
+                                                                            method="post">
+                                                                            @method('delete')
+                                                                            @csrf
+                                                                            <button type="submit"
+                                                                                class="btn btn-sm btn-danger"><i
+                                                                                    class="far fa-save"></i></button>
+                                                                        </form>
+                                                                        </td>
                                                                     </tr>
                                                                 @endforeach
 
@@ -189,10 +311,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -209,33 +328,23 @@
                                         </div>
 
                                         <div class="card-body">
-
-                                            <a href="javascript:addOptionsForm('#settings_types_table','user-type','Type de client','Ajouter')"
-                                                class="btn btn-primary"><i class="fa fa-plus"></i> Ajouter</a><br>
-
-
                                             <div id="settings_types_table_wrapper"
                                                 class="dataTables_wrapper dt-bootstrap4 no-footer">
                                                 <div class="row">
-                                                    <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
-                                                        <div class="dataTables_length" id="settings_types_table_length">
-                                                            <label>Afficher <select name="settings_types_table_length"
-                                                                    aria-controls="settings_types_table"
-                                                                    class="form-control input-sm">
-                                                                    <option value="10">10</option>
-                                                                    <option value="25">25</option>
-                                                                    <option value="50">50</option>
-                                                                    <option value="100">100</option>
-                                                                </select> entrees par page</label>
+                                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                                        <div id="settings_statut_table_filter" class="dataTables_filter">
+                                                            <label>Rechercher :<input type="search"
+                                                                    class="form-control input-sm" placeholder=""
+                                                                    aria-controls="settings_statut_table"></label>
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-6">
-                                                        <div id="settings_types_table_filter" class="dataTables_filter">
-                                                            <label>Rechercher :<input type="search"
-                                                                    class="form-control input-sm" placeholder=""
-                                                                    aria-controls="settings_types_table"></label>
+                                                        <div id="settings_statut_table_filter" class="dataTables_filter">
+                                                            <a class="btn btn-primary" data-bs-toggle="modal"
+                                                                data-bs-target="#kt_modal_new_typeclient">Ajouter type</a>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xs-12 col-sm-12">
@@ -359,36 +468,28 @@
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h5>Types de client<!--5-->
+                                            <h5>Types bank<!--5-->
                                             </h5>
                                         </div>
 
                                         <div class="card-body">
-
-                                            <a href="javascript:addOptionsForm('#settings_banks_table','bank','Nom du banque','Ajouter')"
-                                                class="btn btn-primary"><i class="fa fa-plus"></i> Ajouter</a><br>
                                             <div id="settings_banks_table_wrapper"
                                                 class="dataTables_wrapper dt-bootstrap4 no-footer">
                                                 <div class="row">
-                                                    <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
-                                                        <div class="dataTables_length" id="settings_banks_table_length">
-                                                            <label>Afficher <select name="settings_banks_table_length"
-                                                                    aria-controls="settings_banks_table"
-                                                                    class="form-control input-sm">
-                                                                    <option value="10">10</option>
-                                                                    <option value="25">25</option>
-                                                                    <option value="50">50</option>
-                                                                    <option value="100">100</option>
-                                                                </select> entrees par page</label>
+                                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                                        <div id="settings_statut_table_filter" class="dataTables_filter">
+                                                            <label>Rechercher :<input type="search"
+                                                                    class="form-control input-sm" placeholder=""
+                                                                    aria-controls="settings_statut_table"></label>
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-6">
-                                                        <div id="settings_banks_table_filter" class="dataTables_filter">
-                                                            <label>Rechercher :<input type="search"
-                                                                    class="form-control input-sm" placeholder=""
-                                                                    aria-controls="settings_banks_table"></label>
+                                                        <div id="settings_statut_table_filter" class="dataTables_filter">
+                                                            <a class="btn btn-primary" data-bs-toggle="modal"
+                                                                data-bs-target="#kt_modal_new_bank">Ajouter bank</a>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xs-12 col-sm-12">

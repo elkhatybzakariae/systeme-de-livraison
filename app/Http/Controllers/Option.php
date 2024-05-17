@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Option as ModelsOption;
+use App\Models\typeBank;
+use App\Models\typeClient;
 use Illuminate\Http\Request;
 
 class Option extends Controller
@@ -10,11 +12,13 @@ class Option extends Controller
     public function index()
     {
         $Options = ModelsOption::all();
+        $typeClient = typeClient::all();
+        $typeBank = typeBank::all();
         $breads = [
             ['title' => 'Liste des Options', 'url' => null],
-            ['text' => 'Options', 'url' => null], // You can set the URL to null for the last breadcrumb
+            ['text' => 'Options', 'url' => null],
         ];
-        return view('pages.option.index', compact('Options', 'breads'));
+        return view('pages.option.index', compact('Options','typeClient','typeBank', 'breads'));
     }
     public function store(Request $request)
     {
@@ -42,7 +46,7 @@ class Option extends Controller
         return redirect()->route('option.index')->with('success', 'option updated successfully');
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
         ModelsOption::find($id)->delete();
         return redirect()->route('option.index')->with('success', 'option deleted successfully');
