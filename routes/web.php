@@ -23,6 +23,7 @@ use App\Http\Controllers\typeBankController;
 use App\Http\Controllers\typeClientController;
 use App\Http\Controllers\VilleController;
 use App\Http\Controllers\ZoneController;
+use App\Models\Etat;
 use App\Models\typeBank;
 use App\Models\typeClient;
 use Illuminate\Support\Facades\Route;
@@ -221,6 +222,11 @@ Route::controller(Option::class)->prefix('options')->group(function () {
     Route::post('/store', 'store')->name('option.store');
     Route::post('/update/{id}', 'update')->name('option.update');
     Route::delete('/delete/{id}', 'delete')->name('option.delete');
+});
+Route::controller(Etat::class)->prefix('etat')->group(function () {
+    Route::post('/store', 'store')->name('etat.store');
+    Route::post('/update/{id}', 'update')->name('etat.update');
+    Route::delete('/delete/{id}', 'delete')->name('etat.delete');
 });
 Route::controller(typeClientController::class)->prefix('typeclient')->group(function () {
     Route::post('/store', 'store')->name('typeclient.store');
