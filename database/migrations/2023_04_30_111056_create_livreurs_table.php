@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('fraisrefus');
             $table->string('nombanque')->nullable();
             $table->string('numerocompte')->nullable();
+            $table->text('token')->nullable();
             $table->string('password');
             $table->string('cinrecto');
             $table->string('cinverso');

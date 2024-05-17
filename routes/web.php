@@ -245,6 +245,13 @@ Route::controller(AdminController::class)->prefix('admin')->group(function () {
     Route::post('/register',  'signup')->name('auth.admin.signUp.store');
     Route::get('/signin',  'signinpage')->name('auth.admin.signIn');
     Route::post('/login',  'signin')->name('auth.admin.signIn.store');
+    
+
+    Route::get('forgot-password', 'showLinkRequestForm')->name('auth.admin.password.request');
+    Route::post('forgot-password', 'sendResetLinkEmail')->name('auth.admin.password.email');
+
+    Route::get('reset-password/{token}', 'showResetForm')->name('auth.admin.password.reset');
+    Route::post('reset-password', 'reset')->name('auth.admin.password.update');
 });
 
 
@@ -267,6 +274,12 @@ Route::controller(LivreurController::class)->prefix('livreurs')->group(function 
     Route::post('/register',  'signup')->name('auth.livreur.signUp.store');
     Route::get('/signin',  'signinpage')->name('auth.livreur.signIn');
     Route::post('/login',  'signin')->name('auth.livreur.signIn.store');
+
+    Route::get('forgot-password', 'showLinkRequestForm')->name('auth.livreur.password.request');
+    Route::post('forgot-password', 'sendResetLinkEmail')->name('auth.livreur.password.email');
+
+    Route::get('reset-password/{token}', 'showResetForm')->name('auth.livreur.password.reset');
+    Route::post('reset-password', 'reset')->name('auth.livreur.password.update');
 });
 
 Route::get('/generate-pdf', [HomeController::class, 'generatePDF'])->name('generate.pdf');

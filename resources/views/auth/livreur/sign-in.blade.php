@@ -65,8 +65,8 @@
                                     class="form-control bg-transparent" />
                             </div>
                             <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
-                                <a href=""
-                                    class="link-primary">Forgot Password ?</a>
+                                <a href="{{ route('auth.livreur.password.request') }}"
+                                class="link-primary">Forgot Password ?</a>
                             </div>
                             <div class="d-grid mb-10">
                                 <button type="submit" class="btn btn-primary">

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
-
 <head>
     <base href="../../../" />
     <title>Keen - Multi-demo Bootstrap 5 HTML Admin Dashboard Template by Keenthemes</title>
@@ -18,12 +17,19 @@
     <meta property="og:site_name" content="Keenthemes | Keen" />
     <link rel="canonical" href="https://preview.keenthemes.com/keen" />
     <link rel="shortcut icon" href="{{ asset('storage/assets/media/logos/favicon.ico') }}" />
+    <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+    <!--end::Fonts-->
+    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
     <link href="{{ asset('storage/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('storage/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-
+    <!--end::Global Stylesheets Bundle-->
 </head>
+<!--end::Head-->
+<!--begin::Body-->
+
 <body id="kt_body" class="app-blank app-blank">
+    <!--begin::Theme mode setup on page load-->
     <script>
         var defaultThemeMode = "light";
         var themeMode;
@@ -43,93 +49,49 @@
             document.documentElement.setAttribute("data-bs-theme", themeMode);
         }
     </script>
+    <!--end::Theme mode setup on page load-->
+    <!--begin::Root-->
     <div class="d-flex flex-column flex-root" id="kt_app_root">
         <!--begin::Authentication - Sign-in -->
         <div class="d-flex flex-column flex-lg-row flex-column-fluid">
             <!--begin::Aside-->
             <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center"
-                style="background-image: url({{ asset('storage/assets/media/misc/auth-bg.png)') }}">
-                <!--begin::Content-->
-                <div class="d-flex flex-column flex-center p-6 p-lg-10 w-100">
-                    <!--begin::Logo-->
-                    <a href="../../demo1/dist/index.html" class="mb-0 mb-lg-20">
-                        <img alt="Logo" src="{{ asset('storage/assets/media/logos/default-white.svg') }}"
-                            class="h-40px h-lg-50px" />
-                    </a>
-                    <img class="d-none d-lg-block mx-auto w-300px w-lg-75 w-xl-500px mb-10 mb-lg-20"
-                        src="{{ asset('storage/assets/media/misc/auth-screens.png') }}" alt="" />
-                    <h1 class="d-none d-lg-block text-white fs-2qx fw-bold text-center mb-7">Fast, Efficient and
-                        Productive</h1>
-                    <div class="d-none d-lg-block text-white fs-base text-center">In this kind of post,
-                        <a href="#" class="opacity-75-hover text-warning fw-semibold me-1">the
-                            blogger</a>introduces a person they’ve interviewed
-                        <br />and provides some background information about
-                        <a href="#" class="opacity-75-hover text-warning fw-semibold me-1">the interviewee</a>and
-                        their
-                        <br />work following this is a transcript of the interview.
-                    </div>
-                </div>
-            </div>
+            style="background-image: url({{ asset('storage/images/livreur.png)') }}">
+          
+        </div>
+            <!--begin::Aside-->
+            <!--begin::Body-->
             <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10">
+                <!--begin::Form-->
                 <div class="d-flex flex-center flex-column flex-lg-row-fluid">
                     <!--begin::Wrapper-->
                     <div class="w-lg-500px p-10">
                         <!--begin::Form-->
 
-                        <form action="{{ route('auth.admin.signIn.store') }}" method="post" class="form w-100" novalidate="novalidate"
-
-                            id="kt_sign_in_form">
+                        <form method="POST" action="{{ route('auth.livreur.password.email') }}">
                             @csrf
-
-                            <div class="text-center mb-11">
-                                <!--begin::Title-->
-                                <h1 class="text-dark fw-bolder mb-3">Sign In</h1>
-                              
+    
+                            <div class="form-group ">
+                                <label for="email" class=" col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+    
+                                <div class="">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+    
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
-                            
-                            <div class="fv-row mb-8">
-                                <!--begin::Email-->
-                                <input type="text" placeholder="Email" name="email" value="{{ old('email') }}"
-                                    class="form-control bg-transparent" />
-                                <!--end::Email-->
+    
+                            <div class="form-group mt-3">
+                                <div class="w-100">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Send Password Reset Link') }}
+                                    </button>
+                                </div>
                             </div>
-                            <!--end::Input group=-->
-                            <div class="fv-row mb-3">
-                                <!--begin::Password-->
-                                <input type="password" placeholder="Password" name="password" autocomplete="off"
-                                    class="form-control bg-transparent" />
-                                <!--end::Password-->
-                            </div>
-                            <!--end::Input group=-->
-                            <!--begin::Wrapper-->
-                            <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
-                                <div></div>
-                                <!--begin::Link-->
-                                <a href="{{ route('auth.admin.password.request') }}"
-                                    class="link-primary">Forgot Password ?</a>
-                                <!--end::Link-->
-                            </div>
-                            <!--end::Wrapper-->
-                            <!--begin::Submit button-->
-                            <div class="d-grid mb-10">
-                                <button type="submit" 
-								 {{-- id="kt_sign_in_submit" --}}
-								 class="btn btn-primary">
-                                    <!--begin::Indicator label-->
-                                    <span class="indicator-label">Sign In</span>
-                                    <!--end::Indicator label-->
-                                    <!--begin::Indicator progress-->
-                                    <span class="indicator-progress">Please wait...
-                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                    <!--end::Indicator progress-->
-                                </button>
-                            </div>
-                            <!--end::Submit button-->
-                            <!--begin::Sign up-->
-                            <div class="text-gray-500 text-center fw-semibold fs-6">Not a Member yet?
-                                <a href="{{ route('auth.admin.signUp') }}" class="link-primary">Sign up</a>
-                            </div>
-                            <!--end::Sign up-->
                         </form>
                         <!--end::Form-->
                     </div>

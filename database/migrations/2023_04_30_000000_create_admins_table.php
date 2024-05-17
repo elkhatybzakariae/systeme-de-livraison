@@ -28,6 +28,7 @@ return new class extends Migration
             $table->foreign('user')->references('id_Ad')->on('admins');
             $table->boolean('valider')->default(0);
             $table->string('photo')->nullable();
+            $table->text('token')->nullable();
             $table->string('cinrecto')->nullable();
             $table->string('cinverso')->nullable();
             $table->string('RIB')->nullable();

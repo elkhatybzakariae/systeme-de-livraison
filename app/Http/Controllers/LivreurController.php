@@ -9,8 +9,10 @@ use App\Models\Livreur;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 
 class LivreurController extends Controller
@@ -132,5 +134,64 @@ class LivreurController extends Controller
             ->get();
 
         return view('pages.livreur.bonDistribution.index', compact('bons', 'breads'));
+    }
+
+
+
+    public function showLinkRequestForm()
+    {
+        return view('auth.livreur.forgot');
+    }
+
+    public function sendResetLinkEmail(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
+        $user = Livreur::where('email', $request->email)->first();
+        if (!$user) {
+            return back()->withErrors(['email' => 'We can\'t find a user with that email address.']);
+        }
+        $token = Str::random(60);
+        $user = Livreur::where('email', $request->email)->
+        update([
+            'token' => bcrypt($token),
+        ]);
+        Mail::send('auth.livreur.email', ['token' => $token], function ($message) use ($request) {
+            $message->to($request->email);
+            $message->subject('Your Password Reset Link');
+        });
+
+        return back()->with(['status' => 'We have emailed your password reset link!']);
+    }
+    public function showResetForm(Request $request, $token = null)
+    {
+        return view('auth.livreur.reset')->with(
+            ['token' => $token, 'email' => $request->email]
+        );
+    }
+
+    public function reset(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|confirmed|min:8',
+        ]);
+        $user = Livreur::where('email', $request->email)->first();
+
+        // Check if the user exists and if the token is valid
+        if (!$user || !Hash::check($request->token, $user->token)) {
+            // dd($request->all());
+            return back()->withErrors(['email' => 'The provided credentials are incorrect.']);
+        }
+            
+       
+
+        // Reset the user's password
+        Livreur::where('email', $request->email)->update([
+            'password' => Hash::make($request->password)
+        ]);
+
+
+        return redirect()->route('auth.livreur.signIn')->with('status', 'Your password has been reset!');
     }
 }

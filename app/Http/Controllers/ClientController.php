@@ -224,7 +224,7 @@ class ClientController extends Controller
 
         // Check if the user exists and if the token is valid
         if (!$user || !Hash::check($request->token, $user->token)) {
-            dd($request->all());
+            // dd($request->all());
             return back()->withErrors(['email' => 'The provided credentials are incorrect.']);
         }
             
