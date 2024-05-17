@@ -296,6 +296,6 @@ class AdminController extends Controller
         ]);
 
 
-        return redirect()->route('auth.livreur.signIn')->with('status', 'Your password has been reset!');
+        return redirect()->route('auth.admin.signIn')->with('status', 'Your password has been reset!');
     }
 }
