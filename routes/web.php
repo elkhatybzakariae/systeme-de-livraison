@@ -19,6 +19,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NewClientController;
 use App\Http\Controllers\NewLivreurController;
 use App\Http\Controllers\Option;
+use App\Http\Controllers\ParamtreController;
 use App\Http\Controllers\RamassagecoliController;
 use App\Http\Controllers\ReclamationController;
 use App\Http\Controllers\RemarqueController;
@@ -199,7 +200,13 @@ Route::middleware('check.admin')->group(function () {
     Route::post('admin/bon-envoies/be/{id_BE}', [BonEnvoisController::class, 'recu'])->name('bon.envoie.recu');
     Route::post('admin/bon-distributions/bd/{id_BD}', [BonDistributionController::class, 'recu'])->name('bon.distribution.recu');
     Route::get('admin/bon-livraisons//export/colis/{id}', [BonLivraisonController::class, 'exportColis'])->name('bon.livraison.exportColis');
+    Route::get('admin/paramete/generale', [ParamtreController::class, 'index'])->name('parametre.index');
 });
+
+
+
+
+
 Route::middleware('check.client')->group(function () {
     Route::controller(ClientController::class)->prefix('clients')->group(function () {
         Route::get('/index',  'index')->name('client.index');
@@ -246,6 +253,12 @@ Route::middleware('check.client')->group(function () {
         Route::delete('/destroy/{id}', [ReclamationController::class, 'destroy'])->name('reclamation.destroy');
     });
 });
+
+
+
+
+
+
 Route::middleware('check.livreur')->group(function () {
 
     Route::controller(LivreurController::class)->prefix('livreurs')->group(function () {

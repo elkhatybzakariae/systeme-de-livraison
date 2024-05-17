@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bon_retour_clients', function (Blueprint $table) {
+        Schema::create('paramtres', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bon_retour_clients');
+        Schema::dropIfExists('paramtres');
     }
 };
