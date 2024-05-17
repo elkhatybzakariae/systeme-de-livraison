@@ -65,19 +65,20 @@ class ClientController extends Controller
     {
         $v = $request->validate([
             'email' => 'required|email|max:50',
-            'password' => 'required|string|min:8',
+            'password' => 'required',
         ]);
         $client = Client::where('email', $request->email)->first();
+        // dd($client);
         if ($client) {
-            if (Hash::check($request->password, $client->password)) {
-
+            if (Auth::attempt($v) ) {
+                
                 Auth::login($client);
                 session(["user" => $client]);
                 return redirect()->route('client.index')->with('success', 'successfull!!!!.');
             }
-        } else {
-            return back()->with('error', 'Invalid email or password.');
         }
+        dd($client);
+        return back()->with('error', 'Invalid email or password.');
     }
     public function signout()
     {
@@ -178,22 +179,15 @@ class ClientController extends Controller
     public function sendResetLinkEmail(Request $request)
     {
         $request->validate(['email' => 'required|email']);
-
-        // Check if the user exists
         $user = Client::where('email', $request->email)->first();
         if (!$user) {
             return back()->withErrors(['email' => 'We can\'t find a user with that email address.']);
         }
-
-        // Create a password reset token
         $token = Str::random(60);
-
-        // Insert the token into the password_resets table
-        $user->update([
-            'token' => Hash::make($token),
+        $user = Client::where('email', $request->email)->
+        update([
+            'token' => bcrypt($token),
         ]);
-
-        // Send the reset link via email
         Mail::send('auth.client.email', ['token' => $token], function ($message) use ($request) {
             $message->to($request->email);
             $message->subject('Your Password Reset Link');
@@ -215,17 +209,22 @@ class ClientController extends Controller
             'email' => 'required|email',
             'password' => 'required|confirmed|min:8',
         ]);
+        $user = Client::where('email', $request->email)->first();
 
-        $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
-            function ($user, $password) {
-                $user->password = bcrypt($password);
-                $user->save();
-            }
-        );
+        // Check if the user exists and if the token is valid
+        if (!$user || !Hash::check($request->token, $user->token)) {
+            dd($request->all());
+            return back()->withErrors(['email' => 'The provided credentials are incorrect.']);
+        }
+            
+       
 
-        return $status == Password::PASSWORD_RESET
-                    ? redirect()->route('login')->with('status', __($status))
-                    : back()->withErrors(['email' => [__($status)]]);
+        // Reset the user's password
+        Client::where('email', $request->email)->update([
+            'password' => Hash::make($request->password)
+        ]);
+
+
+        return redirect()->route('auth.client.signIn')->with('status', 'Your password has been reset!');
     }
 }

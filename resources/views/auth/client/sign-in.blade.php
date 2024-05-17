@@ -67,7 +67,15 @@
                     <!--begin::Wrapper-->
                     <div class="w-lg-500px p-10">
                         <!--begin::Form-->
-
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                         <form action="{{ route('auth.client.signIn.store') }}" method="post" class="form w-100" novalidate="novalidate"
 
                             id="kt_sign_in_form">

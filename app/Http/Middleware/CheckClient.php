@@ -16,9 +16,11 @@ class CheckClient
      */
     public function handle(Request $request, Closure $next)
     {
+        
         if(isset(session('user')['id_Cl'])){
-
+            
             $user=Client::find(session('user')['id_Cl']);
+            dd($user);
             // dd($user);
             if ($user && $user->isAccepted) {
                 return $next($request);
