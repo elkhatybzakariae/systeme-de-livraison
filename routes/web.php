@@ -14,6 +14,7 @@ use App\Http\Controllers\LivreurController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NewClientController;
 use App\Http\Controllers\NewLivreurController;
+use App\Http\Controllers\Option;
 use App\Http\Controllers\RamassagecoliController;
 use App\Http\Controllers\ReclamationController;
 use App\Http\Controllers\RemarqueController;
@@ -22,7 +23,7 @@ use App\Http\Controllers\VilleController;
 use App\Http\Controllers\ZoneController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('check.admin')->group(function(){
+Route::middleware('check.admin')->group(function () {
     Route::controller(AdminController::class)->prefix('admin')->group(function () {
         Route::get('/index',  'index')->name('admin.index');
         Route::get('/clients',  'clients')->name('admin.clients');
@@ -31,22 +32,21 @@ Route::middleware('check.admin')->group(function(){
         Route::post('/update/user/{id}',  'updatenewuser')->name('admin.newuser.update');
         Route::delete('/delete/user/{id}',  'deletenewuser')->name('admin.newuser.delete');
         Route::get('/signout',  'signout')->name('admin.signout');
-    
     });
 
     Route::controller(NewClientController::class)->prefix('admin')->group(function () {
-    
+
         Route::get('/new-clients', 'newclients')->name('newclients');
         Route::get('/accept/profile/client/{id}', 'profile')->name('accept.profile');
         Route::put('/accept/profile/client/{id}', 'accept')->name('accept.client');
         Route::delete('/deleteclient/{id}', 'deleteclient')->name('deleteclient');
     });
-    
+
     Route::controller(NewLivreurController::class)->prefix('admin')->group(function () {
         Route::get('/new-livreurs', 'newlivreurs')->name('newlivreurs');
         Route::get('/accept/profile/{id}', 'profile')->name('accept.profile.livreur');
         Route::put('/accept/profile/livreur/{id}', 'accept')->name('accept.livreur');
-        Route::delete('/deletelivreur/{id}', 'deletelivreur')->name('deletelivreur');   
+        Route::delete('/deletelivreur/{id}', 'deletelivreur')->name('deletelivreur');
     });
     Route::group(['prefix' => 'zones'], function () {
         Route::get('/', [ZoneController::class, 'index'])->name('zone.index');
@@ -56,7 +56,7 @@ Route::middleware('check.admin')->group(function(){
         Route::post('/update/{id}', [ZoneController::class, 'update'])->name('zone.update');
         Route::delete('/destroy/{id}', [ZoneController::class, 'destroy'])->name('zone.destroy');
     });
-    
+
     Route::group(['prefix' => 'villes'], function () {
         Route::get('/', [VilleController::class, 'index'])->name('villes.index');
         Route::get('/create', [VilleController::class, 'create'])->name('villes.create');
@@ -65,7 +65,7 @@ Route::middleware('check.admin')->group(function(){
         Route::post('/update/{id}', [VilleController::class, 'update'])->name('villes.update');
         Route::delete('/destroy/{id}', [VilleController::class, 'destroy'])->name('villes.destroy');
     });
-    
+
     Route::group(['prefix' => 'tarifs'], function () {
         Route::get('/all', [TarifController::class, 'index'])->name('tarif.index');
         Route::get('/create', [TarifController::class, 'create'])->name('tarif.create');
@@ -74,7 +74,7 @@ Route::middleware('check.admin')->group(function(){
         Route::post('/update/{id}', [TarifController::class, 'update'])->name('tarif.update');
         Route::delete('/destroy/{id}', [TarifController::class, 'destroy'])->name('tarif.destroy');
     });
-    Route::group(['prefix' => 'depenses','midleware'=>'auth'], function () {
+    Route::group(['prefix' => 'depenses', 'midleware' => 'auth'], function () {
         Route::get('/', [DepenseController::class, 'index'])->name('depense.index');
         Route::get('/create', [DepenseController::class, 'create'])->name('depense.create');
         Route::post('/store', [DepenseController::class, 'store'])->name('depense.store');
@@ -109,9 +109,8 @@ Route::middleware('check.admin')->group(function(){
         Route::post('/update/all/{id_BL}', [BonPaymentLivreurController::class, 'updateAll'])->name('bon.payment.livreur.update.all');
         Route::post('/update/delete/all/{id_BL}', [BonPaymentLivreurController::class, 'updateDeleteAll'])->name('bon.payment.livreur.updateDelete.all');
         Route::get('/export/colis/{id}', [BonPaymentLivreurController::class, 'exportColis'])->name('bon.payment.livreur.exportColis');
-
     });
-    
+
     Route::group(['prefix' => 'admin/bon-payment-zone'], function () {
         Route::get('/bon/{id_BD?}', [BonPaymentZoneController::class, 'index'])->name('bon.payment.zone.index');
         Route::get('/', [BonPaymentZoneController::class, 'list'])->name('bon.payment.zone.list');
@@ -122,7 +121,6 @@ Route::middleware('check.admin')->group(function(){
         Route::get('/updateDelete/{id}/bl/{id_BD}', [BonPaymentZoneController::class, 'updateDelete'])->name('bon.payment.zone.updateDelete');
         Route::delete('/destroy/{id}', [BonPaymentZoneController::class, 'destroy'])->name('bon.payment.zone.destroy');
         Route::get('/export/colis/{id}', [BonPaymentLivreurController::class, 'exportColis'])->name('bon.payment.livreur.exportColis');
-
     });
     Route::group(['prefix' => 'admin/bon-distribution'], function () {
         Route::get('/bon/{id_BD?}', [BonDistributionController::class, 'index'])->name('bon.distribution.index');
@@ -137,8 +135,6 @@ Route::middleware('check.admin')->group(function(){
         Route::post('/update/delete/all/{id_BL}', [BonDistributionController::class, 'updateDeleteAll'])->name('bon.distribution.updateDelete.all');
         Route::get('/export/colis/{id}', [BonDistributionController::class, 'exportColis'])->name('bon.distribution.exportColis');
         Route::get('/get/pdf/{id_BE}', [BonDistributionController::class, 'getPdf'])->name('bon.distribution.getPdf');
-
-
     });
     Route::group(['prefix' => 'admin/reclamation'], function () {
         Route::get('/all', [ReclamationController::class, 'all'])->name('reclamation.all');
@@ -152,10 +148,8 @@ Route::middleware('check.admin')->group(function(){
     Route::post('admin/bon-envoies/be/{id_BE}', [BonEnvoisController::class, 'recu'])->name('bon.envoie.recu');
     Route::post('admin/bon-distributions/bd/{id_BD}', [BonDistributionController::class, 'recu'])->name('bon.distribution.recu');
     Route::get('admin/bon-livraisons//export/colis/{id}', [BonLivraisonController::class, 'exportColis'])->name('bon.livraison.exportColis');
-
-
 });
-Route::middleware('check.client')->group(function(){
+Route::middleware('check.client')->group(function () {
     Route::controller(ClientController::class)->prefix('clients')->group(function () {
         Route::get('/index',  'index')->name('client.index');
         Route::get('/profile',  'profile')->name('profile');
@@ -168,7 +162,6 @@ Route::middleware('check.client')->group(function(){
         Route::put('/update/valider/user/{id}',  'validernewuser')->name('newuser.valider.update');
         Route::put('/update/nonvalider/user/{id}',  'nonvalidernewuser')->name('newuser.nonvalider.update');
         Route::delete('/delete/user/{id}',  'deletenewuser')->name('newuser.delete');
-    
     });
     Route::group(['prefix' => 'colis'], function () {
         Route::get('/', [ColisController::class, 'index'])->name('colis.index');
@@ -179,7 +172,7 @@ Route::middleware('check.client')->group(function(){
         Route::put('/update/{id}', [ColisController::class, 'update'])->name('colis.update');
         Route::delete('/destroy/{id}', [ColisController::class, 'destroy'])->name('colis.destroy');
     });
-    
+
     Route::group(['prefix' => 'bon-livraison'], function () {
         Route::get('/bon/{id_BL?}', [BonLivraisonController::class, 'index'])->name('bon.livraison.index');
         Route::get('/create', [BonLivraisonController::class, 'create'])->name('bon.livraison.create');
@@ -201,9 +194,8 @@ Route::middleware('check.client')->group(function(){
         Route::post('/update/{id}', [ReclamationController::class, 'update'])->name('reclamation.update');
         Route::delete('/destroy/{id}', [ReclamationController::class, 'destroy'])->name('reclamation.destroy');
     });
-       
 });
-Route::middleware('check.livreur')->group(function(){
+Route::middleware('check.livreur')->group(function () {
 
     Route::controller(LivreurController::class)->prefix('livreurs')->group(function () {
         Route::get('/dashboard',  'index')->name('livreur.index');
@@ -212,21 +204,26 @@ Route::middleware('check.livreur')->group(function(){
         Route::get('/bons_distributions',  'allBD')->name('livreur.BD');
     });
 });
-Route::get('/generate-stikers/{id}', [BonLivraisonController::class,'generateStikers'])->name('generate.stikers');
-Route::get('/generate-etiqueteuse/{id}', [BonLivraisonController::class,'generateEtiqueteuse'])->name('generate.etiqueteuse');
-Route::get('/generate-facture/{id}', [BonLivraisonController::class,'generateFacture'])->name('generate.facture');
+Route::get('/generate-stikers/{id}', [BonLivraisonController::class, 'generateStikers'])->name('generate.stikers');
+Route::get('/generate-etiqueteuse/{id}', [BonLivraisonController::class, 'generateEtiqueteuse'])->name('generate.etiqueteuse');
+Route::get('/generate-facture/{id}', [BonLivraisonController::class, 'generateFacture'])->name('generate.facture');
 
-Route::get('/', [HomeController::class,'index'])->name('home');
-Route::get('/tarifs', [HomeController::class,'tarifs'])->name('tarifs');
-Route::get('/option', [HomeController::class,'option'])->name('option.index');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/tarifs', [HomeController::class, 'tarifs'])->name('tarifs');
 
+
+Route::controller(Option::class)->prefix('options')->group(function () {
+    Route::get('/', 'index')->name('option.index');
+    Route::post('/store', 'store')->name('option.store');
+    Route::post('/update/{id}', 'update')->name('option.update');
+    Route::delete('/delete/{id}', 'delete')->name('option.delete');
+});
 
 Route::controller(AdminController::class)->prefix('admin')->group(function () {
     Route::get('/signup',  'signuppage')->name('auth.admin.signUp');
     Route::post('/register',  'signup')->name('auth.admin.signUp.store');
     Route::get('/signin',  'signinpage')->name('auth.admin.signIn');
     Route::post('/login',  'signin')->name('auth.admin.signIn.store');
-   
 });
 
 
@@ -235,13 +232,13 @@ Route::controller(ClientController::class)->prefix('clients')->group(function ()
     Route::post('/register',  'signup')->name('auth.client.signUp.store');
     Route::get('/signin',  'signinpage')->name('auth.client.signIn');
     Route::post('/login',  'signin')->name('auth.client.signIn.store');
-    
+
     Route::get('forgot-password', 'showLinkRequestForm')->name('auth.client.password.request');
     Route::post('forgot-password', 'sendResetLinkEmail')->name('auth.client.password.email');
 
     Route::get('reset-password/{token}', 'showResetForm')->name('auth.client.password.reset');
     Route::post('reset-password', 'reset')->name('auth.client.password.update');
- });
+});
 
 
 Route::controller(LivreurController::class)->prefix('livreurs')->group(function () {
@@ -249,7 +246,7 @@ Route::controller(LivreurController::class)->prefix('livreurs')->group(function 
     Route::post('/register',  'signup')->name('auth.livreur.signUp.store');
     Route::get('/signin',  'signinpage')->name('auth.livreur.signIn');
     Route::post('/login',  'signin')->name('auth.livreur.signIn.store');
-   });
+});
 
 Route::get('/generate-pdf', [HomeController::class, 'generatePDF'])->name('generate.pdf');
 
@@ -281,11 +278,8 @@ Route::group(['prefix' => 'remarque'], function () {
 
 Route::group(['prefix' => 'livreur/bon-payment'], function () {
     Route::get('/', [BonPaymentLivreurController::class, 'livreurBP'])->name('bon.payment.list');
-
 });
 
 
 Route::get('/sms', [AdminController::class, 'getsendSMS'])->name('message.getsendSMS');
 Route::post('/send-sms', [AdminController::class, 'sendSMS'])->name('message.sendSMS');
-
-

@@ -1,45 +1,10 @@
 @extends('layouts.admin.admin')
 @section('breads')
-<x-breadcrumb :breads="$breads" />
-
+    <x-breadcrumb :breads="$breads" />
 @endsection
 @section('content')
     <div class="main-body">
         <div class="page-wrapper">
-
-
-
-
-
-            <!--
-
-
-      <aside class="left-sidebar" data-sidebarbg="skin6">
-          
-          <div class="scroll-sidebar" data-sidebarbg="skin6">
-              
-              <nav class="sidebar-nav">
-                  <ul id="sidebarnav">
-
-
-                     
-
-                      
-                      <li class="list-divider"></li>
-                      <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="javascript:ajaxLink('logout')"
-                          aria-expanded="false"><i data-feather="log-out" class="feather-icon"></i><span
-                          class="hide-menu">Deconnexion</span></a>
-                      </li>
-                      
-                  </ul>
-              </nav>
-              
-          </div>
-          
-      </aside>
-      
-      <div class="page-wrapper">-->
-
             <div class="page-body">
                 <div class="row">
                     <div class="col-lg-12">
@@ -54,7 +19,8 @@
 
                                         <div class="card-body">
 
-                                            <form action="s_options?action=add-statut" method="post" id="ajax-form">
+                                            <form action="{{ route('option.store') }}" method="post">
+                                                @csrf
                                                 <table class="add-statut-table">
                                                     <tbody>
                                                         <tr>
@@ -63,7 +29,7 @@
                                                                     <div class="form-group">
                                                                         <label>Code *</label>
                                                                         <input type="text" class="form-control"
-                                                                            name="statut_code" value=""
+                                                                            name="code" value=""
                                                                             placeholder="Code *">
                                                                     </div>
                                                                 </div>
@@ -73,7 +39,7 @@
                                                                     <div class="form-group">
                                                                         <label>Nom *</label>
                                                                         <input type="text" class="form-control"
-                                                                            name="statut_name" value=""
+                                                                            name="nom" value=""
                                                                             placeholder="Nom *">
                                                                     </div>
                                                                 </div>
@@ -83,7 +49,7 @@
                                                                     <div class="form-group">
                                                                         <label>Couleur *</label>
                                                                         <input type="color" class="form-control"
-                                                                            name="statut_color" value=""
+                                                                            name="couleur" value=""
                                                                             placeholder="Couleur *">
                                                                     </div>
                                                                 </div>
@@ -108,13 +74,15 @@
                                                                     <option value="25">25</option>
                                                                     <option value="50">50</option>
                                                                     <option value="100">100</option>
-                                                                </select> entrees par page</label></div>
+                                                                </select> entrees par page</label>
+                                                        </div>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-6">
                                                         <div id="settings_statut_table_filter" class="dataTables_filter">
                                                             <label>Rechercher :<input type="search"
                                                                     class="form-control input-sm" placeholder=""
-                                                                    aria-controls="settings_statut_table"></label></div>
+                                                                    aria-controls="settings_statut_table"></label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -125,93 +93,51 @@
                                                             <thead>
                                                                 <tr role="row">
                                                                     <th class="sorting" tabindex="0"
-                                                                        aria-controls="settings_statut_table"
-                                                                        rowspan="1" colspan="1"
+                                                                        aria-controls="settings_statut_table" rowspan="1"
+                                                                        colspan="1"
                                                                         aria-label="Code: activate to sort column ascending"
                                                                         style="width: 107.135px;">Code</th>
                                                                     <th class="sorting" tabindex="0"
-                                                                        aria-controls="settings_statut_table"
-                                                                        rowspan="1" colspan="1"
+                                                                        aria-controls="settings_statut_table" rowspan="1"
+                                                                        colspan="1"
                                                                         aria-label="Nom: activate to sort column ascending"
                                                                         style="width: 138.125px;">Nom</th>
                                                                     <th class="sorting" tabindex="0"
-                                                                        aria-controls="settings_statut_table"
-                                                                        rowspan="1" colspan="1"
+                                                                        aria-controls="settings_statut_table" rowspan="1"
+                                                                        colspan="1"
                                                                         aria-label="Couleur: activate to sort column ascending"
                                                                         style="width: 54.8958px;">Couleur</th>
                                                                     <th class="sorting" tabindex="0"
-                                                                        aria-controls="settings_statut_table"
-                                                                        rowspan="1" colspan="1"
+                                                                        aria-controls="settings_statut_table" rowspan="1"
+                                                                        colspan="1"
                                                                         aria-label="Actions: activate to sort column ascending"
                                                                         style="width: 52.0417px;">Actions</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
+                                                                @foreach ($Options as $item)
+                                                                    <tr id="{{ $item->id_Op }}" role="row"
+                                                                        class="odd">
+                                                                        <form
+                                                                            action="{{ route('option.update', $item->id_Op) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            <td>{{ $item->code }}</td>
+                                                                            <td><input name="nom" type="text"
+                                                                                    value="{{ $item->nom }}"></td>
+                                                                            <td><input name="couleur" type="color"
+                                                                                    value="{{ $item->couleur }}"></td>
+                                                                            <td>
+                                                                                <button type="submit"
+                                                                                    class="btn btn-sm btn-primary"><i
+                                                                                        class="far fa-save"></i></button>
 
+                                                                            </td>
+                                                                        </form>
+                                                                    </tr>
+                                                                @endforeach
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                                <tr id="NOT_PAID" role="row" class="odd">
-                                                                    <td>NOT_PAID</td>
-                                                                    <td><input name="statut_name" type="text"
-                                                                            value="Non Payé"></td>
-                                                                    <td><input name="statut_color" type="color"
-                                                                            value="#865679"></td>
-                                                                    <td><a href="javascript:editStatut('NOT_PAID');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a></td>
-                                                                </tr>
-                                                                <tr id="PAID" role="row" class="even">
+                                                                {{-- <tr id="PAID" role="row" class="even">
                                                                     <td>PAID</td>
                                                                     <td><input name="statut_name" type="text"
                                                                             value="Payé"></td>
@@ -220,87 +146,7 @@
                                                                     <td><a href="javascript:editStatut('PAID');"
                                                                             class="btn btn-sm btn-primary"><i
                                                                                 class="far fa-save"></i></a></td>
-                                                                </tr>
-                                                                <tr id="INVOICED" role="row" class="odd">
-                                                                    <td>INVOICED</td>
-                                                                    <td><input name="statut_name" type="text"
-                                                                            value="Facturé"></td>
-                                                                    <td><input name="statut_color" type="color"
-                                                                            value="#17de5d"></td>
-                                                                    <td><a href="javascript:editStatut('INVOICED');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a></td>
-                                                                </tr>
-                                                                <tr id="NEW_PARCEL" role="row" class="even">
-                                                                    <td>NEW_PARCEL</td>
-                                                                    <td><input name="statut_name" type="text"
-                                                                            value="Nouveau Colis"></td>
-                                                                    <td><input name="statut_color" type="color"
-                                                                            value="#865679"></td>
-                                                                    <td><a href="javascript:editStatut('NEW_PARCEL');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a></td>
-                                                                </tr>
-                                                                <tr id="WAITING_PICKUP" role="row" class="odd">
-                                                                    <td>WAITING_PICKUP</td>
-                                                                    <td><input name="statut_name" type="text"
-                                                                            value="Attente De Ramassage"></td>
-                                                                    <td><input name="statut_color" type="color"
-                                                                            value="#865679"></td>
-                                                                    <td><a href="javascript:editStatut('WAITING_PICKUP');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a></td>
-                                                                </tr>
-                                                                <tr id="PICKED_UP" role="row" class="even">
-                                                                    <td>PICKED_UP</td>
-                                                                    <td><input name="statut_name" type="text"
-                                                                            value="Ramassé"></td>
-                                                                    <td><input name="statut_color" type="color"
-                                                                            value="#865679"></td>
-                                                                    <td><a href="javascript:editStatut('PICKED_UP');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a></td>
-                                                                </tr>
-                                                                <tr id="SENT" role="row" class="odd">
-                                                                    <td>SENT</td>
-                                                                    <td><input name="statut_name" type="text"
-                                                                            value="en livraison"></td>
-                                                                    <td><input name="statut_color" type="color"
-                                                                            value="#835476"></td>
-                                                                    <td><a href="javascript:editStatut('SENT');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a></td>
-                                                                </tr>
-                                                                <tr id="RECEIVED" role="row" class="even">
-                                                                    <td>RECEIVED</td>
-                                                                    <td><input name="statut_name" type="text"
-                                                                            value="Reçu"></td>
-                                                                    <td><input name="statut_color" type="color"
-                                                                            value="#7c5070"></td>
-                                                                    <td><a href="javascript:editStatut('RECEIVED');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a></td>
-                                                                </tr>
-                                                                <tr id="DISTRIBUTION" role="row" class="odd">
-                                                                    <td>DISTRIBUTION</td>
-                                                                    <td><input name="statut_name" type="text"
-                                                                            value="Mise en distribution"></td>
-                                                                    <td><input name="statut_color" type="color"
-                                                                            value="#865679"></td>
-                                                                    <td><a href="javascript:editStatut('DISTRIBUTION');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a></td>
-                                                                </tr>
-                                                                <tr id="IN_PROGRESS" role="row" class="even">
-                                                                    <td>IN_PROGRESS</td>
-                                                                    <td><input name="statut_name" type="text"
-                                                                            value="in progress"></td>
-                                                                    <td><input name="statut_color" type="color"
-                                                                            value="#7f5173"></td>
-                                                                    <td><a href="javascript:editStatut('IN_PROGRESS');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a></td>
-                                                                </tr>
+                                                                </tr> --}}
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -380,13 +226,15 @@
                                                                     <option value="25">25</option>
                                                                     <option value="50">50</option>
                                                                     <option value="100">100</option>
-                                                                </select> entrees par page</label></div>
+                                                                </select> entrees par page</label>
+                                                        </div>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-6">
                                                         <div id="settings_types_table_filter" class="dataTables_filter">
                                                             <label>Rechercher :<input type="search"
                                                                     class="form-control input-sm" placeholder=""
-                                                                    aria-controls="settings_types_table"></label></div>
+                                                                    aria-controls="settings_types_table"></label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -531,13 +379,15 @@
                                                                     <option value="25">25</option>
                                                                     <option value="50">50</option>
                                                                     <option value="100">100</option>
-                                                                </select> entrees par page</label></div>
+                                                                </select> entrees par page</label>
+                                                        </div>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-6">
                                                         <div id="settings_banks_table_filter" class="dataTables_filter">
                                                             <label>Rechercher :<input type="search"
                                                                     class="form-control input-sm" placeholder=""
-                                                                    aria-controls="settings_banks_table"></label></div>
+                                                                    aria-controls="settings_banks_table"></label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
