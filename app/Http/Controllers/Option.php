@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Etat;
 use App\Models\Option as ModelsOption;
 use App\Models\typeBank;
 use App\Models\typeClient;
@@ -14,11 +15,12 @@ class Option extends Controller
         $Options = ModelsOption::all();
         $typeClient = typeClient::all();
         $typeBank = typeBank::all();
+        $etat = Etat::all();
         $breads = [
             ['title' => 'Liste des Options', 'url' => null],
             ['text' => 'Options', 'url' => null],
         ];
-        return view('pages.option.index', compact('Options','typeClient','typeBank', 'breads'));
+        return view('pages.option.index', compact('Options','typeClient','typeBank','etat', 'breads'));
     }
     public function store(Request $request)
     {

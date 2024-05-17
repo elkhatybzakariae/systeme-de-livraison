@@ -9,6 +9,7 @@ use App\Http\Controllers\BonPaymentZoneController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ColisController;
 use App\Http\Controllers\DepenseController;
+use App\Http\Controllers\EtatController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LivreurController;
 use App\Http\Controllers\MessageController;
@@ -223,7 +224,7 @@ Route::controller(Option::class)->prefix('options')->group(function () {
     Route::post('/update/{id}', 'update')->name('option.update');
     Route::delete('/delete/{id}', 'delete')->name('option.delete');
 });
-Route::controller(Etat::class)->prefix('etat')->group(function () {
+Route::controller(EtatController::class)->prefix('etat')->group(function () {
     Route::post('/store', 'store')->name('etat.store');
     Route::post('/update/{id}', 'update')->name('etat.update');
     Route::delete('/delete/{id}', 'delete')->name('etat.delete');
