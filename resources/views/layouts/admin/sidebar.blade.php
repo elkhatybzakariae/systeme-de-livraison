@@ -369,7 +369,7 @@
                 <!--end:Menu sub-->
 
                 <!--begin:Menu link-->
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('bon.retour.livreur.list')||request()->routeIs('bon.retour.zone.list') ?'show':'' }}">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('bon.retour.livreur.list')||request()->routeIs('bon.retour.zone.list') ||request()->routeIs('bon.retour.client.list') ?'show':'' }}">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -685,7 +685,7 @@
                 <!--end:Menu sub-->
 
                 <!--begin:Menu link-->
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('villes.index')||request()->routeIs('zone.index')||request()->routeIs('tarif.index')||request()->routeIs('option.index') ?'show':'' }} ">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('villes.index')||request()->routeIs('zone.index')||request()->routeIs('tarif.index')||request()->routeIs('option.index')||request()->routeIs('parametre.index')||request()->routeIs('option.index') ?'show':'' }} ">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
