@@ -13,13 +13,13 @@ class BonRetourLivreur extends Model
     protected $keyType='string';
     public $timestamps=true;
 
-    protected $fillable = ['id_BRL','reference','status','id_Cl'];
+    protected $fillable = ['id_BRL','reference','status','id_Liv'];
     public function colis()
     {
         return $this->hasMany(Colis::class,'id_BRL');
     }
-    public function client()
+    public function livreur()
     {
-        return $this->belongsTo(Client::class,'id_Cl');
+        return $this->belongsTo(Livreur::class,'id_Liv');
     }
 }

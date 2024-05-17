@@ -41,8 +41,8 @@ return new class extends Migration
             $table->foreign('id_BD')->on('bon_distributions')->references('id_BD');
             $table->string('id_BPL')->nullable();
             $table->foreign('id_BPL')->on('bon_payment_livreurs')->references('id_BPL');
-            // $table->string('id_BD')->nullable();
-            // $table->foreign('id_BD')->on('bon_distributions')->references('id_BD');
+            $table->string('id_BRL')->nullable();
+            $table->foreign('id_BRL')->on('bon_retour_livreurs')->references('id_BRL');
 
             $table->timestamps();
 
