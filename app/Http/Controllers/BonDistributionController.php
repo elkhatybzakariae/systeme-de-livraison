@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BonDistribution;
 use App\Models\Colis;
+use App\Models\colisinfo;
 use App\Models\Zone;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -93,7 +94,7 @@ class BonDistributionController extends Controller
             'colis' => function ($query) {
                 $query->where('status', 'distribution');
             }
-        ])->with(['colis', 'livreurs'])->get();    
+        ])->with(['colis', 'livreurs'])->get();
 
         $breads = [
             ['title' => 'créer un Bon Distribution', 'url' => null],
@@ -106,6 +107,12 @@ class BonDistributionController extends Controller
     {
         $colis = Colis::where('id', $id)
             ->update(['id_BD' => $id_BD, 'status' => 'en livraison']);
+        $coli = Colis::where('id', $id)->first();
+        $colisinfo = colisinfo::where('id', $id)->first();
+        $oldinfo = $colisinfo['info'];
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,en livraison,' . $coli['updated_at'] . ',' . ' ' . '_';
+
+        $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.distribution.index', $id_BD);
     }
     public function recu($id_BD)
@@ -114,6 +121,12 @@ class BonDistributionController extends Controller
             ->update(['status' => 'recu']);
         BonDistribution::where('id_BD', $id_BD)
             ->update(['status' => 'recu']);
+        $coli = Colis::where('id_BD', $id_BD)->first();
+        $colisinfo = colisinfo::where('id', $coli['id'])->first();
+        $oldinfo = $colisinfo['info'];
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,recu,' . $coli['updated_at'] . ',' . ' ' . '_';
+
+        $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.distribution.list');
     }
     public function updateDelete($id, $id_BD)
@@ -125,36 +138,34 @@ class BonDistributionController extends Controller
         return redirect()->route('bon.distribution.index', $id_BD);
     }
 
-  
+
     public function updateAll(Request $request, $id_BD)
     {
         // dd($request->input('query'));
-        if($request->input('query')){
+        if ($request->input('query')) {
             $colis = Colis::where('id', $request->input('query'))
-            ->update(['id_BD' => $id_BD, 'status' => 'en livraison']);
-        }else{
+                ->update(['id_BD' => $id_BD, 'status' => 'en livraison']);
+        } else {
 
 
             foreach ($request->colis as $colis) {
-    
+
                 $colis = Colis::where('id', $colis)
                     ->update(['id_BD' => $id_BD, 'status' => 'en livraison']);
             }
-
-           
         }
         return redirect()->route('bon.distribution.index', $id_BD);
     }
     public function updateDeleteAll(Request $request, $id_BD)
     {
-        if($request->query){
+        if ($request->query) {
             $colis = Colis::where('id', $request->input('query'))
-            ->update(['id_BD' => null,'status'=>'distribution']);
-        }else{
+                ->update(['id_BD' => null, 'status' => 'distribution']);
+        } else {
             foreach ($request->colisDelete as $colis) {
 
                 $colis = Colis::where('id', $colis)
-                    ->update(['id_BD' => null,'status'=>'distribution']);
+                    ->update(['id_BD' => null, 'status' => 'distribution']);
             }
         }
         return redirect()->route('bon.distribution.index', $id_BD);

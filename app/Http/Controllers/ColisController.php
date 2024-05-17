@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helpers;
 use App\Models\Colis;
+use App\Models\colisinfo;
 use App\Models\Livreur;
 use App\Models\Ville;
 use App\Models\Zone;
@@ -17,11 +18,12 @@ class ColisController extends Controller
     public function index()
     {
         $colis = Colis::query()->whereNot('status','nouveau')->get();
+        $colisinfo = colisinfo::all();
         $breads = [
             ['title' => 'Liste des Colis', 'url' => null],
             ['text' => 'Colis', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.clients.colis.index', compact('colis','breads'));
+        return view('pages.clients.colis.index', compact('colis','breads','colisinfo'));
     }
  
     public function indexAdmin()
@@ -82,10 +84,13 @@ class ColisController extends Controller
         // dd($validatedData);
         
         $colis=Colis::create($validatedData);
-        
-        $generator = new BarcodeGeneratorPNG();
-        $barcode = base64_encode($generator->getBarcode($colis->id, $generator::TYPE_CODE_128));
-        $bon=Colis::where('id',$colis->id)->update(['barcode'=>$barcode]);
+        colisinfo::create([
+            'info'=>$colis['code_d_envoi'].','.'non paye'.','.'nouveau'.','.$colis['updated_at'].','.' '.'_',
+            'id'=>$colis['id'],
+        ]);
+        // $generator = new BarcodeGeneratorPNG();
+        // $barcode = base64_encode($generator->getBarcode($colis->id, $generator::TYPE_CODE_128));
+        // $bon=Colis::where('id',$colis->id)->update(['barcode'=>$barcode]);
         $bonLivraison=Colis::where('id',$colis->id)->first();
         return redirect()->route('colis.indexRamassage')->with('success', 'Colis created successfully.');
     }

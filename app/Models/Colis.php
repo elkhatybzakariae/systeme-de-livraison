@@ -50,6 +50,10 @@ class Colis extends Model
     {
         return $this->belongsTo(Zone::class, 'zone');
     }
+    public function colisinfo()
+    {
+        return $this->hasOne(colisinfo::class, 'id');
+    }
 
     public function ville()
     {
