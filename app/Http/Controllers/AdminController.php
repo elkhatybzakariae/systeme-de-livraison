@@ -27,7 +27,7 @@ use Twilio\Rest\Client as CL;
 
 class AdminController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $colis = Colis::all()->count();
         $liv = BonLivraison::all()->count();
@@ -38,14 +38,32 @@ class AdminController extends Controller
         $payZ = BonPaymentZone::all()->count();
         $fact = Facture::all()->count();
         $rec = Reclamation::all()->count();
-        $clients = Client::all()->count();
+        $cl = Client::all()->count();
         $retourZ = BonRetourZone::all()->count();
+        $clients = Client::all();
+
+        // Fetch statistics
+        $query = Colis::query();
+
+        if ($request->has('client_id') && $request->client_id) {
+            $query->where('id_Cl', $request->client_id);
+        }
+
+        $statistics = $query->selectRaw('status, COUNT(*) as count')
+                            ->groupBy('status')
+                            ->pluck('count', 'status')
+                            ->toArray();
+
+        $statuses = array_keys($statistics);
+        $counts = array_values($statistics);
+
         $breads = [
             ['title' => 'Tableau de bord', 'url' => null],
             ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.index' ,compact('breads','colis','liv','env','dis','payLiv','retourC','payZ','fact','clients','rec','retourZ'));
+        return view('pages.admin.index' ,compact('breads','statuses', 'counts','colis','liv','env','dis','cl','payLiv','retourC','payZ','fact','clients','rec','retourZ'));
     }
+ 
     public function signuppage()
     {
         return view('auth.admin.sign-up');

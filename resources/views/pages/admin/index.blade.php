@@ -205,7 +205,7 @@
             <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold">
                 <div class="d-flex flex-column">
                   <span class="me-2">Clients</span>
-                  <span class="me-2 text-end">{{ $clients }}</span>
+                  <span class="me-2 text-end">{{ $cl }}</span>
                 </div>
             </span>
         </div>
@@ -253,4 +253,59 @@
     </div>
   </div>
 </div>
+
+<div class="container mt-5">
+  <h1>Colis Statistics</h1>
+
+  <form action="{{ route('admin.index') }}" method="GET" >
+      <div class="form-group ">
+          <label for="client_id">Select Client</label>
+          <div class="row">
+            <div class="col-8">
+
+              <select name="client_id" id="client_id" class="form-control ">
+                  <option value="">All Clients</option>
+                  @foreach($clients as $client)
+                      <option value="{{ $client->id_Cl }}" {{ request('client_id') == $client->id_Cl ? 'selected' : '' }}>
+                          {{ $client->nomcomplet }} <!-- Adjust attribute to match your client's name attribute -->
+                      </option>
+                  @endforeach
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary col-4">Filter</button>
+          </div>
+      </div>
+  </form>
+
+  <canvas id="colisChart" width="400" height="200"></canvas>
+</div>
+<!-- Include Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+  var ctx = document.getElementById('colisChart').getContext('2d');
+  var colisChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: @json($statuses),
+          datasets: [{
+              label: 'Colis Count',
+              data: @json($counts),
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
+  });
+  </script>
 @endsection
+
