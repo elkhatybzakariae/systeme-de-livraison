@@ -23,6 +23,7 @@ use App\Http\Controllers\ParamtreController;
 use App\Http\Controllers\RamassagecoliController;
 use App\Http\Controllers\ReclamationController;
 use App\Http\Controllers\RemarqueController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\TarifController;
 use App\Http\Controllers\typeBankController;
 use App\Http\Controllers\typeClientController;
@@ -194,6 +195,12 @@ Route::middleware('check.admin')->group(function () {
         Route::post('admin/bon-retour/bd/{id}', [BonRetourClientController::class, 'recu'])->name('bon.retour.client.recu');
 
     });
+    Route::controller(StockController::class)->prefix('admin/stock')->group(function () {
+        Route::get('/nouveau/colis', 'nouveau')->name('stock.colis.nouveau');
+        Route::get('/pres/preparation/colis', 'pres')->name('stock.colis.pres');
+        // Route::get('/nouveau/colis', 'nouveau')->name('stock.colis.nouveau');
+    });
+
     Route::group(['prefix' => 'admin/reclamation'], function () {
         Route::get('/all', [ReclamationController::class, 'all'])->name('reclamation.all');
         Route::post('/traiteRec/{id}', [ReclamationController::class, 'traiteRec'])->name('reclamation.traiteRec');

@@ -183,7 +183,7 @@
 
                 <!--end:Menu sub-->
                 <!--begin:Menu link-->
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('stock.colis.nouveau')||request()->routeIs('stock.colis.pres') ?'show':'' }}">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -205,7 +205,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="">
+                            <a class="menu-link {{ request()->routeIs('stock.colis.nouveau') ?'active':'' }}" href="{{ route('stock.colis.nouveau') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -217,7 +217,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="">
+                            <a class="menu-link {{ request()->routeIs('stock.colis.pres') ?'active':'' }}" href="{{ route('stock.colis.pres') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
