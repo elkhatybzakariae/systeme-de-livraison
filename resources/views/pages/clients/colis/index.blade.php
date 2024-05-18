@@ -167,7 +167,7 @@
                             </td>
                             <td class="row ">
                                 <div class="menu-item px-3 col-4">
-                                    <a onclick="openModal('{{ $coli->id }}')" data-bs-toggle="modal"
+                                    <a onclick="openModalinfo('{{ $coli->id }}')" data-bs-toggle="modal"
                                         data-bs-target="#kt_modal_new_target1" class="menu-link px-3"><i
                                             class="fa fa-eye"></i></a>
                                 </div>
@@ -223,7 +223,7 @@
 
         var colisinfo = @json($colisinfo);
 
-        function openModal(id) {
+        function openModalinfo(id) {
 
             var modal = document.getElementById('modal-body');
             var colisinfos = colisinfo.find(element => element.id == id).info;
@@ -257,7 +257,8 @@
             allinfo.forEach(e => {
                 let cc = e.split(',');
                 console.log(cc);
-                text += `
+                if (cc != '') {
+                    text += `
                 <tr>
                         <td>${cc[0]}</td>
                         <td>${cc[1]}</td>
@@ -265,6 +266,8 @@
                         <td>${cc[3]}</td>
                         <td>${cc[4]}</td>
                     </tr>`
+
+                }
             });
             // document.getElementById('show').innerHTML = bb;
 
