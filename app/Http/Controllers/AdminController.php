@@ -36,6 +36,7 @@ class AdminController extends Controller
         $dis = BonDistribution::all()->count();
         $payLiv = BonPaymentLivreur::all()->count();
         $retourC = BonRetourClient::all()->count();
+        $retourL = BonRetourLivreur::all()->count();
         $payZ = BonPaymentZone::all()->count();
         $fact = Facture::all()->count();
         $rec = Reclamation::all()->count();
@@ -134,7 +135,7 @@ class AdminController extends Controller
         'statusesBRC', 'countsBRC',
         'statusesBRL', 'countsBRL',
         'colis','liv','env','dis',
-        'cl','payLiv','retourC',
+        'cl','payLiv','retourC','retourL',
         'payZ','fact','clients',
         'rec','retourZ'));
     }
