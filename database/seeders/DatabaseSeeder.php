@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
                 'status'=>'retourne'
             ]);
         \App\Models\Admin::factory(10)->create();
-        // $this->call(ColisSeeder::class);
+        $this->call(ColisSeeder::class);
         $this->call(DepenseSeeder::class);
         $this->call(TarifSeeder::class);
         $this->call(ReclamationSeeder::class);

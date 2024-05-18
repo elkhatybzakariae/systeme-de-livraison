@@ -104,14 +104,14 @@
               </a>
               <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-250px py-4" data-kt-menu="true">
                 <div class="menu-item px-3">
-                  <a  class="btn" onclick="openModal('{{ $item->id_BD }}')"  data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"><i class="fa fa-eye"></i>Details du bon</a>
+                  <a  class="btn" onclick="openModal('{{ $item->id_BRC }}')"  data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"><i class="fa fa-eye"></i>Details du bon</a>
                 </div>
                 <div class="menu-item px-3">
-                  <a  class="btn" href="{{ route('bon.distribution.exportColis',$item->id_BD) }}"><i class="far fa-file-excel"></i>Exporter les colis</a>
+                  <a  class="btn" href="{{ route('bon.retour.client.exportColis',$item->id_BRC) }}"><i class="far fa-file-excel"></i>Exporter les colis</a>
                 </div>
                 @if ($item->status != 'recu')
                     <div class="menu-item px-3">
-                  <form action="{{route('bon.distribution.recu',$item->id_BD)}}" method="post">
+                  <form action="{{route('bon.retour.client.recu',$item->id_BRC)}}" method="post">
                     @csrf
                     <button type="submit"class="btn">
                       <i class="fa fa-check"></i>bon bien recu
@@ -120,7 +120,7 @@
                 </div>
                 @endif
                 <div class="menu-item px-3">
-                  <a  class="btn"  href="{{ route('bon.distribution.getPdf',$item->id_BD) }}"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
+                  <a  class="btn"  href="{{ route('bon.retour.client.getPdf',$item->id_BRC) }}"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
                 </div>
                 {{-- <div class="menu-item px-3">
                   <a  class="btn"><<i class="fas fa-ticket-alt"></i>Voir les etiqutte</a>
@@ -197,12 +197,12 @@ function openModal(id) {
   var modal=document.getElementById('modal-body') ;
   let bons=@json($bons);
   console.log(bons);
-  let BD=bons.find(ele=>ele.id_BD==id)
+  let BD=bons.find(ele=>ele.id_BRC==id)
   console.log(BD);
   let text=''
   text= `<div class="row">
     <div class="dn-inv-infos-box col-6">
-      <b>Bon d envoie : </b> ${BD.id_BD}<br>
+      <b>Bon d envoie : </b> ${BD.id_BRC}<br>
       <b>Date :</b>${BD.created_at}<br>
       <b>Colis :</b> ${BD.colis_count}<br>
       <b>Total :</b> ${BD.total_prix} Dhs

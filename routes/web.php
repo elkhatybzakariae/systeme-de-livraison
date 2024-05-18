@@ -159,7 +159,7 @@ Route::middleware('check.admin')->group(function () {
         Route::post('/update/delete/all/{id_BRL}', [BonRetourLivreurController::class, 'updateDeleteAll'])->name('bon.retour.livreur.updateDelete.all');
         Route::get('/export/colis/{id}', [BonRetourLivreurController::class, 'exportColis'])->name('bon.retour.livreur.exportColis');
         Route::get('/get/pdf/{id_BRL}', [BonRetourLivreurController::class, 'getPdf'])->name('bon.retour.livreur.getPdf');
-        Route::post('admin/bon-distributions/bd/{id_BD}', [BonRetourLivreurController::class, 'recu'])->name('bon.retour.livreur.recu');
+        Route::post('admin/bon-retour/bd/{id}', [BonRetourLivreurController::class, 'recu'])->name('bon.retour.livreur.recu');
 
     });
     Route::group(['prefix' => 'admin/bon-retour-zone'], function () {
@@ -175,6 +175,8 @@ Route::middleware('check.admin')->group(function () {
         Route::post('/update/delete/all/{id_BRZ}', [BonRetourZoneController::class, 'updateDeleteAll'])->name('bon.retour.zone.updateDelete.all');
         Route::get('/export/colis/{id}', [BonRetourZoneController::class, 'exportColis'])->name('bon.retour.zone.exportColis');
         Route::get('/get/pdf/{id_BRZ}', [BonRetourZoneController::class, 'getPdf'])->name('bon.retour.zone.getPdf');
+        Route::post('admin/bon-retour/bd/{id}', [BonRetourZoneController::class, 'recu'])->name('bon.retour.zone.recu');
+
     });
     Route::group(['prefix' => 'admin/bon-retour-client'], function () {
         Route::get('/bon/{id_BRC?}', [BonRetourClientController::class, 'index'])->name('bon.retour.client.index');
@@ -189,6 +191,8 @@ Route::middleware('check.admin')->group(function () {
         Route::post('/update/delete/all/{id_BRC}', [BonRetourClientController::class, 'updateDeleteAll'])->name('bon.retour.client.updateDelete.all');
         Route::get('/export/colis/{id}', [BonRetourClientController::class, 'exportColis'])->name('bon.retour.client.exportColis');
         Route::get('/get/pdf/{id_BRC}', [BonRetourClientController::class, 'getPdf'])->name('bon.retour.client.getPdf');
+        Route::post('admin/bon-retour/bd/{id}', [BonRetourClientController::class, 'recu'])->name('bon.retour.client.recu');
+
     });
     Route::group(['prefix' => 'admin/reclamation'], function () {
         Route::get('/all', [ReclamationController::class, 'all'])->name('reclamation.all');

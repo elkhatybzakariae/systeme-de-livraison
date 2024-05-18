@@ -6,7 +6,6 @@ use App\Models\BonRetourClient;
 use App\Models\Client;
 use App\Models\Colis;
 use App\Models\colisinfo;
-use App\Models\Zone;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,15 +17,15 @@ class BonRetourClientController extends Controller
     public function index(Request $request, $id_BRC = null)
     {
         // dd($request);
-        $id_Z = $request->input('zone');
-        if ($id_Z == null) {
-            $id_Z = session('zone');
+        $id_Cl = $request->input('client');
+        if ($id_Cl == null) {
+            $id_Cl = session('client');
         } else {
-            session(['zone' => $id_Z]);
+            session(['client' => $id_Cl]);
         }
         // dd(session('zone'));
         $user = session('user');
-        $colis = Colis::query()->with('ville')->whereNull('id_BRC')->where('zone', $id_Z)->get();
+        $colis = Colis::query()->with('ville')->whereNull('id_BRC')->where('id_Cl', $id_Cl)->get();
 
         $colisBon = [];
         // dd($colis);
@@ -35,7 +34,7 @@ class BonRetourClientController extends Controller
                 'id_BRC' => 'BRC-' . Str::random(10),
                 'reference' => 'BRC-' . Str::random(10),
                 'status' => 'nouveau',
-                'id_Cl' => $request->input('id_Cl'),
+                'id_Cl' => $id_Cl,
             ]);
            
         } else {
@@ -184,7 +183,7 @@ class BonRetourClientController extends Controller
             ->withCount('colis') // Count related colis
             ->withSum('colis', 'prix') // Sum prices of related colis
             ->leftJoin('clients', 'bon_retour_clients.id_Liv', '=', 'clients.id_Liv')
-            ->leftJoin('zones', 'bon_retour_clients.id_Z', '=', 'zones.id_Z')
+            ->leftJoin('zones', 'bon_retour_clients.id_Cl', '=', 'zones.id_Cl')
             ->leftJoin('colis', 'bon_retour_clients.id_BRC', '=', 'colis.id_BRC')
             ->select('bon_retour_clients.*', 'clients.nomcomplet as liv_nom', 'clients.Phone as liv_tele', 'zones.zonename as liv_zone')
             ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BRC = bon_retour_clients.id_BRC) as colis_count'))

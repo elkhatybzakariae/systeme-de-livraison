@@ -3,15 +3,15 @@
     <x-breadcrumb :breads="$breads" />
 @endsection
 @section('content')
-    <form action="{{ route('bon.distribution.index') }}">
+    <form action="{{ route('bon.retour.client.index') }}">
         <div class="card">
             <div class="card-header">
-                <h5>Ajouter Bon de distribution </h5>
+                <h5>Ajouter Bon de Retour Client </h5>
             </div>
 
             <div class="card-body">
-                <select name="zone" id="zone_select" class="form-select">
-                    <option value="" selected disabled>Choisir une zone</option>
+                <select name="client" id="zone_select" class="form-select">
+                    <option value="" selected disabled>Choisir un Client</option>
                     @foreach ($clients as $item)
                         @if ($item->colis_count >= 1)
                             <option value="{{ $item->id_Cl }}">{{ $item->nomcomplet }} ({{ $item->colis_count }} Colis Recu)
@@ -20,17 +20,12 @@
                     @endforeach
                 </select>
             </div>
-        </div>
-        <div class="card" id="cardLiv" style="display: none">
-
-           
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary" style="display:block;margin:0px auto"><i
-                        class="fa fa-plus"></i> Creer bon de distribution</button>
+                        class="fa fa-plus"></i> Creer bon de Retour Client</button>
             </div>
-
-
         </div>
+      
     </form>
   
 @endsection

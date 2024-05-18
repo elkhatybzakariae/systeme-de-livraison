@@ -18,7 +18,7 @@
   </div>
 
 <div class="container-fluid mt-4">
-  <form action="{{ route('bon.distribution.update.all',$bonLivraison->id_BD) }}" method="POST">
+  <form action="{{ route('bon.retour.client.update.all',$bonLivraison->id_BRC) }}" method="POST">
   @csrf
   <div class="card">
     <div class="card-header">
@@ -32,7 +32,7 @@
             <th >
               <input type="checkbox" id="checkAll">
             </th>
-            <th >Code d distribution</th>
+            <th >Code d'envoi</th>
             <th >Destinataire</th>
             <th >Date de creation</th>
             <th >Prix</th>
@@ -52,7 +52,7 @@
             <td>{{ $item->villename }}</td>
             <td>
               
-              <a href="{{ route('bon.distribution.update',['id'=>$item->id,'id_BD'=>$bonLivraison->id_BD]) }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
+              <a href="{{ route('bon.retour.client.update',['id'=>$item->id,'id_BRC'=>$bonLivraison->id_BRC]) }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
             </td>
           </tr>
           @endforeach
@@ -80,7 +80,7 @@
 </div>
 
 <div class="container-fluid mt-4">
-  <form action="{{ route('bon.distribution.updateDelete.all',$bonLivraison->id_BD) }}" method="POST">
+  <form action="{{ route('bon.retour.client.updateDelete.all',$bonLivraison->id_BRC) }}" method="POST">
   @csrf
   <div class="card">
     <div class="card-header">
@@ -115,7 +115,7 @@
               <td>{{ $item->prix }}</td>
               <td>{{ $item->villename }}</td>
               <td>
-                <a href="{{ route('bon.distribution.updateDelete',['id'=>$item->id,'id_BD'=>$bonLivraison->id_BD]) }}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                <a href="{{ route('bon.retour.client.updateDelete',['id'=>$item->id,'id_BRC'=>$bonLivraison->id_BRC]) }}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
               </td>
             </tr>
           @endforeach
