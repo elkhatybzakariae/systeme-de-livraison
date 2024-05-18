@@ -85,6 +85,12 @@ class ClientController extends Controller
                 
                 Auth::login($client);
                 session(["user" => $client]);
+                if (session()->has('url.intended')) {
+                    // dd('hh');
+                    return redirect()->to(session()->pull('url.intended'));
+                }
+                // dd('dd');
+
                 return redirect()->route('client.index')->with('success', 'successfull!!!!.');
             }
         }

@@ -21,7 +21,7 @@ class CheckLivreur
         if ($user && $user->isAccepted) {
             return $next($request);
         }
-        
+        session(['url.intended' => $request->fullUrl()]);
         return redirect(route('auth.livreur.signIn'));
     }
 }

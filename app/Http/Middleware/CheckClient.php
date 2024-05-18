@@ -24,7 +24,9 @@ class CheckClient
                 return $next($request);
             }
         }
-        
+
+        session(['url.intended' => $request->fullUrl()]);
+        // dd(session('url.intended'));
         return redirect(route('auth.client.signIn'));
     }
 }

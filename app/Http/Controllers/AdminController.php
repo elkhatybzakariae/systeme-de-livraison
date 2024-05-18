@@ -162,6 +162,9 @@ class AdminController extends Controller
 
                 Auth::login($u);
                 session(["user" => $u]);
+                if (session()->has('url.intended')) {
+                    return redirect()->to(session()->pull('url.intended'));
+                }
                 return redirect()->route('admin.index');
             }
         } 
