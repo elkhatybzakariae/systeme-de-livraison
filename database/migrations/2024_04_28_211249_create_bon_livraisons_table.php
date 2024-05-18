@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('id_Cl');
             $table->foreign('id_Cl')->references('id_Cl')->on('clients');
             $table->string('status');
-            // $table->string('id_C');
-            // $table->foreign('id_C')->references('id_C')->on('colis');
             $table->timestamps();
         });
     }

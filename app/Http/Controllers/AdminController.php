@@ -57,11 +57,47 @@ class AdminController extends Controller
         $statuses = array_keys($statistics);
         $counts = array_values($statistics);
 
+
+        $query = BonLivraison::query();
+
+        if ($request->has('client_id') && $request->client_id) {
+            $query->where('id_Cl', $request->client_id);
+        }
+
+        $statistics = $query->selectRaw('status, COUNT(*) as count')
+                            ->groupBy('status')
+                            ->pluck('count', 'status')
+                            ->toArray();
+
+        $statusesBL = array_keys($statistics);
+        $countsBL = array_values($statistics);
+
+        $query = BonEnvois::query();
+
+        // if ($request->has('client_id') && $request->client_id) {
+        //     $query->where('id_Cl', $request->client_id);
+        // }
+
+        $statistics = $query->selectRaw('status, COUNT(*) as count')
+                            ->groupBy('status')
+                            ->pluck('count', 'status')
+                            ->toArray();
+
+        $statusesBE = array_keys($statistics);
+        $countsBE = array_values($statistics);
+        // 
         $breads = [
             ['title' => 'Tableau de bord', 'url' => null],
             ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.index' ,compact('breads','statuses', 'counts','colis','liv','env','dis','cl','payLiv','retourC','payZ','fact','clients','rec','retourZ'));
+        return view('pages.admin.index' ,compact('breads',
+        'statuses', 'counts',
+        'statusesBL', 'countsBL',
+        'statusesBE', 'countsBE',
+        'colis','liv','env','dis',
+        'cl','payLiv','retourC',
+        'payZ','fact','clients',
+        'rec','retourZ'));
     }
  
     public function signuppage()
