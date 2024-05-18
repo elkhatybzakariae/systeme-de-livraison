@@ -84,6 +84,7 @@ class BonLivraisonController extends Controller
         ];
         return view('pages.admin.bonLivraison.index', compact("bons", 'breads'));
     }
+
     public function create()
     {
         $user = session('user');
@@ -110,6 +111,12 @@ class BonLivraisonController extends Controller
         $colisinfo->update(['info' => $newInfo]);
 
         return redirect()->route('bon.livraison.index', $id_BL);
+    }
+    public function destroy($id)
+    {
+        $bon = BonLivraison::find($id);
+        $bon->delete();
+        return redirect()->route('bon.livraison.list')->with('success', 'bon deleted successfully.');
     }
     public function recu($id_BL)
     {

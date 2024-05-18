@@ -90,6 +90,12 @@ class BonRetourClientController extends Controller
         return view('pages.admin.bonRetourClient.create', compact("clients", 'breads'));
     }
 
+    public function destroy($id)
+    {
+        $bon = BonRetourClient::find($id);
+        $bon->delete();
+        return redirect()->route('bon.retour.client.list')->with('success', 'bon deleted successfully.');
+    }
     public function update($id, $id_BRC)
     {
         $colis = Colis::where('id', $id)

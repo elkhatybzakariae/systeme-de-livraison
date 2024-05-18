@@ -220,4 +220,11 @@ class BonDistributionController extends Controller
         $dompdf->render();
         return $dompdf->stream('bon' . $bon->id_BD . '.pdf');
     }
+
+    public function destroy($id)
+    {
+        $bon = BonDistribution::find($id);
+        $bon->delete();
+        return redirect()->route('bon.distribution.list')->with('success', 'bon deleted successfully.');
+    }
 }

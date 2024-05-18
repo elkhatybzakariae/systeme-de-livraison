@@ -107,7 +107,12 @@ class BonEnvoisController extends Controller
         // dd($zones);
         return view('pages.admin.bonEnvoi.create', compact("zones", 'breads'));
     }
-
+    public function destroy($id)
+    {
+        $bon = BonEnvois::find($id);
+        $bon->delete();
+        return redirect()->route('bon.envoi.list')->with('success', 'bon deleted successfully.');
+    }
     public function update($id, $id_BE)
     {
         $colis = Colis::where('id', $id)
@@ -134,6 +139,7 @@ class BonEnvoisController extends Controller
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.envoi.list');
     }
+
     public function updateDelete($id, $id_BE)
     {
         $colis = Colis::where('id', $id)

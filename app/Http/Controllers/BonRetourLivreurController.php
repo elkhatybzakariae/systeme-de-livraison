@@ -100,7 +100,12 @@ class BonRetourLivreurController extends Controller
         ];
         return view('pages.admin.bonRetourLivreur.create', compact("zones", 'breads'));
     }
-
+    public function destroy($id)
+    {
+        $bon = BonRetourLivreur::find($id);
+        $bon->delete();
+        return redirect()->route('bon.retour.livreur.list')->with('success', 'bon deleted successfully.');
+    }
     public function update($id, $id_BRL)
     {
         $colis = Colis::where('id', $id)

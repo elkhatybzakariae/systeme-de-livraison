@@ -125,12 +125,13 @@
                 <div class="menu-item px-3">
                   <a  class="btn"  href="{{ route('bon.retour.livreur.getPdf',$item->id_BRL) }}"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
                 </div>
-                {{-- <div class="menu-item px-3">
-                  <a  class="btn"><<i class="fas fa-ticket-alt"></i>Voir les etiqutte</a>
-                </div>
-                <div class="menu-item px-3">
-                  <a  class="btn"><i class="fas fa-ticket-alt"></i> etiquetteuse</a>
-                </div> --}}
+                @if ($item->colis->count()==0)
+                  <div class="menu-item  text-hover-danger px-3">        
+                    <a  href="{{ route('bon.retour.livreur.destroy',$item->id_BRL) }}" class="btn">
+                      <i class="fa fa-trash"></i>Delete
+                    </a>
+                  </div>
+                @endif
                 
               </div>
             </td>

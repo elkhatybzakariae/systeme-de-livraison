@@ -119,7 +119,13 @@
                 <div class="menu-item px-3">
                   <a  class="btn"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
                 </div>
-                
+                @if ($item->colis->count()==0)
+                  <div class="menu-item  text-hover-danger px-3">        
+                    <a  href="{{ route('bon.payement.livreur.destroy',$item->id_BPL) }}" class="btn">
+                      <i class="fa fa-trash"></i>Delete
+                    </a>
+                  </div>
+                @endif
                 
               </div>
             </td>

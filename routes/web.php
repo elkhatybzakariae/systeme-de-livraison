@@ -107,6 +107,7 @@ Route::middleware('check.admin')->group(function () {
         Route::post('/update/delete/all/{id_BE}', [BonEnvoisController::class, 'updateDeleteAll'])->name('bon.envoi.updateDelete.all');
         Route::get('/export/colis/{id_BE}', [BonEnvoisController::class, 'exportColis'])->name('bon.envoi.exportColis');
         Route::get('/get/pdf/{id_BE}', [BonEnvoisController::class, 'getPdf'])->name('bon.envoi.getPdf');
+        Route::get('/destroy/{id}', [BonEnvoisController::class, 'destroy'])->name('bon.envoi.destroy');
     });
     Route::group(['prefix' => 'admin/bon-payment-livreur'], function () {
         Route::get('/bon/{id_BPL?}', [BonPaymentLivreurController::class, 'index'])->name('bon.payment.livreur.index');
@@ -120,6 +121,7 @@ Route::middleware('check.admin')->group(function () {
         Route::post('/update/all/{id_BL}', [BonPaymentLivreurController::class, 'updateAll'])->name('bon.payment.livreur.update.all');
         Route::post('/update/delete/all/{id_BL}', [BonPaymentLivreurController::class, 'updateDeleteAll'])->name('bon.payment.livreur.updateDelete.all');
         Route::get('/export/colis/{id}', [BonPaymentLivreurController::class, 'exportColis'])->name('bon.payment.livreur.exportColis');
+        Route::get('/destroy/{id}', [BonPaymentLivreurController::class, 'destroy'])->name('bon.payment.livreur.destroy');
     });
 
     Route::group(['prefix' => 'admin/bon-payment-zone'], function () {
@@ -131,7 +133,9 @@ Route::middleware('check.admin')->group(function () {
         Route::get('/update/{id}/bl/{id_BD}', [BonPaymentZoneController::class, 'update'])->name('bon.payment.zone.update');
         Route::get('/updateDelete/{id}/bl/{id_BD}', [BonPaymentZoneController::class, 'updateDelete'])->name('bon.payment.zone.updateDelete');
         Route::delete('/destroy/{id}', [BonPaymentZoneController::class, 'destroy'])->name('bon.payment.zone.destroy');
-        Route::get('/export/colis/{id}', [BonPaymentLivreurController::class, 'exportColis'])->name('bon.payment.livreur.exportColis');
+        Route::get('/export/colis/{id}', [BonPaymentZoneController::class, 'exportColis'])->name('bon.payment.zone.exportColis');
+        Route::get('/destroy/{id}', [BonPaymentZoneController::class, 'destroy'])->name('bon.payment.zon.destroy');
+
     });
     Route::group(['prefix' => 'admin/bon-distribution'], function () {
         Route::get('/bon/{id_BD?}', [BonDistributionController::class, 'index'])->name('bon.distribution.index');
@@ -161,6 +165,7 @@ Route::middleware('check.admin')->group(function () {
         Route::get('/export/colis/{id}', [BonRetourLivreurController::class, 'exportColis'])->name('bon.retour.livreur.exportColis');
         Route::get('/get/pdf/{id_BRL}', [BonRetourLivreurController::class, 'getPdf'])->name('bon.retour.livreur.getPdf');
         Route::post('admin/bon-retour/bd/{id}', [BonRetourLivreurController::class, 'recu'])->name('bon.retour.livreur.recu');
+        Route::get('/destroy/{id}', [BonRetourLivreurController::class, 'destroy'])->name('bon.retour.livreur.destroy');
 
     });
     Route::group(['prefix' => 'admin/bon-retour-zone'], function () {
@@ -177,6 +182,8 @@ Route::middleware('check.admin')->group(function () {
         Route::get('/export/colis/{id}', [BonRetourZoneController::class, 'exportColis'])->name('bon.retour.zone.exportColis');
         Route::get('/get/pdf/{id_BRZ}', [BonRetourZoneController::class, 'getPdf'])->name('bon.retour.zone.getPdf');
         Route::post('admin/bon-retour/bd/{id}', [BonRetourZoneController::class, 'recu'])->name('bon.retour.zone.recu');
+        Route::get('/destroy/{id}', [BonRetourZoneController::class, 'destroy'])->name('bon.retour.zone.destroy');
+
 
     });
     Route::group(['prefix' => 'admin/bon-retour-client'], function () {
@@ -193,6 +200,8 @@ Route::middleware('check.admin')->group(function () {
         Route::get('/export/colis/{id}', [BonRetourClientController::class, 'exportColis'])->name('bon.retour.client.exportColis');
         Route::get('/get/pdf/{id_BRC}', [BonRetourClientController::class, 'getPdf'])->name('bon.retour.client.getPdf');
         Route::post('admin/bon-retour/bd/{id}', [BonRetourClientController::class, 'recu'])->name('bon.retour.client.recu');
+        Route::get('/destroy/{id}', [BonEnvoisController::class, 'destroy'])->name('bon.retour.client.destroy');
+
 
     });
     Route::controller(StockController::class)->prefix('admin/stock')->group(function () {

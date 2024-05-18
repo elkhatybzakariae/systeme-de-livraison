@@ -122,6 +122,13 @@
                   </form>
                 </div>
                 @endif
+                @if ($item->colis->count()==0)
+                  <div class="menu-item  text-hover-danger px-3">        
+                    <a  href="{{ route('bon.distribution.destroy',$item->id_BD) }}" class="btn">
+                      <i class="fa fa-trash"></i>Delete
+                    </a>
+                  </div>
+                @endif
                 <div class="menu-item px-3">
                   <a  class="btn"  href="{{ route('bon.distribution.getPdf',$item->id_BD) }}"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
                 </div>

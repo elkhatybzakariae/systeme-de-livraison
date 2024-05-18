@@ -105,6 +105,12 @@ class BonPaymentLivreurController extends Controller
         return view('pages.admin.bonPaymentLivreur.create', compact("zones", 'breads'));
     }
 
+    public function destroy($id)
+    {
+        $bon = BonPaymentLivreur::find($id);
+        $bon->delete();
+        return redirect()->route('bon.payment.livreur.list')->with('success', 'bon deleted successfully.');
+    }
     public function update($id, $id_BPL)
     {
         $colis = Colis::where('id', $id)
