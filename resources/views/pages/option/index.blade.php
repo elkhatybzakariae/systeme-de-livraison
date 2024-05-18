@@ -326,55 +326,8 @@
                                                                     </tr>
                                                                 @endforeach
 
-                                                                {{-- <tr id="PAID" role="row" class="even">
-                                                                    <td>PAID</td>
-                                                                    <td><input name="statut_name" type="text"
-                                                                            value="Payé"></td>
-                                                                    <td><input name="statut_color" type="color"
-                                                                            value="#865679"></td>
-                                                                    <td><a href="javascript:editStatut('PAID');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a></td>
-                                                                </tr> --}}
                                                             </tbody>
                                                         </table>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-sm-12 col-md-5">
-                                                        <div class="dataTables_info" id="settings_statut_table_info"
-                                                            role="status" aria-live="polite">Affichage 1 a 10 de 27
-                                                            entrees</div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-12 col-md-7">
-                                                        <div class="dataTables_paginate paging_simple_numbers"
-                                                            id="settings_statut_table_paginate">
-                                                            <ul class="pagination">
-                                                                <li class="paginate_button page-item previous disabled"
-                                                                    id="settings_statut_table_previous"><a href="#"
-                                                                        aria-controls="settings_statut_table"
-                                                                        data-dt-idx="0" tabindex="0"
-                                                                        class="page-link">Precedent</a></li>
-                                                                <li class="paginate_button page-item active"><a
-                                                                        href="#"
-                                                                        aria-controls="settings_statut_table"
-                                                                        data-dt-idx="1" tabindex="0"
-                                                                        class="page-link">1</a></li>
-                                                                <li class="paginate_button page-item "><a href="#"
-                                                                        aria-controls="settings_statut_table"
-                                                                        data-dt-idx="2" tabindex="0"
-                                                                        class="page-link">2</a></li>
-                                                                <li class="paginate_button page-item "><a href="#"
-                                                                        aria-controls="settings_statut_table"
-                                                                        data-dt-idx="3" tabindex="0"
-                                                                        class="page-link">3</a></li>
-                                                                <li class="paginate_button page-item next"
-                                                                    id="settings_statut_table_next"><a href="#"
-                                                                        aria-controls="settings_statut_table"
-                                                                        data-dt-idx="4" tabindex="0"
-                                                                        class="page-link">Suivant</a></li>
-                                                            </ul>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -471,56 +424,8 @@
                                                                         </td>
                                                                     </tr>
                                                                 @endforeach
-
-                                                                {{-- <tr id="PAID" role="row" class="even">
-                                                                    <td>PAID</td>
-                                                                    <td><input name="statut_name" type="text"
-                                                                            value="Payé"></td>
-                                                                    <td><input name="statut_color" type="color"
-                                                                            value="#865679"></td>
-                                                                    <td><a href="javascript:editStatut('PAID');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a></td>
-                                                                </tr> --}}
                                                             </tbody>
                                                         </table>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-sm-12 col-md-5">
-                                                        <div class="dataTables_info" id="settings_statut_table_info"
-                                                            role="status" aria-live="polite">Affichage 1 a 10 de 27
-                                                            entrees</div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-12 col-md-7">
-                                                        <div class="dataTables_paginate paging_simple_numbers"
-                                                            id="settings_statut_table_paginate">
-                                                            <ul class="pagination">
-                                                                <li class="paginate_button page-item previous disabled"
-                                                                    id="settings_statut_table_previous"><a href="#"
-                                                                        aria-controls="settings_statut_table"
-                                                                        data-dt-idx="0" tabindex="0"
-                                                                        class="page-link">Precedent</a></li>
-                                                                <li class="paginate_button page-item active"><a
-                                                                        href="#"
-                                                                        aria-controls="settings_statut_table"
-                                                                        data-dt-idx="1" tabindex="0"
-                                                                        class="page-link">1</a></li>
-                                                                <li class="paginate_button page-item "><a href="#"
-                                                                        aria-controls="settings_statut_table"
-                                                                        data-dt-idx="2" tabindex="0"
-                                                                        class="page-link">2</a></li>
-                                                                <li class="paginate_button page-item "><a href="#"
-                                                                        aria-controls="settings_statut_table"
-                                                                        data-dt-idx="3" tabindex="0"
-                                                                        class="page-link">3</a></li>
-                                                                <li class="paginate_button page-item next"
-                                                                    id="settings_statut_table_next"><a href="#"
-                                                                        aria-controls="settings_statut_table"
-                                                                        data-dt-idx="4" tabindex="0"
-                                                                        class="page-link">Suivant</a></li>
-                                                            </ul>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -584,14 +489,6 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-
-
-
-
-
-
-
-
                                                                 <tr id="user-type-673" role="row" class="odd">
                                                                     <td><input name="type_name" type="text"
                                                                             value="CHOMOR"></td>
@@ -636,35 +533,6 @@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-sm-12 col-md-5">
-                                                        <div class="dataTables_info" id="settings_types_table_info"
-                                                            role="status" aria-live="polite">Affichage 1 a 4 de 4 entrees
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-12 col-md-7">
-                                                        <div class="dataTables_paginate paging_simple_numbers"
-                                                            id="settings_types_table_paginate">
-                                                            <ul class="pagination">
-                                                                <li class="paginate_button page-item previous disabled"
-                                                                    id="settings_types_table_previous"><a href="#"
-                                                                        aria-controls="settings_types_table"
-                                                                        data-dt-idx="0" tabindex="0"
-                                                                        class="page-link">Precedent</a></li>
-                                                                <li class="paginate_button page-item active"><a
-                                                                        href="#"
-                                                                        aria-controls="settings_types_table"
-                                                                        data-dt-idx="1" tabindex="0"
-                                                                        class="page-link">1</a></li>
-                                                                <li class="paginate_button page-item next disabled"
-                                                                    id="settings_types_table_next"><a href="#"
-                                                                        aria-controls="settings_types_table"
-                                                                        data-dt-idx="2" tabindex="0"
-                                                                        class="page-link">Suivant</a></li>
-                                                            </ul>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -856,39 +724,6 @@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-sm-12 col-md-5">
-                                                        <div class="dataTables_info" id="settings_banks_table_info"
-                                                            role="status" aria-live="polite">Affichage 1 a 10 de 15
-                                                            entrees</div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-12 col-md-7">
-                                                        <div class="dataTables_paginate paging_simple_numbers"
-                                                            id="settings_banks_table_paginate">
-                                                            <ul class="pagination">
-                                                                <li class="paginate_button page-item previous disabled"
-                                                                    id="settings_banks_table_previous"><a href="#"
-                                                                        aria-controls="settings_banks_table"
-                                                                        data-dt-idx="0" tabindex="0"
-                                                                        class="page-link">Precedent</a></li>
-                                                                <li class="paginate_button page-item active"><a
-                                                                        href="#"
-                                                                        aria-controls="settings_banks_table"
-                                                                        data-dt-idx="1" tabindex="0"
-                                                                        class="page-link">1</a></li>
-                                                                <li class="paginate_button page-item "><a href="#"
-                                                                        aria-controls="settings_banks_table"
-                                                                        data-dt-idx="2" tabindex="0"
-                                                                        class="page-link">2</a></li>
-                                                                <li class="paginate_button page-item next"
-                                                                    id="settings_banks_table_next"><a href="#"
-                                                                        aria-controls="settings_banks_table"
-                                                                        data-dt-idx="3" tabindex="0"
-                                                                        class="page-link">Suivant</a></li>
-                                                            </ul>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
