@@ -10,6 +10,7 @@ use App\Models\BonLivraison;
 use App\Models\BonPaymentLivreur;
 use App\Models\BonPaymentZone;
 use App\Models\BonRetourClient;
+use App\Models\BonRetourLivreur;
 use App\Models\BonRetourZone;
 use App\Models\Client;
 use App\Models\Colis;
@@ -74,10 +75,6 @@ class AdminController extends Controller
 
         $query = BonEnvois::query();
 
-        // if ($request->has('client_id') && $request->client_id) {
-        //     $query->where('id_Cl', $request->client_id);
-        // }
-
         $statistics = $query->selectRaw('status, COUNT(*) as count')
                             ->groupBy('status')
                             ->pluck('count', 'status')
@@ -85,6 +82,44 @@ class AdminController extends Controller
 
         $statusesBE = array_keys($statistics);
         $countsBE = array_values($statistics);
+
+        $query = BonDistribution::query();
+
+        $statistics = $query->selectRaw('status, COUNT(*) as count')
+                            ->groupBy('status')
+                            ->pluck('count', 'status')
+                            ->toArray();
+
+        $statusesBD = array_keys($statistics);
+        $countsBD = array_values($statistics);
+
+        $query = BonPaymentLivreur::query();
+
+        $statistics = $query->selectRaw('status, COUNT(*) as count')
+                            ->groupBy('status')
+                            ->pluck('count', 'status')
+                            ->toArray();
+
+        $statusesBPL = array_keys($statistics);
+        $countsBPL = array_values($statistics);
+
+        $query = BonRetourClient::query();
+        $statistics = $query->selectRaw('status, COUNT(*) as count')
+                            ->groupBy('status')
+                            ->pluck('count', 'status')
+                            ->toArray();
+
+        $statusesBRC = array_keys($statistics);
+        $countsBRC = array_values($statistics);
+
+        $query = BonRetourLivreur::query();
+        $statistics = $query->selectRaw('status, COUNT(*) as count')
+                            ->groupBy('status')
+                            ->pluck('count', 'status')
+                            ->toArray();
+
+        $statusesBRL = array_keys($statistics);
+        $countsBRL = array_values($statistics);
         // 
         $breads = [
             ['title' => 'Tableau de bord', 'url' => null],
@@ -94,6 +129,10 @@ class AdminController extends Controller
         'statuses', 'counts',
         'statusesBL', 'countsBL',
         'statusesBE', 'countsBE',
+        'statusesBD', 'countsBD',
+        'statusesBPL', 'countsBPL',
+        'statusesBRC', 'countsBRC',
+        'statusesBRL', 'countsBRL',
         'colis','liv','env','dis',
         'cl','payLiv','retourC',
         'payZ','fact','clients',
