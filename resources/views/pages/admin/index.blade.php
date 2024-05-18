@@ -308,7 +308,13 @@
       <h4 class="card-title">Bon Livraisons( {{ $liv }} ) </h4></div>
 
     <div class="card-body">
+      @if (count($countsBL)==0)
+        <div class="d-flex justify-content-center align-items-center w-100 h-100">
+          <h4 class="text-center text-secondary">Aucun bon de Livraison</h4>
+        </div>
+      @else
       <canvas id="bonLivraisonsChart" width="400" height="200"></canvas>
+      @endif
     </div>
   </div>
   <div class="card col-md-5 mt-5 mx-5">
@@ -324,7 +330,13 @@
       <h4 class="card-title "> Bon Envois ( {{ $env }} )</h4></div>
     
     <div class="card-body">
+      @if (count($countsBE)==0)
+        <div class="d-flex justify-content-center align-items-center w-100 h-100">
+          <h4 class="text-center text-secondary">Aucun bon de Evois</h4>
+        </div>
+      @else
       <canvas id="bonEnvoiChart" width="400" height="200"></canvas>
+      @endif
     </div>
   </div>
   <div class="card col-md-5 mt-5 mx-5">
@@ -340,7 +352,13 @@
       <h4 class="card-title "> Bon Distribution ( {{ $dis }} )</h4></div>
     
     <div class="card-body">
-      <canvas id="bonDisChart" width="400" height="200"></canvas>
+      @if (count($countsBD)==0)
+      <div class="d-flex justify-content-center align-items-center w-100 h-100">
+        <h4 class="text-center text-secondary">Aucun bon de Distribution</h4>
+      </div>
+    @else
+     <canvas id="bonDisChart" width="400" height="200"></canvas>
+    @endif
     </div>
   </div>
   <div class="card col-md-5 mt-5 mx-5">
@@ -356,7 +374,13 @@
       <h4 class="card-title "> Bon payment livreur ( {{ $env }} )</h4></div>
     
     <div class="card-body">
-      <canvas id="bonPLChart" width="400" height="200"></canvas>
+      @if (count($countsBPL)==0)
+      <div class="d-flex justify-content-center align-items-center w-100 h-100">
+        <h4 class="text-center text-secondary">Aucun bon de payment livreur</h4>
+      </div>
+    @else
+     <canvas id="bonPLChart" width="400" height="200"></canvas>
+    @endif
     </div>
   </div>
   <div class="card col-md-5 mt-5 mx-5">
@@ -372,7 +396,13 @@
       <h4 class="card-title "> Bon Retour Client ( {{ $env }} )</h4></div>
     
     <div class="card-body">
-      <canvas id="bonRCChart" width="400" height="200"></canvas>
+      @if (count($countsBRC)==0)
+      <div class="d-flex justify-content-center align-items-center w-100 h-100">
+        <h4 class="text-center text-secondary">Aucun bon de retour Client</h4>
+      </div>
+    @else
+     <canvas id="bonRCChart" width="400" height="200"></canvas>
+    @endif
     </div>
   </div>
   <div class="card col-md-5 mt-5 mx-5">
@@ -388,7 +418,15 @@
       <h4 class="card-title "> Bon Retour Livreur ( {{ $env }} )</h4></div>
     
     <div class="card-body">
-      <canvas id="bonRLChart" width="400" height="200"></canvas>
+      {{-- @dd(count($countsBRL)) --}}
+      @if (count($countsBRL)==0)
+        <div class="d-flex justify-content-center align-items-center w-100 h-100">
+          <h4 class="text-center text-secondary">Aucun bon de retour livreur</h4>
+        </div>
+      @else
+
+       <canvas id="bonRLChart" width="400" height="200"></canvas>
+      @endif
     </div>
   </div>
 </div>
