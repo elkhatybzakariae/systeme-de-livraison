@@ -13,7 +13,7 @@ class BonRetourLivreur extends Model
     protected $keyType='string';
     public $timestamps=true;
 
-    protected $fillable = ['id_BRL','reference','status','id_Liv'];
+    protected $fillable = ['id_BRL','reference','status','id_Liv','id_Z'];
     public function colis()
     {
         return $this->hasMany(Colis::class,'id_BRL');

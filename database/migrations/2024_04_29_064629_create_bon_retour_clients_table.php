@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bon_retour_clients', function (Blueprint $table) {
-            $table->string('id_BRL', 15)->primary();
+            $table->string('id_BRC', 15)->primary();
             $table->string('reference');
             $table->string('id_CL');
             $table->foreign('id_CL')->references('id_CL')->on('clients');

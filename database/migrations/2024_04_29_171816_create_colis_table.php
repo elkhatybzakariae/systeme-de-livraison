@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('telephone');
             $table->string('marchandise');
             $table->string('etat')->default('non paye');
-            $table->enum('status',['nouveau','en livraison','Attente de Ramassage','Ramasse','en voyage','recu','livraison','distribution','livre'])->default('nouveau');
+            $table->enum('status',['nouveau','en livraison','Attente de Ramassage','Ramasse','en voyage','recu','livraison','distribution','livre','retourne'])->default('nouveau');
             $table->string('zone');
             $table->foreign('zone')->on('zones')->references('id_Z');
             $table->string('ville_id');
@@ -43,6 +43,8 @@ return new class extends Migration
             $table->foreign('id_BPL')->on('bon_payment_livreurs')->references('id_BPL');
             $table->string('id_BRL')->nullable();
             $table->foreign('id_BRL')->on('bon_retour_livreurs')->references('id_BRL');
+            $table->string('id_BRC')->nullable();
+            $table->foreign('id_BRC')->on('bon_retour_clients')->references('id_BRC');
 
             $table->timestamps();
 

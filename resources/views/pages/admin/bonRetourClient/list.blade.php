@@ -52,7 +52,7 @@
           <option value="recu">recu</option>
         </select>
       </div>
-      <a href="{{ route('bon.distribution.create') }}" class="btn btn-primary" >Ajouter  Bon Distribution</a>
+      <a href="{{ route('bon.retour.client.create') }}" class="btn btn-primary" >Ajouter  Bon Retour Client</a>
     </div>
   </div>
 
@@ -62,9 +62,8 @@
         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
           
           <th class="min-w-200px">reference</th>
-          <th class="min-w-70px">Zone</th>
-          <th class="min-w-100px">Livreurs</th>
           <th class="min-w-100px">Date de creation</th>
+          <th class="min-w-100px">Nom Magazin</th>
           <th class="min-w-100px">statut</th>
           <th class="min-w-100px">colis</th>
           <th class="min-w-70px">Actions</th>
@@ -80,14 +79,12 @@
                 </div>
               </div>
             </td>
-            <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="zonename">{{ $item->zone }}</span>
-            </td>
-            <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="nomcomplet">{{ $item->liv_nomcomplet }}</span>
-            </td>
+            
             <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="date">{{ $item->created_at }}</span>
+            </td>
+            <td class="pe-0">
+              <span class="fw-bold" data-kt-ecommerce-product-filter="nomcomplet">{{ $item->nomcomplet }}</span>
             </td>
             
             <td class="pe-0">

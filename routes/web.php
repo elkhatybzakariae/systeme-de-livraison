@@ -159,6 +159,8 @@ Route::middleware('check.admin')->group(function () {
         Route::post('/update/delete/all/{id_BRL}', [BonRetourLivreurController::class, 'updateDeleteAll'])->name('bon.retour.livreur.updateDelete.all');
         Route::get('/export/colis/{id}', [BonRetourLivreurController::class, 'exportColis'])->name('bon.retour.livreur.exportColis');
         Route::get('/get/pdf/{id_BRL}', [BonRetourLivreurController::class, 'getPdf'])->name('bon.retour.livreur.getPdf');
+        Route::post('admin/bon-distributions/bd/{id_BD}', [BonRetourLivreurController::class, 'recu'])->name('bon.retour.livreur.recu');
+
     });
     Route::group(['prefix' => 'admin/bon-retour-zone'], function () {
         Route::get('/bon/{id_BRZ?}', [BonRetourZoneController::class, 'index'])->name('bon.retour.zone.index');

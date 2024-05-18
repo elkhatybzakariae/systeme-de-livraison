@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
             ]);
             Colis::factory(10)->create([
                 'id_Cl'=>'iecFC3g7Jx',
-
+                'status'=>'retourne'
             ]);
         \App\Models\Admin::factory(10)->create();
         // $this->call(ColisSeeder::class);

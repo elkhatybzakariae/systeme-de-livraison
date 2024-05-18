@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BonRetourClient;
+use App\Models\Client;
 use App\Models\Colis;
 use App\Models\colisinfo;
 use App\Models\Zone;
@@ -30,17 +31,13 @@ class BonRetourClientController extends Controller
         $colisBon = [];
         // dd($colis);
         if (!$id_BRC) {
-            if ($user) {
-                $bonLivraison = BonRetourClient::create([
-                    'id_BRC' => 'BRC-' . Str::random(10),
-                    'reference' => 'BRC-' . Str::random(10),
-                    'status' => 'nouveau',
-                    'id_Z' => $id_Z,
-                    'id_Liv' => $request->input('id_Liv'),
-                ]);
-            } else {
-                return redirect(route('auth.client.signIn'));
-            }
+            $bonLivraison = BonRetourClient::create([
+                'id_BRC' => 'BRC-' . Str::random(10),
+                'reference' => 'BRC-' . Str::random(10),
+                'status' => 'nouveau',
+                'id_Cl' => $request->input('id_Cl'),
+            ]);
+           
         } else {
             $bonLivraison = BonRetourClient::query()->with('colis')->where('id_BRC', $id_BRC)->first();
             $colisBon = DB::select('select * from colis 
@@ -57,16 +54,12 @@ class BonRetourClientController extends Controller
     }
     public function list()
     {
-        $user = session('user');
-        if (!$user) {
-            return redirect(route('auth.admin.signIn'));
-        }
+      
 
         $bons = BonRetourClient::withCount('colis') // Count related colis
             ->withSum('colis', 'prix') // Sum prices of related colis
-            ->leftJoin('livreurs', 'bon_retour_clients.id_Liv', '=', 'livreurs.id_Liv')
-            ->leftJoin('zones', 'bon_retour_clients.id_Z', '=', 'zones.id_Z')
-            ->select('bon_retour_clients.*', 'livreurs.nomcomplet as liv_nomcomplet', 'zones.zonename as zone')
+            ->leftJoin('clients', 'bon_retour_clients.id_Cl', '=', 'clients.id_Cl')
+            ->select('bon_retour_clients.*', 'clients.nomcomplet as nomcomplet')
             ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BRC = bon_retour_clients.id_BRC) as colis_count'))
             ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BRC = bon_retour_clients.id_BRC) as total_prix')) // Corrected table name (BL -> BD)
             ->leftJoin('colis', 'bon_retour_clients.id_BRC', '=', 'colis.id_BRC')
@@ -83,22 +76,19 @@ class BonRetourClientController extends Controller
     }
     public function create()
     {
-        $user = session('user');
-        if (!$user) {
-            return redirect(route('auth.client.signIn'));
-        }
+        
 
-        $zones = Zone::withCount([
+        $clients = Client::withCount([
             'colis' => function ($query) {
-                $query->where('status', 'distribution');
+                $query->where('status', 'retourne');
             }
-        ])->with(['colis', 'livreurs'])->get();
+        ])->with(['colis'])->get();
 
         $breads = [
             ['title' => 'créer un Bon Distribution', 'url' => null],
             ['text' => 'Bons', 'url' => null],
         ];
-        return view('pages.admin.bonRetourClient.create', compact("zones", 'breads'));
+        return view('pages.admin.bonRetourClient.create', compact("clients", 'breads'));
     }
 
     public function update($id, $id_BRC)
@@ -193,10 +183,10 @@ class BonRetourClientController extends Controller
         $bon = BonRetourClient::where('bon_retour_clients.id_BRC', $id) // Specify the table for id_BRC
             ->withCount('colis') // Count related colis
             ->withSum('colis', 'prix') // Sum prices of related colis
-            ->leftJoin('livreurs', 'bon_retour_clients.id_Liv', '=', 'livreurs.id_Liv')
+            ->leftJoin('clients', 'bon_retour_clients.id_Liv', '=', 'clients.id_Liv')
             ->leftJoin('zones', 'bon_retour_clients.id_Z', '=', 'zones.id_Z')
             ->leftJoin('colis', 'bon_retour_clients.id_BRC', '=', 'colis.id_BRC')
-            ->select('bon_retour_clients.*', 'livreurs.nomcomplet as liv_nom', 'livreurs.Phone as liv_tele', 'zones.zonename as liv_zone')
+            ->select('bon_retour_clients.*', 'clients.nomcomplet as liv_nom', 'clients.Phone as liv_tele', 'zones.zonename as liv_zone')
             ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BRC = bon_retour_clients.id_BRC) as colis_count'))
             ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BRC = bon_retour_clients.id_BRC) as prix_total')) // Corrected table name (BL -> BD)
             ->with('colis', 'colis.ville')

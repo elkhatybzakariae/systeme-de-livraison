@@ -3,10 +3,10 @@
     <x-breadcrumb :breads="$breads" />
 @endsection
 @section('content')
-    <form action="{{ route('bon.distribution.index') }}">
+    <form action="{{ route('bon.retour.livreur.index') }}">
         <div class="card">
             <div class="card-header">
-                <h5>Ajouter Bon de distribution </h5>
+                <h5>Ajouter Bon de Retour Livreur </h5>
             </div>
 
             <div class="card-body">

@@ -16,7 +16,7 @@ class BonRetourLivreurController extends Controller
 {
     public function index(Request $request, $id_BRL = null)
     {
-        // dd($request);
+        // dd($request->input('zone'));
         $id_Z = $request->input('zone');
         if ($id_Z == null) {
             $id_Z = session('zone');
@@ -95,10 +95,10 @@ class BonRetourLivreurController extends Controller
         ])->with(['colis', 'livreurs'])->get();
 
         $breads = [
-            ['title' => 'créer un Bon Distribution', 'url' => null],
+            ['title' => 'Créer un Bon Retour Livreur', 'url' => null],
             ['text' => 'Bons', 'url' => null],
         ];
-        return view('pages.admin.bonDistribution.create', compact("zones", 'breads'));
+        return view('pages.admin.bonRetourLivreur.create', compact("zones", 'breads'));
     }
 
     public function update($id, $id_BRL)
@@ -152,7 +152,7 @@ class BonRetourLivreurController extends Controller
                     ->update(['id_BRL' => $id_BRL, 'status' => 'en livraison']);
             }
         }
-        return redirect()->route('bon.retour.livreur..index', $id_BRL);
+        return redirect()->route('bon.retour.livreur.index', $id_BRL);
     }
     public function updateDeleteAll(Request $request, $id_BRL)
     {
@@ -166,7 +166,7 @@ class BonRetourLivreurController extends Controller
                     ->update(['id_BRL' => null, 'status' => 'distribution']);
             }
         }
-        return redirect()->route('bon.retour.livreur..index', $id_BRL);
+        return redirect()->route('bon.retour.livreur.index', $id_BRL);
     }
     public function exportColis($id_BRL)
     {
