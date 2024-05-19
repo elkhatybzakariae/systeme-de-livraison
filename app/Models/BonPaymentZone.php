@@ -13,13 +13,13 @@ class BonPaymentZone extends Model
     protected $keyType='string';
     public $timestamps=true;
 
-    protected $fillable = ['id_BPZ','reference','status','id_Cl'];
+    protected $fillable = ['id_BPZ','reference','status','id_Z'];
     public function colis()
     {
         return $this->hasMany(Colis::class,'id_BPZ');
     }
-    public function client()
+    public function zone()
     {
-        return $this->belongsTo(Client::class,'id_Cl');
+        return $this->belongsTo(Zone::class,'id_Z');
     }
 }
