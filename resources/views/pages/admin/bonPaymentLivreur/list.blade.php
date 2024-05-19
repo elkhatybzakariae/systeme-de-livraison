@@ -114,14 +114,23 @@
                   <a  class="btn"  href="{{ route('bon.payment.livreur.exportColis',$item->id_BPL) }}"><i class="far fa-file-excel"></i>Exporter les colis</a>
                 </div>
                 <div class="menu-item px-3">
-                  <a  class="btn"><i class="fa fa-check"></i>bon bien recu</a>
+                  @if ($item->status != 'Paye')
+                    <div class="menu-item px-3">
+                  <form action="{{route('bon.payment.livreur.recu',$item->id_BPL)}}" method="post">
+                    @csrf
+                    <button type="submit"class="btn">
+                      <i class="fa fa-check"></i>changer en paye</a>
+                    </button>
+                  </form>
+                </div>
+                @endif
                 </div>
                 <div class="menu-item px-3">
                   <a  class="btn"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
                 </div>
                 @if ($item->colis->count()==0)
                   <div class="menu-item  text-hover-danger px-3">        
-                    <a  href="{{ route('bon.payement.livreur.destroy',$item->id_BPL) }}" class="btn">
+                    {{-- <a  href="{{ route('bon.payement.livreur.destroy',$item->id_BPL) }}" class="btn"> --}}
                       <i class="fa fa-trash"></i>Delete
                     </a>
                   </div>

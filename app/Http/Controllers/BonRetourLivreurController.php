@@ -25,7 +25,12 @@ class BonRetourLivreurController extends Controller
         }
         // dd(session('zone'));
         $user = session('user');
-        $colis = Colis::query()->with('ville')->whereNull('id_BRL')->where('zone', $id_Z)->get();
+        $colis = Colis::query()->with('ville')->whereNull('id_BRL')->where('zone', $id_Z)
+            ->whereNotIn(
+                'status',
+                ['livre', 'ramasse', 'nouveau', 'Attente de Ramassage', 'Expedie', 'Mise en distrubition', 'recu']
+            )
+            ->get();
 
         $colisBon = [];
         // dd($colis);
@@ -87,10 +92,17 @@ class BonRetourLivreurController extends Controller
         if (!$user) {
             return redirect(route('auth.client.signIn'));
         }
-
+        // $zones = Zone::withCount([
+        //     'colis' => function ($query) {
+        //         $query->where('status', 'distribution');
+        //     }
+        // ])->with(['colis', 'livreurs'])->get();
         $zones = Zone::withCount([
             'colis' => function ($query) {
-                $query->where('status', 'distribution');
+                $query->whereNotIn(
+                    'status',
+                    ['livre', 'ramasse', 'nouveau', 'Attente de Ramassage', 'Expedie', 'Mise en distrubition', 'recu']
+                );
             }
         ])->with(['colis', 'livreurs'])->get();
 
@@ -109,27 +121,25 @@ class BonRetourLivreurController extends Controller
     public function update($id, $id_BRL)
     {
         $colis = Colis::where('id', $id)
-            ->update(['id_BRL' => $id_BRL, 'status' => 'en livraison']);
+            ->update(['id_BRL' => $id_BRL, 'status' => 'Expedier vers Centre Retour']);
         $coli = Colis::where('id', $id)->first();
         $colisinfo = colisinfo::where('id', $id)->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,en livraison,' . $coli['updated_at'] . ',' . ' ' . '_';
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,Expedier vers Centre Retour,' . $coli['updated_at'] . ',' . ' ' . '_';
 
         $colisinfo->update(['info' => $newInfo]);
-        return redirect()->route('bon.distribution.index', $id_BRL);
+        return redirect()->route('bon.retour.livreur.index', $id_BRL);
     }
     public function recu($id_BRL)
     {
-        Colis::where('id_BRL', $id_BRL)
-            ->update(['status' => 'recu']);
         BonRetourLivreur::where('id_BRL', $id_BRL)
             ->update(['status' => 'recu']);
-        $coli = Colis::where('id_BRL', $id_BRL)->first();
-        $colisinfo = colisinfo::where('id', $coli['id'])->first();
-        $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,recu,' . $coli['updated_at'] . ',' . ' ' . '_';
+        // $coli = Colis::where('id_BRL', $id_BRL)->first();
+        // $colisinfo = colisinfo::where('id', $coli['id'])->first();
+        // $oldinfo = $colisinfo['info'];
+        // $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,recu,' . $coli['updated_at'] . ',' . ' ' . '_';
 
-        $colisinfo->update(['info' => $newInfo]);
+        // $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.retour.livreur.list');
     }
     public function updateDelete($id, $id_BRL)
@@ -147,14 +157,14 @@ class BonRetourLivreurController extends Controller
         // dd($request->input('query'));
         if ($request->input('query')) {
             $colis = Colis::where('id', $request->input('query'))
-                ->update(['id_BRL' => $id_BRL, 'status' => 'en livraison']);
+                ->update(['id_BRL' => $id_BRL, 'status' => 'Expedier vers Centre Retour']);
         } else {
 
 
             foreach ($request->colis as $colis) {
 
                 $colis = Colis::where('id', $colis)
-                    ->update(['id_BRL' => $id_BRL, 'status' => 'en livraison']);
+                    ->update(['id_BRL' => $id_BRL, 'status' => 'Expedier vers Centre Retour']);
             }
         }
         return redirect()->route('bon.retour.livreur.index', $id_BRL);

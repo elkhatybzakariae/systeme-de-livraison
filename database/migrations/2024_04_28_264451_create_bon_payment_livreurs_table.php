@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('id_Z');
             $table->foreign('id_Z')->references('id_Z')->on('zones');
         
-            $table->string('status');
+            $table->string('status')->default('Attente  Paiement');
             $table->timestamps();
         });
     }

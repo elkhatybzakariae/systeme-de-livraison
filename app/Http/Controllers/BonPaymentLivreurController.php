@@ -24,7 +24,13 @@ class BonPaymentLivreurController extends Controller
         }
         // dd(session('zone'));
         $user = session('user');
-        $colis = Colis::query()->with('ville')->whereNull('id_BPL')->where('zone', $id_Z)->get();
+        // $colis = Colis::query()->with('ville')->whereNull('id_BPL')->where('zone', $id_Z)->get();
+        $colis = Colis::query()
+            ->with('ville')
+            ->whereNull('id_BPL')
+            ->where('zone', $id_Z)
+            ->where('status', 'livré')
+            ->get();
 
         $colisBon = [];
         if (!$id_BPL) {
@@ -89,10 +95,29 @@ class BonPaymentLivreurController extends Controller
     {
         $user = session('user');
 
+        // $zones = Zone::whereHas('colis', function ($query) {
+        //     $query->where('status', 'livre');
+        // })
+        //     ->with(['colis', 'livreurs'])
+        //     ->withCount('colis')
+        //     ->get();
+        // $zones = Zone::with([
+        //     'colis' => function ($query) {
+        //         $query->where('status', 'livre');
+        //     },
+        //     'livreurs'
+        // ])
+        // ->withCount('colis')
+        // ->get();
         $zones = Zone::whereHas('colis', function ($query) {
-            $query->where('status', 'recu')->where('etat', 'non paye');
+            $query->where('status', 'livre');
         })
-            ->with(['colis', 'livreurs'])
+            ->with([
+                'colis' => function ($query) {
+                    $query->where('status', 'livre');
+                },
+                'livreurs'
+            ])
             ->withCount('colis')
             ->get();
 
@@ -114,52 +139,59 @@ class BonPaymentLivreurController extends Controller
     public function update($id, $id_BPL)
     {
         $colis = Colis::where('id', $id)
-            ->update(['id_BPL' => $id_BPL, 'etat' => 'paye']);
+            ->update(['id_BPL' => $id_BPL]);
         return redirect()->route('bon.payment.livreur.index', $id_BPL);
     }
     public function updateDelete($id, $id_BPL)
     {
         $colis = Colis::where('id', $id)
-            ->update(['id_BPL' => null, 'etat' => 'non paye']);
+            ->update(['id_BPL' => null]);
 
         // dd($colis);
         return redirect()->route('bon.payment.livreur.index', $id_BPL);
     }
 
-   
+
     public function updateAll(Request $request, $id_BPL)
     {
         // dd($request->input('query'));
-        if($request->input('query')){
+        if ($request->input('query')) {
             $colis = Colis::where('id', $request->input('query'))
-            ->update(['id_BPL' => $id_BPL, 'status' => 'livre']);
-        }else{
+                ->update(['id_BPL' => $id_BPL]);
+        } else {
 
 
             foreach ($request->colis as $colis) {
-    
-                $colis = Colis::where('id', $colis)
-                    ->update(['id_BPL' => $id_BPL, 'status' => 'livre']);
-            }
 
-           
+                $colis = Colis::where('id', $colis)
+                    ->update(['id_BPL' => $id_BPL]);
+            }
         }
         return redirect()->route('bon.payment.livreur.index', $id_BPL);
     }
     public function updateDeleteAll(Request $request, $id_BPL)
     {
-        if($request->query){
+        if ($request->query) {
             $colis = Colis::where('id', $request->input('query'))
-            ->update(['id_BPL' => null,'status'=>'en Livraison']);
-        }else{
+                ->update(['id_BPL' => null]);
+        } else {
             foreach ($request->colisDelete as $colis) {
 
                 $colis = Colis::where('id', $colis)
-                    ->update(['id_BPL' => null,'status'=>'en Livraison']);
+                    ->update(['id_BPL' => null]);
             }
         }
         return redirect()->route('bon.payment.livreur.index', $id_BPL);
     }
+
+    public function recu($id_BPL)
+    {
+        BonPaymentLivreur::where('id_BPL', $id_BPL)
+            ->update(['status' => 'Paye']);
+        return back();
+    }
+
+    
     public function exportColis($id_BPL)
     {
         $colis = Colis::where('id_BPL', $id_BPL)->get();
@@ -185,7 +217,7 @@ class BonPaymentLivreurController extends Controller
     public function livreurBP()
     {
         $liv = Auth::id();
-        
+
         $bons = BonPaymentLivreur::select(
             'bon_payment_livreurs.id_BPL',
             'bon_payment_livreurs.reference',

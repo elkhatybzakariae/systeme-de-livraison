@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Helpers;
 use App\Models\BonDistribution;
 use App\Models\Colis;
+use App\Models\colisinfo;
 use App\Models\Livreur;
 use App\Models\Zone;
 use Illuminate\Http\Request;
@@ -120,6 +121,43 @@ class LivreurController extends Controller
         // dd($colis);
         return view('pages.livreur.colis.index', compact('colis', 'breads'));
     }
+
+    public function changestatus(Request $req, $id)
+    {
+        // dd($req);$livId = Auth::id();
+        $livId = Auth::id();
+        // Récupérer les informations spécifiques de l'utilisateur
+        $livreur = Livreur::find($livId, ['Phone', 'nomcomplet']);
+
+        $breads = [
+            ['title' => 'Liste des colid', 'url' => null],
+            ['text' => 'colis', 'url' => null],
+        ];
+        if ($req->status == 'livre') {
+            Colis::where('id', $id)
+                ->update(['etat' => 'paye']);
+            $dt = 'paye,livre';
+        } else {
+            $dt = 'non paye,' . $req->status;
+        }
+        if ($req->cmt == '') {
+            $cmt = '';
+        } else {
+            $cmt = 'Commentaire:' . $req->cmt;
+        }
+        $info = 'Livreur:'.$livreur->nomcomplet.'<br>Telephone:'.$livreur->Phone.'<br>'.$cmt;
+        $colis = Colis::where('id', $id)
+            ->update(['status' => $req->status]);
+        $coli = Colis::where('id', $id)->first();
+        $colisinfo = colisinfo::where('id', $id)->first();
+        $oldinfo = $colisinfo['info'];
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',' . $dt . ',' . $coli['updated_at'] . ',' .$info . '_';
+
+        $colisinfo->update(['info' => $newInfo]);
+
+        return back();
+    }
+
     public function allBD()
     {
         $liv = Auth::id();
@@ -132,7 +170,7 @@ class LivreurController extends Controller
             ->withCount('colis')
             ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BD = bon_distributions.id_BD) as total_prix'))
             ->leftJoin('colis', 'bon_distributions.id_BD', '=', 'colis.id_BD')
-            ->with('colis', 'colis.ville')            
+            ->with('colis', 'colis.ville')
             ->distinct()
             ->get();
 
@@ -154,8 +192,7 @@ class LivreurController extends Controller
             return back()->withErrors(['email' => 'We can\'t find a user with that email address.']);
         }
         $token = Str::random(60);
-        $user = Livreur::where('email', $request->email)->
-        update([
+        $user = Livreur::where('email', $request->email)->update([
             'token' => bcrypt($token),
         ]);
         Mail::send('auth.livreur.email', ['token' => $token], function ($message) use ($request) {
@@ -186,8 +223,8 @@ class LivreurController extends Controller
             // dd($request->all());
             return back()->withErrors(['email' => 'The provided credentials are incorrect.']);
         }
-            
-       
+
+
 
         // Reset the user's password
         Livreur::where('email', $request->email)->update([

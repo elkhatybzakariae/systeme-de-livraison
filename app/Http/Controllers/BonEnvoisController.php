@@ -116,11 +116,11 @@ class BonEnvoisController extends Controller
     public function update($id, $id_BE)
     {
         $colis = Colis::where('id', $id)
-            ->update(['id_BE' => $id_BE, 'status' => 'en voyage']);
+            ->update(['id_BE' => $id_BE, 'status' => 'Expedie']);
         $coli = Colis::where('id', $id)->first();
         $colisinfo = colisinfo::where('id', $id)->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,en voyage,' . $coli['updated_at'].','.' '.'_';
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,Expedie,' . $coli['updated_at'].','.' '.'_';
 
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.envoi.index', $id_BE);
@@ -128,13 +128,13 @@ class BonEnvoisController extends Controller
     public function recu($id_BE)
     {
         Colis::where('id_BE', $id_BE)
-            ->update(['status' => 'distribution']);
+            ->update(['status' => 'Recu']);
         BonEnvois::where('id_BE', $id_BE)
-            ->update(['status' => 'distribution']);
+            ->update(['status' => 'Recu']);
         $coli = Colis::where('id_BE', $id_BE)->first();
         $colisinfo = colisinfo::where('id', $coli['id'])->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,distribution,' . $coli['updated_at'] .','.' '.'_';
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,Recu,' . $coli['updated_at'] .','.' '.'_';
 
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.envoi.list');
@@ -154,14 +154,14 @@ class BonEnvoisController extends Controller
         // dd($request->input('query'));
         if ($request->input('query')) {
             $colis = Colis::where('id', $request->input('query'))
-                ->update(['id_BE' => $id_BE, 'status' => 'en voyage']);
+                ->update(['id_BE' => $id_BE, 'status' => 'Expedie']);
         } else {
 
 
             foreach ($request->colis as $colis) {
 
                 $colis = Colis::where('id', $colis)
-                    ->update(['id_BE' => $id_BE, 'status' => 'en voyage']);
+                    ->update(['id_BE' => $id_BE, 'status' => 'Expedie']);
             }
         }
         return redirect()->route('bon.envoi.index', $id_BE);

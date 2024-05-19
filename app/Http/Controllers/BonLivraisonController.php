@@ -160,12 +160,12 @@ class BonLivraisonController extends Controller
     {
         if ($request->query) {
             $colis = Colis::where('id', $request->input('query'))
-                ->update(['id_BL' => null]);
+                ->update(['id_BL' => null, 'status' => 'nouveau']);
         } else {
             foreach ($request->colisDelete as $colis) {
 
                 $colis = Colis::where('id', $colis)
-                    ->update(['id_BL' => null]);
+                    ->update(['id_BL' => null, 'status' => 'nouveau']);
             }
         }
         return redirect()->route('bon.livraison.index', $id_BL);

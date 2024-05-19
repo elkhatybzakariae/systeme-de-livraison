@@ -29,6 +29,7 @@ use App\Http\Controllers\typeBankController;
 use App\Http\Controllers\typeClientController;
 use App\Http\Controllers\VilleController;
 use App\Http\Controllers\ZoneController;
+use App\Models\BonPaymentLivreur;
 use App\Models\Etat;
 use App\Models\typeBank;
 use App\Models\typeClient;
@@ -221,6 +222,7 @@ Route::middleware('check.admin')->group(function () {
     Route::post('admin/bon-livraisons/bl/{id_BL}', [BonLivraisonController::class, 'recu'])->name('bon.livraison.recu');
     Route::post('admin/bon-envoies/be/{id_BE}', [BonEnvoisController::class, 'recu'])->name('bon.envoie.recu');
     Route::post('admin/bon-distributions/bd/{id_BD}', [BonDistributionController::class, 'recu'])->name('bon.distribution.recu');
+    Route::post('admin/bon-payment-livreur/bpl/{id_BPL}', [BonPaymentLivreurController::class, 'recu'])->name('bon.payment.livreur.recu');
     Route::get('admin/bon-livraisons//export/colis/{id}', [BonLivraisonController::class, 'exportColis'])->name('bon.livraison.exportColis');
     Route::get('admin/paramete/generale', [ParamtreController::class, 'index'])->name('parametre.index');
 });
@@ -287,6 +289,7 @@ Route::middleware('check.livreur')->group(function () {
         Route::get('/dashboard',  'index')->name('livreur.index');
         Route::get('/signoutr',  'signout')->name('signout.livreur');
         Route::get('/colis',  'allcolis')->name('livreur.colis');
+        Route::post('/coli/{id}',  'changestatus')->name('livreur.changestatus');
         Route::get('/bons_distributions',  'allBD')->name('livreur.BD');
     });
 });
