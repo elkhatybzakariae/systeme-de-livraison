@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('id_CL');
             $table->foreign('id_CL')->references('id_CL')->on('clients');
            
-            $table->string('status');
+            $table->string('status')->default('Nouveau');
             $table->timestamps();
         });
     }

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreign('id_Cl')->on('clients')->references('id_Cl');
             $table->string('telephone');
             $table->string('marchandise');
-            $table->string('etat')->default('non paye');
-            $table->enum('status',['nouveau','Mise en distrubition','Expedie','en livraison','Attente de Ramassage','Ramasse','en voyage','recu','livraison','distribution','retourne','livre','reporte','pasdereponse','injoignable','Hors-zone','annule','refuse','numeroerrone','deuxiemeappel','programme','boitevocale','clientinteresse','Expedier vers Centre Retour','Recu par Centre Retour'])->default('nouveau');
+            $table->string('etat')->default('Non Paye');
+            $table->enum('status',['Nouveau','Mise en distribution','Expedie','En livraison','Attente de Ramassage','Ramasse','En voyage','Recu','Livraison','Distribution','Retourne','Livre','Reporte','Pas de Reponse','Injoignable','Hors-Zone','Annule','Refuse','Numero Errone','Deuxieme Appel','Programme','Boite vocale','Client interesse','Expedier vers Centre Retour','Recu par Centre Retour'])->default('Nouveau');
             $table->string('zone');
             $table->foreign('zone')->on('zones')->references('id_Z');
             $table->string('ville_id');

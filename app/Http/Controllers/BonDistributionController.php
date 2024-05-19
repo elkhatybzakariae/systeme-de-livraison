@@ -18,25 +18,23 @@ class BonDistributionController extends Controller
 {
     public function index(Request $request, $id_BD = null)
     {
-        // dd($request);
         $id_Z = $request->input('zone');
         if ($id_Z == null) {
             $id_Z = session('zone');
         } else {
             session(['zone' => $id_Z]);
         }
-        // dd(session('zone'));
         $user = session('user');
-        $colis = Colis::query()->with('ville')->whereNull('id_BD')->where('zone', $id_Z)->get();
+        $colis = Colis::query()->with('ville')->whereNull('id_BD')
+        ->where('status', 'Recu')->where('zone', $id_Z)->get();
 
         $colisBon = [];
-        // dd($colis);
         if (!$id_BD) {
             if ($user) {
                 $bonLivraison = BonDistribution::create([
                     'id_BD' => 'BD-' . Str::random(12),
                     'reference' => 'BD-' . Str::random(10),
-                    'status' => 'nouveau',
+                    'status' => 'Nouveau',
                     'id_Z' => $id_Z,
                     'id_Liv' => $request->input('id_Liv'),
                 ]);
@@ -110,7 +108,7 @@ class BonDistributionController extends Controller
         $coli = Colis::where('id', $id)->first();
         $colisinfo = colisinfo::where('id', $id)->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,Mise en distrubition,' . $coli['updated_at'] . ',' . ' ' . '_';
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Mise en distrubition,' . $coli['updated_at'] . ',' . ' ' . '_';
 
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.distribution.index', $id_BD);
@@ -118,13 +116,13 @@ class BonDistributionController extends Controller
     public function recu($id_BD)
     {
         Colis::where('id_BD', $id_BD)
-            ->update(['status' => 'recu']);
+            ->update(['status' => 'Recu']);
         BonDistribution::where('id_BD', $id_BD)
-            ->update(['status' => 'recu']);
+            ->update(['status' => 'Recu']);
         $coli = Colis::where('id_BD', $id_BD)->first();
         $colisinfo = colisinfo::where('id', $coli['id'])->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,recu,' . $coli['updated_at'] . ',' . ' ' . '_';
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Recu,' . $coli['updated_at'] . ',' . ' ' . '_';
 
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.distribution.list');
@@ -139,7 +137,6 @@ class BonDistributionController extends Controller
     }
     public function updateAll(Request $request, $id_BD)
     {
-        // dd($request->input('query'));
         if ($request->input('query')) {
             $colis = Colis::where('id', $request->input('query'))
                 ->update(['id_BD' => $id_BD, 'status' => 'Mise en distrubition']);

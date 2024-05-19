@@ -110,7 +110,7 @@
                 <div class="menu-item px-3">
                   <a  class="btn" href="{{ route('bon.envoi.exportColis',$item->id_BE) }}"><i class="far fa-file-excel"></i>Exporter les colis</a>
                 </div>
-                @if ($item->status != 'distribution')
+                @if ($item->status != 'Recu')
                     <div class="menu-item px-3">
                   <form action="{{route('bon.envoie.recu',$item->id_BE)}}" method="post">
                     @csrf

@@ -25,9 +25,10 @@ class BonEnvoisController extends Controller
         } else {
             session(['zone' => $id_Z]);
         }
-        // dd(session('zone'));
         $user = session('user');
-        $colis = Colis::query()->with('ville')->whereNull('id_BE')->where('zone', $id_Z)->get();
+        $colis = Colis::query()->with('ville')
+            ->whereNull('id_BE')->where('status', 'Ramasse')
+            ->where('zone', $id_Z)->get();
 
         $colisBon = [];
         if (!$id_BE) {
@@ -35,7 +36,7 @@ class BonEnvoisController extends Controller
                 $bonLivraison = BonEnvois::create([
                     'id_BE' => 'BE-' . Str::random(12),
                     'reference' => 'BE-' . Str::random(10),
-                    'status' => 'nouveau',
+                    'status' => 'Nouveau',
                     // 'id_Cl'=>$user['id_Cl']
                 ]);
             } else {
@@ -120,7 +121,7 @@ class BonEnvoisController extends Controller
         $coli = Colis::where('id', $id)->first();
         $colisinfo = colisinfo::where('id', $id)->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,Expedie,' . $coli['updated_at'].','.' '.'_';
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Expedie,' . $coli['updated_at'] . ',' . ' ' . '_';
 
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.envoi.index', $id_BE);
@@ -134,7 +135,7 @@ class BonEnvoisController extends Controller
         $coli = Colis::where('id_BE', $id_BE)->first();
         $colisinfo = colisinfo::where('id', $coli['id'])->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,Recu,' . $coli['updated_at'] .','.' '.'_';
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Recu,' . $coli['updated_at'] . ',' . ' ' . '_';
 
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.envoi.list');

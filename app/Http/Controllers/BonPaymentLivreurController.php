@@ -22,14 +22,13 @@ class BonPaymentLivreurController extends Controller
         } else {
             session(['zone' => $id_Z]);
         }
-        // dd(session('zone'));
         $user = session('user');
         // $colis = Colis::query()->with('ville')->whereNull('id_BPL')->where('zone', $id_Z)->get();
         $colis = Colis::query()
             ->with('ville')
             ->whereNull('id_BPL')
             ->where('zone', $id_Z)
-            ->where('status', 'livré')
+            ->where('status', 'Livre')
             ->get();
 
         $colisBon = [];
@@ -39,7 +38,7 @@ class BonPaymentLivreurController extends Controller
                 $bon = BonPaymentLivreur::create([
                     'id_BPL' => 'BPL-' . Str::random(10),
                     'reference' => 'BPL-' . Str::random(10),
-                    'status' => 'nouveau',
+                    'status' => 'Nouveau',
                     'id_Z' => $id_Z,
                     'id_Liv' => $request->id_Liv,
                 ]);
@@ -110,11 +109,11 @@ class BonPaymentLivreurController extends Controller
         // ->withCount('colis')
         // ->get();
         $zones = Zone::whereHas('colis', function ($query) {
-            $query->where('status', 'livre');
+            $query->where('status', 'Livre');
         })
             ->with([
                 'colis' => function ($query) {
-                    $query->where('status', 'livre');
+                    $query->where('status', 'Livre');
                 },
                 'livreurs'
             ])

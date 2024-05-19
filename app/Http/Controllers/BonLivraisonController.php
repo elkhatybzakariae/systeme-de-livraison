@@ -29,19 +29,18 @@ class BonLivraisonController extends Controller
         //              inner join villes on villes.id_V = colis.ville_id 
         //              where id_BL is null and status= nouveau and id_Cl=?', [$user['id_Cl']]);
         $colis = Colis::where('id_BL', null)
-            ->where('status', 'nouveau')
+            ->where('status', 'Nouveau')
             ->with('ville') // Eager load related city information (optional)
             ->get();
 
         $colisBon = [];
-        // dd($colis);
         if (!$id_BL) {
             if ($user) {
 
                 $bonLivraison = BonLivraison::create([
                     'id_BL' => 'BL-' . Str::random(12),
                     'reference' => 'BL-' . Str::random(10),
-                    'status' => 'nouveau',
+                    'status' => 'Nouveau',
                     'id_Cl' => $user['id_Cl']
                 ]);
             } else {
@@ -53,8 +52,6 @@ class BonLivraisonController extends Controller
             inner join villes on villes.id_V = colis.ville_id 
             where id_BL =?', [$id_BL]);
         }
-        // dd($bonLivraison)  ;
-        // dd($colis,$colisBon);
         $breads = [
             ['title' => 'créer un Bon Livraison', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
@@ -119,7 +116,7 @@ class BonLivraisonController extends Controller
             ['title' => 'Creér un Bon Livraison', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        $colis = Colis::query()->where('id_BL', null)->where(['id_Cl' => $user['id_Cl'], 'status' => 'nouveau'])->get()->count();
+        $colis = Colis::query()->where('id_BL', null)->where(['id_Cl' => $user['id_Cl'], 'status' => 'Nouveau'])->get()->count();
         return view('pages.clients.bonLivraison.create', compact("colis", 'breads'));
     }
 
@@ -130,7 +127,7 @@ class BonLivraisonController extends Controller
         $coli = Colis::where('id', $id)->first();
         $colisinfo = colisinfo::where('id', $id)->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,Attente de Ramassage,' . $coli['updated_at'] .','.' '.'_';
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Attente de Ramassage,' . $coli['updated_at'] .','.' '.'_';
 
         $colisinfo->update(['info' => $newInfo]);
 
@@ -151,7 +148,7 @@ class BonLivraisonController extends Controller
         $coli = Colis::where('id_BL', $id_BL)->first();
         $colisinfo = colisinfo::where('id', $coli['id'])->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,Ramasse,' . $coli['updated_at'] .','.' '.'_';
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Ramasse,' . $coli['updated_at'] .','.' '.'_';
 
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.livraison.list');
@@ -159,7 +156,7 @@ class BonLivraisonController extends Controller
     public function updateDelete($id, $id_BL)
     {
         $colis = Colis::where('id', $id)
-            ->update(['id_BL' => null, 'status' => 'nouveau']);
+            ->update(['id_BL' => null, 'status' => 'Nouveau']);
         return redirect()->route('bon.livraison.index', $id_BL);
     }
 
@@ -184,12 +181,12 @@ class BonLivraisonController extends Controller
     {
         if ($request->query) {
             $colis = Colis::where('id', $request->input('query'))
-                ->update(['id_BL' => null, 'status' => 'nouveau']);
+                ->update(['id_BL' => null, 'status' => 'Nouveau']);
         } else {
             foreach ($request->colisDelete as $colis) {
 
                 $colis = Colis::where('id', $colis)
-                    ->update(['id_BL' => null, 'status' => 'nouveau']);
+                    ->update(['id_BL' => null, 'status' => 'Nouveau']);
             }
         }
         return redirect()->route('bon.livraison.index', $id_BL);
