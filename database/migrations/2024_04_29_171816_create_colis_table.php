@@ -45,6 +45,8 @@ return new class extends Migration
             $table->foreign('id_BRL')->on('bon_retour_livreurs')->references('id_BRL');
             $table->string('id_BRC')->nullable();
             $table->foreign('id_BRC')->on('bon_retour_clients')->references('id_BRC');
+            $table->string('id_BPZ')->nullable();
+            $table->foreign('id_BPZ')->on('bon_payment_zones')->references('id_BPZ');
 
             $table->timestamps();
 
