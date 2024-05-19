@@ -73,6 +73,29 @@ class BonRetourClientController extends Controller
         ];
         return view('pages.admin.bonRetourClient.list', compact("bons", 'breads'));
     }
+    public function getClientBons()
+    {
+      
+
+        $bons = BonRetourClient::withCount('colis') // Count related colis
+            ->withSum('colis', 'prix') // Sum prices of related colis
+            ->leftJoin('clients', 'bon_retour_clients.id_Cl', '=', 'clients.id_Cl')
+            ->select('bon_retour_clients.*', 'clients.nomcomplet as nomcomplet')
+            ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BRC = bon_retour_clients.id_BRC) as colis_count'))
+            ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BRC = bon_retour_clients.id_BRC) as total_prix')) // Corrected table name (BL -> BD)
+            ->leftJoin('colis', 'bon_retour_clients.id_BRC', '=', 'colis.id_BRC')
+            ->with('colis', 'colis.ville')
+            ->where('clients.id_Cl',session('user')['id_Cl'])
+            ->distinct()
+            ->get();
+        // $bons=BonRetourClient::all();
+        // dd($bons);
+        $breads = [
+            ['title' => 'Liste des Bons de retour de client ', 'url' => null],
+            ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.clients.bonRetourClient.list', compact("bons", 'breads'));
+    }
     public function create()
     {
         

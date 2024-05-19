@@ -200,7 +200,7 @@ Route::middleware('check.admin')->group(function () {
         Route::get('/export/colis/{id}', [BonRetourClientController::class, 'exportColis'])->name('bon.retour.client.exportColis');
         Route::get('/get/pdf/{id_BRC}', [BonRetourClientController::class, 'getPdf'])->name('bon.retour.client.getPdf');
         Route::post('admin/bon-retour/bd/{id}', [BonRetourClientController::class, 'recu'])->name('bon.retour.client.recu');
-        Route::get('/destroy/{id}', [BonEnvoisController::class, 'destroy'])->name('bon.retour.client.destroy');
+        Route::get('/destroy/{id}', [BonRetourClientController::class, 'destroy'])->name('bon.retour.client.destroy');
 
 
     });
@@ -280,6 +280,9 @@ Route::middleware('check.client')->group(function () {
         Route::post('/update/{id}', [ReclamationController::class, 'update'])->name('reclamation.update');
         Route::delete('/destroy/{id}', [ReclamationController::class, 'destroy'])->name('reclamation.destroy');
     });
+
+    Route::get('/bon/retour', [BonRetourClientController::class, 'getClientBons'])->name('bon.retour.client.getClientBons');
+
 });
 
 
