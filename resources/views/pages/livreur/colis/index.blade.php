@@ -327,20 +327,20 @@
                                 <select id="status" class="form-control @error('status') is-invalid @enderror"
                                     name="status">
                                         <option value="">veuillez choisir un status</option>
-                                        <option value="livre">Livré</option>
-                                        <option value="reporte">Reporté</option>
-                                        <option value="pasdereponse">Pas de réponse et envoi SMS</option>
-                                        <option value="injoignable">In joignable</option>
-                                        <option value="Hors-zone">Hors Zone</option>
-                                        <option value="annule">Annulé</option>
-                                        <option value="refuse">Refusé</option>
-                                        <option value="numeroerrone">Numero Erroné</option>
-                                        <option value="deuxiemeappel">Deuxieme appel</option>
+                                        <option value="Livre">Livré</option>
+                                        <option value="Reporte">Reporté</option>
+                                        <option value="Pas de Reponse">Pas de réponse et envoi SMS</option>
+                                        <option value="Injoignable">In joignable</option>
+                                        <option value="Hors-Zone">Hors Zone</option>
+                                        <option value="Annule">Annulé</option>
+                                        <option value="Refuse">Refusé</option>
+                                        <option value="Numero Errone">Numero Erroné</option>
+                                        <option value="Deuxieme Appel">Deuxieme appel</option>
                                         <option value=""></option>
-                                        <option value="programme">Programmé</option>
-                                        <option value="boitevocale">Boite Vocal</option>
-                                        <option value="en voyage">En voyage</option>
-                                        <option value="clientinteresse">Client Intéressé</option>
+                                        <option value="Programme">Programmé</option>
+                                        <option value="Boite vocale">Boite Vocal</option>
+                                        <option value="En voyage">En voyage</option>
+                                        <option value="Client interesse">Client Intéressé</option>
                                 </select>
                                 </div>
                                 <div class="form-group mb-3 col col-md-12">

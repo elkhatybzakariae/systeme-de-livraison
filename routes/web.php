@@ -44,6 +44,9 @@ Route::middleware('check.admin')->group(function () {
         Route::post('/update/user/{id}',  'updatenewuser')->name('admin.newuser.update');
         Route::delete('/delete/user/{id}',  'deletenewuser')->name('admin.newuser.delete');
         Route::get('/signout',  'signout')->name('admin.signout');
+
+        
+        Route::post('/coli/{id}',  'changestatus')->name('admin.changestatus');
     });
 
     Route::controller(NewClientController::class)->prefix('admin')->group(function () {

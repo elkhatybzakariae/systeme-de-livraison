@@ -30,7 +30,7 @@ class ColisController extends Controller
  
     public function indexAdmin()
     {
-        $colis = Colis::query()->whereNot('status','nouveau')->get();
+        $colis = Colis::query()->whereNot('status','Nouveau')->with(['client'])->get();
         $status = Colis::query()->select('status')->distinct()->get();
         $breads = [
             ['title' => 'Liste des Colis', 'url' => null],
@@ -40,7 +40,7 @@ class ColisController extends Controller
     }
     public function indexRamassage()
     {
-        $colis = Colis::query()->where('status','nouveau')->get();
+        $colis = Colis::query()->where('status','Nouveau')->get();
         $breads = [
             ['title' => 'Liste des Colis', 'url' => null],
             ['text' => 'Colis', 'url' => null], // You can set the URL to null for the last breadcrumb

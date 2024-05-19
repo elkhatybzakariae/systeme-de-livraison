@@ -14,6 +14,7 @@ use App\Models\BonRetourLivreur;
 use App\Models\BonRetourZone;
 use App\Models\Client;
 use App\Models\Colis;
+use App\Models\colisinfo;
 use App\Models\Facture;
 use App\Models\Livreur;
 use App\Models\Reclamation;
@@ -396,5 +397,18 @@ class AdminController extends Controller
 
 
         return redirect()->route('auth.admin.signIn')->with('status', 'Your password has been reset!');
+    }
+
+    public function changestatus(Request $req, $id)
+    {
+        $colis = Colis::where('id', $id)
+            ->update(['status' => $req->status]);
+        $coli = Colis::where('id', $id)->first();
+        $colisinfo = colisinfo::where('id', $id)->first();
+        $oldinfo = $colisinfo['info'];
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',' .'non paye,' . $req->status . ',' . $coli['updated_at'] . ',' .' ' . '_';
+
+        $colisinfo->update(['info' => $newInfo]);
+        return back();
     }
 }
