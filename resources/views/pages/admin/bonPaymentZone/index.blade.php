@@ -18,7 +18,7 @@
   </div>
 
 <div class="container-fluid mt-4">
-  <form action="{{ route('bon.payment.livreur.update.all',$bon->id_BPL) }}" method="POST">
+  <form action="{{ route('bon.payment.zone.update.all',$bon->id_BPZ) }}" method="POST">
   @csrf
   <div class="card">
     <div class="card-header">
@@ -52,7 +52,7 @@
             <td>{{ $item->villename }}</td>
             <td>
               
-              <a href="{{ route('bon.payment.livreur.update',['id'=>$item->id,'id_BPL'=>$bon->id_BPL]) }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
+              <a href="{{ route('bon.payment.zone.update',['id'=>$item->id,'id_BPZ'=>$bon->id_BPZ]) }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
             </td>
           </tr>
           @endforeach
@@ -80,7 +80,7 @@
 </div>
 
 <div class="container-fluid mt-4">
-  <form action="{{ route('bon.payment.livreur.updateDelete.all',$bon->id_BPL) }}" method="POST">
+  <form action="{{ route('bon.payment.zone.updateDelete.all',$bon->id_BPZ) }}" method="POST">
   @csrf
   <div class="card">
     <div class="card-header">
@@ -114,7 +114,7 @@
               <td>{{ $item->prix }}</td>
               <td>{{ $item->villename }}</td>
               <td>
-                <a href="{{ route('bon.payment.livreur.updateDelete',['id'=>$item->id,'id_BPL'=>$bon->id_BPL]) }}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                <a href="{{ route('bon.payment.livreur.updateDelete',['id'=>$item->id,'id_BPZ'=>$bon->id_BPZ]) }}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
               </td>
             </tr>
           @endforeach

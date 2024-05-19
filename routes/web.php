@@ -133,6 +133,8 @@ Route::middleware('check.admin')->group(function () {
         Route::get('/edit/{id}', [BonPaymentZoneController::class, 'edit'])->name('bon.payment.zone.edit');
         Route::get('/update/{id}/bl/{id_BD}', [BonPaymentZoneController::class, 'update'])->name('bon.payment.zone.update');
         Route::get('/updateDelete/{id}/bl/{id_BD}', [BonPaymentZoneController::class, 'updateDelete'])->name('bon.payment.zone.updateDelete');
+        Route::post('/update/all/{id_BL}', [BonPaymentZoneController::class, 'updateAll'])->name('bon.payment.zone.update.all');
+        Route::post('/update/delete/all/{id_BL}', [BonPaymentZoneController::class, 'updateDeleteAll'])->name('bon.payment.zone.updateDelete.all');
         Route::delete('/destroy/{id}', [BonPaymentZoneController::class, 'destroy'])->name('bon.payment.zone.destroy');
         Route::get('/export/colis/{id}', [BonPaymentZoneController::class, 'exportColis'])->name('bon.payment.zone.exportColis');
         Route::get('/destroy/{id}', [BonPaymentZoneController::class, 'destroy'])->name('bon.payment.zon.destroy');

@@ -27,18 +27,18 @@ class BonPaymentZoneController extends Controller
             ->whereNull('id_BPZ')
             ->where('zone', $id_Z)
             ->where('status', 'Livre')
+            ->where('etat', 'paye')
+            ->whereNot('id_BPL',null)
             ->get();
 
         $colisBon = [];
         if (!$id_BPZ) {
-            // dd($id_BPZ);
             if ($user) {
                 $bon = BonPaymentZone::create([
-                    'id_BPZ' => 'BPL-' . Str::random(10),
-                    'reference' => 'BPL-' . Str::random(10),
+                    'id_BPZ' => 'BPZ-' . Str::random(10),
+                    'reference' => 'BPZ-' . Str::random(10),
                     'status' => 'Nouveau',
-                    'id_Z' => $id_Z,
-                    'id_Liv' => $request->id_Liv,
+                    'id_Z' => $id_Z??'hIhWv3fAYL',
                 ]);
             } else {
                 return redirect(route('auth.client.signIn'));
@@ -48,11 +48,9 @@ class BonPaymentZoneController extends Controller
             $colisBon = DB::select('select * from colis 
             inner join villes on villes.id_V = colis.ville_id 
             where id_BPZ =?', [$id_BPZ]);
-            // dd($colisBon)  ;
-
         }
         $breads = [
-            ['title' => 'créer un Bon payment pour livreur', 'url' => null],
+            ['title' => 'créer un Bon payment pour zone', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
         return view('pages.admin.BonPaymentZone.index', compact("colis", "bon", 'colisBon', 'breads'));
@@ -81,7 +79,7 @@ class BonPaymentZoneController extends Controller
         // $bons=BonPaymentZone::all();
         // dd($bons);
         $breads = [
-            ['title' => 'Liste des Bons de payment livreur ', 'url' => null],
+            ['title' => 'Liste des Bons de payment zone ', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
         return view('pages.admin.BonPaymentZone.list', compact("bons", 'breads'));
@@ -99,8 +97,7 @@ class BonPaymentZoneController extends Controller
             ->with([
                 'colis' => function ($query) {
                     $query->where('status', 'Livre');
-                },
-                'livreurs'
+                }
             ])
             ->withCount('colis')
             ->get();
@@ -116,13 +113,13 @@ class BonPaymentZoneController extends Controller
     {
         $bon = BonPaymentZone::find($id);
         $bon->delete();
-        return redirect()->route('bon.payment.livreur.list')->with('success', 'bon deleted successfully.');
+        return redirect()->route('bon.payment.zone.list')->with('success', 'bon deleted successfully.');
     }
     public function update($id, $id_BPZ)
     {
         $colis = Colis::where('id', $id)
             ->update(['id_BPZ' => $id_BPZ]);
-        return redirect()->route('bon.payment.livreur.index', $id_BPZ);
+        return redirect()->route('bon.payment.zone.index', $id_BPZ);
     }
     public function updateDelete($id, $id_BPZ)
     {
@@ -130,7 +127,7 @@ class BonPaymentZoneController extends Controller
             ->update(['id_BPZ' => null]);
 
         // dd($colis);
-        return redirect()->route('bon.payment.livreur.index', $id_BPZ);
+        return redirect()->route('bon.payment.zone.index', $id_BPZ);
     }
 
 
@@ -149,7 +146,7 @@ class BonPaymentZoneController extends Controller
                     ->update(['id_BPZ' => $id_BPZ]);
             }
         }
-        return redirect()->route('bon.payment.livreur.index', $id_BPZ);
+        return redirect()->route('bon.payment.zone.index', $id_BPZ);
     }
     public function updateDeleteAll(Request $request, $id_BPZ)
     {
@@ -163,7 +160,7 @@ class BonPaymentZoneController extends Controller
                     ->update(['id_BPZ' => null]);
             }
         }
-        return redirect()->route('bon.payment.livreur.index', $id_BPZ);
+        return redirect()->route('bon.payment.zone.index', $id_BPZ);
     }
 
     public function recu($id_BPZ)
