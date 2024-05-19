@@ -12,7 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('factures', function (Blueprint $table) {
-            $table->id();
+            $table->string('id_F', 15)->primary();
+            $table->string('reference');
+            $table->date('date_paiment');
+            $table->string('id_CL');
+            $table->foreign('id_CL')->references('id_CL')->on('clients');
+            $table->string('id_Ad');
+            $table->foreign('id_Ad')->references('id_Ad')->on('admins');
+            $table->string('status')->default('Brouillon');
             $table->timestamps();
         });
     }

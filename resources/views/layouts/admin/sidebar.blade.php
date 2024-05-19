@@ -453,7 +453,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="">
+                            <a class="menu-link  {{ request()->routeIs('factures.create') ?'active':'' }}" href="{{ route('factures.create') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -465,7 +465,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="">
+                            <a class="menu-link {{ request()->routeIs('factures.list') ?'active':'' }}" href="{{ route('factures.list') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>

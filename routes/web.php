@@ -13,6 +13,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ColisController;
 use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\EtatController;
+use App\Http\Controllers\FactureController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LivreurController;
 use App\Http\Controllers\MessageController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\NewClientController;
 use App\Http\Controllers\NewLivreurController;
 use App\Http\Controllers\Option;
 use App\Http\Controllers\ParamtreController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RamassagecoliController;
 use App\Http\Controllers\ReclamationController;
 use App\Http\Controllers\RemarqueController;
@@ -29,13 +31,11 @@ use App\Http\Controllers\typeBankController;
 use App\Http\Controllers\typeClientController;
 use App\Http\Controllers\VilleController;
 use App\Http\Controllers\ZoneController;
-use App\Models\BonPaymentLivreur;
-use App\Models\Etat;
-use App\Models\typeBank;
-use App\Models\typeClient;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('check.admin')->group(function () {
+
+    Route::get('/admin/profile/',[ProfileController::class, 'overview'])->name('admin.profile.overview');
     Route::controller(AdminController::class)->prefix('admin')->group(function () {
         Route::get('/index',  'index')->name('admin.index');
         Route::get('/clients',  'clients')->name('admin.clients');
@@ -207,6 +207,24 @@ Route::middleware('check.admin')->group(function () {
         Route::get('/get/pdf/{id_BRC}', [BonRetourClientController::class, 'getPdf'])->name('bon.retour.client.getPdf');
         Route::post('admin/bon-retour/bd/{id}', [BonRetourClientController::class, 'recu'])->name('bon.retour.client.recu');
         Route::get('/destroy/{id}', [BonRetourClientController::class, 'destroy'])->name('bon.retour.client.destroy');
+
+
+    });
+    Route::group(['prefix' => 'admin/factures'], function () {
+        Route::get('/bon/{id_BRC?}', [FactureController::class, 'index'])->name('factures.index');
+        Route::get('/', [FactureController::class, 'list'])->name('factures.list');
+        Route::get('/create', [FactureController::class, 'create'])->name('factures.create');
+        Route::post('/store', [FactureController::class, 'store'])->name('factures.store');
+        Route::get('/edit/{id}', [FactureController::class, 'edit'])->name('factures.edit');
+        Route::get('/update/{id}/bl/{id_BRC}', [FactureController::class, 'update'])->name('factures.update');
+        Route::get('/updateDelete/{id}/bl/{id_BRC}', [FactureController::class, 'updateDelete'])->name('factures.updateDelete');
+        Route::delete('/destroy/{id}', [FactureController::class, 'destroy'])->name('factures.destroy');
+        Route::post('/update/all/{id_BRC}', [FactureController::class, 'updateAll'])->name('factures.update.all');
+        Route::post('/update/delete/all/{id_BRC}', [FactureController::class, 'updateDeleteAll'])->name('factures.updateDelete.all');
+        Route::get('/export/colis/{id}', [FactureController::class, 'exportColis'])->name('factures.exportColis');
+        Route::get('/get/pdf/{id_BRC}', [FactureController::class, 'getPdf'])->name('factures.getPdf');
+        Route::post('admin/bon-retour/bd/{id}', [FactureController::class, 'recu'])->name('factures.recu');
+        Route::get('/destroy/{id}', [FactureController::class, 'destroy'])->name('factures.destroy');
 
 
     });

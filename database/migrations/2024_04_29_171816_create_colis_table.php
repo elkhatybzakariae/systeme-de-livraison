@@ -68,6 +68,8 @@ return new class extends Migration
 
             $table->string('id_BPZ')->nullable();
             $table->foreign('id_BPZ')->on('bon_payment_zones')->references('id_BPZ');
+            $table->string('id_F')->nullable();
+            $table->foreign('id_F')->on('factures')->references('id_F');
 
             $table->timestamps();
         });
