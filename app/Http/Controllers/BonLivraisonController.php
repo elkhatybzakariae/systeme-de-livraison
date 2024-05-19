@@ -84,6 +84,30 @@ class BonLivraisonController extends Controller
         ];
         return view('pages.admin.bonLivraison.index', compact("bons", 'breads'));
     }
+    public function getClientBons()
+    {
+        $user = session('user');
+        if (!$user) {
+            return redirect(route('auth.admin.signIn'));
+        }
+        $bons = BonLivraison::withCount('colis') // Count related colis
+            ->withSum('colis', 'prix') // Sum prices of related colis
+            ->leftJoin('clients', 'bon_livraisons.id_Cl', '=', 'clients.id_Cl')
+            ->select('bon_livraisons.*', 'clients.nomcomplet as client_nomcomplet')
+            ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as colis_count'))
+            ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as total_prix'))
+            ->leftJoin('colis', 'bon_livraisons.id_BL', '=', 'colis.id_BL')
+            ->with('colis', 'colis.ville')
+            ->where('clients.id_Cl',$user['id_Cl'])
+            ->distinct()
+            ->get();
+
+        $breads = [
+            ['title' => 'Liste des Bon Livraison', 'url' => null],
+            ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.clients.bonLivraison.list', compact("bons", 'breads'));
+    }
 
     public function create()
     {

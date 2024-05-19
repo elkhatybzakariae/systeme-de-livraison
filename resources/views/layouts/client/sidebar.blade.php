@@ -61,7 +61,7 @@
                         <!--end:Menu link-->
                     </div>
                 </div>
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('colis.create')||request()->routeIs('colis.index') ||request()->routeIs('colis.indexRamassage')||request()->routeIs('colis.importPage') ?'show':'' }}">
+                <div  class="menu-item menu-accordion {{ request()->routeIs('colis.create')||request()->routeIs('colis.index') ||request()->routeIs('colis.indexRamassage')||request()->routeIs('colis.importPage') ?'show':'' }}">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
@@ -141,9 +141,9 @@
                     <!--end:Menu sub-->
                 </div>
                
-                <div class="menu-item">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('bon.livraison.create')||request()->routeIs('bon.livraison.index') ||request()->routeIs('bon.livraison.client.list') ?'show':'' }}">
                     <!--begin:Menu link-->
-                    <a class="menu-link {{ request()->routeIs('bon.livraison.create') ?'active':'' }}" href="{{ route('bon.livraison.create') }}">
+                    <span class="menu-link ">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -153,11 +153,38 @@
                                         d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H288V368c0-26.5 21.5-48 48-48H448V96c0-35.3-28.7-64-64-64H64zM448 352H402.7 336c-8.8 0-16 7.2-16 16v66.7V480l32-32 64-64 32-32z" />
                                 </svg>
                             </span>
+                            
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-title">Bons de livraison</span>
-                    </a>
-                    <!--end:Menu link-->
+                        <span class="menu-arrow"></span>
+
+                    </span>
+                    <div class="menu-sub menu-sub-accordion">
+                        <!--begin:Menu item-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link {{ request()->routeIs('bon.livraison.create') ?'active':'' }}" href="{{ route('bon.livraison.create') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Nouveau bon livraison</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Menu item-->
+                        <!--begin:Menu item-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link {{ request()->routeIs('bon.livraison.client.list') ?'active':'' }}" href="{{ route('bon.livraison.client.list') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">List bon livraison</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                    </div>
                 </div>
                 <!--end:Menu sub-->
 

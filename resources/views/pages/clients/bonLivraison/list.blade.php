@@ -21,13 +21,14 @@
                   </span>
               </div>
           </div>
-          <div id="modal-body" class="modal-body scroll-y px-5 px-lg-5 pt-0 pb-15">
+          <div id="modal-body" class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
            
         
           </div>
       </div>
   </div>
 </div>
+
 
 <div class="card card-flush">
   <div class="card-header align-items-center py-5 gap-2 gap-md-5">
@@ -49,9 +50,10 @@
           <option></option>
           <option value="all">All</option>
           <option value="nouveau">Nouveau</option>
-          <option value="recu">recu</option>
+          <option value="ramasse">Ramasse</option>
         </select>
       </div>
+      <a href="{{ route('bon.livraison.create') }}" class="btn btn-primary" >Ajouter  Bon livraison</a>
     </div>
   </div>
 
@@ -61,10 +63,11 @@
         <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
           
           <th class="min-w-200px">reference</th>
+          <th class="min-w-100px">client</th>
           <th class="min-w-100px">Date de creation</th>
-          <th class="min-w-100px">Nom Magazin</th>
           <th class="min-w-100px">statut</th>
           <th class="min-w-100px">colis</th>
+          <th class="min-w-70px">Prix Total</th>
           <th class="min-w-70px">Actions</th>
         </tr>
       </thead>
@@ -74,16 +77,15 @@
             <td>
               <div class="">
                 <div class="ms-5">
-                  <a href="" class="text-gray-800 text-hover-primary fs-5 fw-bold" data-kt-ecommerce-product-filter="code">{{ $item->reference }}</a>
+                  <a href="" class="text-gray-800 text-hover-primary fs-5 fw-bold" data-kt-ecommerce-product-filter="code">{{ $item->id_BL }}</a>
                 </div>
               </div>
             </td>
-            
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="date">{{ $item->created_at }}</span>
+              <span class="fw-bold" data-kt-ecommerce-product-filter="nomcomplet">{{ $item->client_nomcomplet }}</span>
             </td>
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="nomcomplet">{{ $item->nomcomplet }}</span>
+              <span class="fw-bold" data-kt-ecommerce-product-filter="date">{{ $item->created_at }}</span>
             </td>
             
             <td class="pe-0">
@@ -92,7 +94,9 @@
             <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="colis_count">{{ $item->colis_count}}</span>
             </td>
-           
+            <td class="pe-0">
+              <span class="fw-bold" data-kt-ecommerce-product-filter="prix">{{ $item->total_prix }}</span>
+            </td>
             <td>
               <a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                 <span class="svg-icon svg-icon-5 m-0">
@@ -103,14 +107,14 @@
               </a>
               <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-250px py-4" data-kt-menu="true">
                 <div class="menu-item px-3">
-                  <a  class="btn" onclick="openModal('{{ $item->id_BRC }}')"  data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"><i class="fa fa-eye"></i>Details du bon</a>
+                  <a  class="btn" onclick="openModal('{{ $item->id_BL }}')"  data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"><i class="fa fa-eye"></i>Details du bon</a>
                 </div>
                 <div class="menu-item px-3">
-                  <a  class="btn" href="{{ route('bon.retour.client.exportColis',$item->id_BRC) }}"><i class="far fa-file-excel"></i>Exporter les colis</a>
+                  <a  class="btn" href="{{ route('bon.livraison.exportColis',$item->id_BL) }}"><i class="far fa-file-excel"></i>Exporter les colis</a>
                 </div>
-                @if ($item->status != 'recu')
+                @if ($item->status != 'Ramasse')
                     <div class="menu-item px-3">
-                  <form action="{{route('bon.retour.client.recu',$item->id_BRC)}}" method="post">
+                  <form action="{{route('bon.livraison.recu',$item->id_BL)}}" method="post">
                     @csrf
                     <button type="submit"class="btn">
                       <i class="fa fa-check"></i>bon bien recu
@@ -118,16 +122,22 @@
                   </form>
                 </div>
                 @endif
-                <div class="menu-item px-3">
-                  <a  class="btn"  href="{{ route('bon.retour.client.getPdf',$item->id_BRC) }}"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
-                </div>
                 @if ($item->colis->count()==0)
-                  <div class="menu-item  text-hover-danger px-3">        
-                    <a  href="{{ route('bon.retour.client.destroy',$item->id_BRC) }}" class="btn">
-                      <i class="fa fa-trash"></i>Delete
-                    </a>
-                  </div>
-                @endif
+                <div class="menu-item  text-hover-danger px-3">        
+                  <a href="{{ route('bon.livraison.destroy',$item->id_BL) }}" type="submit"class="btn">
+                    <i class="fa fa-trash"></i>Delete
+                  </a>
+                </div>
+              @endif
+                <div class="menu-item px-3">
+                  <a  class="btn"  href="{{ route('bon.livraison.getPdf',$item->id_BL) }}"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
+                </div>
+                <div class="menu-item px-3">
+                  <a  class="btn"><<i class="fas fa-ticket-alt"></i>Voir les etiqutte</a>
+                </div>
+                <div class="menu-item px-3">
+                  <a  class="btn"><i class="fas fa-ticket-alt"></i> etiquetteuse</a>
+                </div>
                 
               </div>
             </td>
@@ -159,13 +169,13 @@ $(document).ready(function() {
     $('#kt_ecommerce_products_table tbody tr').each(function() {
         var code = $(this).find('[data-kt-ecommerce-product-filter="code"]').text().toLowerCase();
         var colis_count = $(this).find('[data-kt-ecommerce-product-filter="colis_count"]').text().toLowerCase();
-        var zonename = $(this).find('[data-kt-ecommerce-product-filter="zonename"]').text().toLowerCase();
+        var prix = $(this).find('[data-kt-ecommerce-product-filter="prix"]').text().toLowerCase();
         var status = $(this).find('[data-kt-ecommerce-product-filter="status"]').text().toLowerCase();
         var date = $(this).find('[data-kt-ecommerce-product-filter="date"]').text().toLowerCase();
         var nomcomplet = $(this).find('[data-kt-ecommerce-product-filter="nomcomplet"]').text().toLowerCase();
         if (nomcomplet.includes(searchText) ||
           colis_count.includes(searchText) || 
-          zonename.includes(searchText) || 
+          prix.includes(searchText) || 
           status.includes(searchText) || 
           date.includes(searchText) || 
           code.includes(searchText) ) {
@@ -190,22 +200,23 @@ $(document).ready(function() {
       });
     }
   }
-});
 
+
+});
 function openModal(id) {
   // Set the default values or update them based on the clicked item
   var modal=document.getElementById('modal-body') ;
   let bons=@json($bons);
   console.log(bons);
-  let BD=bons.find(ele=>ele.id_BRC==id)
-  console.log(BD);
+  let BL=bons.find(ele=>ele.id_BL==id)
+  console.log(BL);
   let text=''
   text= `<div class="row">
     <div class="dn-inv-infos-box col-6">
-      <b>Bon d envoie : </b> ${BD.id_BRC}<br>
-      <b>Date :</b>${BD.created_at}<br>
-      <b>Colis :</b> ${BD.colis_count}<br>
-      <b>Total :</b> ${BD.total_prix} Dhs
+      <b>Bon d envoie : </b> ${BL.id_BL}<br>
+      <b>Date :</b>${BL.created_at}<br>
+      <b>Colis :</b> ${BL.colis_count}<br>
+      <b>Total :</b> ${BL.total_prix} Dhs
     </div>
   </div>
 
@@ -227,7 +238,7 @@ function openModal(id) {
     <tbody>
 
     `
-  BD.colis.forEach(element => {
+  BL.colis.forEach(element => {
     
     text +=`
           <tr>
@@ -245,7 +256,7 @@ function openModal(id) {
     text +=`           
               <tr class="dn-inv-table-body">
               <td colspan="6" style="text-align:right"><b>Total</b></td>
-              <td>${BD.total_prix} Dhs</td>
+              <td>${BL.total_prix} Dhs</td>
             </tr>
             </tbody>
             </table>

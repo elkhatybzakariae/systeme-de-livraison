@@ -272,6 +272,8 @@ Route::middleware('check.client')->group(function () {
         Route::post('/update/delete/all/{id_BL}', [BonLivraisonController::class, 'updateDeleteAll'])->name('bon.livraison.updateDelete.all');
         Route::post('/update/barCode/{id_BL}', [BonLivraisonController::class, 'updateBarCode'])->name('bon.livraison.update.barCode');
         Route::post('/update/delete/barCode/{id_BL}', [BonLivraisonController::class, 'updateDeleteBarCode'])->name('bon.livraison.updateDelete.barCode');
+        Route::get('/bon/livraison/list', [BonLivraisonController::class, 'getClientBons'])->name('bon.livraison.client.list');
+    
     });
     Route::group(['prefix' => 'reclamation'], function () {
         Route::get('/', [ReclamationController::class, 'index'])->name('reclamation.index');
