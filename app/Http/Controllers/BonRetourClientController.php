@@ -16,33 +16,35 @@ class BonRetourClientController extends Controller
 {
     public function index(Request $request, $id_BRC = null)
     {
-        // dd($request);
         $id_Cl = $request->input('client');
         if ($id_Cl == null) {
             $id_Cl = session('client');
         } else {
             session(['client' => $id_Cl]);
         }
-        // dd(session('zone'));
         $user = session('user');
-        $colis = Colis::query()->with('ville')->whereNull('id_BRC')->where('id_Cl', $id_Cl)->get();
+        $colis = Colis::query()->with('ville')
+            ->whereNull('id_BRC')
+            ->where(
+                'status',
+                ['Recu par Centre Principale']
+            )
+            ->where('id_Cl', $id_Cl)
+            ->get();
 
         $colisBon = [];
-        // dd($colis);
         if (!$id_BRC) {
             $bonLivraison = BonRetourClient::create([
                 'id_BRC' => 'BRC-' . Str::random(10),
                 'reference' => 'BRC-' . Str::random(10),
-                'status' => 'nouveau',
+                'status' => 'Nouveau',
                 'id_Cl' => $id_Cl,
             ]);
-           
         } else {
             $bonLivraison = BonRetourClient::query()->with('colis')->where('id_BRC', $id_BRC)->first();
             $colisBon = DB::select('select * from colis 
             inner join villes on villes.id_V = colis.ville_id 
             where id_BRC =?', [$id_BRC]);
-            // dd($colisBon)  ;
 
         }
         $breads = [
@@ -53,7 +55,7 @@ class BonRetourClientController extends Controller
     }
     public function list()
     {
-      
+
 
         $bons = BonRetourClient::withCount('colis') // Count related colis
             ->withSum('colis', 'prix') // Sum prices of related colis
@@ -65,8 +67,6 @@ class BonRetourClientController extends Controller
             ->with('colis', 'colis.ville')
             ->distinct()
             ->get();
-        // $bons=BonRetourClient::all();
-        // dd($bons);
         $breads = [
             ['title' => 'Liste des Bons de retour de client ', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
@@ -75,7 +75,7 @@ class BonRetourClientController extends Controller
     }
     public function getClientBons()
     {
-      
+
 
         $bons = BonRetourClient::withCount('colis') // Count related colis
             ->withSum('colis', 'prix') // Sum prices of related colis
@@ -85,7 +85,7 @@ class BonRetourClientController extends Controller
             ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BRC = bon_retour_clients.id_BRC) as total_prix')) // Corrected table name (BL -> BD)
             ->leftJoin('colis', 'bon_retour_clients.id_BRC', '=', 'colis.id_BRC')
             ->with('colis', 'colis.ville')
-            ->where('clients.id_Cl',session('user')['id_Cl'])
+            ->where('clients.id_Cl', session('user')['id_Cl'])
             ->distinct()
             ->get();
         // $bons=BonRetourClient::all();
@@ -98,16 +98,14 @@ class BonRetourClientController extends Controller
     }
     public function create()
     {
-        
-
         $clients = Client::withCount([
             'colis' => function ($query) {
-                $query->where('status', 'retourne');
+                $query->where('status', 'Recu par Centre Principale');
             }
         ])->with(['colis'])->get();
 
         $breads = [
-            ['title' => 'créer un Bon Distribution', 'url' => null],
+            ['title' => 'créer un Bon Retour Client', 'url' => null],
             ['text' => 'Bons', 'url' => null],
         ];
         return view('pages.admin.bonRetourClient.create', compact("clients", 'breads'));
@@ -122,25 +120,25 @@ class BonRetourClientController extends Controller
     public function update($id, $id_BRC)
     {
         $colis = Colis::where('id', $id)
-            ->update(['id_BRC' => $id_BRC, 'status' => 'en livraison']);
+            ->update(['id_BRC' => $id_BRC, 'status' => 'Expedier vers Client']);
         $coli = Colis::where('id', $id)->first();
         $colisinfo = colisinfo::where('id', $id)->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,en livraison,' . $coli['updated_at'] . ',' . ' ' . '_';
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,Expedier vers Client,' . $coli['updated_at'] . ',' . ' ' . '_';
 
         $colisinfo->update(['info' => $newInfo]);
-        return redirect()->route('bon.distribution.index', $id_BRC);
+        return redirect()->route('bon.retour.client.list', $id_BRC);
     }
     public function recu($id_BRC)
     {
         Colis::where('id_BRC', $id_BRC)
-            ->update(['status' => 'recu']);
+            ->update(['status' => 'Recu par Client']);
         BonRetourClient::where('id_BRC', $id_BRC)
-            ->update(['status' => 'recu']);
+            ->update(['status' => 'Recu']);
         $coli = Colis::where('id_BRC', $id_BRC)->first();
         $colisinfo = colisinfo::where('id', $coli['id'])->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,recu,' . $coli['updated_at'] . ',' . ' ' . '_';
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,Recu par Client,' . $coli['updated_at'] . ',' . ' ' . '_';
 
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.retour.client.list');
@@ -148,7 +146,7 @@ class BonRetourClientController extends Controller
     public function updateDelete($id, $id_BRC)
     {
         $colis = Colis::where('id', $id)
-            ->update(['id_BRC' => null, 'status' => 'distribution']);
+            ->update(['id_BRC' => null, 'status' => 'Recu par Centre Principale']);
 
         // dd($colis);
         return redirect()->route('bon.retour.client.index', $id_BRC);
@@ -160,14 +158,14 @@ class BonRetourClientController extends Controller
         // dd($request->input('query'));
         if ($request->input('query')) {
             $colis = Colis::where('id', $request->input('query'))
-                ->update(['id_BRC' => $id_BRC, 'status' => 'en livraison']);
+                ->update(['id_BRC' => $id_BRC, 'status' => 'Expedier vers Client']);
         } else {
 
 
             foreach ($request->colis as $colis) {
 
                 $colis = Colis::where('id', $colis)
-                    ->update(['id_BRC' => $id_BRC, 'status' => 'en livraison']);
+                    ->update(['id_BRC' => $id_BRC, 'status' => 'Expedier vers Client']);
             }
         }
         return redirect()->route('bon.retour.client.index', $id_BRC);
@@ -176,12 +174,12 @@ class BonRetourClientController extends Controller
     {
         if ($request->query) {
             $colis = Colis::where('id', $request->input('query'))
-                ->update(['id_BRC' => null, 'status' => 'distribution']);
+                ->update(['id_BRC' => null, 'status' => 'Recu par Centre Principale']);
         } else {
             foreach ($request->colisDelete as $colis) {
 
                 $colis = Colis::where('id', $colis)
-                    ->update(['id_BRC' => null, 'status' => 'distribution']);
+                    ->update(['id_BRC' => null, 'status' => 'Recu par Centre Principale']);
             }
         }
         return redirect()->route('bon.retour.client.index', $id_BRC);

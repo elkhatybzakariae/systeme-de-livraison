@@ -12,7 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bon_retour_zones', function (Blueprint $table) {
-            $table->id();
+            $table->string('id_BRZ', 15)->primary();
+            $table->string('reference');
+            $table->string('id_Z');
+            $table->foreign('id_Z')->references('id_Z')->on('zones');
+        
+            $table->string('status')->default('Nouveau');
             $table->timestamps();
         });
     }

@@ -132,7 +132,7 @@ class BonRetourLivreurController extends Controller
         Colis::where('id_BRL', $id_BRL)
             ->update(['status' => 'Recu par Centre Retour']);
         BonRetourLivreur::where('id_BRL', $id_BRL)
-            ->update(['status' => 'Recu par Centre Retour']);
+            ->update(['status' => 'Recu']);
         $coli = Colis::where('id_BRL', $id_BRL)->first();
         $colisinfo = colisinfo::where('id', $coli['id'])->first();
         $oldinfo = $colisinfo['info'];

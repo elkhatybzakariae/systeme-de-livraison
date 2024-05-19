@@ -13,7 +13,7 @@ class BonRetourZone extends Model
     protected $keyType='string';
     public $timestamps=true;
 
-    protected $fillable = ['id_BRZ','reference','status','id_Cl'];
+    protected $fillable = ['id_BRZ','reference','id_Z','status'];
     public function colis()
     {
         return $this->hasMany(Colis::class,'id_BRZ');
@@ -21,5 +21,9 @@ class BonRetourZone extends Model
     public function client()
     {
         return $this->belongsTo(Client::class,'id_Cl');
+    }
+    public function zone()
+    {
+        return $this->belongsTo(Zone::class,'id_Z');
     }
 }

@@ -31,4 +31,8 @@ class Zone extends Model
     {
         return $this->hasMany(BonDistribution::class,'id_Z');
     }
+    public function BRZ()
+    {
+        return $this->hasMany(BonRetourZone::class,'id_Z');
+    }
 }

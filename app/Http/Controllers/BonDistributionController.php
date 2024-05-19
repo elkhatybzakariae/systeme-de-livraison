@@ -26,7 +26,8 @@ class BonDistributionController extends Controller
         }
         $user = session('user');
         $colis = Colis::query()->with('ville')->whereNull('id_BD')
-        ->where('status', 'Recu')->where('zone', $id_Z)->get();
+            ->where('status', 'Recu')
+            ->where('zone', $id_Z)->get();
 
         $colisBon = [];
         if (!$id_BD) {
@@ -90,8 +91,8 @@ class BonDistributionController extends Controller
 
         $zones = Zone::withCount([
             'colis' => function ($query) {
-                $query->where('status', 'Recu');
-                // $query->whereNotIn('status', ['livre', 'ramasse','nouveau','Attente de Ramassage','Expedie']);
+                // $query->where('status', 'Recu');
+                $query->whereNotIn('status', ['Livre', 'Ramasse', 'Nouveau', 'Attente de Ramassage', 'Expedie']);
             }
         ])->with(['colis', 'livreurs'])->get();
         $breads = [
@@ -104,11 +105,11 @@ class BonDistributionController extends Controller
     public function update($id, $id_BD)
     {
         $colis = Colis::where('id', $id)
-            ->update(['id_BD' => $id_BD, 'status' => 'Mise en distrubition']);
+            ->update(['id_BD' => $id_BD, 'status' => 'Mise en distribution']);
         $coli = Colis::where('id', $id)->first();
         $colisinfo = colisinfo::where('id', $id)->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Mise en distrubition,' . $coli['updated_at'] . ',' . ' ' . '_';
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Mise en distribution,' . $coli['updated_at'] . ',' . ' ' . '_';
 
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.distribution.index', $id_BD);
@@ -139,14 +140,14 @@ class BonDistributionController extends Controller
     {
         if ($request->input('query')) {
             $colis = Colis::where('id', $request->input('query'))
-                ->update(['id_BD' => $id_BD, 'status' => 'Mise en distrubition']);
+                ->update(['id_BD' => $id_BD, 'status' => 'Mise en distribution']);
         } else {
 
 
             foreach ($request->colis as $colis) {
 
                 $colis = Colis::where('id', $colis)
-                    ->update(['id_BD' => $id_BD, 'status' => 'Mise en distrubition']);
+                    ->update(['id_BD' => $id_BD, 'status' => 'Mise en distribution']);
             }
         }
         return redirect()->route('bon.distribution.index', $id_BD);
