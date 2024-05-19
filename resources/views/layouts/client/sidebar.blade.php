@@ -61,7 +61,7 @@
                         <!--end:Menu link-->
                     </div>
                 </div>
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('colis.create')||request()->routeIs('colis.index') ||request()->routeIs('colis.indexRamassage') ?'show':'' }}">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('colis.create')||request()->routeIs('colis.index') ||request()->routeIs('colis.indexRamassage')||request()->routeIs('colis.importPage') ?'show':'' }}">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
@@ -129,7 +129,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="">
+                            <a class="menu-link {{ request()->routeIs('colis.importPage') ?'active':'' }}" href="{{ route('colis.importPage') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>

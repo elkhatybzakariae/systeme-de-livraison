@@ -251,6 +251,12 @@ Route::middleware('check.client')->group(function () {
         Route::get('/edit/{id}', [ColisController::class, 'edit'])->name('colis.edit');
         Route::put('/update/{id}', [ColisController::class, 'update'])->name('colis.update');
         Route::delete('/destroy/{id}', [ColisController::class, 'destroy'])->name('colis.destroy');
+    
+        Route::get('/import', [ColisController::class, 'showImportPage'])->name('colis.importPage');
+        Route::post('/import', [ColisController::class, 'import'])->name('colis.import');
+        Route::get('
+        /template/download', [ColisController::class, 'downloadTemplate'])->name('colis.downloadTemplate');
+
     });
 
     Route::group(['prefix' => 'bon-livraison'], function () {

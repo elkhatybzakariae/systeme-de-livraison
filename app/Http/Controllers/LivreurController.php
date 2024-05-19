@@ -85,8 +85,10 @@ class LivreurController extends Controller
 
                 Auth::login($Livreur);
                 session(["user" => $Livreur]);
-                if (session()->has('url.intended')) {
-                    return redirect()->to(session()->pull('url.intended'));
+                $url=session('url.intended');
+                if ($url) {
+                    session(['url'=>null]);
+                    return redirect()->to($url);
                 }
                 return redirect()->route('livreur.index');
             }

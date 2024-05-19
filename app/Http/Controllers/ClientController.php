@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helpers;
 use App\Http\Controllers\Controller;
+use App\Models\BonEnvois;
 use App\Models\BonLivraison;
 use App\Models\BonRetourClient;
 use App\Models\Client;
@@ -21,7 +22,7 @@ use Illuminate\Support\Str;
 
 class ClientController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $idC=Auth::id();
         $colis = Colis::where('id_Cl',$idC)->count();
@@ -29,11 +30,64 @@ class ClientController extends Controller
         $retourC = BonRetourClient::all()->count();
         $fact = Facture::all()->count();
         $rec = Reclamation::where('id_Cl',$idC)->count();
+
+        
+        $query=Colis::query()->where('id_Cl',$idC);
+        $statistics = $query->selectRaw('status, COUNT(*) as count')
+                            ->groupBy('status')
+                            ->pluck('count', 'status')
+                            ->toArray();
+
+        $statuses = array_keys($statistics);
+        $counts = array_values($statistics);
+
+
+        $query = BonLivraison::query();
+
+        if ($request->has('client_id') && $request->client_id) {
+            $query->where('id_Cl', $request->client_id);
+        }
+
+        $statistics = $query->selectRaw('status, COUNT(*) as count')
+                            ->groupBy('status')
+                            ->pluck('count', 'status')
+                            ->toArray();
+
+        $statusesBL = array_keys($statistics);
+        $countsBL = array_values($statistics);
+
+        $query = BonRetourClient::query()->where('id_Cl',$idC);
+
+
+        $statistics = $query->selectRaw('status, COUNT(*) as count')
+                            ->groupBy('status')
+                            ->pluck('count', 'status')
+                            ->toArray();
+
+        $statusesBRC = array_keys($statistics);
+        $countsBRC = array_values($statistics);
+
+        $query = Reclamation::query();
+
+        $statistics = $query->selectRaw('etat, COUNT(*) as count')
+                            ->groupBy('etat')
+                            ->pluck('count', 'etat')
+                            ->toArray();
+
+        $statusesR = array_keys($statistics);
+        $countsR = array_values($statistics);
+
+
         $breads = [
             ['title' => 'Tableau de bord', 'url' => null],
             ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.clients.dashboard' ,compact('breads','colis','liv','retourC','fact','rec'));
+        return view('pages.clients.dashboard' ,compact('breads','colis','liv','retourC','fact','rec',
+        'statuses', 'counts',
+        'statusesBL', 'countsBL',
+        'statusesBRC', 'countsBRC',
+        'statusesR', 'countsR',
+    ));
     }
     public function signuppage()
     {
@@ -85,16 +139,15 @@ class ClientController extends Controller
                 
                 Auth::login($client);
                 session(["user" => $client]);
-                if (session()->has('url.intended')) {
-                    // dd('hh');
-                    return redirect()->to(session()->pull('url.intended'));
+                $url=session('url.intended');
+                if ($url) {
+                    session(['url'=>null]);
+                    return redirect()->to($url);
                 }
-                // dd('dd');
-
+                
                 return redirect()->route('client.index')->with('success', 'successfull!!!!.');
             }
         }
-        dd($client);
         return back()->with('error', 'Invalid email or password.');
     }
     public function signout()
