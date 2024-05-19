@@ -84,7 +84,7 @@
   @csrf
   <div class="card">
     <div class="card-header">
-      <h5><b>List des colis ajoutes</b></h5>
+      <h5 class="card-title"><b>List des colis ajoutes</b></h5>
     </div>
     <div class="card-body">
       <table class="table table-striped dataTable" >
