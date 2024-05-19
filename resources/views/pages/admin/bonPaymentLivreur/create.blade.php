@@ -7,7 +7,7 @@
 <form action="{{ route('bon.payment.livreur.index') }}">
   <div class="card">
     <div class="card-header">
-      <h5>Ajouter Bon d'envoi </h5>
+      <h5 class="card-title">Ajouter Bon d'envoi </h5>
     </div>
     
     <div class="card-body">

@@ -5,7 +5,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h5>Ajouter Bon d'envoi </h5>
+            <h5 class="card-title">Ajouter Bon d'envoi </h5>
         </div>
         <form action="{{ route('bon.envoi.index') }}">
 

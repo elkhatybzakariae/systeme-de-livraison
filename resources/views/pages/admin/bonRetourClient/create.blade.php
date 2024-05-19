@@ -6,7 +6,7 @@
     <form action="{{ route('bon.retour.client.index') }}">
         <div class="card">
             <div class="card-header">
-                <h5>Ajouter Bon de Retour Client </h5>
+                <h5 class="card-title">Ajouter Bon de Retour Client </h5>
             </div>
 
             <div class="card-body">

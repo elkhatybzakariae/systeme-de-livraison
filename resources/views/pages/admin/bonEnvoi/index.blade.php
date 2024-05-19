@@ -12,7 +12,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5><b>Date de creation:</b> {{ $bonLivraison->created_at }}</h5>
+                    <h5 class="card-title"><b>Date de creation:</b> {{ $bonLivraison->created_at }}</h5>
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
   @csrf
   <div class="card">
     <div class="card-header">
-      <h5><b>List des nouveaux colis</b></h5>
+      <h5 class="card-title"><b>List des nouveaux colis</b></h5>
     </div>
     <div class="card-body">
       

@@ -6,7 +6,7 @@
     <form action="{{ route('bon.distribution.index') }}">
         <div class="card">
             <div class="card-header">
-                <h5>Ajouter Bon de distribution </h5>
+                <h5 class="card-title">Ajouter Bon de distribution </h5>
             </div>
 
             <div class="card-body">
