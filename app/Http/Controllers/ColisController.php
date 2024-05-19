@@ -13,6 +13,8 @@ use Illuminate\Support\Str;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkProcessor;
 use Picqer\Barcode\BarcodeGeneratorPNG;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ColisImport;
 class ColisController extends Controller
 {
     public function index()
@@ -139,5 +141,30 @@ class ColisController extends Controller
     {
         $colis->delete();
         return redirect()->route('colis.index')->with('success', 'Colis deleted successfully.');
+    }
+
+
+
+    public function showImportPage()
+    {
+        return view('pages.clients.colis.import');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls'
+        ]);
+
+        $file = $request->file('file');
+        Excel::import(new ColisImport, $file);
+
+        return back()->with('success', 'Colis imported successfully.');
+    }
+
+    public function downloadTemplate()
+    {
+        $path = public_path('storage/excel/template.xlsx');
+        return response()->download($path);
     }
 }

@@ -36,6 +36,7 @@
                             <span class="menu-title">Dashboards</span>
                             <span class="menu-arrow d-lg-none"></span>
                         </span>
+                        
                         <!--end:Menu link-->
                         <!--begin:Menu sub-->
                         <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0 w-100 w-lg-600px">
@@ -102,6 +103,7 @@
                             <!--end:Dashboards menu-->
                         </div>
                         <!--end:Menu sub-->
+                        <a onclick="adjustFullScreen()" class="btn">full</a>
                     </div>
                     <!--end:Menu item-->
                 </div>

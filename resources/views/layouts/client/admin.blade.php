@@ -109,5 +109,6 @@
 		<x-alert :message="session('error')" type="error" />
   <x-alert :message="session('success')" type="success" />
   <x-alert :message="session('warning')" type="warning" />
+
 	</body>
 </html>

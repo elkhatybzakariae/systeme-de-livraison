@@ -201,7 +201,7 @@ Route::middleware('check.admin')->group(function () {
         Route::get('/export/colis/{id}', [BonRetourClientController::class, 'exportColis'])->name('bon.retour.client.exportColis');
         Route::get('/get/pdf/{id_BRC}', [BonRetourClientController::class, 'getPdf'])->name('bon.retour.client.getPdf');
         Route::post('admin/bon-retour/bd/{id}', [BonRetourClientController::class, 'recu'])->name('bon.retour.client.recu');
-        Route::get('/destroy/{id}', [BonEnvoisController::class, 'destroy'])->name('bon.retour.client.destroy');
+        Route::get('/destroy/{id}', [BonRetourClientController::class, 'destroy'])->name('bon.retour.client.destroy');
 
 
     });
@@ -253,6 +253,12 @@ Route::middleware('check.client')->group(function () {
         Route::get('/edit/{id}', [ColisController::class, 'edit'])->name('colis.edit');
         Route::put('/update/{id}', [ColisController::class, 'update'])->name('colis.update');
         Route::delete('/destroy/{id}', [ColisController::class, 'destroy'])->name('colis.destroy');
+    
+        Route::get('/import', [ColisController::class, 'showImportPage'])->name('colis.importPage');
+        Route::post('/import', [ColisController::class, 'import'])->name('colis.import');
+        Route::get('
+        /template/download', [ColisController::class, 'downloadTemplate'])->name('colis.downloadTemplate');
+
     });
 
     Route::group(['prefix' => 'bon-livraison'], function () {
@@ -268,6 +274,8 @@ Route::middleware('check.client')->group(function () {
         Route::post('/update/delete/all/{id_BL}', [BonLivraisonController::class, 'updateDeleteAll'])->name('bon.livraison.updateDelete.all');
         Route::post('/update/barCode/{id_BL}', [BonLivraisonController::class, 'updateBarCode'])->name('bon.livraison.update.barCode');
         Route::post('/update/delete/barCode/{id_BL}', [BonLivraisonController::class, 'updateDeleteBarCode'])->name('bon.livraison.updateDelete.barCode');
+        Route::get('/bon/livraison/list', [BonLivraisonController::class, 'getClientBons'])->name('bon.livraison.client.list');
+    
     });
     Route::group(['prefix' => 'reclamation'], function () {
         Route::get('/', [ReclamationController::class, 'index'])->name('reclamation.index');
@@ -276,6 +284,9 @@ Route::middleware('check.client')->group(function () {
         Route::post('/update/{id}', [ReclamationController::class, 'update'])->name('reclamation.update');
         Route::delete('/destroy/{id}', [ReclamationController::class, 'destroy'])->name('reclamation.destroy');
     });
+
+    Route::get('/bon/retour', [BonRetourClientController::class, 'getClientBons'])->name('bon.retour.client.getClientBons');
+
 });
 
 
