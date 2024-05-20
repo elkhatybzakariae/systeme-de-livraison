@@ -20,13 +20,14 @@ class BonLivraisonFactory extends Factory
     public function definition(): array
     {
         $clientIds = Client::pluck('id_Cl')->toArray();
-        $colisIds = Colis::pluck('id_C')->toArray();
 
         return [
             'reference' => 'BL-'.Str::random(10),
             'id_Cl' => fake()->randomElement($clientIds),
-            'statut' => $this->faker->randomElement(['pending', 'processing', 'delivered']),
-            // 'id_C' => fake()->randomElement($colisIds),
+            'id_BL' => $this->faker->unique()->regexify('[A-Z0-9]{15}'),
+            'status' => $this->faker->randomElement(['pending', 'completed', 'cancelled']),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

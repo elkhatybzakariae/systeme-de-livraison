@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Livreur;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,6 +19,12 @@ class BonEnvoisFactory extends Factory
     {
         return [
             //
+            'id_BE' => $this->faker->unique()->regexify('[A-Z0-9]{15}'),
+            'reference' => $this->faker->unique()->numerify('REF#####'),
+            'id_Liv' => Livreur::factory()->create()->id_Liv, // Assumes LivreurFactory exists
+            'status' => $this->faker->randomElement(['nouveau', 'recu']),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
