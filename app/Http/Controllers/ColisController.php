@@ -15,17 +15,23 @@ use Picqer\Barcode\BarcodeGeneratorPNG;
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ColisImport;
+use App\Models\DemandeModificationColi;
+use Illuminate\Support\Facades\Auth;
+
 class ColisController extends Controller
 {
     public function index()
     {
-        $colis = Colis::query()->whereNot('status','nouveau')->get();
+        $id=Auth::id();
+        $colis = Colis::query()->where('id_Cl',$id)->with('client')->whereNot('status','nouveau')->get();        
+        $colisIds = $colis->pluck('id')->toArray();
+        $demandes=DemandeModificationColi::whereIn('id',$colisIds)->get();
         $colisinfo = colisinfo::all();
         $breads = [
             ['title' => 'Liste des Colis', 'url' => null],
             ['text' => 'Colis', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.clients.colis.index', compact('colis','breads','colisinfo'));
+        return view('pages.clients.colis.index', compact('colis','demandes','breads','colisinfo'));
     }
  
     public function indexAdmin()

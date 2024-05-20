@@ -4,8 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Colis;
-use App\Models\Ramassagecoli;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -49,5 +47,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MessageSeeder::class);
         $this->call(RamassagecoliSeeder::class);
         $this->call(RemarqueSeeder::class);
+        $this->call(DemandeModificationColiSeeder::class);
     }
 }

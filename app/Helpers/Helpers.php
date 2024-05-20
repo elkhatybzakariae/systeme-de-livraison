@@ -5,6 +5,7 @@ namespace App\Helpers;
 use App\Models\Admin;
 use App\Models\Client;
 use App\Models\Colis;
+use App\Models\DemandeModificationColi;
 use App\Models\Depense;
 use App\Models\Livreur;
 use App\Models\Message;
@@ -113,5 +114,13 @@ class Helpers
             $id_Mess = Str::random(15);
         }
         return $id_Mess;
+    }
+    public static function generateIdDMC()
+    {
+        $id_DMC = Str::random(15);
+        while (DemandeModificationColi::where('id_DMC', $id_DMC)->exists()) {
+            $id_DMC = Str::random(15);
+        }
+        return $id_DMC;
     }
 }

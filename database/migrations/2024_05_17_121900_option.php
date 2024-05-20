@@ -14,6 +14,24 @@ return new class extends Migration
         Schema::create('options', function (Blueprint $table) {
             $table->id('id_Op')->autoIncrement();
             $table->string('code');
+            // [
+            //     'Nouveau', 'Mise en distribution',
+            //     'Expedie', 'En livraison',
+            //     'Attente de Ramassage', 'Ramasse',
+            //     'En voyage', 'Recu', 'Livraison',
+            //     'Distribution', 'Retourne', 'Livre',
+            //     'Reporte', 'Pas de Reponse', 'Injoignable',
+            //     'Hors-Zone', 'Annule', 'Refuse',
+            //     'Numero Errone', 'Deuxieme Appel',
+            //     'Programme', 'Boite vocale',
+            //     'Client interesse',
+            //     'Expedier vers Centre Retour',
+            //     'Recu par Centre Retour',
+            //     'Expedier vers Centre Principale',
+            //     'Recu par Centre Principale',
+            //     'Expedier vers Client',
+            //     'Recu par Client'
+            // ]
             $table->string('nom');
             $table->string('couleur');
             $table->timestamps();

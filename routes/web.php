@@ -11,6 +11,7 @@ use App\Http\Controllers\BonRetourLivreurController;
 use App\Http\Controllers\BonRetourZoneController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ColisController;
+use App\Http\Controllers\DemandeModificationColiController;
 use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\EtatController;
 use App\Http\Controllers\FactureController;
@@ -238,6 +239,13 @@ Route::middleware('check.admin')->group(function () {
         Route::get('/all', [ReclamationController::class, 'all'])->name('reclamation.all');
         Route::post('/traiteRec/{id}', [ReclamationController::class, 'traiteRec'])->name('reclamation.traiteRec');
     });
+    Route::group(['prefix' => 'admin/demandemodificationcolis'], function () {
+        Route::get('/all', [DemandeModificationColiController::class, 'all'])->name('demandemodificationcolis.all');
+        Route::post('/traiteRec/{id}', [DemandeModificationColiController::class, 'traiteRec'])->name('demandemodificationcolis.traiteRec');
+        
+        Route::get('/accepte/{id}', [DemandeModificationColiController::class, 'accepte'])->name('demandemodificationcolis.accepte');
+        Route::get('/refuse/{id}', [DemandeModificationColiController::class, 'refuse'])->name('demandemodificationcolis.refuse');
+    });
     Route::get('/admin/colis', [ColisController::class, 'indexAdmin'])->name('colis.indexAdmin');
     Route::get('admin/bon-livraisons/', [BonLivraisonController::class, 'list'])->name('bon.livraison.list');
     Route::get('/get/pdf/{id_BL}', [BonLivraisonController::class, 'getPdf'])->name('bon.livraison.getPdf');
@@ -309,6 +317,14 @@ Route::middleware('check.client')->group(function () {
     });
 
     Route::get('/bon/retour', [BonRetourClientController::class, 'getClientBons'])->name('bon.retour.client.getClientBons');
+
+    Route::group(['prefix' => 'demandemodificationcolis'], function () {
+        // Route::get('/', [DemandeModificationColiController::class, 'index'])->name('demandemodificationcolis.index');
+        Route::post('/store/{id}', [DemandeModificationColiController::class, 'store'])->name('demandemodificationcolis.store');
+        // Route::post('/update/{id}', [DemandeModificationColiController::class, 'update'])->name('demandemodificationcolis.update');
+        // Route::post('/traiteRec/{id}', [DemandeModificationColiController::class, 'traiteRec'])->name('demandemodificationcolis.traiteRec');
+        
+    });
 
 });
 

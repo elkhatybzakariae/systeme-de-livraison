@@ -54,6 +54,10 @@ class Colis extends Model
     {
         return $this->hasOne(colisinfo::class, 'id');
     }
+    public function colisModif()
+    {
+        return $this->hasMany(DemandeModificationColi::class, 'id');
+    }
 
     public function ville()
     {

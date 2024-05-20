@@ -3,6 +3,62 @@
     <x-breadcrumb :breads="$breads" />
 @endsection
 @section('content')
+    <div class="modal fade" id="kt_modal_new_targetRecColis" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content rounded">
+                <div class="modal-header pb-0 border-0 justify-content-end">
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                    transform="rotate(45 7.41422 6)" fill="currentColor" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                    <form id="kt_modal_new_Rec_form" method="POST" class="form"
+                        action="{{ route('reclamation.store') }}">
+                        @csrf
+                        <input type="hidden" name="id_C" id="id_C">
+                        <div class="mb-13 text-center">
+                            <h1 class="mb-3">Nouvelle reclamation</h1>
+                        </div>
+                        <div class="row">
+                            <div class=" col-md-12 col mb-8 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">Objet</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder="Objet"
+                                    id="objet" name="objet" />
+                            </div>
+                            <div class=" col-md-12 col mb-8 fv-row">
+                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">Message</span>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder="Message"
+                                    id="message" name="message" />
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="reset" id="kt_modal_new_target_cancel"
+                                class="btn btn-light me-3">Cancel</button>
+                            <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">
+                                <span class="indicator-label">Enregister</span>
+                                <span class="indicator-progress">Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="kt_modal_new_target" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered mw-650px">
             <div class="modal-content rounded">
@@ -62,6 +118,55 @@
                 <div id="modal-body" class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
 
 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="kt_modal_new_target2" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content rounded">
+                <div class="modal-header pb-0 border-0 justify-content-end">
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                    transform="rotate(45 7.41422 6)" fill="currentColor" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <div id="modal-body2" class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="kt_modal_info" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-content rounded">
+                <div class="modal-header pb-0 border-0 justify-content-end">
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                    transform="rotate(45 7.41422 6)" fill="currentColor" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-body px-10 px-lg-5 pt-0 pb-5">
+                    <div class="card-body" id="kt_drawer_chat_messenger_body">
+                        <div class="scroll-y " id="showinfo">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -166,24 +271,29 @@
                                 <span class="fw-bold" data-kt-ecommerce-product-filter="prix">{{ $coli->prix }}</span>
                             </td>
                             <td class="row ">
-                                <div class="menu-item px-3 col-4">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a onclick="openModalallinfo('{{ $coli->id }}')" data-bs-toggle="modal"
+                                        data-bs-target="#kt_modal_new_target1" class="btn btn-sm btn-warning"><i
+                                            class="fa fa-eye"></i>
+                                    </a>
                                     <a onclick="openModalinfo('{{ $coli->id }}')" data-bs-toggle="modal"
-                                        data-bs-target="#kt_modal_new_target1" class="menu-link px-3"><i
-                                            class="fa fa-eye"></i></a>
-                                </div>
-                                <div class="menu-item px-3 col-4">
-                                    <a onclick="openModal('{{ $coli->villename }}','{{ $coli->zonename }}','{{ $coli->ref }}','{{ route('colis.update', $coli->id) }}')"
-                                        data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"
-                                        class="menu-link px-3"><i class="fa fa-pen"></i></a>
-                                </div>
-                                <div class="menu-item px-3 col-4">
-                                    <form action="{{ route('colis.destroy', $coli->id) }}" method="POST">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button type="submit" class="menu-link px-3 btn text-danger"
-                                            data-kt-ecommerce-product-filter="delete_row" value=""><i
-                                                class="fa fa-trash"></i></button>
-                                    </form>
+                                        data-bs-target="#kt_modal_info" class="btn btn-sm btn-info"><i
+                                            class="fa fa-info"></i>
+                                    </a>
+
+
+                                    <a data-bs-toggle="modal" onclick="openModalRecColis('{{ $coli->id }}')"
+                                        data-bs-target="#kt_modal_new_targetRecColis"class="btn btn-sm btn-primary"><i
+                                            class="fa fa-question-circle" aria-hidden="true"></i></a>
+                                    {{-- <a href="javascript:ajaxIframeBox('parcels?action=add-claim-coli&amp;parcel-code=colis11');"
+                                        class="btn btn-sm btn-primary"><i class="fa fa-question-circle"
+                                            aria-hidden="true"></i> --}}
+                                    </a>
+                                    <a onclick="openModalDMC('{{ $coli->id }}','{{ $coli->code_d_envoi }}','{{ $coli->destinataire }}','{{ $coli->telephone }}'
+                                        ,'{{ $coli->prix }}','{{ $coli->commentaire }}','{{ $coli->adresse }}',
+                                        '{{ $coli->fragile }}','{{ $coli->ouvrir }}','{{ route('demandemodificationcolis.store',$coli->id) }}')"
+                                        data-bs-toggle="modal" data-bs-target="#kt_modal_new_target2"
+                                        class="btn btn-sm btn-secondary"><i class="fa fa-edit"></i></a>
                                 </div>
                             </td>
                         </tr>
@@ -222,8 +332,10 @@
         });
 
         var colisinfo = @json($colisinfo);
+        var dmc = @json($demandes);
+        console.log(dmc);
 
-        function openModalinfo(id) {
+        function openModalallinfo(id) {
 
             var modal = document.getElementById('modal-body');
             var colisinfos = colisinfo.find(element => element.id == id).info;
@@ -272,6 +384,183 @@
             // document.getElementById('show').innerHTML = bb;
 
             modal.innerHTML = text
+        }
+
+        function openModalDMC(id, code_d_envoi, destinataire, telephone, prix, commentaire, adresse, fragile, ouvrir,action) {
+
+            var modal = document.getElementById('modal-body2');
+            if (dmc && dmc.length > 0) {
+                var dmcs = dmc.find(element => element.id === id);
+            }
+            console.log('====================================');
+            console.log(dmcs);
+            console.log('====================================');
+            let text = ''
+            if (dmcs) {
+                text = `
+                        <form method="POST" class="form row" action='${action}' >
+                        @csrf
+                        <div class="mb-13 text-center">
+                            <h1 class="mb-3">Demande de modification du colis :${code_d_envoi}</h1>
+                        </div>
+                        <hr>
+                        <div class="col-6 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Destinataire</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input readOnly type="text" class="form-control form-control-solid" value="${destinataire}" id="destinataire" name="destinataire" />
+                        </div>
+                        <div class="col-6 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Telephone</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input readOnly type="text" class="form-control form-control-solid" value="${telephone}" id="telephone" name="telephone" />
+                        </div>
+                        <div class="col-12 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Adresse</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input readOnly type="text" class="form-control form-control-solid" value="${adresse}" id="adresse" name="adresse" />
+                        </div>
+                        <div class="col-12 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Commentaire ( Autre telephone, Date de livraison ...)</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input readOnly type="text" class="form-control form-control-solid" value="${commentaire}" id="commentaire" name="commentaire" />
+                        </div>
+                        <div class="col-12 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Prix</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input readOnly type="text" class="form-control form-control-solid" value="${prix}" id="prix" name="prix" />
+                        </div>
+                        <br>                        
+                        <div class="text-center">
+                            <button type="submit"  class="btn btn-primary">
+                            <span class="indicator-label">Envoyer la demande</span>
+                            <span class="indicator-progress">Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                        </form>
+                                    `;
+           
+            } else {
+
+                text = `
+                        <form method="POST" class="form row" action='${action}' >
+                        @csrf
+                        <div class="mb-13 text-center">
+                            <h1 class="mb-3">Demande de modification du colis :${code_d_envoi}</h1>
+                        </div>
+                        <hr>
+                        <div class="col-6 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Destinataire</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" value="${destinataire}" id="destinataire" name="destinataire" />
+                        </div>
+                        <div class="col-6 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Telephone</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" value="${telephone}" id="telephone" name="telephone" />
+                        </div>
+                        <div class="col-12 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Adresse</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" value="${adresse}" id="adresse" name="adresse" />
+                        </div>
+                        <div class="col-12 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Commentaire ( Autre telephone, Date de livraison ...)</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" value="${commentaire}" id="commentaire" name="commentaire" />
+                        </div>
+                        <div class="col-12 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Prix</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" value="${prix}" id="prix" name="prix" />
+                        </div>
+                        <br>
+                        
+                        <div class="text-center">
+                            <button type="submit"  class="btn btn-primary">
+                            <span class="indicator-label">Envoyer la demande</span>
+                            <span class="indicator-progress">Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                        </form>
+                                    `;
+            }
+            modal.innerHTML = text
+        }
+
+        function openModalinfo(id) {
+            var colis = @json($colis);
+            let bb = '';
+            let item = colis.find(ele => ele.id == id)
+            console.log(item);
+            bb += `
+                <div class="">
+                    <div class="d-flex flex-column ">
+                        <div class="d-flex justify-content-center align-items-center  mb-2">
+                            <div class="symbol symbol-35px symbol-circle">
+                                <h3>Information du colis.</h3>
+                            </div>
+                        </div>
+                        <div class=" rounded text-dark fw-semibold text-start row" data-kt-element="message-text">
+                            <div class="form-group mb-3 col-6 row">
+                                <div class="form-group mb-3 col col-12">
+                                <label class="fw-bold" for="nom_livreur">Nom Client:${item.client.nomcomplet}</label>
+                                </div>
+                                <div class="form-group mb-3 col col-md-12">
+                                    <label class="fw-bold" for="nom_livreur">Telephone:${item.client.Phone}</label>
+                                </div>    
+                            </div>
+                            <div class="form-group mb-3 col-6 row">
+                                <div class="form-group mb-3 col col-12">
+                                <label class="fw-bold" for="nom_livreur">Code d envoie:${item.code_d_envoi}</label>
+                                </div>
+                                <div class="form-group mb-3 col col-12">
+                                    <label class="fw-bold" for="nom_livreur">Destinataire:${item.destinataire}</label>
+                                </div>                                    
+                                <div class="form-group mb-3 col col-12">
+                                    <label class="fw-bold" for="nom_livreur">Telephone:${item.telephone}</label>
+                                </div>                                      
+                                <div class="form-group mb-3 col col-12">
+                                    <label class="fw-bold" for="nom_livreur">Ville:${item.ville.villename}</label>
+                                </div>                                    
+                                <div class="form-group mb-3 col col-12">
+                                    <label class="fw-bold" for="nom_livreur">Adresse:${item.adresse}</label>
+                                </div>                                   
+                                <div class="form-group mb-3 col col-12">
+                                    <label class="fw-bold" for="nom_livreur">Crbt:${item.prix * item.quantite}</label>
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('showinfo').innerHTML = bb;
+        }
+
+        function openModalRecColis(id_C) {
+            document.getElementById('id_C').value = id_C;
         }
     </script>
 @endsection

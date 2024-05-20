@@ -15,7 +15,7 @@ class Reclamation extends Model
     public $incrementing = false;
     public $timestamps = true;
     protected $fillable = ['id_Rec','objet','etat',
-    'id_Ad',
+    'id_C',
     'id_Cl'];
 
     public function client()

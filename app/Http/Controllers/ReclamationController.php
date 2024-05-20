@@ -15,7 +15,6 @@ class ReclamationController extends Controller
     public function index()
     {
         $idU= Auth::id();
-        // dd($idU);
         $reclamations = Reclamation::where('id_Cl', $idU)
         ->with(['client', 'message' => function ($query) {
             $query->orderBy('created_at', 'asc');
@@ -47,21 +46,22 @@ class ReclamationController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
         $id_Rec = Helpers::generateIdRec();
         $id_Mess = Helpers::generateIdMess();
 
         $id_Cl= Auth::id();
-        $id_C=$request->filled('id_C') ?$request->input('id_C') :'';
+        $id_C=$request->id_C ?$request->id_C :Null;
+        // dd($id_C);
         $validatedData = $request->validate([
             'objet' => 'required|string|max:255',
-            // 'id_C' => 'nullable|string',
             'message' => 'required|string',
         ]);
 
         $newRec=Reclamation::create([
             'id_Rec' => $id_Rec,
             'objet' => $validatedData['objet'],
-            // 'id_C' => $id_C,
+            'id_C' => $id_C,
             'id_Cl' => $id_Cl,
         ]);
         $newMess=Message::create([
@@ -70,7 +70,8 @@ class ReclamationController extends Controller
             'id_Rec' => $newRec['id_Rec'],
             'id_Ad' => null,
         ]);
-        return redirect()->route('reclamation.index')->with('success', 'reclamation created successfully.');
+        // return redirect()->route('reclamation.index')->with('success', 'reclamation created successfully.');
+        return back();
     }
 
    
