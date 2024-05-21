@@ -126,35 +126,16 @@
             <!--end::Text-->
             <!--begin::Info-->
             <div class="d-flex align-items-center flex-wrap fw-semibold fs-7 pe-2">
-              <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary">UI/UX Design</a>
+              <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary">Administrateur</a>
               <span class="bullet bullet-dot h-5px w-5px bg-gray-400 mx-3"></span>
-              <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary">Austin, TX</a>
-              <span class="bullet bullet-dot h-5px w-5px bg-gray-400 mx-3"></span>
-              <a href="#" class="text-gray-400 text-hover-primary">3,450 Followers</a>
+              
             </div>
             <!--end::Info-->
           </div>
           <!--end::User-->
           <!--begin::Actions-->
           <div class="d-flex">
-            <a href="#" class="btn btn-sm btn-light me-3" id="kt_drawer_chat_toggle">Send Message</a>
-            <button class="btn btn-sm btn-primary" id="kt_user_follow_button">
-              <!--begin::Svg Icon | path: icons/duotune/arrows/arr012.svg-->
-              <span class="svg-icon svg-icon-3 d-none">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path opacity="0.3" d="M10 18C9.7 18 9.5 17.9 9.3 17.7L2.3 10.7C1.9 10.3 1.9 9.7 2.3 9.3C2.7 8.9 3.29999 8.9 3.69999 9.3L10.7 16.3C11.1 16.7 11.1 17.3 10.7 17.7C10.5 17.9 10.3 18 10 18Z" fill="currentColor" />
-                  <path d="M10 18C9.7 18 9.5 17.9 9.3 17.7C8.9 17.3 8.9 16.7 9.3 16.3L20.3 5.3C20.7 4.9 21.3 4.9 21.7 5.3C22.1 5.7 22.1 6.30002 21.7 6.70002L10.7 17.7C10.5 17.9 10.3 18 10 18Z" fill="currentColor" />
-                </svg>
-              </span>
-              <!--end::Svg Icon-->
-              <!--begin::Indicator label-->
-              <span class="indicator-label">Follow</span>
-              <!--end::Indicator label-->
-              <!--begin::Indicator progress-->
-              <span class="indicator-progress">Please wait...
-              <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-              <!--end::Indicator progress-->
-            </button>
+            <a href="#" class="btn btn-danger me-3" id="kt_drawer_chat_toggle">Log Out</a>
           </div>
           <!--end::Actions-->
         </div>
@@ -172,47 +153,10 @@
       <li class="nav-item my-1">
         <a class="btn btn-sm btn-color-gray-600 bg-state-body btn-active-color-gray-800 fw-bolder fw-bold fs-6 fs-lg-base nav-link px-3 px-lg-4 mx-1 active" href="../../demo1/dist/account/overview.html">Overview</a>
       </li>
-      <!--end::Nav item-->
-      <!--begin::Nav item-->
       <li class="nav-item my-1">
         <a class="btn btn-sm btn-color-gray-600 bg-state-body btn-active-color-gray-800 fw-bolder fw-bold fs-6 fs-lg-base nav-link px-3 px-lg-4 mx-1" href="../../demo1/dist/account/settings.html">Settings</a>
       </li>
-      <!--end::Nav item-->
-      <!--begin::Nav item-->
-      <li class="nav-item my-1">
-        <a class="btn btn-sm btn-color-gray-600 bg-state-body btn-active-color-gray-800 fw-bolder fw-bold fs-6 fs-lg-base nav-link px-3 px-lg-4 mx-1" href="../../demo1/dist/account/security.html">Security</a>
-      </li>
-      <!--end::Nav item-->
-      <!--begin::Nav item-->
-      <li class="nav-item my-1">
-        <a class="btn btn-sm btn-color-gray-600 bg-state-body btn-active-color-gray-800 fw-bolder fw-bold fs-6 fs-lg-base nav-link px-3 px-lg-4 mx-1" href="../../demo1/dist/account/activity.html">Activity</a>
-      </li>
-      <!--end::Nav item-->
-      <!--begin::Nav item-->
-      <li class="nav-item my-1">
-        <a class="btn btn-sm btn-color-gray-600 bg-state-body btn-active-color-gray-800 fw-bolder fw-bold fs-6 fs-lg-base nav-link px-3 px-lg-4 mx-1" href="../../demo1/dist/account/billing.html">Billing</a>
-      </li>
-      <!--end::Nav item-->
-      <!--begin::Nav item-->
-      <li class="nav-item my-1">
-        <a class="btn btn-sm btn-color-gray-600 bg-state-body btn-active-color-gray-800 fw-bolder fw-bold fs-6 fs-lg-base nav-link px-3 px-lg-4 mx-1" href="../../demo1/dist/account/statements.html">Statements</a>
-      </li>
-      <!--end::Nav item-->
-      <!--begin::Nav item-->
-      <li class="nav-item my-1">
-        <a class="btn btn-sm btn-color-gray-600 bg-state-body btn-active-color-gray-800 fw-bolder fw-bold fs-6 fs-lg-base nav-link px-3 px-lg-4 mx-1" href="../../demo1/dist/account/referrals.html">Referrals</a>
-      </li>
-      <!--end::Nav item-->
-      <!--begin::Nav item-->
-      <li class="nav-item my-1">
-        <a class="btn btn-sm btn-color-gray-600 bg-state-body btn-active-color-gray-800 fw-bolder fw-bold fs-6 fs-lg-base nav-link px-3 px-lg-4 mx-1" href="../../demo1/dist/account/api-keys.html">API Keys</a>
-      </li>
-      <!--end::Nav item-->
-      <!--begin::Nav item-->
-      <li class="nav-item my-1">
-        <a class="btn btn-sm btn-color-gray-600 bg-state-body btn-active-color-gray-800 fw-bolder fw-bold fs-6 fs-lg-base nav-link px-3 px-lg-4 mx-1" href="../../demo1/dist/account/logs.html">Logs</a>
-      </li>
-      <!--end::Nav item-->
+     
     </ul>
     <!--end::Nav-->
   </div>
@@ -227,126 +171,220 @@
       </div>
       <!--end::Card title-->
       <!--begin::Action-->
-      <a href="../../demo1/dist/account/settings.html" class="btn btn-sm btn-primary align-self-center">Edit Profile</a>
+      <a href="" class="btn btn-sm btn-primary align-self-center">Edit Profile</a>
       <!--end::Action-->
     </div>
-    <!--begin::Card header-->
-    <!--begin::Card body-->
     <div class="card-body p-9">
       <!--begin::Row-->
       <div class="row mb-7">
-        <!--begin::Label-->
-        <label class="col-lg-4 fw-semibold text-muted">Full Name</label>
-        <!--end::Label-->
-        <!--begin::Col-->
-        <div class="col-lg-8">
-          <span class="fw-bold fs-6 text-gray-800">Max Smith</span>
-        </div>
-        <!--end::Col-->
+          <!--begin::Label-->
+          <label class="col-lg-4 fw-semibold text-muted">Admin ID</label>
+          <!--end::Label-->
+          <!--begin::Col-->
+          <div class="col-lg-8">
+              <span class="fw-bold fs-6 text-gray-800">{{ $admin->id_Ad }}</span>
+          </div>
+          <!--end::Col-->
       </div>
       <!--end::Row-->
-      <!--begin::Input group-->
+      
+      <!--begin::Row-->
       <div class="row mb-7">
-        <!--begin::Label-->
-        <label class="col-lg-4 fw-semibold text-muted">Company</label>
-        <!--end::Label-->
-        <!--begin::Col-->
-        <div class="col-lg-8 fv-row">
-          <span class="fw-semibold text-gray-800 fs-6">Keenthemes</span>
-        </div>
-        <!--end::Col-->
-      </div>
-      <!--end::Input group-->
-      <!--begin::Input group-->
-      <div class="row mb-7">
-        <!--begin::Label-->
-        <label class="col-lg-4 fw-semibold text-muted">Contact Phone
-        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Phone number must be active"></i></label>
-        <!--end::Label-->
-        <!--begin::Col-->
-        <div class="col-lg-8 d-flex align-items-center">
-          <span class="fw-bold fs-6 text-gray-800 me-2">044 3276 454 935</span>
-          <span class="badge badge-success">Verified</span>
-        </div>
-        <!--end::Col-->
-      </div>
-      <!--end::Input group-->
-      <!--begin::Input group-->
-      <div class="row mb-7">
-        <!--begin::Label-->
-        <label class="col-lg-4 fw-semibold text-muted">Company Site</label>
-        <!--end::Label-->
-        <!--begin::Col-->
-        <div class="col-lg-8">
-          <a href="#" class="fw-semibold fs-6 text-gray-800 text-hover-primary">keenthemes.com</a>
-        </div>
-        <!--end::Col-->
-      </div>
-      <!--end::Input group-->
-      <!--begin::Input group-->
-      <div class="row mb-7">
-        <!--begin::Label-->
-        <label class="col-lg-4 fw-semibold text-muted">Country
-        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Country of origination"></i></label>
-        <!--end::Label-->
-        <!--begin::Col-->
-        <div class="col-lg-8">
-          <span class="fw-bold fs-6 text-gray-800">Germany</span>
-        </div>
-        <!--end::Col-->
-      </div>
-      <!--end::Input group-->
-      <!--begin::Input group-->
-      <div class="row mb-7">
-        <!--begin::Label-->
-        <label class="col-lg-4 fw-semibold text-muted">Communication</label>
-        <!--end::Label-->
-        <!--begin::Col-->
-        <div class="col-lg-8">
-          <span class="fw-bold fs-6 text-gray-800">Email, Phone</span>
-        </div>
-        <!--end::Col-->
-      </div>
-      <!--end::Input group-->
-      <!--begin::Input group-->
-      <div class="row mb-10">
-        <!--begin::Label-->
-        <label class="col-lg-4 fw-semibold text-muted">Allow Changes</label>
-        <!--begin::Label-->
-        <!--begin::Label-->
-        <div class="col-lg-8">
-          <span class="fw-semibold fs-6 text-gray-800">Yes</span>
-        </div>
-        <!--begin::Label-->
-      </div>
-      <!--end::Input group-->
-      <!--begin::Notice-->
-      <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
-        <!--begin::Icon-->
-        <!--begin::Svg Icon | path: icons/duotune/general/gen044.svg-->
-        <span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor" />
-            <rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="currentColor" />
-            <rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="currentColor" />
-          </svg>
-        </span>
-        <!--end::Svg Icon-->
-        <!--end::Icon-->
-        <!--begin::Wrapper-->
-        <div class="d-flex flex-stack flex-grow-1">
-          <!--begin::Content-->
-          <div class="fw-semibold">
-            <h4 class="text-gray-900 fw-bold">We need your attention!</h4>
-            <div class="fs-6 text-gray-700">Your payment was declined. To start using tools, please
-            <a class="fw-bold" href="../../demo1/dist/account/billing.html">Add Payment Method</a>.</div>
+          <!--begin::Label-->
+          <label class="col-lg-4 fw-semibold text-muted">Store Name</label>
+          <!--end::Label-->
+          <!--begin::Col-->
+          <div class="col-lg-8">
+              <span class="fw-bold fs-6 text-gray-800">{{ $admin->nommagasin }}</span>
           </div>
-          <!--end::Content-->
-        </div>
-        <!--end::Wrapper-->
+          <!--end::Col-->
       </div>
-      <!--end::Notice-->
-    </div>
+      <!--end::Row-->
+      
+      <!--begin::Row-->
+      <div class="row mb-7">
+          <!--begin::Label-->
+          <label class="col-lg-4 fw-semibold text-muted">Full Name</label>
+          <!--end::Label-->
+          <!--begin::Col-->
+          <div class="col-lg-8">
+              <span class="fw-bold fs-6 text-gray-800">{{ $admin->nomcomplet }}</span>
+          </div>
+          <!--end::Col-->
+      </div>
+      <!--end::Row-->
+      
+      <!--begin::Row-->
+      <div class="row mb-7">
+          <!--begin::Label-->
+          <label class="col-lg-4 fw-semibold text-muted">Email</label>
+          <!--end::Label-->
+          <!--begin::Col-->
+          <div class="col-lg-8">
+              <span class="fw-bold fs-6 text-gray-800">{{ $admin->email }}</span>
+          </div>
+          <!--end::Col-->
+      </div>
+      <!--end::Row-->
+      
+      <!--begin::Row-->
+      <div class="row mb-7">
+          <!--begin::Label-->
+          <label class="col-lg-4 fw-semibold text-muted">Phone</label>
+          <!--end::Label-->
+          <!--begin::Col-->
+          <div class="col-lg-8 d-flex align-items-center">
+              <span class="fw-bold fs-6 text-gray-800 me-2">{{ $admin->Phone }}</span>
+              <span class="badge badge-success">Verified</span>
+          </div>
+          <!--end::Col-->
+      </div>
+      <!--end::Row-->
+      
+      <!--begin::Row-->
+      <div class="row mb-7">
+          <!--begin::Label-->
+          <label class="col-lg-4 fw-semibold text-muted">City</label>
+          <!--end::Label-->
+          <!--begin::Col-->
+          <div class="col-lg-8">
+              <span class="fw-bold fs-6 text-gray-800">{{ $admin->ville }}</span>
+          </div>
+          <!--end::Col-->
+      </div>
+      <!--end::Row-->
+      
+      <!--begin::Row-->
+      <div class="row mb-7">
+          <!--begin::Label-->
+          <label class="col-lg-4 fw-semibold text-muted">Address</label>
+          <!--end::Label-->
+          <!--begin::Col-->
+          <div class="col-lg-8">
+              <span class="fw-bold fs-6 text-gray-800">{{ $admin->adress }}</span>
+          </div>
+          <!--end::Col-->
+      </div>
+      <!--end::Row-->
+      
+      <!--begin::Row-->
+      <div class="row mb-7">
+          <!--begin::Label-->
+          <label class="col-lg-4 fw-semibold text-muted">Bank Name</label>
+          <!--end::Label-->
+          <!--begin::Col-->
+          <div class="col-lg-8">
+              <span class="fw-bold fs-6 text-gray-800">{{ $admin->nombanque }}</span>
+          </div>
+          <!--end::Col-->
+      </div>
+      <!--end::Row-->
+      
+      <!--begin::Row-->
+      <div class="row mb-7">
+          <!--begin::Label-->
+          <label class="col-lg-4 fw-semibold text-muted">Account Number</label>
+          <!--end::Label-->
+          <!--begin::Col-->
+          <div class="col-lg-8">
+              <span class="fw-bold fs-6 text-gray-800">{{ $admin->numerocompte }}</span>
+          </div>
+          <!--end::Col-->
+      </div>
+      <!--end::Row-->
+      
+      <!--begin::Row-->
+      <div class="row mb-7">
+          <!--begin::Label-->
+          <label class="col-lg-4 fw-semibold text-muted">Is Admin</label>
+          <!--end::Label-->
+          <!--begin::Col-->
+          <div class="col-lg-8">
+              <span class="fw-bold fs-6 text-gray-800">{{ $admin->isAdmin ? 'Yes' : 'No' }}</span>
+          </div>
+          <!--end::Col-->
+      </div>
+      <!--end::Row-->
+      
+      <!--begin::Row-->
+      <div class="row mb-7">
+          <!--begin::Label-->
+          <label class="col-lg-4 fw-semibold text-muted">CIN</label>
+          <!--end::Label-->
+          <!--begin::Col-->
+          <div class="col-lg-8">
+              <span class="fw-bold fs-6 text-gray-800">{{ $admin->cin }}</span>
+          </div>
+          <!--end::Col-->
+      </div>
+      <!--end::Row-->
+      
+      <!--begin::Row-->
+      <div class="row mb-7">
+          <!--begin::Label-->
+          <label class="col-lg-4 fw-semibold text-muted">Username</label>
+          <!--end::Label-->
+          <!--begin::Col-->
+          <div class="col-lg-8">
+              <span class="fw-bold fs-6 text-gray-800">{{ $admin->user }}</span>
+          </div>
+          <!--end::Col-->
+      </div>
+      <!--end::Row-->
+      
+      <!--begin::Row-->
+      <div class="row mb-7">
+          <!--begin::Label-->
+          <label class="col-lg-4 fw-semibold text-muted">Photo</label>
+          <!--end::Label-->
+          <!--begin::Col-->
+          <div class="col-lg-8">
+              <img src="{{ asset('storage/' . $admin->photo) }}" alt="Photo" class="img-fluid">
+          </div>
+          <!--end::Col-->
+      </div>
+      <!--end::Row-->
+      
+      <!--begin::Row-->
+      <div class="row mb-7">
+          <!--begin::Label-->
+          <label class="col-lg-4 fw-semibold text-muted">CIN Recto</label>
+          <!--end::Label-->
+          <!--begin::Col-->
+          <div class="col-lg-8">
+              <img src="{{ asset('storage/' . $admin->cinrecto) }}" alt="CIN Recto" class="img-fluid">
+          </div>
+          <!--end::Col-->
+      </div>
+      <!--end::Row-->
+      
+      <!--begin::Row-->
+      <div class="row mb-7">
+          <!--begin::Label-->
+          <label class="col-lg-4 fw-semibold text-muted">CIN Verso</label>
+          <!--end::Label-->
+          <!--begin::Col-->
+          <div class="col-lg-8">
+              <img src="{{ asset('storage/' . $admin->cinverso) }}" alt="CIN Verso" class="img-fluid">
+          </div>
+          <!--end::Col-->
+      </div>
+      <!--end::Row-->
+      
+      <!--begin::Row-->
+      <div class="row mb-7">
+          <!--begin::Label-->
+          <label class="col-lg-4 fw-semibold text-muted">RIB</label>
+          <!--end::Label-->
+          <!--begin::Col-->
+          <div class="col-lg-8">
+              <span class="fw-bold fs-6 text-gray-800">{{ $admin->RIB }}</span>
+          </div>
+          <!--end::Col-->
+      </div>
+      <!--end::Row-->
+  </div>
+  
     <!--end::Card body-->
   </div>
   <!--end::details View-->

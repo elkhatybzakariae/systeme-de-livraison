@@ -20,6 +20,20 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Admin::factory()->create([
                 'email' => 'admin@gmail.com',
+                'role'=>'Admin',
+                'isAdmin'=>1,
+                'password' => Hash::make('password'),
+            ]);
+        \App\Models\Admin::factory()->create([
+                'email' => 'a@gmail.com',
+                'role'=>'Moderateur',
+                'isAdmin'=>0,
+                'password' => Hash::make('password'),
+            ]);
+        \App\Models\Admin::factory()->create([
+                'email' => 'a@a.com',
+                'role'=>'equipe suivi',
+                'isAdmin'=>0,
                 'password' => Hash::make('password'),
             ]);
         \App\Models\Client::factory()->create([

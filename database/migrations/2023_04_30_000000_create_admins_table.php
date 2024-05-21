@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('user')->nullable();
             $table->foreign('user')->references('id_Ad')->on('admins');
+            $table->enum('role',['equipe suivi','Admin','Moderateur'])->default('equipe suivi');
             $table->boolean('valider')->default(0);
             $table->string('photo')->nullable();
             $table->text('token')->nullable();

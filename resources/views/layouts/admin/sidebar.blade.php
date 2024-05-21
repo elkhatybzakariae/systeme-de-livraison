@@ -85,7 +85,8 @@
 
                 </div>
                 <!--begin:Menu link-->
-
+                @if (session('user')['role']=='Admin')
+                    
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <span class="menu-link">
                         <span class="menu-icon">
@@ -180,9 +181,6 @@
                     </div>
                     <!--end:Menu sub-->
                 </div>
-
-                <!--end:Menu sub-->
-                <!--begin:Menu link-->
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('stock.colis.nouveau')||request()->routeIs('stock.colis.pres') ?'show':'' }}">
                     <span class="menu-link">
                         <span class="menu-icon">
@@ -254,6 +252,10 @@
                     </div>
                     <!--end:Menu sub-->
                 </div>
+                @endif
+
+                <!--end:Menu sub-->
+                <!--begin:Menu link-->
                 <!--end:Menu item-->
                 <!--begin:Menu link-->
                 <div class="menu-item">
@@ -413,6 +415,7 @@
                         </div>
                         <!--end:Menu item-->
                         <!--begin:Menu item-->
+                        @if (session('user')['role']=='Admin')
                         <div class="menu-item">
                             <!--begin:Menu link-->
                             <a class="menu-link {{ request()->routeIs('bon.retour.client.list') ?'active':'' }}" href="{{ route('bon.retour.client.list') }}">
@@ -423,14 +426,15 @@
                             </a>
                             <!--end:Menu link-->
                         </div>
-                        <!--end:Menu item-->
+                        @endif
                     </div>
                     <!--end:Menu sub-->
                 </div>
                 <!--end:Menu sub-->
 
-
-                <!--begin:Menu link-->
+                @if (session('user')['role']=='Admin')
+                   
+              
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <span class="menu-link">
                         <span class="menu-icon">
@@ -805,7 +809,7 @@
                     </div>
                     <!--end:Menu sub-->
                 </div>
-                <!--end:Menu sub-->
+                @endif
             </div>
             <!--end::Menu-->
         </div>
