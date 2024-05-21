@@ -14,7 +14,7 @@
                     <option value="" selected disabled>Choisir un Client</option>
                     @foreach ($clients as $item)
                         @if ($item->colis_count >= 1)
-                            <option value="{{ $item->id_Cl }}">{{ $item->nomcomplet }} ({{ $item->colis_count }} Colis Recu)
+                            <option value="{{ $item->id_Cl }}">{{ $item->nomcomplet }} ({{ $item->colis_count }} Colis pas Facrtuee)
                             </option>
                         @endif
                     @endforeach

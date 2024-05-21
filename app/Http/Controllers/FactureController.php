@@ -25,19 +25,19 @@ class FactureController extends Controller
         $user = session('user');
         $colis = Colis::query()->with('ville')
             ->whereNull('id_F')
-            ->where(
-                'status',
-                ['Recu par Centre Principale']
-            )
+            ->where('status','livre')
+            ->where('etat','paye')
+            // ->whereNot('id_BPZ',null)
             ->where('id_Cl', $id_Cl)
             ->get();
-
+        // dd($colis);
         $colisBon = [];
         if (!$id_F) {
             $bonLivraison = Facture::create([
                 'id_F' => 'BRC-' . Str::random(10),
                 'reference' => 'BRC-' . Str::random(10),
                 'status' => 'Nouveau',
+                'date_paiment' => now(),
                 'id_Cl' => $id_Cl,
                 'id_Ad' => session('user')['id_Ad'],
             ]);
@@ -99,12 +99,20 @@ class FactureController extends Controller
     }
     public function create()
     {
-        $clients = Client::withCount([
-            'colis' => function ($query) {
-                $query->where('status', 'livre');
-            }
-        ])->with(['colis'])->get();
-
+       
+            $clients = Client::select('clients.*')
+            ->leftJoin('colis', 'clients.id_Cl', 'colis.id_Cl')
+            ->where('colis.status', 'livre')
+            ->where('colis.etat', 'paye')
+            // ->whereNotNull('colis.id_BPZ')
+            ->withCount(['colis as colis_count' => function ($query) {
+                $query->where('status', 'livre')
+                    ->where('etat', 'paye')
+                    // ->whereNotNull('id_BPZ')
+                    ;
+            }])
+            ->get();
+        
         $breads = [
             ['title' => 'Créer un Facture', 'url' => null],
             ['text' => 'Bons', 'url' => null],
@@ -122,13 +130,16 @@ class FactureController extends Controller
     {
         $colis = Colis::where('id', $id)
             ->update(['id_F' => $id_F, 'status' => 'Expedier vers Client']);
-        $coli = Colis::where('id', $id)->first();
+
+        $coli = Colis::find($id);
+
         $colisinfo = colisinfo::where('id', $id)->first();
+        dd($colisinfo);
         $oldinfo = $colisinfo['info'];
         $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,Expedier vers Client,' . $coli['updated_at'] . ',' . ' ' . '_';
 
         $colisinfo->update(['info' => $newInfo]);
-        return redirect()->route('factures.list', $id_F);
+        return redirect()->route('factures.index', $id_F);
     }
     public function recu($id_F)
     {

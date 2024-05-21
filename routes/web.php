@@ -218,18 +218,18 @@ Route::middleware('check.admin')->group(function () {
 
     });
     Route::group(['prefix' => 'admin/factures'], function () {
-        Route::get('/bon/{id_BRC?}', [FactureController::class, 'index'])->name('factures.index');
+        Route::get('/bon/{id_F?}', [FactureController::class, 'index'])->name('factures.index');
         Route::get('/', [FactureController::class, 'list'])->name('factures.list');
         Route::get('/create', [FactureController::class, 'create'])->name('factures.create');
         Route::post('/store', [FactureController::class, 'store'])->name('factures.store');
         Route::get('/edit/{id}', [FactureController::class, 'edit'])->name('factures.edit');
-        Route::get('/update/{id}/bl/{id_BRC}', [FactureController::class, 'update'])->name('factures.update');
-        Route::get('/updateDelete/{id}/bl/{id_BRC}', [FactureController::class, 'updateDelete'])->name('factures.updateDelete');
+        Route::get('/update/{id}/bl/{id_F}', [FactureController::class, 'update'])->name('factures.update');
+        Route::get('/updateDelete/{id}/bl/{id_F}', [FactureController::class, 'updateDelete'])->name('factures.updateDelete');
         Route::delete('/destroy/{id}', [FactureController::class, 'destroy'])->name('factures.destroy');
-        Route::post('/update/all/{id_BRC}', [FactureController::class, 'updateAll'])->name('factures.update.all');
-        Route::post('/update/delete/all/{id_BRC}', [FactureController::class, 'updateDeleteAll'])->name('factures.updateDelete.all');
+        Route::post('/update/all/{id_F}', [FactureController::class, 'updateAll'])->name('factures.update.all');
+        Route::post('/update/delete/all/{id_F}', [FactureController::class, 'updateDeleteAll'])->name('factures.updateDelete.all');
         Route::get('/export/colis/{id}', [FactureController::class, 'exportColis'])->name('factures.exportColis');
-        Route::get('/get/pdf/{id_BRC}', [FactureController::class, 'getPdf'])->name('factures.getPdf');
+        Route::get('/get/pdf/{id_F}', [FactureController::class, 'getPdf'])->name('factures.getPdf');
         Route::post('admin/bon-retour/bd/{id}', [FactureController::class, 'recu'])->name('factures.recu');
         Route::get('/destroy/{id}', [FactureController::class, 'destroy'])->name('factures.destroy');
 

@@ -15,7 +15,7 @@ class Facture extends Model
     protected $keyType='string';
     public $timestamps=true;
 
-    protected $fillable = ['id_F','reference','status','id_Cl','id_Ad'];
+    protected $fillable = ['id_F','reference','status','date_paiment','id_Cl','id_Ad'];
     public function colis()
     {
         return $this->hasMany(Colis::class,'id_F');
