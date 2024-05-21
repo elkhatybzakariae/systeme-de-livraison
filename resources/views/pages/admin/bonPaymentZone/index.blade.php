@@ -32,7 +32,7 @@
             <th >
               <input type="checkbox" id="checkAll">
             </th>
-            <th >Code d payment.livreur</th>
+            <th >Code d'envoi</th>
             <th >Destinataire</th>
             <th >Date de creation</th>
             <th >Prix</th>
@@ -94,7 +94,7 @@
 
               <input type="checkbox" id="checkDeleteAll">
             </td>
-            <th >Code d payment.livreur</th>
+            <th >Code d'envoi</th>
             <th>Destinataire</th>
             <th>Date de creation</th>
             <th >Prix</th>
@@ -114,7 +114,7 @@
               <td>{{ $item->prix }}</td>
               <td>{{ $item->villename }}</td>
               <td>
-                <a href="{{ route('bon.payment.livreur.updateDelete',['id'=>$item->id,'id_BPZ'=>$bon->id_BPZ]) }}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                <a href="{{ route('bon.payment.zone.updateDelete',['id'=>$item->id,'id_BPZ'=>$bon->id_BPZ]) }}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
               </td>
             </tr>
           @endforeach

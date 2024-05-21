@@ -130,7 +130,7 @@
                 </div>
                 @if ($item->colis->count()==0)
                   <div class="menu-item  text-hover-danger px-3">        
-                    <a  href="{{ route('bon.payement.zone.destroy',$item->id_BPZ) }}" class="btn">
+                    <a  href="{{ route('bon.payment.zone.destroy',$item->id_BPZ) }}" class="btn">
                       <i class="fa fa-trash"></i>Delete
                     </a>
                   </div>

@@ -26,6 +26,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RamassagecoliController;
 use App\Http\Controllers\ReclamationController;
 use App\Http\Controllers\RemarqueController;
+use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\TarifController;
 use App\Http\Controllers\typeBankController;
@@ -45,9 +46,11 @@ Route::middleware('check.admin')->group(function () {
         Route::post('/update/user/{id}',  'updatenewuser')->name('admin.newuser.update');
         Route::delete('/delete/user/{id}',  'deletenewuser')->name('admin.newuser.delete');
         Route::get('/signout',  'signout')->name('admin.signout');
-
-        
         Route::post('/coli/{id}',  'changestatus')->name('admin.changestatus');
+    });
+
+    Route::controller(StatisticController::class)->prefix('admin/statistiques')->group(function () {
+        Route::get('/tous',  'index')->name('admin.statistic.index');
     });
 
     Route::controller(NewClientController::class)->prefix('admin')->group(function () {
@@ -130,18 +133,20 @@ Route::middleware('check.admin')->group(function () {
     });
 
     Route::group(['prefix' => 'admin/bon-payment-zone'], function () {
-        Route::get('/bon/{id_BD?}', [BonPaymentZoneController::class, 'index'])->name('bon.payment.zone.index');
+        Route::get('/bon/{id_BPZ?}', [BonPaymentZoneController::class, 'index'])->name('bon.payment.zone.index');
         Route::get('/', [BonPaymentZoneController::class, 'list'])->name('bon.payment.zone.list');
         Route::get('/create', [BonPaymentZoneController::class, 'create'])->name('bon.payment.zone.create');
         Route::post('/store', [BonPaymentZoneController::class, 'store'])->name('bon.payment.zone.store');
         Route::get('/edit/{id}', [BonPaymentZoneController::class, 'edit'])->name('bon.payment.zone.edit');
-        Route::get('/update/{id}/bl/{id_BD}', [BonPaymentZoneController::class, 'update'])->name('bon.payment.zone.update');
-        Route::get('/updateDelete/{id}/bl/{id_BD}', [BonPaymentZoneController::class, 'updateDelete'])->name('bon.payment.zone.updateDelete');
-        Route::post('/update/all/{id_BL}', [BonPaymentZoneController::class, 'updateAll'])->name('bon.payment.zone.update.all');
-        Route::post('/update/delete/all/{id_BL}', [BonPaymentZoneController::class, 'updateDeleteAll'])->name('bon.payment.zone.updateDelete.all');
+        Route::get('/update/{id}/bl/{id_BPZ}', [BonPaymentZoneController::class, 'update'])->name('bon.payment.zone.update');
+        Route::get('/updateDelete/{id}/bl/{id_BPZ}', [BonPaymentZoneController::class, 'updateDelete'])->name('bon.payment.zone.updateDelete');
+        Route::post('/update/all/{id_BPZ}', [BonPaymentZoneController::class, 'updateAll'])->name('bon.payment.zone.update.all');
+        Route::post('/update/delete/all/{id_BPZ}', [BonPaymentZoneController::class, 'updateDeleteAll'])->name('bon.payment.zone.updateDelete.all');
         Route::delete('/destroy/{id}', [BonPaymentZoneController::class, 'destroy'])->name('bon.payment.zone.destroy');
         Route::get('/export/colis/{id}', [BonPaymentZoneController::class, 'exportColis'])->name('bon.payment.zone.exportColis');
-        Route::get('/destroy/{id}', [BonPaymentZoneController::class, 'destroy'])->name('bon.payment.zon.destroy');
+        Route::get('/destroy/{id}', [BonPaymentZoneController::class, 'destroy'])->name('bon.payment.zone.destroy');
+        Route::post('admin/bon-payment/{id}', [BonPaymentZoneController::class, 'recu'])->name('bon.payment.zone.recu');
+
 
     });
     Route::group(['prefix' => 'admin/bon-distribution'], function () {
@@ -173,6 +178,7 @@ Route::middleware('check.admin')->group(function () {
         Route::get('/get/pdf/{id_BRL}', [BonRetourLivreurController::class, 'getPdf'])->name('bon.retour.livreur.getPdf');
         Route::post('admin/bon-retour/bd/{id}', [BonRetourLivreurController::class, 'recu'])->name('bon.retour.livreur.recu');
         Route::get('/destroy/{id}', [BonRetourLivreurController::class, 'destroy'])->name('bon.retour.livreur.destroy');
+
 
     });
     Route::group(['prefix' => 'admin/bon-retour-zone'], function () {

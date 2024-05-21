@@ -89,7 +89,9 @@ class ColisSeeder extends Seeder
                         ]);
                         break;
                     case 'Attente de Ramassage':
-                       $bl= BonLivraison::factory()->create();
+                       $bl= BonLivraison::factory()->create([
+                        'status' => 'Nouveau',
+                    ]);
                         $colis = Colis::factory()->create([
                             'status' => $status,
                             'id_BL'=>$bl->id_BL
@@ -108,7 +110,9 @@ class ColisSeeder extends Seeder
                         $bl= BonLivraison::factory()->create([
                             'status' => 'Ramasse',
                            ]);
-                       $be= BonEnvois::factory()->create();
+                       $be= BonEnvois::factory()->create([
+                        'status' => 'Nouveau',
+                    ]);
 
                         $colis = Colis::factory()->create([
                             'status' => $status,
@@ -137,7 +141,9 @@ class ColisSeeder extends Seeder
                        $be= BonEnvois::factory()->create([
                         'status' => 'Recu',
                        ]);
-                       $bd= BonDistribution::factory()->create();
+                       $bd= BonDistribution::factory()->create([
+                        'status' => 'Nouveau',
+                    ]);
                         $colis = Colis::factory()->create([
                             'status' => $status,
                             'id_BL'=>$bl->id_BL,
@@ -155,7 +161,9 @@ class ColisSeeder extends Seeder
                        $bd= BonDistribution::factory()->create([
                         'status' => 'Recu',
                        ]);
-                       $bpl= BonPaymentLivreur::factory()->create();
+                       $bpl= BonPaymentLivreur::factory()->create([
+                        'status' => 'Nouveau',
+                    ]);
                         $colis = Colis::factory()->create([
                             'status' => $status,
                             'id_BL'=>$bl->id_BL,
@@ -168,6 +176,9 @@ class ColisSeeder extends Seeder
                     default:
                     $colis = Colis::factory()->create([
                         'status' => $status,
+                    ]);
+                    $colis = Colis::factory()->create([
+                        'status' => 'Nouveau',
                     ]);
                         break;
                 }
