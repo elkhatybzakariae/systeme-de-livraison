@@ -249,7 +249,6 @@ class AdminController extends Controller
             'cin' => 'required|string|max:50',
             'email' => 'required|email|max:50',
             'Phone' => 'nullable|string|max:50',
-            'email' => 'required|email|max:50',
             'password' => 'required|string|min:8',
             'ville' => 'required|string|max:150',
             'adress' => 'required|string|max:150',
@@ -265,39 +264,7 @@ class AdminController extends Controller
         $admin->update($validation);
         return back()->with('success', 'person mis à jour avec succès !');
     }
-    // public function validernewuser($id)
-    // {
-    //     $client = Client::find($id);
-
-    //     if ($client) {
-    //         $client->update([
-    //             'valider' => 1,
-    //         ]);
-
-    //         // Success message (consider using a more descriptive message)
-    //         return back()->with('success', 'Client updated successfully!');
-    //     } else {
-    //         // Handle case where Client with the provided ID is not found
-    //         return back()->with('error', 'Client not found!');
-    //     }
-    // }
-    // public function nonvalidernewuser($id)
-    // {
-    //     $client = Client::find($id);
-
-    //     if ($client) {
-    //         $client->update([
-    //             'valider' => 0,
-    //         ]);
-
-    //         // Success message (consider using a more descriptive message)
-    //         return back()->with('success', 'Client updated successfully!');
-    //     } else {
-    //         // Handle case where Client with the provided ID is not found
-    //         return back()->with('error', 'Client not found!');
-    //     }
-    // }
-    public function deletenewuser($id)
+       public function deletenewuser($id)
     {
         Admin::find($id)->delete();
         return back()->with('success', ' ');
