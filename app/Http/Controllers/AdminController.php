@@ -18,6 +18,7 @@ use App\Models\colisinfo;
 use App\Models\Facture;
 use App\Models\Livreur;
 use App\Models\Reclamation;
+use App\Models\Remarque;
 use App\Models\Ville;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -123,11 +124,12 @@ class AdminController extends Controller
         $statusesBRL = array_keys($statistics);
         $countsBRL = array_values($statistics);
         // 
+        $remarques=Remarque::all();
         $breads = [
             ['title' => 'Tableau de bord', 'url' => null],
             ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.index' ,compact('breads',
+        return view('pages.admin.index' ,compact('breads','remarques',
         'statuses', 'counts',
         'statusesBL', 'countsBL',
         'statusesBE', 'countsBE',

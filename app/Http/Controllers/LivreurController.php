@@ -7,24 +7,27 @@ use App\Models\BonDistribution;
 use App\Models\Colis;
 use App\Models\colisinfo;
 use App\Models\Livreur;
+use App\Models\Remarque;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 
 class LivreurController extends Controller
 {
     public function index()
     {
+        $remarques=Remarque::query()->where('cible','Livreur')->get();
+
         $breads = [
             ['title' => 'Taleau de bord', 'url' => null],
             ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.livreur.dashboard', compact('breads'));
+        return view('pages.livreur.dashboard', compact('breads','remarques'));
     }
     public function signuppage()
     {

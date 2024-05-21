@@ -22,7 +22,7 @@ class RemarqueFactory extends Factory
             'id_Rem' => $this->faker->unique()->uuid,
             'remarque' => fake()->sentence,
             'type' => fake()->randomElement(['Information', 'Important', 'Urgence']),
-            'cible' => fake()->randomElement(['Vendeur', 'Livreur', 'Equipe de suivi']),
+            'cible' => fake()->randomElement(['Vendeur', 'Livreur', 'Equipe de suivi','Moderateur']),
             'section' => fake()->randomElement(['Accueil', 'Reclamations', 'List Colis',
             'Bons de livraison', 'Bon de retour', 'Factures']),
             'id_Ad' => fake()->randomElement($userIds),

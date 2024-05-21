@@ -8,6 +8,20 @@
             color: #14a1f3
         }
     </style>
+     @foreach ($remarques as $remarque )
+       
+       <div class="alert @if ($remarque->type=='Urgence')
+         alert-danger
+         @elseif ($remarque->type=='Important')
+           alert-warning
+         @elseif ($remarque->type=='Information')
+           alert-primary
+         @endif  
+         alert-dismissible fade show" role="alert">
+         <strong>{{ $remarque->type }}</strong> {{ $remarque->remarque }}
+         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+       </div>
+   @endforeach
     <div class="container">
         <div class="row">
             <div class="col-md-4 mb-4">

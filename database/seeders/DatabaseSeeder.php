@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
             ]);
         \App\Models\Admin::factory()->create([
                 'email' => 'a@a.com',
-                'role'=>'equipe suivi',
+                'role'=>'Equipe de suivi',
                 'isAdmin'=>0,
                 'password' => Hash::make('password'),
             ]);

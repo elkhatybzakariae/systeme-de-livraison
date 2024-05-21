@@ -44,6 +44,7 @@
                                 <select name="cible" id="cible" class="form-control form-control-solid">
                                     <option value="Vendeur"> Vendeur </option>
                                     <option value="Livreur"> Livreur </option>
+                                    <option value="Moderateur"> Moderateur </option>
                                     <option value="Equipe de suivi"> Equipe de suivi </option>
                                 </select>
                             </div>

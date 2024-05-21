@@ -11,6 +11,7 @@ use App\Models\Client;
 use App\Models\Colis;
 use App\Models\Facture;
 use App\Models\Reclamation;
+use App\Models\Remarque;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -77,12 +78,13 @@ class ClientController extends Controller
         $statusesR = array_keys($statistics);
         $countsR = array_values($statistics);
 
+        $remarques=Remarque::query()->where('cible','Vendeur')->get();
 
         $breads = [
             ['title' => 'Tableau de bord', 'url' => null],
             ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.clients.dashboard' ,compact('breads','colis','liv','retourC','fact','rec',
+        return view('pages.clients.dashboard' ,compact('breads','colis','liv','retourC','fact','rec','remarques',
         'statuses', 'counts',
         'statusesBL', 'countsBL',
         'statusesBRC', 'countsBRC',

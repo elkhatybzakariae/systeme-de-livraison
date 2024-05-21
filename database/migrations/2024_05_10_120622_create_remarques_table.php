@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('id_Rem')->primary();
             $table->string('remarque');
             $table->enum('type', ['Information', 'Important', 'Urgence'])->default('Information');
-            $table->enum('cible', ['Vendeur', 'Livreur', 'Equipe de suivi']);
+            $table->enum('cible', ['Vendeur', 'Livreur', 'Equipe de suivi','Moderateur']);
             $table->enum('section', ['Accueil', 'Reclamations', 'List Colis',
             'Bons de livraison', 'Bon de retour', 'Factures'])->nullable();
             $table->string('id_Ad');
