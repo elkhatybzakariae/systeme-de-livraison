@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Reclamamtion>
- */
+use Faker\Generator as Faker;
 class ReclamationFactory extends Factory
 {
     /**
