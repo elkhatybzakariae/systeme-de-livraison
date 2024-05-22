@@ -123,4 +123,37 @@ class Helpers
         }
         return $id_DMC;
     }
+    public static function applyDateFilter($query, $request)
+{
+    if ($request->has('date_filter')) {
+        switch ($request->date_filter) {
+            case 'today':
+                $query->whereDate('created_at', today());
+                break;
+            case 'yesterday':
+                $query->whereDate('created_at', today()->subDay());
+                break;
+            case 'last_7_days':
+                $query->whereBetween('created_at', [now()->subDays(7), now()]);
+                break;
+            case 'last_30_days':
+                $query->whereBetween('created_at', [now()->subDays(30), now()]);
+                break;
+            case 'this_month':
+                $query->whereMonth('created_at', now()->month)
+                      ->whereYear('created_at', now()->year);
+                break;
+            case 'last_month':
+                $query->whereMonth('created_at', now()->subMonth()->month)
+                      ->whereYear('created_at', now()->subMonth()->year);
+                break;
+            case 'custom_range':
+                if ($request->has('start_date') && $request->has('end_date')) {
+                    $query->whereBetween('created_at', [$request->start_date, $request->end_date]);
+                }
+                break;
+        }
+        return $query;
+    }
+}
 }

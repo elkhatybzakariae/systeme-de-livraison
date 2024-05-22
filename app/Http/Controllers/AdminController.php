@@ -34,18 +34,53 @@ class AdminController extends Controller
     public function index(Request $request)
 {
     // Count total records
-    $colis = Colis::all()->count();
-    $liv = BonLivraison::all()->count();
-    $env = BonEnvois::all()->count();
-    $dis = BonDistribution::all()->count();
-    $payLiv = BonPaymentLivreur::all()->count();
-    $retourC = BonRetourClient::all()->count();
-    $retourL = BonRetourLivreur::all()->count();
-    $payZ = BonPaymentZone::all()->count();
-    $fact = Facture::all()->count();
-    $rec = Reclamation::all()->count();
-    $cl = Client::all()->count();
-    $retourZ = BonRetourZone::all()->count();
+    $query = Colis::query();
+    $colis=Helpers::applyDateFilter($query,$request);
+    $colis=$colis->count();
+
+    $query = BonLivraison::query();
+    $liv=Helpers::applyDateFilter($query,$request);
+    $liv=$liv->count();
+    
+    $query = BonEnvois::query();
+    $env=Helpers::applyDateFilter($query,$request);
+    $env=$env->count();
+
+    $query = BonDistribution::query();
+    $dis=Helpers::applyDateFilter($query,$request);
+    $dis=$dis->count();
+
+    $query = BonPaymentLivreur::query();
+    $payLiv=Helpers::applyDateFilter($query,$request);
+    $payLiv=$payLiv->count();
+
+    $query = BonRetourClient::query();
+    $retourC=Helpers::applyDateFilter($query,$request);
+    $retourC=$retourC->count();
+
+    $query = BonRetourLivreur::query();
+    $retourL=Helpers::applyDateFilter($query,$request);
+    $retourL=$retourL->count();
+
+    $query = BonPaymentZone::query();
+    $payZ=Helpers::applyDateFilter($query,$request);
+    $payZ=$payZ->count();
+
+    $query = Facture::query();
+    $fact=Helpers::applyDateFilter($query,$request);
+    $fact=$fact->count();
+
+    $query = Reclamation::query();
+    $rec=Helpers::applyDateFilter($query,$request);
+    $rec=$rec->count();
+    $query = Client::query();
+    $cl=Helpers::applyDateFilter($query,$request);
+    $cl=$cl->count();
+
+    $query = BonRetourZone::query();
+    $retourZ=Helpers::applyDateFilter($query,$request);
+    $retourZ=$retourZ->count();
+
     $clients = Client::all();
 
     // Fetch statistics
@@ -57,7 +92,7 @@ class AdminController extends Controller
     }
 
     // Apply date filter
-    $this->applyDateFilter($query, $request);
+    $query=Helpers::applyDateFilter($query,$request);
     $statistics = $query->selectRaw('status, COUNT(*) as count')
                         ->groupBy('status')
                         ->pluck('count', 'status')
@@ -66,15 +101,13 @@ class AdminController extends Controller
     $statuses = array_keys($statistics);
     $counts = array_values($statistics);
 
-    // Repeat the process for other models (BonLivraison, BonEnvois, etc.)
-    // Ensure you apply the same date filter logic to each model's query
 
     $query = BonLivraison::query();
     if ($request->has('client_id') && $request->client_id) {
         $query->where('id_Cl', $request->client_id);
     }
     // Apply date filter to BonLivraison
-    $this->applyDateFilter($query, $request);
+    $query=Helpers::applyDateFilter($query,$request);
     $statistics = $query->selectRaw('status, COUNT(*) as count')
                         ->groupBy('status')
                         ->pluck('count', 'status')
@@ -83,7 +116,7 @@ class AdminController extends Controller
     $countsBL = array_values($statistics);
 
     $query = BonEnvois::query();
-    $this->applyDateFilter($query, $request);
+    $query=Helpers::applyDateFilter($query,$request);
     $statistics = $query->selectRaw('status, COUNT(*) as count')
                         ->groupBy('status')
                         ->pluck('count', 'status')
@@ -92,7 +125,7 @@ class AdminController extends Controller
     $countsBE = array_values($statistics);
 
     $query = BonDistribution::query();
-    $this->applyDateFilter($query, $request);
+    $query=Helpers::applyDateFilter($query,$request);
     $statistics = $query->selectRaw('status, COUNT(*) as count')
                         ->groupBy('status')
                         ->pluck('count', 'status')
@@ -101,7 +134,7 @@ class AdminController extends Controller
     $countsBD = array_values($statistics);
 
     $query = BonPaymentLivreur::query();
-    $this->applyDateFilter($query, $request);
+    $query=Helpers::applyDateFilter($query,$request);
     $statistics = $query->selectRaw('status, COUNT(*) as count')
                         ->groupBy('status')
                         ->pluck('count', 'status')
@@ -110,7 +143,7 @@ class AdminController extends Controller
     $countsBPL = array_values($statistics);
 
     $query = BonRetourClient::query();
-    $this->applyDateFilter($query, $request);
+    $query=Helpers::applyDateFilter($query,$request);
     $statistics = $query->selectRaw('status, COUNT(*) as count')
                         ->groupBy('status')
                         ->pluck('count', 'status')
@@ -119,7 +152,7 @@ class AdminController extends Controller
     $countsBRC = array_values($statistics);
 
     $query = BonRetourLivreur::query();
-    $this->applyDateFilter($query, $request);
+    $query=Helpers::applyDateFilter($query,$request);
     $statistics = $query->selectRaw('status, COUNT(*) as count')
                         ->groupBy('status')
                         ->pluck('count', 'status')
@@ -153,38 +186,7 @@ class AdminController extends Controller
 
 // Helper function to apply date filter
 
-private function applyDateFilter($query, $request)
-{
-    if ($request->has('date_filter')) {
-        switch ($request->date_filter) {
-            case 'today':
-                $query->whereDate('created_at', today());
-                break;
-            case 'yesterday':
-                $query->whereDate('created_at', today()->subDay());
-                break;
-            case 'last_7_days':
-                $query->whereBetween('created_at', [now()->subDays(7), now()]);
-                break;
-            case 'last_30_days':
-                $query->whereBetween('created_at', [now()->subDays(30), now()]);
-                break;
-            case 'this_month':
-                $query->whereMonth('created_at', now()->month)
-                      ->whereYear('created_at', now()->year);
-                break;
-            case 'last_month':
-                $query->whereMonth('created_at', now()->subMonth()->month)
-                      ->whereYear('created_at', now()->subMonth()->year);
-                break;
-            case 'custom_range':
-                if ($request->has('start_date') && $request->has('end_date')) {
-                    $query->whereBetween('created_at', [$request->start_date, $request->end_date]);
-                }
-                break;
-        }
-    }
-}
+
 //     public function index(Request $request)
 //     {
 //         $colis = Colis::all()->count();
