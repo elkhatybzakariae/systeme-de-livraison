@@ -21,6 +21,7 @@ class ZoneFactory extends Factory
             'id_Z'=>Str::random(10),
             'zonename'=>$this->faker->state(),
             'statut'=>$this->faker->numberBetween($min = 0, $max = 1),
+            'created_at'=>now()
 
         ];
     }

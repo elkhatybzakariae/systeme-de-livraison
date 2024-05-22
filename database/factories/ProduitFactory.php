@@ -29,6 +29,8 @@ class ProduitFactory extends Factory
             'id_Cl' => function () {
                 return Client::factory()->create()->id_Cl;
             },
+            'created_at'=>now()
+
         ];
     }
 }

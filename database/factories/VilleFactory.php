@@ -26,6 +26,8 @@ class VilleFactory extends Factory
             'villename' => $this->faker->city(),
             'statut' => $this->faker->numberBetween($min = 0, $max = 1),
             'id_Z' => $this->faker->randomElement($zoneIds),
+            'created_at'=>now()
+
 
         ];
     }

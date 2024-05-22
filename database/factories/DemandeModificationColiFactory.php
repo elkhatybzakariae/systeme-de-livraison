@@ -31,6 +31,8 @@ class DemandeModificationColiFactory extends Factory
             // 'fragile' => fake()->boolean,
             // 'ouvrir' => fake()->boolean,
             'id' => fake()->randomElement($colis),
+            'created_at'=>now()
+
         ];
     }
 }

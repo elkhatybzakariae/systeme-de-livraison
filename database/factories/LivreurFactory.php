@@ -39,6 +39,8 @@ class LivreurFactory extends Factory
             'RIB' => fake()->imageUrl(), // Example for RIB, you should replace this with proper logic to handle file uploads
             'isAccepted' => fake()->boolean(),
             'id_Z'=>fake()->randomElement($adminIds),
+            'created_at'=>now()
+
 
         ];
     }

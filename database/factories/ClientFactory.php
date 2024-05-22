@@ -33,6 +33,8 @@ class ClientFactory extends Factory
             'numerocompte' => $this->faker->optional()->bankAccountNumber,
             'isAdmin' => fake()->boolean(),
             'password' => Hash::make('password'),
+            'created_at'=>now()
+
         ];
     }
 }

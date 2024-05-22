@@ -29,6 +29,8 @@ class TarifFactory extends Factory
             'prixret' => $this->faker->randomFloat(2, 0, 1000),
             'prixref' => $this->faker->randomFloat(2, 0, 1000),
             'delailiv' => $this->faker->sentence,
+            'created_at'=>now()
+
             
         ];
     }

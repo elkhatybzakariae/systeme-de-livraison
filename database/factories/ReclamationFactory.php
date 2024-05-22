@@ -28,6 +28,8 @@ class ReclamationFactory extends Factory
             'etat' => fake()->boolean(),    
             'id_C' => fake()->randomElement($colisIds)->id,
             'id_Cl' => fake()->randomElement($clientIds),
+            'created_at'=>now()
+
         ];
     }
 }

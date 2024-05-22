@@ -26,6 +26,8 @@ class MessageFactory extends Factory
             'message' => fake()->name(),
             'id_Rec' => fake()->randomElement($reclamationIds),
             'id_Ad'=>fake()->randomElement([null,fake()->randomElement($adminIds)]),
+            'created_at'=>now()
+
             
         ];
     }

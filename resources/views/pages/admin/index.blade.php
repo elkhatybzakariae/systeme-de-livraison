@@ -7,6 +7,7 @@
   <div class="form-group row">
       <div class="col-md-4">
           <select class="form-control" id="date_filter" name="date_filter" onchange="this.form.submit()">
+            <option disabled selected>Filtrer avec : </option>
               <option value="">Depuis le lancement</option>
               <option value="today" {{ request('date_filter') == 'today' ? 'selected' : '' }}>Aujourd'hui</option>
               <option value="yesterday" {{ request('date_filter') == 'yesterday' ? 'selected' : '' }}>Hier</option>

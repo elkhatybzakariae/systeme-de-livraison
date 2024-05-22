@@ -27,6 +27,8 @@ class DepenseFactory extends Factory
             'montant' => fake()->randomNumber(),
             'datedep' =>now(),
             'id_Ad' => fake()->randomElement($userIds),
+            'created_at'=>now()
+
         ];
     }
 }

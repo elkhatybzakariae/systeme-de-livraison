@@ -41,6 +41,7 @@ class ColisFactory extends Factory
             'fragile' => fake()->boolean,
             'ouvrir' => fake()->boolean,
             'colis_a_remplacer' => fake()->boolean,
-            'created_at'=>fake()->dateTime()
+            'created_at'=>now()
+
         ];
     }}
