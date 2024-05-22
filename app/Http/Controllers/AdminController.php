@@ -30,106 +30,114 @@ use Twilio\Rest\Client as CL;
 
 class AdminController extends Controller
 {
+
     public function index(Request $request)
-    {
-        $colis = Colis::all()->count();
-        $liv = BonLivraison::all()->count();
-        $env = BonEnvois::all()->count();
-        $dis = BonDistribution::all()->count();
-        $payLiv = BonPaymentLivreur::all()->count();
-        $retourC = BonRetourClient::all()->count();
-        $retourL = BonRetourLivreur::all()->count();
-        $payZ = BonPaymentZone::all()->count();
-        $fact = Facture::all()->count();
-        $rec = Reclamation::all()->count();
-        $cl = Client::all()->count();
-        $retourZ = BonRetourZone::all()->count();
-        $clients = Client::all();
+{
+    // Count total records
+    $colis = Colis::all()->count();
+    $liv = BonLivraison::all()->count();
+    $env = BonEnvois::all()->count();
+    $dis = BonDistribution::all()->count();
+    $payLiv = BonPaymentLivreur::all()->count();
+    $retourC = BonRetourClient::all()->count();
+    $retourL = BonRetourLivreur::all()->count();
+    $payZ = BonPaymentZone::all()->count();
+    $fact = Facture::all()->count();
+    $rec = Reclamation::all()->count();
+    $cl = Client::all()->count();
+    $retourZ = BonRetourZone::all()->count();
+    $clients = Client::all();
 
-        // Fetch statistics
-        $query = Colis::query();
+    // Fetch statistics
+    $query = Colis::query();
 
-        if ($request->has('client_id') && $request->client_id) {
-            $query->where('id_Cl', $request->client_id);
-        }
+    // Apply client filter
+    if ($request->has('client_id') && $request->client_id) {
+        $query->where('id_Cl', $request->client_id);
+    }
 
-        $statistics = $query->selectRaw('status, COUNT(*) as count')
-                            ->groupBy('status')
-                            ->pluck('count', 'status')
-                            ->toArray();
+    // Apply date filter
+    $this->applyDateFilter($query, $request);
+    $statistics = $query->selectRaw('status, COUNT(*) as count')
+                        ->groupBy('status')
+                        ->pluck('count', 'status')
+                        ->toArray();
 
-        $statuses = array_keys($statistics);
-        $counts = array_values($statistics);
+    $statuses = array_keys($statistics);
+    $counts = array_values($statistics);
 
+    // Repeat the process for other models (BonLivraison, BonEnvois, etc.)
+    // Ensure you apply the same date filter logic to each model's query
 
-        $query = BonLivraison::query();
+    $query = BonLivraison::query();
+    if ($request->has('client_id') && $request->client_id) {
+        $query->where('id_Cl', $request->client_id);
+    }
+    // Apply date filter to BonLivraison
+    $this->applyDateFilter($query, $request);
+    $statistics = $query->selectRaw('status, COUNT(*) as count')
+                        ->groupBy('status')
+                        ->pluck('count', 'status')
+                        ->toArray();
+    $statusesBL = array_keys($statistics);
+    $countsBL = array_values($statistics);
 
-        if ($request->has('client_id') && $request->client_id) {
-            $query->where('id_Cl', $request->client_id);
-        }
+    $query = BonEnvois::query();
+    $this->applyDateFilter($query, $request);
+    $statistics = $query->selectRaw('status, COUNT(*) as count')
+                        ->groupBy('status')
+                        ->pluck('count', 'status')
+                        ->toArray();
+    $statusesBE = array_keys($statistics);
+    $countsBE = array_values($statistics);
 
-        $statistics = $query->selectRaw('status, COUNT(*) as count')
-                            ->groupBy('status')
-                            ->pluck('count', 'status')
-                            ->toArray();
+    $query = BonDistribution::query();
+    $this->applyDateFilter($query, $request);
+    $statistics = $query->selectRaw('status, COUNT(*) as count')
+                        ->groupBy('status')
+                        ->pluck('count', 'status')
+                        ->toArray();
+    $statusesBD = array_keys($statistics);
+    $countsBD = array_values($statistics);
 
-        $statusesBL = array_keys($statistics);
-        $countsBL = array_values($statistics);
+    $query = BonPaymentLivreur::query();
+    $this->applyDateFilter($query, $request);
+    $statistics = $query->selectRaw('status, COUNT(*) as count')
+                        ->groupBy('status')
+                        ->pluck('count', 'status')
+                        ->toArray();
+    $statusesBPL = array_keys($statistics);
+    $countsBPL = array_values($statistics);
 
-        $query = BonEnvois::query();
+    $query = BonRetourClient::query();
+    $this->applyDateFilter($query, $request);
+    $statistics = $query->selectRaw('status, COUNT(*) as count')
+                        ->groupBy('status')
+                        ->pluck('count', 'status')
+                        ->toArray();
+    $statusesBRC = array_keys($statistics);
+    $countsBRC = array_values($statistics);
 
-        $statistics = $query->selectRaw('status, COUNT(*) as count')
-                            ->groupBy('status')
-                            ->pluck('count', 'status')
-                            ->toArray();
+    $query = BonRetourLivreur::query();
+    $this->applyDateFilter($query, $request);
+    $statistics = $query->selectRaw('status, COUNT(*) as count')
+                        ->groupBy('status')
+                        ->pluck('count', 'status')
+                        ->toArray();
+    $statusesBRL = array_keys($statistics);
+    $countsBRL = array_values($statistics);
 
-        $statusesBE = array_keys($statistics);
-        $countsBE = array_values($statistics);
-
-        $query = BonDistribution::query();
-
-        $statistics = $query->selectRaw('status, COUNT(*) as count')
-                            ->groupBy('status')
-                            ->pluck('count', 'status')
-                            ->toArray();
-
-        $statusesBD = array_keys($statistics);
-        $countsBD = array_values($statistics);
-
-        $query = BonPaymentLivreur::query();
-
-        $statistics = $query->selectRaw('status, COUNT(*) as count')
-                            ->groupBy('status')
-                            ->pluck('count', 'status')
-                            ->toArray();
-
-        $statusesBPL = array_keys($statistics);
-        $countsBPL = array_values($statistics);
-
-        $query = BonRetourClient::query();
-        $statistics = $query->selectRaw('status, COUNT(*) as count')
-                            ->groupBy('status')
-                            ->pluck('count', 'status')
-                            ->toArray();
-
-        $statusesBRC = array_keys($statistics);
-        $countsBRC = array_values($statistics);
-
-        $query = BonRetourLivreur::query();
-        $statistics = $query->selectRaw('status, COUNT(*) as count')
-                            ->groupBy('status')
-                            ->pluck('count', 'status')
-                            ->toArray();
-
-        $statusesBRL = array_keys($statistics);
-        $countsBRL = array_values($statistics);
-        // 
-        $remarques=Remarque::all();
-        $breads = [
-            ['title' => 'Tableau de bord', 'url' => null],
-            ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
-        ];
-        return view('pages.admin.index' ,compact('breads','remarques',
+    // Fetch remarques
+    $remarques = Remarque::all();
+    
+    // Define breadcrumbs
+    $breads = [
+        ['title' => 'Tableau de bord', 'url' => null],
+        ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
+    ];
+    
+    // Return the view with data
+    return view('pages.admin.index', compact('breads', 'remarques',
         'statuses', 'counts',
         'statusesBL', 'countsBL',
         'statusesBE', 'countsBE',
@@ -137,12 +145,159 @@ class AdminController extends Controller
         'statusesBPL', 'countsBPL',
         'statusesBRC', 'countsBRC',
         'statusesBRL', 'countsBRL',
-        'colis','liv','env','dis',
-        'cl','payLiv','retourC','retourL',
-        'payZ','fact','clients',
-        'rec','retourZ'));
+        'colis', 'liv', 'env', 'dis',
+        'cl', 'payLiv', 'retourC', 'retourL',
+        'payZ', 'fact', 'clients',
+        'rec', 'retourZ'));
+}
+
+// Helper function to apply date filter
+
+private function applyDateFilter($query, $request)
+{
+    if ($request->has('date_filter')) {
+        switch ($request->date_filter) {
+            case 'today':
+                $query->whereDate('created_at', today());
+                break;
+            case 'yesterday':
+                $query->whereDate('created_at', today()->subDay());
+                break;
+            case 'last_7_days':
+                $query->whereBetween('created_at', [now()->subDays(7), now()]);
+                break;
+            case 'last_30_days':
+                $query->whereBetween('created_at', [now()->subDays(30), now()]);
+                break;
+            case 'this_month':
+                $query->whereMonth('created_at', now()->month)
+                      ->whereYear('created_at', now()->year);
+                break;
+            case 'last_month':
+                $query->whereMonth('created_at', now()->subMonth()->month)
+                      ->whereYear('created_at', now()->subMonth()->year);
+                break;
+            case 'custom_range':
+                if ($request->has('start_date') && $request->has('end_date')) {
+                    $query->whereBetween('created_at', [$request->start_date, $request->end_date]);
+                }
+                break;
+        }
     }
- 
+}
+//     public function index(Request $request)
+//     {
+//         $colis = Colis::all()->count();
+//         $liv = BonLivraison::all()->count();
+//         $env = BonEnvois::all()->count();
+//         $dis = BonDistribution::all()->count();
+//         $payLiv = BonPaymentLivreur::all()->count();
+//         $retourC = BonRetourClient::all()->count();
+//         $retourL = BonRetourLivreur::all()->count();
+//         $payZ = BonPaymentZone::all()->count();
+//         $fact = Facture::all()->count();
+//         $rec = Reclamation::all()->count();
+//         $cl = Client::all()->count();
+//         $retourZ = BonRetourZone::all()->count();
+//         $clients = Client::all();
+// 
+//         // Fetch statistics
+//         $query = Colis::query();
+// 
+//         if ($request->has('client_id') && $request->client_id) {
+//             $query->where('id_Cl', $request->client_id);
+//         }
+// 
+//         $statistics = $query->selectRaw('status, COUNT(*) as count')
+//                             ->groupBy('status')
+//                             ->pluck('count', 'status')
+//                             ->toArray();
+// 
+//         $statuses = array_keys($statistics);
+//         $counts = array_values($statistics);
+// 
+// 
+//         $query = BonLivraison::query();
+// 
+//         if ($request->has('client_id') && $request->client_id) {
+//             $query->where('id_Cl', $request->client_id);
+//         }
+// 
+//         $statistics = $query->selectRaw('status, COUNT(*) as count')
+//                             ->groupBy('status')
+//                             ->pluck('count', 'status')
+//                             ->toArray();
+// 
+//         $statusesBL = array_keys($statistics);
+//         $countsBL = array_values($statistics);
+// 
+//         $query = BonEnvois::query();
+// 
+//         $statistics = $query->selectRaw('status, COUNT(*) as count')
+//                             ->groupBy('status')
+//                             ->pluck('count', 'status')
+//                             ->toArray();
+// 
+//         $statusesBE = array_keys($statistics);
+//         $countsBE = array_values($statistics);
+// 
+//         $query = BonDistribution::query();
+// 
+//         $statistics = $query->selectRaw('status, COUNT(*) as count')
+//                             ->groupBy('status')
+//                             ->pluck('count', 'status')
+//                             ->toArray();
+// 
+//         $statusesBD = array_keys($statistics);
+//         $countsBD = array_values($statistics);
+// 
+//         $query = BonPaymentLivreur::query();
+// 
+//         $statistics = $query->selectRaw('status, COUNT(*) as count')
+//                             ->groupBy('status')
+//                             ->pluck('count', 'status')
+//                             ->toArray();
+// 
+//         $statusesBPL = array_keys($statistics);
+//         $countsBPL = array_values($statistics);
+// 
+//         $query = BonRetourClient::query();
+//         $statistics = $query->selectRaw('status, COUNT(*) as count')
+//                             ->groupBy('status')
+//                             ->pluck('count', 'status')
+//                             ->toArray();
+// 
+//         $statusesBRC = array_keys($statistics);
+//         $countsBRC = array_values($statistics);
+// 
+//         $query = BonRetourLivreur::query();
+//         $statistics = $query->selectRaw('status, COUNT(*) as count')
+//                             ->groupBy('status')
+//                             ->pluck('count', 'status')
+//                             ->toArray();
+// 
+//         $statusesBRL = array_keys($statistics);
+//         $countsBRL = array_values($statistics);
+//         // 
+//         $remarques=Remarque::all();
+//         $breads = [
+//             ['title' => 'Tableau de bord', 'url' => null],
+//             ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
+//         ];
+//         return view('pages.admin.index' ,compact('breads','remarques',
+//         'statuses', 'counts',
+//         'statusesBL', 'countsBL',
+//         'statusesBE', 'countsBE',
+//         'statusesBD', 'countsBD',
+//         'statusesBPL', 'countsBPL',
+//         'statusesBRC', 'countsBRC',
+//         'statusesBRL', 'countsBRL',
+//         'colis','liv','env','dis',
+//         'cl','payLiv','retourC','retourL',
+//         'payZ','fact','clients',
+//         'rec','retourZ'));
+//     }
+//  
     public function signuppage()
     {
         return view('auth.admin.sign-up');

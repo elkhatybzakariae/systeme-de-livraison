@@ -1,8 +1,35 @@
 @extends('layouts.admin.admin')
 @section('breads')
 <x-breadcrumb :breads="$breads" />
-
 @endsection
+@section('filter')
+<form method="GET" id="formFilter" action="{{ route('admin.index') }}">
+  <div class="form-group row">
+      <div class="col-md-4">
+          <select class="form-control" id="date_filter" name="date_filter" onchange="this.form.submit()">
+              <option value="">Depuis le lancement</option>
+              <option value="today" {{ request('date_filter') == 'today' ? 'selected' : '' }}>Aujourd'hui</option>
+              <option value="yesterday" {{ request('date_filter') == 'yesterday' ? 'selected' : '' }}>Hier</option>
+              <option value="last_7_days" {{ request('date_filter') == 'last_7_days' ? 'selected' : '' }}>7 derniers jours</option>
+              <option value="last_30_days" {{ request('date_filter') == 'last_30_days' ? 'selected' : '' }}>30 derniers jours</option>
+              <option value="this_month" {{ request('date_filter') == 'this_month' ? 'selected' : '' }}>Ce mois</option>
+              <option value="last_month" {{ request('date_filter') == 'last_month' ? 'selected' : '' }}>Le mois dernier</option>
+              <option value="custom_range" {{ request('date_filter') == 'custom_range' ? 'selected' : '' }}>Plage personnalisée</option>
+          </select>
+      </div>
+      <div class="col-md-3">
+          <input type="date" class="form-control" name="start_date" placeholder="Date de début" value="{{ request('start_date') }}" 
+                 {{ request('date_filter') != 'custom_range' ? 'disabled' : '' }}>
+      </div>
+      <div class="col-md-3">
+          <input type="date" class="form-control" name="end_date" placeholder="Date de fin" value="{{ request('end_date') }}" 
+                 {{ request('date_filter') != 'custom_range' ? 'disabled' : '' }}>
+      </div>
+  </div>
+</form>
+@endsection
+
+
 @section('content')
 
   @foreach ($remarques as $remarque )
@@ -448,7 +475,35 @@
 <!-- Include Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const dateFilter = document.getElementById('date_filter');
+        const formFilter = document.getElementById('formFilter');
+        const startDate = document.querySelector('input[name="start_date"]');
+        const endDate = document.querySelector('input[name="end_date"]');
+        endDate.onchange=function(){
+            // if (startDate.value > endDate.value) {
+                console.log(endDate,startDate);
+                formFilter.submit();
+                // }
+        }
+        dateFilter.addEventListener('change', function () {
+            if (this.value === 'custom_range') {
+                startDate.removeAttribute('disabled');
+                endDate.removeAttribute('disabled');
+            } else {
+                startDate.setAttribute('disabled', 'disabled');
+                endDate.setAttribute('disabled', 'disabled');
+            }
+        });
+
+        if (dateFilter.value !== 'custom_range') {
+            startDate.setAttribute('disabled', 'disabled');
+            endDate.setAttribute('disabled', 'disabled');
+        }
+    });
+
   document.addEventListener('DOMContentLoaded', function () {
   var ctx = document.getElementById('colisChart').getContext('2d');
   var colisChart = new Chart(ctx, {
