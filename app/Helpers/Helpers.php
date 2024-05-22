@@ -153,7 +153,7 @@ class Helpers
                 }
                 break;
         }
-        return $query;
     }
+    return $query;
 }
 }
