@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\BonLivraison;
 use App\Models\Colis;
 use App\Models\colisinfo;
+use App\Models\Etat;
+use App\Models\Option;
 use Carbon\Exceptions\EndLessPeriodException;
 use Dompdf\Dompdf;
 
@@ -30,7 +32,8 @@ class BonLivraisonController extends Controller
         //              where id_BL is null and status= nouveau and id_Cl=?', [$user['id_Cl']]);
         $colis = Colis::where('id_BL', null)
             ->where('status', 'Nouveau')
-            ->with('ville') // Eager load related city information (optional)
+            ->where('id_Cl', $user->id_Cl)
+            ->with('ville')
             ->get();
 
         $colisBon = [];
@@ -75,11 +78,13 @@ class BonLivraisonController extends Controller
             ->distinct()
             ->get();
 
+            $cl=Option::all();
+            $etat=Etat::all();
         $breads = [
             ['title' => 'Liste des Bon Livraison', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.bonLivraison.index', compact("bons", 'breads'));
+        return view('pages.admin.bonLivraison.index', compact("bons",'cl','etat', 'breads'));
     }
     public function getClientBons()
     {
@@ -99,11 +104,13 @@ class BonLivraisonController extends Controller
             ->distinct()
             ->get();
 
+            $cl=Option::all();
+            $etat=Etat::all();
         $breads = [
             ['title' => 'Liste des Bon Livraison', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.clients.bonLivraison.list', compact("bons", 'breads'));
+        return view('pages.clients.bonLivraison.list', compact("bons",'cl','etat', 'breads'));
     }
 
     public function create()

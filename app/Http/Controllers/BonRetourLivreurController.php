@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\BonRetourLivreur;
 use App\Models\Colis;
 use App\Models\colisinfo;
+use App\Models\Etat;
+use App\Models\Option;
 use App\Models\Zone;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
@@ -76,11 +78,14 @@ class BonRetourLivreurController extends Controller
             ->get();
         // $bons=BonRetourLivreur::all();
         // dd($bons);
+        
+        $cl=Option::all();
+        $etat=Etat::all();
         $breads = [
             ['title' => 'Liste des Bons de distributions ', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.BonRetourLivreur.list', compact("bons", 'breads'));
+        return view('pages.admin.BonRetourLivreur.list', compact("bons",'cl','etat', 'breads'));
     }
     public function create()
     {

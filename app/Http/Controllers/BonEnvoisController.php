@@ -6,6 +6,8 @@ use App\Models\BonEnvois;
 use App\Models\BonLivraison;
 use App\Models\Colis;
 use App\Models\colisinfo;
+use App\Models\Etat;
+use App\Models\Option;
 use App\Models\Zone;
 use PDF;
 use Dompdf\Dompdf;
@@ -79,13 +81,15 @@ class BonEnvoisController extends Controller
             ->distinct()
             ->get();
 
+            $cl=Option::all();
+            $etat=Etat::all();
         // $bons=BonEnvois::all();
         // dd($bons);
         $breads = [
             ['title' => 'Liste des Bons d\'Envoi', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.bonEnvoi.list', compact("bons", 'breads'));
+        return view('pages.admin.bonEnvoi.list', compact("bons",'cl','etat', 'breads'));
     }
     public function create()
     {
@@ -99,8 +103,6 @@ class BonEnvoisController extends Controller
                 $query->where('status', 'Ramasse');
             }
         ])->get();
-        // dd($zones);
-
         $breads = [
             ['title' => 'créer un Bon Envoi', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb

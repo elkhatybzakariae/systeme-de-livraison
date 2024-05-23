@@ -16,14 +16,22 @@ use Picqer\Barcode\BarcodeGeneratorPNG;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ColisImport;
 use App\Models\DemandeModificationColi;
+use App\Models\Etat;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Option as ModelsOption;
 
 class ColisController extends Controller
 {
     public function index()
     {
         $id=Auth::id();
-        $colis = Colis::query()->where('id_Cl',$id)->with('client')->whereNot('status','nouveau')->get();        
+        $colis = Colis::query()->where('id_Cl',$id)->with('client')->whereNot('status','nouveau')
+        ->get();        
+        $colisstatuss = $colis->pluck('status')->toArray();
+        $cl=ModelsOption::all();
+        $etat=Etat::all();
+        // dd($cl);
+        // $cl=$colis->getColisWithCouleur($colis->status);
         $colisIds = $colis->pluck('id')->toArray();
         $demandes=DemandeModificationColi::whereIn('id',$colisIds)->get();
         $colisinfo = colisinfo::all();
@@ -31,18 +39,21 @@ class ColisController extends Controller
             ['title' => 'Liste des Colis', 'url' => null],
             ['text' => 'Colis', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.clients.colis.index', compact('colis','demandes','breads','colisinfo'));
+        return view('pages.clients.colis.index', compact('colis','demandes','cl','etat','breads','colisinfo'));
     }
  
     public function indexAdmin()
     {
         $colis = Colis::query()->whereNot('status','Nouveau')->with(['client'])->get();
         $status = Colis::query()->select('status')->distinct()->get();
+        
+        $cl=ModelsOption::all();
+        $etat=Etat::all();
         $breads = [
             ['title' => 'Liste des Colis', 'url' => null],
             ['text' => 'Colis', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.colis.index', compact('colis','status','breads'));
+        return view('pages.admin.colis.index', compact('colis','cl','etat','status','breads'));
     }
     public function indexRamassage()
     {
@@ -93,7 +104,7 @@ class ColisController extends Controller
         
         $colis=Colis::create($validatedData);
         colisinfo::create([
-            'info'=>$colis['code_d_envoi'].','.'non paye'.','.'nouveau'.','.$colis['updated_at'].','.' '.'_',
+            'info'=>$colis['code_d_envoi'].','.'Non Paye'.','.'Nouveau'.','.$colis['updated_at'].','.' '.'_',
             'id'=>$colis['id'],
         ]);
         // $generator = new BarcodeGeneratorPNG();

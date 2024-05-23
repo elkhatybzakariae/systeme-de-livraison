@@ -291,7 +291,7 @@
                                     </a>
                                     <a onclick="openModalDMC('{{ $coli->id }}','{{ $coli->code_d_envoi }}','{{ $coli->destinataire }}','{{ $coli->telephone }}'
                                         ,'{{ $coli->prix }}','{{ $coli->commentaire }}','{{ $coli->adresse }}',
-                                        '{{ $coli->fragile }}','{{ $coli->ouvrir }}','{{ route('demandemodificationcolis.store',$coli->id) }}')"
+                                        '{{ $coli->fragile }}','{{ $coli->ouvrir }}','{{ route('demandemodificationcolis.store', $coli->id) }}')"
                                         data-bs-toggle="modal" data-bs-target="#kt_modal_new_target2"
                                         class="btn btn-sm btn-secondary"><i class="fa fa-edit"></i></a>
                                 </div>
@@ -307,7 +307,28 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
+        var cl = @json($cl);
+        var etat = @json($etat);
+        console.log(etat);
         $(document).ready(function() {
+            $('#kt_ecommerce_products_table tbody tr').each(function() {
+                var $thisRow = $(this);
+                var zoneStatus = $(this).find('td:eq(4)').text().trim();
+                var EtatColi = $(this).find('td:eq(3)').text().trim();
+                cl.forEach(element => {
+                    if (zoneStatus === element.nom) {
+                        $thisRow.find('td:eq(4)').css('color', element
+                            .couleur);
+                    }
+                });
+                etat.forEach(element => {
+                    if (EtatColi === element.nom) {
+                        $thisRow.find('td:eq(3)').css('color', element
+                            .couleur);
+                    }
+                });
+
+            });
             // Filter by search input
             $('[data-kt-ecommerce-product-filter="search"]').on('input', function() {
                 var searchText = $(this).val().toLowerCase();
@@ -333,15 +354,13 @@
 
         var colisinfo = @json($colisinfo);
         var dmc = @json($demandes);
-        console.log(dmc);
 
         function openModalallinfo(id) {
-
             var modal = document.getElementById('modal-body');
-            var colisinfos = colisinfo.find(element => element.id == id).info;
-            console.log('====================================');
-            console.log(colisinfos);
-            console.log('====================================');
+            var colisinfos = colisinfo.find(e => e.id == id ).info;
+            // console.log('====================================');
+            // console.log(colisinfos);
+            // console.log('====================================');
             let text = ''
             text = `<div class="row">
                       <div class="dn-inv-infos-box col-6">
@@ -351,7 +370,7 @@
 
 
                     <div >
-                      <table class="table table-striped table-bordered    mb-0">
+                      <table class="table table-striped table-bordered    mb-0" id='ColiInfo'>
                       <thead>
                       <tr class="dn-inv-table-head">
                         <th>Code d envoi</th>
@@ -365,10 +384,10 @@
 
                       `;
             let allinfo = colisinfos.split('_');
-            console.log(allinfo);
+            // console.log(allinfo);
             allinfo.forEach(e => {
                 let cc = e.split(',');
-                console.log(cc);
+                // console.log(cc);
                 if (cc != '') {
                     text += `
                 <tr>
@@ -381,20 +400,38 @@
 
                 }
             });
-            // document.getElementById('show').innerHTML = bb;
+            modal.innerHTML = text;
+            
+            $('#ColiInfo tbody tr').each(function() {
+                var $thisRow = $(this);
+                var zoneStatus = $(this).find('td:eq(2)').text().trim();
+                var EtatColi = $(this).find('td:eq(1)').text().trim();
+                cl.forEach(element => {
+                    if (zoneStatus === element.nom) {
+                        $thisRow.find('td:eq(2)').css('color', element
+                            .couleur);
+                    }
+                });
+                etat.forEach(element => {
+                    if (EtatColi === element.nom) {
+                        $thisRow.find('td:eq(1)').css('color', element
+                            .couleur);
+                    }
+                });
 
-            modal.innerHTML = text
+            });
         }
 
-        function openModalDMC(id, code_d_envoi, destinataire, telephone, prix, commentaire, adresse, fragile, ouvrir,action) {
+        function openModalDMC(id, code_d_envoi, destinataire, telephone, prix, commentaire, adresse, fragile, ouvrir,
+            action) {
 
             var modal = document.getElementById('modal-body2');
             if (dmc && dmc.length > 0) {
                 var dmcs = dmc.find(element => element.id === id);
             }
-            console.log('====================================');
-            console.log(dmcs);
-            console.log('====================================');
+            // console.log('====================================');
+            // console.log(dmcs);
+            // console.log('====================================');
             let text = ''
             if (dmcs) {
                 text = `
@@ -449,7 +486,7 @@
                         </div>
                         </form>
                                     `;
-           
+
             } else {
 
                 text = `
@@ -513,7 +550,7 @@
             var colis = @json($colis);
             let bb = '';
             let item = colis.find(ele => ele.id == id)
-            console.log(item);
+            // console.log(item);
             bb += `
                 <div class="">
                     <div class="d-flex flex-column ">

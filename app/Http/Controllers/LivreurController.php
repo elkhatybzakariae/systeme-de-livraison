@@ -6,7 +6,9 @@ use App\Helpers\Helpers;
 use App\Models\BonDistribution;
 use App\Models\Colis;
 use App\Models\colisinfo;
+use App\Models\Etat;
 use App\Models\Livreur;
+use App\Models\Option;
 use App\Models\Remarque;
 use App\Models\Zone;
 use Illuminate\Http\Request;
@@ -123,27 +125,27 @@ class LivreurController extends Controller
             $query->where('id_Liv', $liv);
         })->with(['bonDistribution', 'client'])->get();
 
+        $cl=Option::all();
+        $etat=Etat::all();
         // dd($colis);
-        return view('pages.livreur.colis.index', compact('colis', 'breads'));
+        return view('pages.livreur.colis.index', compact('colis','cl','etat', 'breads'));
     }
 
     public function changestatus(Request $req, $id)
     {
-        // dd($req);$livId = Auth::id();
         $livId = Auth::id();
-        // Récupérer les informations spécifiques de l'utilisateur
         $livreur = Livreur::find($livId, ['Phone', 'nomcomplet']);
 
         $breads = [
-            ['title' => 'Liste des colid', 'url' => null],
+            ['title' => 'Liste des colis', 'url' => null],
             ['text' => 'colis', 'url' => null],
         ];
-        if ($req->status == 'livre') {
+        if ($req->status == 'Livre') {
             Colis::where('id', $id)
-                ->update(['etat' => 'paye']);
-            $dt = 'paye,livre';
+                ->update(['etat' => 'Paye']);
+            $dt = 'Paye,Livre';
         } else {
-            $dt = 'non paye,' . $req->status;
+            $dt = 'Non Paye,' . $req->status;
         }
         if ($req->cmt == '') {
             $cmt = '';

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\BonDistribution;
 use App\Models\Colis;
 use App\Models\colisinfo;
+use App\Models\Etat;
+use App\Models\Option;
 use App\Models\Zone;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -74,13 +76,16 @@ class BonDistributionController extends Controller
             ->with('colis', 'colis.ville')
             ->distinct()
             ->get();
+            
+            $cl=Option::all();
+            $etat=Etat::all();
         // $bons=BonDistribution::all();
         // dd($bons);
         $breads = [
             ['title' => 'Liste des Bons de distributions ', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.bonDistribution.list', compact("bons", 'breads'));
+        return view('pages.admin.bonDistribution.list', compact("bons",'cl','etat', 'breads'));
     }
     public function create()
     {
@@ -91,10 +96,11 @@ class BonDistributionController extends Controller
 
         $zones = Zone::withCount([
             'colis' => function ($query) {
-                // $query->where('status', 'Recu');
-                $query->whereNotIn('status', ['Livre', 'Ramasse', 'Nouveau', 'Attente de Ramassage', 'Expedie']);
+                $query->where('status', 'Recu');
+                // $query->whereNotIn('status', ['Livre', 'Ramasse', 'Nouveau', 'Attente de Ramassage', 'Expedie']);
             }
         ])->with(['colis', 'livreurs'])->get();
+        // dd($zones);
         $breads = [
             ['title' => 'créer un Bon Distribution', 'url' => null],
             ['text' => 'Bons', 'url' => null],

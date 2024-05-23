@@ -6,6 +6,7 @@ use App\Models\BonDistribution;
 use App\Models\BonEnvois;
 use App\Models\BonLivraison;
 use App\Models\Client;
+use App\Models\DemandeModificationColi;
 use App\Models\Livreur;
 use App\Models\Ramassagecoli;
 use App\Models\Reclamation;
@@ -36,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
             $numberOfBL = BonLivraison::where('status', 'nouveau')->count();
             $numberOfBE = BonEnvois::where('status', 'nouveau')->count();
             $numberOfBD = BonDistribution::where('status', 'nouveau')->count();
+            $numberOfDMC = DemandeModificationColi::where('isAccepted', 'Nouveau')->count();
             $view->with([
                 'numberOfItems' => $numberOfItems,
                 'numberOfLivreurs' => $numberOfLivreurs,
@@ -44,7 +46,8 @@ class AppServiceProvider extends ServiceProvider
                 'numberOfRC' => $numberOfRC,
                 'numberOfBL' => $numberOfBL,
                 'numberOfBE' => $numberOfBE,
-                'numberOfBD' => $numberOfBD
+                'numberOfBD' => $numberOfBD,
+                'numberOfDMC' => $numberOfDMC
             ]);
         });
     }

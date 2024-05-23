@@ -545,6 +545,7 @@
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-title">Modification Colis</span>
+                        <span class="icon-number">{{ $numberOfDMC }}</span>
                     </a>
                     <!--end:Menu link-->
                 </div>

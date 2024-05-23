@@ -6,6 +6,8 @@ use App\Models\BonRetourClient;
 use App\Models\Client;
 use App\Models\Colis;
 use App\Models\colisinfo;
+use App\Models\Etat;
+use App\Models\Option;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -67,11 +69,14 @@ class BonRetourClientController extends Controller
             ->with('colis', 'colis.ville')
             ->distinct()
             ->get();
+            
+            $cl=Option::all();
+            $etat=Etat::all();
         $breads = [
             ['title' => 'Liste des Bons de retour de client ', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.bonRetourClient.list', compact("bons", 'breads'));
+        return view('pages.admin.bonRetourClient.list', compact("bons",'cl','etat', 'breads'));
     }
     public function getClientBons()
     {
@@ -88,13 +93,14 @@ class BonRetourClientController extends Controller
             ->where('clients.id_Cl', session('user')['id_Cl'])
             ->distinct()
             ->get();
-        // $bons=BonRetourClient::all();
-        // dd($bons);
+        
+        $cl=Option::all();
+        $etat=Etat::all();
         $breads = [
             ['title' => 'Liste des Bons de retour de client ', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.clients.bonRetourClient.list', compact("bons", 'breads'));
+        return view('pages.clients.bonRetourClient.list', compact("bons",'cl','etat', 'breads'));
     }
     public function create()
     {
@@ -124,7 +130,7 @@ class BonRetourClientController extends Controller
         $coli = Colis::where('id', $id)->first();
         $colisinfo = colisinfo::where('id', $id)->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,Expedier vers Client,' . $coli['updated_at'] . ',' . ' ' . '_';
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Expedier vers Client,' . $coli['updated_at'] . ',' . ' ' . '_';
 
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.retour.client.list', $id_BRC);
@@ -138,7 +144,7 @@ class BonRetourClientController extends Controller
         $coli = Colis::where('id_BRC', $id_BRC)->first();
         $colisinfo = colisinfo::where('id', $coli['id'])->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,Recu par Client,' . $coli['updated_at'] . ',' . ' ' . '_';
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Recu par Client,' . $coli['updated_at'] . ',' . ' ' . '_';
 
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.retour.client.list');

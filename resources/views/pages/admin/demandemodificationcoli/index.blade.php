@@ -154,7 +154,28 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
+        var cl = @json($cl);
+        var etat = @json($etat);
         $(document).ready(function() {
+
+            $('#kt_ecommerce_products_table tbody tr').each(function() {
+                var $thisRow = $(this);
+                var zoneStatus = $(this).find('td:eq(5)').text().trim();
+                var EtatColi = $(this).find('td:eq(4)').text().trim();
+                cl.forEach(element => {
+                    if (zoneStatus === element.nom) {
+                        $thisRow.find('td:eq(5)').css('color', element
+                            .couleur);
+                    }
+                });
+                etat.forEach(element => {
+                    if (EtatColi === element.nom) {
+                        $thisRow.find('td:eq(4)').css('color', element
+                            .couleur);
+                    }
+                });
+
+            });
             // Filter by search input
             $('[data-kt-ecommerce-product-filter="search"]').on('input', function() {
                 var searchText = $(this).val().toLowerCase();
@@ -242,81 +263,95 @@
             let bb = '';
 
             bb += `
-                <div class="">
-                    <div class="d-flex flex-column ">
-                        <div class="d-flex justify-content-center align-items-center  mb-2">
-                            <div class="symbol symbol-35px symbol-circle">
-                                <h3>Information du colis.</h3>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class=" rounded text-dark fw-semibold text-start row" data-kt-element="message-text">
-                            <div class="form-group mb-3 col-6 row">
-                                <div class="form-group mb-3 col col-12">
-                                <label class="fw-bold" for="nom_livreur">Nom Client:${item.colis.client.nomcomplet}</label>
-                                </div>
-                                <div class="form-group mb-3 col col-md-12">
-                                    <label class="fw-bold" for="nom_livreur">Telephone:${item.colis.client.Phone}</label>
-                                </div>    
-                            </div>
-                            <div class="form-group mb-3 col-6 row">
-                                <div class="form-group mb-3 col col-12">
-                                <label class="fw-bold" for="nom_livreur">Code d envoie:${item.colis.code_d_envoi}</label>
-                                </div>
-                                <div class="form-group mb-3 col col-12">
-                                    <label class="fw-bold" for="nom_livreur">Destinataire:${item.colis.destinataire}</label>
-                                </div>                                    
-                                <div class="form-group mb-3 col col-12">
-                                    <label class="fw-bold" for="nom_livreur">Telephone:${item.colis.telephone}</label>
-                                </div>                                      
-                                <div class="form-group mb-3 col col-12">
-                                    <label class="fw-bold" for="nom_livreur">Ville:${item.colis.ville.villename}</label>
-                                </div>                                    
-                                <div class="form-group mb-3 col col-12">
-                                    <label class="fw-bold" for="nom_livreur">Adresse:${item.colis.adresse}</label>
-                                </div>                                                
-                                <div class="form-group mb-3 col col-12">
-                                    <label class="fw-bold" for="nom_livreur">prix:${item.colis.prix }</label>
-                                </div>                    
-                                <div class="form-group mb-3 col col-12">
-                                    <label class="fw-bold" for="nom_livreur">Crbt:${item.colis.prix * item.colis.quantite}</label>
-                                </div>    
-                            </div>
-                        </div>
-                        <hr>
-                        <div class=" rounded text-dark fw-semibold text-start row" data-kt-element="message-text">
-                            <div class="form-group mb-3 col-6 row">
-                                <div class="form-group mb-3 col col-12">
-                                    <label class="fw-bold" for="nom_livreur">Destinataire:${item.destinataire}</label>
-                                    </div>                                    
-                                <div class="form-group mb-3 col col-12">
-                                    <label class="fw-bold" for="nom_livreur">Telephone:${item.telephone}</label>
-                                </div>                                     
-                                <div class="form-group mb-3 col col-12">
-                                    <label class="fw-bold" for="nom_livreur">Adresse:${item.adresse}</label>
-                                </div>                                     
-                                <div class="form-group mb-3 col col-12">
-                                    <label class="fw-bold" for="nom_livreur">Commentaire:${item.commentaire}</label>
-                                </div>                                   
-                                <div class="form-group mb-3 col col-12">
-                                    <label class="fw-bold" for="nom_livreur">prix:${item.prix}</label>
-                                </div>    
-                                </div>      
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="text-center">
-	    	<br>
-	    		<div class="btn-group btn-group-lg" role="group">
-                    
-                    <div class="btn-group btn-group-lg" role="group">
-                        <a href="{{ route('demandemodificationcolis.accepte', '') }}/${item.id_DMC}" class="btn btn-success"><i class="fa fa-check"></i></a>
-                        <a href="{{ route('demandemodificationcolis.refuse', '') }}/${item.id_DMC}" class="btn btn-danger"><i class="fa fa-times"></i></a>
-                    </div></div>
-	    	</div>
+    <div class="">
+        <div class="d-flex flex-column">
+            <div class="d-flex justify-content-center align-items-center mb-2">
+                <div class="symbol symbol-35px symbol-circle">
+                    <h3>Information du colis.</h3>
+                </div>
+            </div>
+            <hr>
+            <div class="rounded text-dark fw-semibold text-start row" data-kt-element="message-text">
+                <div class="form-group mb-3 col-6 row">
+                    <div class="form-group mb-3 col col-12">
+                        <label class="fw-bold" for="nom_livreur">Nom Client: ${item.colis.client.nomcomplet}</label>
+                    </div>
+                    <div class="form-group mb-3 col col-md-12">
+                        <label class="fw-bold" for="nom_livreur">Telephone: ${item.colis.client.Phone}</label>
                     </div>
                 </div>
-            `;
+                <div class="form-group mb-3 col-6 row">
+                    <div class="form-group mb-3 col col-12">
+                        <label class="fw-bold" for="nom_livreur">Code d'envoie: ${item.colis.code_d_envoi}</label>
+                    </div>
+                    <div class="form-group mb-3 col col-12">
+                        <label class="fw-bold" for="nom_livreur">Destinataire: ${item.colis.destinataire}</label>
+                    </div>
+                    <div class="form-group mb-3 col col-12">
+                        <label class="fw-bold" for="nom_livreur">Telephone: ${item.colis.telephone}</label>
+                    </div>
+                    <div class="form-group mb-3 col col-12">
+                        <label class="fw-bold" for="nom_livreur">Ville: ${item.colis.ville.villename}</label>
+                    </div>
+                    <div class="form-group mb-3 col col-12">
+                        <label class="fw-bold" for="nom_livreur">Adresse: ${item.colis.adresse}</label>
+                    </div>
+                    <div class="form-group mb-3 col col-12">
+                        <label class="fw-bold" for="nom_livreur">Prix: ${item.colis.prix}</label>
+                    </div>
+                    <div class="form-group mb-3 col col-12">
+                        <label class="fw-bold" for="nom_livreur">Crbt: ${item.colis.prix * item.colis.quantite}</label>
+                    </div>
+                </div>
+            </div>
+            <h1>Nouvelle informations du colis</h1>
+            <hr>
+            <div class="rounded text-dark fw-semibold text-start row" data-kt-element="message-text">
+                <div class="form-group mb-3 col-6 row">
+                    <div class="form-group mb-3 col col-12">
+                        <label class="fw-bold" for="nom_livreur">Destinataire: ${item.destinataire}</label>
+                    </div>
+                    <div class="form-group mb-3 col col-12">
+                        <label class="fw-bold" for="nom_livreur">Telephone: ${item.telephone}</label>
+                    </div>
+                    <div class="form-group mb-3 col col-12">
+                        <label class="fw-bold" for="nom_livreur">Adresse: ${item.adresse}</label>
+                    </div>
+                    <div class="form-group mb-3 col col-12">
+                        <label class="fw-bold" for="nom_livreur">Commentaire: ${item.commentaire}</label>
+                    </div>
+                    <div class="form-group mb-3 col col-12">
+                        <label class="fw-bold" for="nom_livreur">Prix: ${item.prix}</label>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <br>
+                <div class="btn-group btn-group-lg" role="group">
+                    ${item.isAccepted !== 'Accepte' && item.isAccepted !== 'Annule' ? `
+                                <form action="{{ route('demandemodificationcolis.refuse', '') }}/${item.id_DMC}" method="POST">
+                                    {{ csrf_field() }}
+                                    {{ method_field('PUT') }}
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-times"></i></button>
+                                </form>
+                                <form action="{{ route('demandemodificationcolis.accepte', '') }}/${item.id_DMC}" method="POST">
+                                    {{ csrf_field() }}
+                                    <button type="submit" class="btn btn-success"><i class="fa fa-check"></i></button>
+                                </form>
+                            ` : ''}
+                    ${item.isAccepted !== 'Accepte' && item.isAccepted !== 'Annule' ? `
+                                <a href="{{ route('demandemodificationcolis.accepte', '') }}/${item.id_DMC}" class="btn btn-success"><i class="fa fa-check"></i></a>
+                                <a href="{{ route('demandemodificationcolis.refuse', '') }}/${item.id_DMC}" class="btn btn-danger"><i class="fa fa-times"></i></a>
+                            ` : ''}
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+            document.getElementById('show').innerHTML = bb;
+            document.getElementById('kt_modal_new_message_form').action = action;
+
             document.getElementById('show').innerHTML = bb;
             document.getElementById('kt_modal_new_message_form').action = action;
 

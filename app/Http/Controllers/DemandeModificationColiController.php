@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Helpers\Helpers;
 use App\Models\Colis;
 use App\Models\DemandeModificationColi;
+use App\Models\Etat;
+use App\Models\Option;
 use Illuminate\Http\Request;
 
 class DemandeModificationColiController extends Controller
@@ -12,12 +14,14 @@ class DemandeModificationColiController extends Controller
     public function all()
     {
         $demandes = DemandeModificationColi::with('colis')->get();
-        // dd($demandes); 
+        
+        $cl=Option::all();
+        $etat=Etat::all();
         $breads = [
             ['title' => 'Liste des Demandes Modification Colis', 'url' => null],
             ['text' => 'Demandes', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.demandemodificationcoli.index', compact('demandes', 'breads'));
+        return view('pages.admin.demandemodificationcoli.index', compact('demandes','cl','etat', 'breads'));
     }
     public function store(Request $request, $id)
     {
@@ -55,21 +59,21 @@ class DemandeModificationColiController extends Controller
 
     public function accepte(Request $request, $id)
     {
-        dd($id);
+        // dd($id);
         $dmc = DemandeModificationColi::findOrFail($id);
-        $coli = Colis::findOrFail($dmc->coli_id); // Assuming `coli_id` is the correct foreign key column in `DemandeModificationColi`
-        dd($coli);
+        $coli = Colis::findOrFail($dmc->coli_id); 
+        // dd($coli);
         $dmc->update([
             'isAccepted' => 'Accepte',
         ]);
-        $coli->update([
-            // Assuming you want to update some specific fields in the Colis model
+        $c=$coli->update([
             'destinataire' => $dmc->destinataire,
             'telephone' => $dmc->telephone,
             'prix' => $dmc->prix,
             'commentaire' => $dmc->commentaire,
             'adresse' => $dmc->adresse,
         ]);
+        dd($c->prix);
         return back();
     }
     public function refuse(Request $request, $id)

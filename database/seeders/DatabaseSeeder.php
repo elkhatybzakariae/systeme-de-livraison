@@ -62,5 +62,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RamassagecoliSeeder::class);
         $this->call(RemarqueSeeder::class);
         $this->call(DemandeModificationColiSeeder::class);
+        $this->call(OptionSeeder::class);
+        $this->call(EtatSeeder::class);
     }
 }

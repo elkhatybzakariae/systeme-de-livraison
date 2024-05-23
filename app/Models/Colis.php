@@ -76,4 +76,20 @@ class Colis extends Model
     {
         return $this->belongsTo(BonRetourZone::class, 'id_BRZ');
     }
+
+
+
+
+
+
+
+
+
+
+
+    public function getColisWithCouleur($status) {
+        $option = Option::where('nom',$status); // assuming 'option_id' is stored in 'colis'
+    
+        return $option;
+    }
 }

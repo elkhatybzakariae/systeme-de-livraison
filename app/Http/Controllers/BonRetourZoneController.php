@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\BonRetourZone;
 use App\Models\Colis;
 use App\Models\colisinfo;
+use App\Models\Etat;
+use App\Models\Option;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -61,11 +63,14 @@ class BonRetourZoneController extends Controller
             ->with('zone')
             ->distinct()
             ->get();
+            
+            $cl=Option::all();
+            $etat=Etat::all();
         $breads = [
             ['title' => 'Liste des Bons de retour zone ', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.bonRetourZone.list', compact("bons", 'breads'));
+        return view('pages.admin.bonRetourZone.list', compact("bons",'cl','etat', 'breads'));
     }
     public function getClientBons()
     {
@@ -117,7 +122,7 @@ class BonRetourZoneController extends Controller
         $coli = Colis::where('id', $id)->first();
         $colisinfo = colisinfo::where('id', $id)->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,Expedier vers Centre Principale,' . $coli['updated_at'] . ',' . ' ' . '_';
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Expedier vers Centre Principale,' . $coli['updated_at'] . ',' . ' ' . '_';
 
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.retour.zone.index', $id_BRZ);
@@ -131,7 +136,7 @@ class BonRetourZoneController extends Controller
         $coli = Colis::where('id_BRZ', $id_BRZ)->first();
         $colisinfo = colisinfo::where('id', $coli['id'])->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,Recu par Centre Principale,' . $coli['updated_at'] . ',' . ' ' . '_';
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Recu par Centre Principale,' . $coli['updated_at'] . ',' . ' ' . '_';
 
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.retour.zone.list');

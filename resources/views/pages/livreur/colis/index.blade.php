@@ -220,7 +220,28 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
+        
+        var cl = @json($cl);
+        var etat = @json($etat);
         $(document).ready(function() {
+            $('#kt_ecommerce_products_table tbody tr').each(function() {
+                var $thisRow = $(this);
+                var zoneStatus = $(this).find('td:eq(5)').text().trim();
+                var EtatColi = $(this).find('td:eq(4)').text().trim();
+                cl.forEach(element => {
+                    if (zoneStatus === element.nom) {
+                        $thisRow.find('td:eq(5)').css('color', element
+                            .couleur);
+                    }
+                });
+                etat.forEach(element => {
+                    if (EtatColi === element.nom) {
+                        $thisRow.find('td:eq(4)').css('color', element
+                            .couleur);
+                    }
+                });
+
+            });
             // Filter by search input
             $('[data-kt-ecommerce-product-filter="search"]').on('input', function() {
                 var searchText = $(this).val().toLowerCase();

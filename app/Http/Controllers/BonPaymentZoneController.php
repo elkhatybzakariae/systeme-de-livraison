@@ -27,7 +27,7 @@ class BonPaymentZoneController extends Controller
             ->whereNull('id_BPZ')
             ->where('zone', $id_Z)
             ->where('status', 'Livre')
-            ->where('etat', 'paye')
+            ->where('etat', 'Paye')
             ->whereNot('id_BPL',null)
             ->get();
 
@@ -91,7 +91,7 @@ class BonPaymentZoneController extends Controller
         $zones = Zone::whereHas('colis', function ($query) {
             $query
             ->where('status', 'Livre')
-            ->where('etat', 'paye')
+            ->where('etat', 'Paye')
             ->whereNot('id_BPL',null );
         })
             ->with([
@@ -125,15 +125,12 @@ class BonPaymentZoneController extends Controller
     {
         $colis = Colis::where('id', $id)
             ->update(['id_BPZ' => null]);
-
-        // dd($colis);
         return redirect()->route('bon.payment.zone.index', $id_BPZ);
     }
 
 
     public function updateAll(Request $request, $id_BPZ)
     {
-        // dd($request->input('query'));
         if ($request->input('query')) {
             $colis = Colis::where('id', $request->input('query'))
                 ->update(['id_BPZ' => $id_BPZ]);

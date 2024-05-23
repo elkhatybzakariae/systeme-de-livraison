@@ -193,6 +193,8 @@ $(document).ready(function() {
   }
 });
 
+var cl = @json($cl);
+        var etat = @json($etat);
 function openModal(id) {
   // Set the default values or update them based on the clicked item
   var modal=document.getElementById('modal-body') ;
@@ -212,7 +214,7 @@ function openModal(id) {
 
 
   <div >
-    <table class="table table-striped table-bordered    mb-0">
+    <table class="table table-striped table-bordered    mb-0" id='infoColi'>
     <thead>
     <tr class="dn-inv-table-head">
       <th>N°</th>
@@ -253,9 +255,20 @@ function openModal(id) {
           </div>`;
 
 
-          modal.innerHTML=text
-// Set the form action URL
-  // document.getElementById('kt_modal_new_target_form').action = actionUrl;
+          modal.innerHTML=text;
+          $('#infoColi tbody tr').each(function() {
+                var $thisRow = $(this);
+                var Status = $(this).find('td:eq(6) span').text().trim();
+                cl.forEach(element => {
+                    if (Status === element.nom) {
+                        $thisRow.find('td:eq(6) span').css('color', element
+                            .couleur);
+                        $thisRow.find('td:eq(6) span').css('border', '1px solid' + element
+                            .couleur);
+                    }
+                });
+
+            });
 }
 </script>
 @endsection
