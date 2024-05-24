@@ -7,7 +7,6 @@ use App\Models\Colis;
 use App\Models\colisinfo;
 use App\Models\Etat;
 use App\Models\Option;
-use Carbon\Exceptions\EndLessPeriodException;
 use Dompdf\Dompdf;
 
 use Dompdf\Options;
@@ -16,11 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 use League\Csv\Writer;
-use Milon\Barcode\Facades\DNS1DFacade as DNS1D;
-use PDF;
-use Picqer\Barcode\BarcodeGeneratorPNG;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use TCPDF;
+
 
 class BonLivraisonController extends Controller
 {
@@ -32,7 +27,7 @@ class BonLivraisonController extends Controller
         //              where id_BL is null and status= nouveau and id_Cl=?', [$user['id_Cl']]);
         $colis = Colis::where('id_BL', null)
             ->where('status', 'Nouveau')
-            ->where('id_Cl', $user->id_Cl)
+            ->where('id_Cl', $user['id_Cl'])
             ->with('ville')
             ->get();
 
@@ -222,34 +217,28 @@ class BonLivraisonController extends Controller
     }
     public function getPdf($id)
     {
-        // $bon = BonDistribution::where('id_BD', $id)->first();
         $bon = BonLivraison::where('bon_livraisons.id_BL', $id) // Specify the table for id_BL
-            ->withCount('colis') // Count related colis
-            ->withSum('colis', 'prix') // Sum prices of related colis
-            // ->leftJoin('livreurs', 'bon_livraisons.id_Liv', '=', 'l.ivreurs.id_Liv')
+            ->withCount('colis') 
+            ->withSum('colis', 'prix')
+            ->leftJoin('clients', 'clients.id_Cl', '=', 'bon_livraisons.id_Cl')
             ->leftJoin('colis', 'bon_livraisons.id_BL', '=', 'colis.id_BL')
-            // ->leftJoin('colis', 'colis.zone', '=', 'zones.id_Z')
-            // ->select('bon_livraisons.*', 'livreurs.nomcomplet as liv_nom', 'livreurs.Phone as liv_tele', 'zones.zonename as liv_zone')
-            ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as colis_count'))
+            ->select('clients.nomcomplet as nomcomplet','clients.Phone as telephone','bon_livraisons.*')
+             ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as colis_count'))
             ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as prix_total')) // Corrected table name (BL -> BD)
-            // ->with('colis', 'colis.ville')
             ->first();
-
-        // dd($bon);
         $colis = Colis::query()->where('id_BL', $id)->get();
         $data = [
             'bon' => $bon,
             'colis' => $colis
         ];
         $dompdf = new Dompdf();
-        // 
-        //     // Load the HTML content into Dompdf
+        
         $html = view('pages.admin.bonLivraison.getPdf', $data)->render();
         $dompdf->loadHtml($html);
 
         // Render the PDF
         $dompdf->render();
-        return $dompdf->stream('bon' . $bon->id_BD . '.pdf');
+        return $dompdf->stream('bon-' . $bon->id_BL . '.pdf');
     }
     public function generateEtiqueteuse($id)
     {

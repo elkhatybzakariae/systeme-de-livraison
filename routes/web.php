@@ -130,6 +130,8 @@ Route::middleware('check.admin')->group(function () {
         Route::post('/update/delete/all/{id_BL}', [BonPaymentLivreurController::class, 'updateDeleteAll'])->name('bon.payment.livreur.updateDelete.all');
         Route::get('/export/colis/{id}', [BonPaymentLivreurController::class, 'exportColis'])->name('bon.payment.livreur.exportColis');
         Route::get('/destroy/{id}', [BonPaymentLivreurController::class, 'destroy'])->name('bon.payment.livreur.destroy');
+        Route::get('/get/pdf/{id_BPL}', [BonPaymentLivreurController::class, 'getPdf'])->name('bon.payment.livreur.getPdf');
+
     });
 
     Route::group(['prefix' => 'admin/bon-payment-zone'], function () {
@@ -146,6 +148,8 @@ Route::middleware('check.admin')->group(function () {
         Route::get('/export/colis/{id}', [BonPaymentZoneController::class, 'exportColis'])->name('bon.payment.zone.exportColis');
         Route::get('/destroy/{id}', [BonPaymentZoneController::class, 'destroy'])->name('bon.payment.zone.destroy');
         Route::post('admin/bon-payment/{id}', [BonPaymentZoneController::class, 'recu'])->name('bon.payment.zone.recu');
+        Route::get('/get/pdf/{id_BPZ}', [BonPaymentZoneController::class, 'getPdf'])->name('bon.payment.zone.getPdf');
+
 
 
     });

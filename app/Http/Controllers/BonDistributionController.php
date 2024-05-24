@@ -207,7 +207,9 @@ class BonDistributionController extends Controller
             ->first();
 
         // dd($bon);
-        $colis = Colis::query()->where('id_BD', $id)->get();
+        $colis = Colis::query()->where('id_BD', $id)
+        ->with('client')
+        ->get();
         $data = [
             'bon' => $bon,
             'colis' => $colis
@@ -220,7 +222,7 @@ class BonDistributionController extends Controller
 
         // Render the PDF
         $dompdf->render();
-        return $dompdf->stream('bon' . $bon->id_BD . '.pdf');
+        return $dompdf->stream('bon-' . $bon->id_BD . '.pdf');
     }
 
     public function destroy($id)

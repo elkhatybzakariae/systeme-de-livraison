@@ -18,8 +18,8 @@ class BonPaymentLivreur extends Model
     {
         return $this->hasMany(Colis::class,'id_BPL');
     }
-    public function client()
+    public function livreur()
     {
-        return $this->belongsTo(Client::class,'id_Cl');
+        return $this->belongsTo(Livreur::class,'id_Liv');
     }
 }

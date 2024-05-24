@@ -72,6 +72,10 @@ class Colis extends Model
     {
         return $this->belongsTo(BonDistribution::class, 'id_BD', 'id_BD');
     }
+    public function bonPaymentLivreur()
+    {
+        return $this->belongsTo(BonPaymentLivreur::class, 'id_BPL', 'id_BPL');
+    }
     public function BRZ()
     {
         return $this->belongsTo(BonRetourZone::class, 'id_BRZ');

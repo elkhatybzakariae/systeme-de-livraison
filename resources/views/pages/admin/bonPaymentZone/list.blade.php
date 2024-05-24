@@ -126,7 +126,7 @@
                 @endif
                 </div>
                 <div class="menu-item px-3">
-                  <a  class="btn"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
+                  <a  class="btn" href="{{ route('bon.payment.zone.getPdf',$item->id_BPZ) }}"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
                 </div>
                 @if ($item->colis->count()==0)
                   <div class="menu-item  text-hover-danger px-3">        

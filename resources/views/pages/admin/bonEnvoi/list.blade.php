@@ -128,8 +128,8 @@
                   </div>
                 @endif
                   <div class="menu-item px-3">
-                  <a  class="btn" href="{{ route('bon.envoi.getPdf',$item->id_BE) }}"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
-                </div>
+                    <a  class="btn" href="{{ route('bon.envoi.getPdf',$item->id_BE) }}"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
+                  </div>
                
                 
               </div>

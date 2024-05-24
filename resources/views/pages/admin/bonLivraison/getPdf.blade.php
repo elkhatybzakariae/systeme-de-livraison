@@ -74,20 +74,19 @@ th {
   <table >
     <tr>
       <td style="position: relative">
-        <div style=" border-style: solid; margin: 10px; padding: 10px; width:300px;height:100px">
-          <strong >Livreur:</strong>
-          <span>{{ $bon->liv_nom }}</span><br>
+        <div style=" border-style: solid; margin-bottom:10px; padding: 10px;width:300px;height:100px ">
+          <strong >Client:</strong>
+          <span>{{ $bon->nomcomplet }}</span><br>
           <strong >Téléphone:</strong> 
-          <span>{{ $bon->liv_tele }}</span><br>
-          <strong >Zone:</strong> 
-          <span>{{ $bon->liv_zone }}</span>
+          <span>{{ $bon->telephone }}</span><br>
+          
       </div>
       </td>
       <td style="position: relative">
-        <div style=" border-style: solid; margin: 10px; padding: 10px;width:300px;height:100px">
+        <div style=" border-style: solid; margin-bottom:10px; padding: 10px;width:300px;height:100px">
           <div class="colis grid-item--full">
               <strong >Bon de livraison:</strong>
-              <span>{{ $bon->id_BD }}</span>
+              <span>{{ $bon->id_BL }}</span>
           </div>
           <div class="colis grid-item--full">
               <strong >Date: </strong>
@@ -129,18 +128,7 @@ th {
           <td class="td"> <p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->prix }}  Dhs</span></p>
           </td>
       </tr>
-      <tr style="height:18.65pt; -aw-height-rule:exactly">
-          <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $i+1 }} </span></p>
-          </td>
-          <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->code_d_envoi }} </span></p>
-          </td>
-          <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->telephone }} </</span></p>
-          </td>
-          <td class="td"> <p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->ville->villename }} </</span></p>
-          </td>
-          <td class="td"> <p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->prix }}  Dhs</span></p>
-          </td>
-      </tr>
+    
       @endforeach
       <tr style="height:18.65pt; -aw-height-rule:exactly">
           <td class="td" colspan="4" ><p style="font-size:8pt"><strong style="font-family:Calibri"> Total </strong></p></td>
@@ -149,6 +137,21 @@ th {
       </tr>
   </table>
     <br>
+    <table>
+      <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+      <tr>
+
+        <td colspan="4">Signature Client :</td>
+        <td >Signature Ramasseur :</td>
+      </tr>
+    </table>
 
 
     
