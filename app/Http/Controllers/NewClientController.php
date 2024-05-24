@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NewClientController extends Controller
 {
     public function newclients()
     {
-        $list= Client::where('isAccepted',0)->get();
+        $list= Client::where('isAdmin',1)->where('isAccepted',0)->get();
         $breads = [
             ['title' => 'Liste des nouveaux client', 'url' => null],
             ['text' => 'Nouveaux Clients', 'url' => null], // You can set the URL to null for the last breadcrumb
@@ -27,6 +28,7 @@ class NewClientController extends Controller
     }
     public function accept(Request $request,$id)
     {
+        $idAd=Auth::id();
         $validation = $request->validate([
             'nommagasin' => 'required|string|max:50',
             'nomcomplet' => 'required|string|max:50',
@@ -42,6 +44,8 @@ class NewClientController extends Controller
             'numerocompte' => 'nullable|string|max:50',
         ]);
         $validation['isAccepted']=1;
+        $validation['isActive']=1;
+        $validation['acceptedBy']=$idAd;
         Client::where('id_Cl', $id)->update($validation);
         return redirect()->route('newclients');
     }

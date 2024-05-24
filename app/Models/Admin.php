@@ -19,4 +19,16 @@ class Admin extends Authenticatable
     {
         return $this->hasMany(Remarque::class);
     }
+    public function ClAcc()
+    {
+        return $this->hasMany(Client::class);
+    }
+
+
+    public function referrer() {
+        return $this->belongsTo(Admin::class, 'user');
+    }
+    public function referrals() {
+        return $this->hasMany(Admin::class,'user');
+    }
 }

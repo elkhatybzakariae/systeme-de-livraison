@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -17,6 +18,7 @@ class ClientFactory extends Factory
      */
     public function definition(): array
     {
+        $admins = Admin::pluck('id_Ad')->toArray();
         return [
             'id_Cl' => Str::random(10),
             'nommagasin' => fake()->company(),
@@ -31,7 +33,9 @@ class ClientFactory extends Factory
             'siteweb' => fake()->url(),
             'nombanque' => fake()->company(),
             'numerocompte' => $this->faker->optional()->bankAccountNumber,
+            'isActive' => fake()->boolean(),
             'isAdmin' => fake()->boolean(),
+            // 'acceptedBy' => fake()->randomElement($admins),
             'password' => Hash::make('password'),
             'created_at'=>now()
 

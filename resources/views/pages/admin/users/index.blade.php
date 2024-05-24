@@ -194,7 +194,11 @@
                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                         <th>Photo</th>
                         <th>Nom</th>
-                        <th>Informations</th>
+                        <th>Informations</th><th class="min-w-150px sorting" tabindex="0"
+                        aria-controls="kt_project_users_table" rowspan="1"
+                        colspan="1"
+                        aria-label="Date: activate to sort column ascending"
+                        style="width: 0px;">Accepte par</th>
                         <th>DATE DE CREATION</th>
                         <th>Actions</th>
                     </tr>
@@ -223,18 +227,32 @@
                                     Email :{{ $item->email }} <br>Adresse:{{ $item->adress }}
                                 </span>
                             </td>
+                            <td>
+                                <div class="fw-semibold fs-6 text-gray-400">
+                                    {{ $item->user ? $item->referrer->nomcomplet : 'N/A' }}
+                                </div>
+                            </td>
                             <td class="pe-0"data-kt-ecommerce-product-filter="date" >
                                 <span class="fw-bold">{{ $item->created_at }}</span>
                             </td>
                             <!--begin::Action=-->
                             <td class="row">
                                 <div class="menu-item px-3 col-4">
-                                    <a onclick="openModal('{{ $item->nomcomplet }}','{{ $item->email }}','{{ $item->cin }}',
-                                    '{{ $item->Phone }}','{{ $item->ville }}','{{ $item->adress }}','{{ $item->nombanque }}',
-                                    '{{ $item->numerocompte }}','{{ route('admin.newuser.update',$item->id_Ad) }}')"
-                                        data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"
-                                        class="menu-link px-3"><i class="fa fa-edit"></i></a>
+                                    <a onclick="openModal(
+                                        '{{$item->nomcomplet }}',
+                                        '{{$item->email }}',
+                                        '{{$item->cin }}',
+                                        '{{$item->Phone }}',
+                                        '{{$item->ville }}',
+                                        '{{$item->adress }}',
+                                        '{{$item->nombanque }}',
+                                        '{{$item->numerocompte }}',
+                                        '{{ route('admin.newuser.update', $item->id_Ad) }}'
+                                    )"
+                                    data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"
+                                    class="menu-link px-3"><i class="fa fa-edit"></i></a>
                                 </div>
+                                
                                 {{-- @if ($item->valider == 0)
                                     <div class="menu-item px-3 col-4">
                                         <form action="{{ route('newuser.valider.update', $item->id_Ad) }}"
@@ -334,6 +352,7 @@
         function openModal(nomcomplet, email,cin, Phone,ville, adress,
         nombanque, numerocompte, actionUrl = "{{ route('newuser.store') }}") {
             // Set the zone name input value
+            console.log('dddddd');
             document.getElementById('nomcomplet').value = nomcomplet;
             document.getElementById('nomcomplet').readOnly = true;
             document.getElementById('email').readOnly = true;

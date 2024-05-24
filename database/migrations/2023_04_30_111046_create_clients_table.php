@@ -26,12 +26,15 @@ return new class extends Migration
             $table->string('siteweb')->nullable();
             $table->string('nombanque')->nullable();
             $table->string('numerocompte')->nullable();
+            $table->boolean('isActive')->default(0);
             $table->boolean('isAdmin')->default(0);
             $table->boolean('isAccepted')->default(0);
             $table->string('password');
             $table->text('token')->nullable();
             $table->string('user')->nullable();
             $table->foreign('user')->references('id_Cl')->on('clients');
+            $table->string('acceptedBy')->nullable();
+            $table->foreign('acceptedBy')->references('id_Ad')->on('admins');
             $table->boolean('valider')->default(0);
 
             $table->timestamps();

@@ -16,7 +16,7 @@ class Client extends Authenticatable
 
     public $timestamps = true;
     protected $fillable = ['id_Cl','nommagasin','nomcomplet','typeentreprise','cin','email','Phone'
-    ,'ville','villeRamassage','adress','siteweb','nombanque','numerocompte','isAdmin','user','valider','password'];
+    ,'ville','villeRamassage','adress','siteweb','nombanque','numerocompte','isActive','isAdmin','acceptedBy','user','valider','password'];
     public function produit()
     {
         return $this->hasMany(Produit::class,'id_Pro');
@@ -36,5 +36,9 @@ class Client extends Authenticatable
     public function bonLivraison()
     {
         return $this->hasMany(BonLivraison::class,'id_Cl');
+    }
+    public function acceptedByA()
+    {
+        return $this->belongsTo(Admin::class,'acceptedBy');
     }
 }

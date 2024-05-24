@@ -56,7 +56,6 @@
                 <span class="indicator-progress">Please wait...<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
             </button>
         </div>
-        <div class="text-gray-500 text-center fw-semibold fs-6">Vous avez déja un compte? <a href="{{ route('auth.livreur.signIn') }}" class="link-primary fw-semibold">Espace Client</a></div>
     </form>
   </div>
 </div>

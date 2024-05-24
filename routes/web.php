@@ -44,9 +44,12 @@ Route::middleware('check.admin')->group(function () {
         Route::get('/new-user',  'newuser')->name('admin.newuser');
         Route::post('/store/new-user',  'storenewuser')->name('admin.newuser.store');
         Route::post('/update/user/{id}',  'updatenewuser')->name('admin.newuser.update');
+        Route::put('/update/client/{id}',  'updateclient')->name('admin.client.update');
         Route::delete('/delete/user/{id}',  'deletenewuser')->name('admin.newuser.delete');
         Route::get('/signout',  'signout')->name('admin.signout');
         Route::post('/coli/{id}',  'changestatus')->name('admin.changestatus');
+        Route::put('/client/activer/{id}',  'ActiverClient')->name('admin.client.activer');
+        Route::put('/client/desactiver/{id}',  'DesactiverClient')->name('admin.client.desactiver');
     });
 
     Route::controller(StatisticController::class)->prefix('admin/statistiques')->group(function () {

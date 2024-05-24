@@ -344,7 +344,7 @@ class AdminController extends Controller
 
     public function newuser()
     {
-        $users = Admin::where('user', Auth::id())->get();
+        $users = Admin::where('user', Auth::id())->with('referrer')->get();
         $villes = Ville::all();
         $breads = [
             ['title' => 'liste des nouveaux clients ', 'url' => null],
@@ -421,6 +421,26 @@ class AdminController extends Controller
         $admin->update($validation);
         return back()->with('success', 'person mis à jour avec succès !');
     }
+    public function updateclient(Request $request, $id)
+    {
+        $client = Client::find($id);
+        $validation = $request->validate([
+            'nommagasin' => 'required|string|max:50',
+            'nomcomplet' => 'required|string|max:50',
+            'cin' => 'required|string|max:50',
+            'email' => 'required|email|max:50',
+            'Phone' => 'nullable|string|max:50',
+            'password' => 'required|string|min:8',
+            'adress' => 'required|string|max:150',
+            'nombanque' => 'nullable|string|max:50',
+            'numerocompte' => 'nullable|string|max:50',
+        ]);
+
+        $validation['password'] = Hash::make($validation['password']);
+
+        $client->update($validation);
+        return back()->with('success', 'person mis à jour avec succès !');
+    }
        public function deletenewuser($id)
     {
         Admin::find($id)->delete();
@@ -429,7 +449,7 @@ class AdminController extends Controller
 
     public function clients()
     {
-        $users = Client::where('isAdmin', 1)->get();
+        $users = Client::where('isAdmin', 1)->where('isAccepted', 1)->with('acceptedByA')->get();
         $breads = [
             ['title' => 'liste des  clients ', 'url' => null],
             ['text' => 'Clients', 'url' => null], // You can set the URL to null for the last breadcrumb
@@ -537,4 +557,38 @@ class AdminController extends Controller
         $colisinfo->update(['info' => $newInfo]);
         return back();
     }
+    public function ActiverClient(Request $req, $id)
+    {
+        $client = Client::find($id);
+
+        if ($client) {
+            $client->update([
+                'isActive' => 1,
+            ]);
+
+            // Success message (consider using a more descriptive message)
+            return back()->with('success', 'Client updated successfully!');
+        } else {
+            // Handle case where Client with the provided ID is not found
+            return back()->with('error', 'Client not found!');
+        }
+    }
+    public function DesactiverClient(Request $req, $id)
+    {
+        $client = Client::find($id);
+
+        if ($client) {
+            $client->update([
+                'isActive' => 0,
+            ]);
+
+            // Success message (consider using a more descriptive message)
+            return back()->with('success', 'Client updated successfully!');
+        } else {
+            // Handle case where Client with the provided ID is not found
+            return back()->with('error', 'Client not found!');
+        }
+    }
+
+
 }
