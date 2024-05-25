@@ -142,6 +142,20 @@ class BonEnvoisController extends Controller
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.envoi.list');
     }
+    public function nonrecu($id_BE)
+    {
+        Colis::where('id_BE', $id_BE)
+            ->update(['status' => 'Expedie']);
+        BonEnvois::where('id_BE', $id_BE)
+            ->update(['status' => 'Nouveau']);
+        $coli = Colis::where('id_BE', $id_BE)->first();
+        $colisinfo = colisinfo::where('id', $coli['id'])->first();
+        $oldinfo = $colisinfo['info'];
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Expedie,' . $coli['updated_at'] . ',' . ' ' . '_';
+
+        $colisinfo->update(['info' => $newInfo]);
+        return redirect()->route('bon.envoi.list');
+    }
 
     public function updateDelete($id, $id_BE)
     {

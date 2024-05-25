@@ -134,6 +134,20 @@ class BonDistributionController extends Controller
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.distribution.list');
     }
+    public function nonrecu($id_BD)
+    {
+        Colis::where('id_BD', $id_BD)
+            ->update(['status' => 'Mise en distribution']);
+        BonDistribution::where('id_BD', $id_BD)
+            ->update(['status' => 'Nouveau']);
+        $coli = Colis::where('id_BD', $id_BD)->first();
+        $colisinfo = colisinfo::where('id', $coli['id'])->first();
+        $oldinfo = $colisinfo['info'];
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Mise en distribution,' . $coli['updated_at'] . ',' . ' ' . '_';
+
+        $colisinfo->update(['info' => $newInfo]);
+        return redirect()->route('bon.distribution.list');
+    }
     public function updateDelete($id, $id_BD)
     {
         $colis = Colis::where('id', $id)

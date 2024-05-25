@@ -168,6 +168,12 @@ class BonPaymentZoneController extends Controller
             ->update(['status' => 'Paye']);
         return back();
     }
+    public function nonrecu($id_BRZ)
+    {
+        BonPaymentZone::where('id_BRZ', $id_BRZ)
+            ->update(['status' => 'Nouveau']);
+        return back();
+    }
 
     
     public function exportColis($id_BRZ)

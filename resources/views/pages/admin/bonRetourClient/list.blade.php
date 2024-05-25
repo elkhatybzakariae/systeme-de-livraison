@@ -136,9 +136,20 @@
                                                 </button>
                                             </form>
                                         </div>
+                                    @else
+                                        <div class="menu-item px-3">
+                                            <form action="{{ route('bon.retour.client.nonrecu', $item->id_BRC) }}"
+                                                method="post">
+                                                @csrf
+                                                <button type="submit"class="btn">
+                                                    <i class="fa fa-check"></i>non recu
+                                                </button>
+                                            </form>
+                                        </div>
                                     @endif
                                     <div class="menu-item px-3">
-                                        <a class="btn" href="{{ route('bon.retour.client.getPdf', $item->id_BRC) }}"><i
+                                        <a class="btn"
+                                            href="{{ route('bon.retour.client.getPdf', $item->id_BRC) }}"><i
                                                 class="far fa-file-pdf"></i>Voir en Pdf</a>
                                     </div>
                                     @if ($item->colis->count() == 0)
@@ -179,15 +190,15 @@
             function filterTable(searchText) {
                 $('#kt_ecommerce_products_table tbody tr').each(function() {
                     var code = $(this).find('[data-kt-ecommerce-product-filter="code"]').text()
-                    .toLowerCase();
+                        .toLowerCase();
                     var colis_count = $(this).find('[data-kt-ecommerce-product-filter="colis_count"]')
-                    .text().toLowerCase();
+                        .text().toLowerCase();
                     var zonename = $(this).find('[data-kt-ecommerce-product-filter="zonename"]').text()
                         .toLowerCase();
                     var status = $(this).find('[data-kt-ecommerce-product-filter="status"]').text()
                         .toLowerCase();
                     var date = $(this).find('[data-kt-ecommerce-product-filter="date"]').text()
-                    .toLowerCase();
+                        .toLowerCase();
                     var nomcomplet = $(this).find('[data-kt-ecommerce-product-filter="nomcomplet"]').text()
                         .toLowerCase();
                     if (nomcomplet.includes(searchText) ||
