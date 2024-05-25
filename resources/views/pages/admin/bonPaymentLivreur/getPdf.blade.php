@@ -76,7 +76,7 @@ th {
       <td style="position: relative">
         <div style=" border-style: solid; margin-bottom: 10px; padding: 10px;width:300px;height:100px">
           <div class="colis grid-item--full">
-              <strong >Bon de livraison:</strong>
+              <strong >Bon de payment livreur:</strong>
               <span>{{ $bon->id_BPL }}</span>
           </div>
           <div class="colis grid-item--full">

@@ -217,6 +217,47 @@ class BonPaymentLivreurController extends Controller
         header('Content-Disposition: attachment; filename="' . $fileName . '"');
         echo $csv->getContent();
     }
+    public function getPdfColis($id,$idC)
+    {
+        // $bon = BonDistribution::where('id_BPL', $id)->first();
+        $bon = BonPaymentLivreur::where('bon_payment_livreurs.id_BPL', $id) // Specify the table for id_BPL
+            ->withCount('colis') // Count related colis
+            ->withSum('colis', 'prix') // Sum prices of related colis
+            ->leftJoin('livreurs', 'bon_payment_livreurs.id_Liv', '=', 'livreurs.id_Liv')
+            ->leftJoin('zones', 'bon_payment_livreurs.id_Z', '=', 'zones.id_Z')
+            ->leftJoin('colis', 'bon_payment_livreurs.id_BPL', '=', 'colis.id_BPL')
+            ->leftJoin('clients', 'clients.id_Cl', '=', 'colis.id_Cl')
+            ->select('bon_payment_livreurs.*',
+             'livreurs.nomcomplet as liv_nom',
+              'livreurs.fraislivraison as frais', 
+              'livreurs.Phone as liv_tele', 
+              'clients.nomcomplet as nomcomplet', 
+              'colis.status as status', 
+              'zones.zonename as liv_zone'
+              
+              )
+            ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BPL = bon_payment_livreurs.id_BPL) as colis_count'))
+            ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BPL = bon_payment_livreurs.id_BPL) as prix_total')) // Corrected table name (BL -> BD)
+            ->with('colis', 'colis.ville')
+            ->first();
+
+        // dd($bon);
+        $colis = Colis::query()
+        ->where('id', $idC)
+        ->with('client')
+        ->get();
+        $data = [
+            'bon' => $bon,
+            'colis' => $colis
+        ];
+        $dompdf = new Dompdf();
+        $html = view('pages.admin.bonPaymentLivreur.getPdf', $data)->render();
+        $dompdf->loadHtml($html);
+
+        // Render the PDF
+        $dompdf->render();
+        return $dompdf->stream('bon-' . $bon->id_BPL . '.pdf');
+    }
     public function getPdf($id)
     {
         // $bon = BonDistribution::where('id_BPL', $id)->first();

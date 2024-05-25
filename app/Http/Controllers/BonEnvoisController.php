@@ -217,6 +217,35 @@ class BonEnvoisController extends Controller
         echo $csv->getContent();
     }
 
+    public function getPdfColis($id,$idC)
+    {
+        $bon = BonEnvois::where('bon_envois.id_BE', $id) // Specify the table for id_BL
+            ->withCount('colis') 
+            ->withSum('colis', 'prix')
+            // ->leftJoin('clients', 'clients.id_Cl', '=', 'bon_envois.id_Cl')
+            ->leftJoin('colis', 'bon_envois.id_BE', '=', 'colis.id_BE')
+            // ->select('clients.nomcomplet as nomcomplet','clients.Phone as telephone','bon_envois.*')
+             ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BE = bon_envois.id_BE) as colis_count'))
+            ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BE = bon_envois.id_BE) as prix_total')) // Corrected table name (BL -> BD)
+            ->first();
+            // dd($bon);
+        $colis = Colis::query()->where('id', $idC)
+        ->with('client')
+        ->get();
+        // dd($colis);
+        $data = [
+            'bon' => $bon,
+            'colis' => $colis
+        ];
+        $dompdf = new Dompdf();
+        
+        $html = view('pages.admin.bonEnvoi.getPdf', $data)->render();
+        $dompdf->loadHtml($html);
+
+        // Render the PDF
+        $dompdf->render();
+        return $dompdf->stream('bon-' . $bon->id_BE . '.pdf');
+    }
     public function getPdf($id)
     {
         $bon = BonEnvois::where('bon_envois.id_BE', $id) // Specify the table for id_BL

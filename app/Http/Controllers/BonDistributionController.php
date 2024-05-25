@@ -205,6 +205,39 @@ class BonDistributionController extends Controller
         header('Content-Disposition: attachment; filename="' . $fileName . '"');
         echo $csv->getContent();
     }
+    public function getPdfColis($id,$idC)
+    {
+        // $bon = BonDistribution::where('id_BD', $id)->first();
+        $bon = BonDistribution::where('bon_distributions.id_BD', $id) // Specify the table for id_BD
+            ->withCount('colis') // Count related colis
+            ->withSum('colis', 'prix') // Sum prices of related colis
+            ->leftJoin('livreurs', 'bon_distributions.id_Liv', '=', 'livreurs.id_Liv')
+            ->leftJoin('zones', 'bon_distributions.id_Z', '=', 'zones.id_Z')
+            ->leftJoin('colis', 'bon_distributions.id_BD', '=', 'colis.id_BD')
+            ->select('bon_distributions.*', 'livreurs.nomcomplet as liv_nom', 'livreurs.Phone as liv_tele', 'zones.zonename as liv_zone')
+            ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BD = bon_distributions.id_BD) as colis_count'))
+            ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BD = bon_distributions.id_BD) as prix_total')) // Corrected table name (BL -> BD)
+            ->with('colis', 'colis.ville')
+            ->first();
+
+        // dd($bon);
+        $colis = Colis::query()->where('id', $idC)
+        ->with('client')
+        ->get();
+        $data = [
+            'bon' => $bon,
+            'colis' => $colis
+        ];
+        $dompdf = new Dompdf();
+        // 
+        //     // Load the HTML content into Dompdf
+        $html = view('pages.admin.bonDistribution.getPdf', $data)->render();
+        $dompdf->loadHtml($html);
+
+        // Render the PDF
+        $dompdf->render();
+        return $dompdf->stream('bon-' . $bon->id_BD . '.pdf');
+    }
     public function getPdf($id)
     {
         // $bon = BonDistribution::where('id_BD', $id)->first();

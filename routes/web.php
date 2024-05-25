@@ -276,6 +276,15 @@ Route::middleware('check.admin')->group(function () {
 
 Route::get('/get/pdf/{id_BL}', [BonLivraisonController::class, 'getPdf'])->name('bon.livraison.getPdf');
 
+Route::get('liv/get/pdf/{id}/{idC}', [BonLivraisonController::class, 'getPdfColis'])->name('bon.livraison.getPdf.colis');
+Route::get('env/get/pdf/{id}/{idC}', [BonEnvoisController::class, 'getPdfColis'])->name('bon.envoi.getPdf.colis');
+Route::get('dis/get/pdf/{id}/{idC}', [BonDistributionController::class, 'getPdfColis'])->name('bon.distribution.getPdf.colis');
+Route::get('bpl/get/pdf/{id}/{idC}', [BonPaymentLivreurController::class, 'getPdfColis'])->name('bon.payment.livreur.getPdf.colis');
+Route::get('bpz/get/pdf/{id}/{idC}', [BonPaymentZoneController::class, 'getPdfColis'])->name('bon.payment.zone.getPdf.colis');
+Route::get('rl/get/pdf/{id}/{idC}', [BonRetourLivreurController::class, 'getPdfColis'])->name('bon.retour.livreur.getPdf.colis');
+Route::get('rz/get/pdf/{id}/{idC}', [BonRetourZoneController::class, 'getPdfColis'])->name('bon.retour.zone.getPdf.colis');
+Route::get('rc/get/pdf/{id}/{idC}', [BonRetourClientController::class, 'getPdfColis'])->name('bon.retour.client.getPdf.colis');
+
 
 
 

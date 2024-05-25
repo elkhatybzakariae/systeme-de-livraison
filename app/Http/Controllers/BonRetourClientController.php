@@ -222,6 +222,48 @@ class BonRetourClientController extends Controller
         header('Content-Disposition: attachment; filename="' . $fileName . '"');
         echo $csv->getContent();
     }
+    public function getPdfColis($id,$idC)
+    {
+        // $bon = BonDistribution::where('id_BRC', $id)->first();
+        $bon = BonRetourClient::where('bon_retour_clients.id_BRC', $id) // Specify the table for id_BRC
+            ->withCount('colis') // Count related colis
+            ->withSum('colis', 'prix') // Sum prices of related colis
+            // ->leftJoin('livreurs', 'bon_retour_clients.id_Liv', '=', 'livreurs.id_Liv')
+            // ->leftJoin('zones', 'bon_retour_clients.id_Z', '=', 'zones.id_Z')
+            ->leftJoin('colis', 'bon_retour_clients.id_BRC', '=', 'colis.id_BRC')
+            ->leftJoin('clients', 'clients.id_Cl', '=', 'colis.id_Cl')
+            ->select(
+                'bon_retour_clients.*',
+                //  'livreurs.nomcomplet as liv_nom',
+                //   'livreurs.fraislivraison as frais', 
+                //   'livreurs.Phone as liv_tele', 
+                'clients.nomcomplet as nomcomplet',
+                'colis.status as status',
+                //   'zones.zonename as liv_zone'
+
+            )
+            ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BRC = bon_retour_clients.id_BRC) as colis_count'))
+            ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BRC = bon_retour_clients.id_BRC) as prix_total')) // Corrected table name (BL -> BD)
+            ->with('colis', 'colis.ville')
+            ->first();
+
+        // dd($bon);
+        $colis = Colis::query()->where('id', $idC)
+            ->with('client', 'BRZ',)
+            ->get();
+        // dd($colis[0]->bonPaymentLivreur->livreur->fraislivraison);
+        $data = [
+            'bon' => $bon,
+            'colis' => $colis
+        ];
+        $dompdf = new Dompdf();
+        $html = view('pages.admin.bonRetourClient.getPdf', $data)->render();
+        $dompdf->loadHtml($html);
+
+        // Render the PDF
+        $dompdf->render();
+        return $dompdf->stream('bon-' . $bon->id_BRC . '.pdf');
+    }
     public function getPdf($id)
     {
         // $bon = BonDistribution::where('id_BRC', $id)->first();

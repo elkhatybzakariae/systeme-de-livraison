@@ -319,7 +319,7 @@
                                 <a href="" class="menu-link">{{ $coli->bonPaymentZone->id_BL }}</a>
                                 @endif
                                   
-                             </td>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
