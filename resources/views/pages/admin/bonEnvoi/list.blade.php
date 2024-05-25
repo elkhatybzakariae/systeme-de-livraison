@@ -137,6 +137,7 @@
                                             </form>
                                         </div>
                                     @else
+                                   
                                     <div class="menu-item px-3">
                                         <form action="{{ route('bon.envoie.nonrecu', $item->id_BE) }}" method="post">
                                             @csrf
@@ -145,6 +146,13 @@
                                             </button>
                                         </form>
                                     </div>
+                                    @endif
+                                    @if ($item->status == 'Nouveau')
+                                        <div class="menu-item px-3">
+                                                <a href="{{ route('bon.envoi.index',$item->id_BE) }}" class="btn">
+                                                    <i class="fa fa-pen"></i>Modifier Le Bon
+                                                </a>
+                                        </div>
                                     @endif
                                     @if ($item->colis->count() == 0)
                                         <div class="menu-item  text-hover-danger px-3">

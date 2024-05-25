@@ -150,6 +150,13 @@
                                             </form>
                                         </div>
                                     @endif
+                                    @if ($item->status == 'Nouveau')
+                                        <div class="menu-item px-3">
+                                                <a href="{{ route('bon.retour.livreur.index',$item->id_BRL) }}" class="btn">
+                                                    <i class="fa fa-pen"></i>Modifier Le Bon
+                                                </a>
+                                        </div>
+                                    @endif
                                     <div class="menu-item px-3">
                                         <a class="btn"
                                             href="{{ route('bon.retour.livreur.getPdf', $item->id_BRL) }}"><i

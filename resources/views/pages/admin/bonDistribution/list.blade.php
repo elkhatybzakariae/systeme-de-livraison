@@ -122,14 +122,21 @@
                   </form>
                 </div>
                 @else
-                <div class="menu-item px-3">
-              <form action="{{route('bon.distribution.nonrecu',$item->id_BD)}}" method="post">
-                @csrf
-                <button type="submit"class="btn">
-                  <i class="fa fa-check"></i>non recu
-                </button>
-              </form>
-            </div>
+                  <div class="menu-item px-3">
+                    <form action="{{route('bon.distribution.nonrecu',$item->id_BD)}}" method="post">
+                      @csrf
+                      <button type="submit"class="btn">
+                        <i class="fa fa-check"></i>non recu
+                      </button>
+                    </form>
+                  </div>
+                @endif
+                @if ($item->status == 'Nouveau')
+                  <div class="menu-item px-3">
+                    <a href="{{ route('bon.distribution.index',$item->id_BD) }}" class="btn">
+                        <i class="fa fa-pen"></i>Modifier Le Bon
+                    </a>
+                  </div>
                 @endif
                 @if ($item->colis->count()==0)
                   <div class="menu-item  text-hover-danger px-3">        

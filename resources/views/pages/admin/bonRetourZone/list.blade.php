@@ -159,6 +159,13 @@
                                             </a>
                                         </div>
                                     @endif
+                                    @if ($item->status == 'Nouveau')
+                                        <div class="menu-item px-3">
+                                                <a href="{{ route('bon.retour.livreur.index',$item->id_BRZ) }}" class="btn">
+                                                    <i class="fa fa-pen"></i>Modifier Le Bon
+                                                </a>
+                                        </div>
+                                    @endif
 
                                 </div>
                             </td>
