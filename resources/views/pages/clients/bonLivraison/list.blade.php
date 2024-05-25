@@ -152,12 +152,12 @@
                                                 class="far fa-file-pdf"></i>Voir en Pdf</a>
                                     </div>
                                     <div class="menu-item px-3">
-                                        <a class="btn">
+                                        <a class="btn" href="{{ route('generate.stikers',$item->id_BL) }}">
                                             <<i class="fas fa-ticket-alt"></i>Voir les etiqutte
                                         </a>
                                     </div>
                                     <div class="menu-item px-3">
-                                        <a class="btn"><i class="fas fa-ticket-alt"></i> etiquetteuse</a>
+                                        <a class="btn" href="{{ route('generate.etiqueteuse',$item->id_BL) }}" ><i class="fas fa-ticket-alt"></i> etiquetteuse</a>
                                     </div>
 
                                 </div>
