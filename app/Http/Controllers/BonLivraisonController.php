@@ -260,46 +260,25 @@ class BonLivraisonController extends Controller
         $dompdf->render();
         return $dompdf->stream('bon-' . $bon->id_BL . '.pdf');
     }
-
     public function generateStikers($id)
     {
-        // Create a new Dompdf instance
-        $dompdf = new Dompdf();
-
-        $options = new Options();
-        $options->set('isHtml5ParserEnabled', true);
-        $options->set('isPhpEnabled', true);
+      
         $bon = BonLivraison::where('id_BL', $id)->first();
         $colis = Colis::query()->where('id_BL', $id)->get();
-        // dd($colis);
-        // Set options
-        $dompdf->setOptions($options);
-        
-
-        // Load HTML content in
-        // dd($dompdf);
-        // Render the PDF
-        $dompdf->render();
-
-        // Output the generated PDF to the browser
-        return $dompdf->stream('Stikers-' . $bon->id_BL . '.pdf');
-    }
-    public function generateFacture($id)
-    {
-        $bon = BonLivraison::where('id_BL', $id)->first();
-        $colis = Colis::query()->where('id_BL', $id)->get();
+       
         $data = [
             'bon' => $bon,
             'colis' => $colis
         ];
         $dompdf = new Dompdf();
-        // 
-        //     // Load the HTML content into Dompdf
-        $html = view('pages.admin.livraiosn.getPdf', $data)->render();
+        
+        $html = view('pages.clients.bonLivraison.tickets', $data)->render();
         $dompdf->loadHtml($html);
-
+        $dompdf->setPaper('A4', 'landscape');
         // Render the PDF
         $dompdf->render();
         return $dompdf->stream('bon-' . $bon->id_BL . '.pdf');
     }
+
+   
 }
