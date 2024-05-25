@@ -19,7 +19,9 @@ use App\Models\Facture;
 use App\Models\Livreur;
 use App\Models\Reclamation;
 use App\Models\Remarque;
+use App\Models\Role;
 use App\Models\Ville;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -344,13 +346,19 @@ class AdminController extends Controller
 
     public function newuser()
     {
-        $users = Admin::where('user', Auth::id())->with('referrer')->get();
+        // $users = Admin::where('user', Auth::id())->with('referrer')->get();
+        $users = Admin::whereNotNull('user')->with('referrals')->get();
+        $admins = Admin::where('role','Admin')->get();
+
+        // dd($users);
         $villes = Ville::all();
+        $zones = Zone::all();
+        // $roles = Role::all();, 'roles'
         $breads = [
-            ['title' => 'liste des nouveaux clients ', 'url' => null],
-            ['text' => 'nouveau client', 'url' => null], // You can set the URL to null for the last breadcrumb
+            ['title' => 'liste des utilisateurs ', 'url' => null],
+            ['text' => 'utilisateurs', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.users.index', compact('users', 'villes','breads'));
+        return view('pages.admin.users.index', compact('users', 'admins', 'villes', 'zones','breads'));
     }
     public function storenewuser(Request $request)
     {
@@ -367,6 +375,7 @@ class AdminController extends Controller
             'adress' => 'required|string|max:150',
             'nombanque' => 'nullable|string|max:50',
             'numerocompte' => 'nullable|string|max:50',
+            'role' => 'required|string|max:50',
             'cinrecto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'cinverso' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'RIB' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -411,6 +420,7 @@ class AdminController extends Controller
             'adress' => 'required|string|max:150',
             'nombanque' => 'nullable|string|max:50',
             'numerocompte' => 'nullable|string|max:50',
+            'role' => 'required|string|max:150',
             'cinrecto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'cinverso' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'RIB' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',

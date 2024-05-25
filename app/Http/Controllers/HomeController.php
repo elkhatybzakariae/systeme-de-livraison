@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BonLivraison;
 use App\Models\Colis;
+use App\Models\Tarif;
 use Illuminate\Http\Request;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
@@ -20,7 +21,8 @@ class HomeController extends Controller
         return view('pages.landing.index');
     }
     public function tarifs() {
-        return view('pages.landing.tarifs');
+        $tarifs = Tarif::query()->with('villle', 'villleRamassage')->get();
+        return view('pages.landing.tarifs', compact('tarifs'));
     }
     public function option() {
         $breads = [
