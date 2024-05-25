@@ -14,7 +14,7 @@ class Admin extends Authenticatable
     public $incrementing = false;
     public $timestamps = true;
     protected $fillable = ['id_Ad','nommagasin','nomcomplet','email','Phone','ville','adress'
-    ,'nombanque','numerocompte','isAdmin','password','cin','user','photo','cinrecto','cinverso','RIB'];
+    ,'nombanque','numerocompte','isAdmin','password','cin','role','user','photo','cinrecto','cinverso','RIB'];
     public function remarque()
     {
         return $this->hasMany(Remarque::class);
