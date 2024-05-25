@@ -206,33 +206,44 @@ class BonRetourLivreurController extends Controller
     }
     public function getPdf($id)
     {
-        // $bon = BonRetourLivreur::where('id_BRL', $id)->first();
+        // $bon = BonDistribution::where('id_BRL', $id)->first();
         $bon = BonRetourLivreur::where('bon_retour_livreurs.id_BRL', $id) // Specify the table for id_BRL
             ->withCount('colis') // Count related colis
             ->withSum('colis', 'prix') // Sum prices of related colis
-            ->leftJoin('livreurs', 'bon_retour_livreurs.id_Liv', '=', 'livreurs.id_Liv')
+            // ->leftJoin('livreurs', 'bon_retour_livreurs.id_Liv', '=', 'livreurs.id_Liv')
             ->leftJoin('zones', 'bon_retour_livreurs.id_Z', '=', 'zones.id_Z')
             ->leftJoin('colis', 'bon_retour_livreurs.id_BRL', '=', 'colis.id_BRL')
-            ->select('bon_retour_livreurs.*', 'livreurs.nomcomplet as liv_nom', 'livreurs.Phone as liv_tele', 'zones.zonename as liv_zone')
+            ->leftJoin('clients', 'clients.id_Cl', '=', 'colis.id_Cl')
+            ->select('bon_retour_livreurs.*',
+            //  'livreurs.nomcomplet as liv_nom',
+            //   'livreurs.fraislivraison as frais', 
+            //   'livreurs.Phone as liv_tele', 
+              'clients.nomcomplet as nomcomplet', 
+              'colis.status as status', 
+              'zones.zonename as liv_zone'
+              
+              )
             ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BRL = bon_retour_livreurs.id_BRL) as colis_count'))
             ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BRL = bon_retour_livreurs.id_BRL) as prix_total')) // Corrected table name (BL -> BD)
             ->with('colis', 'colis.ville')
             ->first();
 
         // dd($bon);
-        $colis = Colis::query()->where('id_BRL', $id)->get();
+        $colis = Colis::query()->where('id_BRL', $id)
+        ->with('client')
+        ->get();
+        // dd($colis[0]->bonPaymentLivreur->livreur->fraislivraison);
         $data = [
             'bon' => $bon,
             'colis' => $colis
         ];
         $dompdf = new Dompdf();
-        // 
-        //     // Load the HTML content into Dompdf
-        $html = view('pages.admin.BonRetourLivreur.getPdf', $data)->render();
+        $html = view('pages.admin.bonRetourLivreur.getPdf', $data)->render();
         $dompdf->loadHtml($html);
 
         // Render the PDF
         $dompdf->render();
-        return $dompdf->stream('bon' . $bon->id_BRL . '.pdf');
+        return $dompdf->stream('bon-' . $bon->id_BRL . '.pdf');
     }
+
 }

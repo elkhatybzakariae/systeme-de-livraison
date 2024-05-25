@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BonPaymentZone;
+use App\Models\BonRetourClient;
 use App\Models\Colis;
 use App\Models\Zone;
 use Dompdf\Dompdf;
@@ -13,7 +14,7 @@ use League\Csv\Writer;
 
 class BonPaymentZoneController extends Controller
 {
-    public function index(Request $request, $id_BPZ = null)
+    public function index(Request $request, $id_BRZ = null)
     {
         $id_Z = $request->input('zone');
         if ($id_Z == null) {
@@ -22,21 +23,21 @@ class BonPaymentZoneController extends Controller
             session(['zone' => $id_Z]);
         }
         $user = session('user');
-        // $colis = Colis::query()->with('ville')->whereNull('id_BPZ')->where('zone', $id_Z)->get();
+        // $colis = Colis::query()->with('ville')->whereNull('id_BRZ')->where('zone', $id_Z)->get();
         $colis = Colis::query()
             ->with('ville')
-            ->whereNull('id_BPZ')
+            ->whereNull('id_BRZ')
             ->where('zone', $id_Z)
             ->where('status', 'Livre')
             ->where('etat', 'Paye')
-            ->whereNot('id_BPZ',null)
+            ->whereNot('id_BRZ',null)
             ->get();
 
         $colisBon = [];
-        if (!$id_BPZ) {
+        if (!$id_BRZ) {
             if ($user) {
                 $bon = BonPaymentZone::create([
-                    'id_BPZ' => 'BPZ-' . Str::random(10),
+                    'id_BRZ' => 'BPZ-' . Str::random(10),
                     'reference' => 'BPZ-' . Str::random(10),
                     'status' => 'Nouveau',
                     'id_Z' => $id_Z??'hIhWv3fAYL',
@@ -45,10 +46,10 @@ class BonPaymentZoneController extends Controller
                 return redirect(route('auth.client.signIn'));
             }
         } else {
-            $bon = BonPaymentZone::query()->with('colis')->where('id_BPZ', $id_BPZ)->first();
+            $bon = BonPaymentZone::query()->with('colis')->where('id_BRZ', $id_BRZ)->first();
             $colisBon = DB::select('select * from colis 
             inner join villes on villes.id_V = colis.ville_id 
-            where id_BPZ =?', [$id_BPZ]);
+            where id_BRZ =?', [$id_BRZ]);
         }
         $breads = [
             ['title' => 'créer un Bon payment pour zone', 'url' => null],
@@ -63,17 +64,17 @@ class BonPaymentZoneController extends Controller
             return redirect(route('auth.admin.signIn'));
         }
         $bons = BonPaymentZone::select(
-            'bon_payment_zones.id_BPZ',
-            'bon_payment_zones.reference',
-            'bon_payment_zones.status',
-            'bon_payment_zones.created_at',
+            'bon_retour_zones.id_BRZ',
+            'bon_retour_zones.reference',
+            'bon_retour_zones.status',
+            'bon_retour_zones.created_at',
             'zones.zonename as zone',
 
         )
             ->withCount('colis') // Count the number of related colis
             ->withSum('colis', 'prix') // Sum the prices of related colis
-            ->leftJoin('zones', 'bon_payment_zones.id_Z', '=', 'zones.id_Z')
-            ->leftJoin('colis', 'bon_payment_zones.id_BPZ', '=', 'colis.id_BPZ')
+            ->leftJoin('zones', 'bon_retour_zones.id_Z', '=', 'zones.id_Z')
+            ->leftJoin('colis', 'bon_retour_zones.id_BRZ', '=', 'colis.id_BRZ')
             ->with('colis', 'colis.ville')
             ->distinct()
             ->get();
@@ -93,7 +94,7 @@ class BonPaymentZoneController extends Controller
             $query
             ->where('status', 'Livre')
             ->where('etat', 'Paye')
-            ->whereNot('id_BPZ',null );
+            ->whereNot('id_BRZ',null );
         })
             ->with([
                 'colis' => function ($query) {
@@ -116,62 +117,62 @@ class BonPaymentZoneController extends Controller
         $bon->delete();
         return redirect()->route('bon.payment.zone.list')->with('success', 'bon deleted successfully.');
     }
-    public function update($id, $id_BPZ)
+    public function update($id, $id_BRZ)
     {
         $colis = Colis::where('id', $id)
-            ->update(['id_BPZ' => $id_BPZ]);
-        return redirect()->route('bon.payment.zone.index', $id_BPZ);
+            ->update(['id_BRZ' => $id_BRZ]);
+        return redirect()->route('bon.payment.zone.index', $id_BRZ);
     }
-    public function updateDelete($id, $id_BPZ)
+    public function updateDelete($id, $id_BRZ)
     {
         $colis = Colis::where('id', $id)
-            ->update(['id_BPZ' => null]);
-        return redirect()->route('bon.payment.zone.index', $id_BPZ);
+            ->update(['id_BRZ' => null]);
+        return redirect()->route('bon.payment.zone.index', $id_BRZ);
     }
 
 
-    public function updateAll(Request $request, $id_BPZ)
+    public function updateAll(Request $request, $id_BRZ)
     {
         if ($request->input('query')) {
             $colis = Colis::where('id', $request->input('query'))
-                ->update(['id_BPZ' => $id_BPZ]);
+                ->update(['id_BRZ' => $id_BRZ]);
         } else {
 
 
             foreach ($request->colis as $colis) {
 
                 $colis = Colis::where('id', $colis)
-                    ->update(['id_BPZ' => $id_BPZ]);
+                    ->update(['id_BRZ' => $id_BRZ]);
             }
         }
-        return redirect()->route('bon.payment.zone.index', $id_BPZ);
+        return redirect()->route('bon.payment.zone.index', $id_BRZ);
     }
-    public function updateDeleteAll(Request $request, $id_BPZ)
+    public function updateDeleteAll(Request $request, $id_BRZ)
     {
         if ($request->query) {
             $colis = Colis::where('id', $request->input('query'))
-                ->update(['id_BPZ' => null]);
+                ->update(['id_BRZ' => null]);
         } else {
             foreach ($request->colisDelete as $colis) {
 
                 $colis = Colis::where('id', $colis)
-                    ->update(['id_BPZ' => null]);
+                    ->update(['id_BRZ' => null]);
             }
         }
-        return redirect()->route('bon.payment.zone.index', $id_BPZ);
+        return redirect()->route('bon.payment.zone.index', $id_BRZ);
     }
 
-    public function recu($id_BPZ)
+    public function recu($id_BRZ)
     {
-        BonPaymentZone::where('id_BPZ', $id_BPZ)
+        BonPaymentZone::where('id_BRZ', $id_BRZ)
             ->update(['status' => 'Paye']);
         return back();
     }
 
     
-    public function exportColis($id_BPZ)
+    public function exportColis($id_BRZ)
     {
-        $colis = Colis::where('id_BPZ', $id_BPZ)->get();
+        $colis = Colis::where('id_BRZ', $id_BRZ)->get();
         $csv = Writer::createFromString('');
         $csv->insertOne(['Code d\'envoi', 'Destinataire', 'Date de creation', 'Prix', 'Ville']);
         foreach ($colis as $colisItem) {
@@ -183,7 +184,7 @@ class BonPaymentZoneController extends Controller
                 $colisItem->ville->villename
             ]);
         }
-        $fileName = 'colis_' . $id_BPZ . '.csv';
+        $fileName = 'colis_' . $id_BRZ . '.csv';
         header('Content-Type: text/csv');
         header('Content-Disposition: attachment; filename="' . $fileName . '"');
         echo $csv->getContent();
@@ -191,15 +192,15 @@ class BonPaymentZoneController extends Controller
 
     public function getPdf($id)
     {
-        // $bon = BonDistribution::where('id_BPZ', $id)->first();
-        $bon = BonPaymentZone::where('bon_payment_zones.id_BPZ', $id) // Specify the table for id_BPZ
+        // $bon = BonDistribution::where('id_BRZ', $id)->first();
+        $bon = BonRetourClient::where('bon_retour_zones.id_BRZ', $id) // Specify the table for id_BRZ
             ->withCount('colis') // Count related colis
             ->withSum('colis', 'prix') // Sum prices of related colis
-            // ->leftJoin('livreurs', 'bon_payment_zones.id_Liv', '=', 'livreurs.id_Liv')
-            ->leftJoin('zones', 'bon_payment_zones.id_Z', '=', 'zones.id_Z')
-            ->leftJoin('colis', 'bon_payment_zones.id_BPZ', '=', 'colis.id_BPZ')
+            // ->leftJoin('livreurs', 'bon_retour_zones.id_Liv', '=', 'livreurs.id_Liv')
+            ->leftJoin('zones', 'bon_retour_zones.id_Z', '=', 'zones.id_Z')
+            ->leftJoin('colis', 'bon_retour_zones.id_BRZ', '=', 'colis.id_BRZ')
             ->leftJoin('clients', 'clients.id_Cl', '=', 'colis.id_Cl')
-            ->select('bon_payment_zones.*',
+            ->select('bon_retour_zones.*',
             //  'livreurs.nomcomplet as liv_nom',
             //   'livreurs.fraislivraison as frais', 
             //   'livreurs.Phone as liv_tele', 
@@ -208,14 +209,14 @@ class BonPaymentZoneController extends Controller
               'zones.zonename as liv_zone'
               
               )
-            ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BPZ = bon_payment_zones.id_BPZ) as colis_count'))
-            ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BPZ = bon_payment_zones.id_BPZ) as prix_total')) // Corrected table name (BL -> BD)
+            ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BRZ = bon_retour_zones.id_BRZ) as colis_count'))
+            ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BRZ = bon_retour_zones.id_BRZ) as prix_total')) // Corrected table name (BL -> BD)
             ->with('colis', 'colis.ville')
             ->first();
 
         // dd($bon);
-        $colis = Colis::query()->where('id_BPZ', $id)
-        ->with('client','bonPaymentLivreur','bonPaymentLivreur.livreur')
+        $colis = Colis::query()->where('id_BRZ', $id)
+        ->with('client','BRL',)
         ->get();
         // dd($colis[0]->bonPaymentLivreur->livreur->fraislivraison);
         $data = [
@@ -223,12 +224,12 @@ class BonPaymentZoneController extends Controller
             'colis' => $colis
         ];
         $dompdf = new Dompdf();
-        $html = view('pages.admin.bonPaymentZone.getPdf', $data)->render();
+        $html = view('pages.admin.bonRetourZone.getPdf', $data)->render();
         $dompdf->loadHtml($html);
 
         // Render the PDF
         $dompdf->render();
-        return $dompdf->stream('bon-' . $bon->id_BPZ . '.pdf');
+        return $dompdf->stream('bon-' . $bon->id_BRZ . '.pdf');
     }
 
 }

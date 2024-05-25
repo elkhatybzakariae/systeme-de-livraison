@@ -73,25 +73,20 @@ th {
   <hr>
   <table >
     <tr>
+      
       <td style="position: relative">
-        <div style=" border-style: solid; margin: 10px; padding: 10px; width:300px;height:100px">
-          <strong >Livreur:</strong>
-          <span>{{ $bon->liv_nom }}</span><br>
-          <strong >Téléphone:</strong> 
-          <span>{{ $bon->liv_tele }}</span><br>
-          <strong >Zone:</strong> 
-          <span>{{ $bon->liv_zone }}</span>
-      </div>
-      </td>
-      <td style="position: relative">
-        <div style=" border-style: solid; margin: 10px; padding: 10px;width:300px;height:100px">
+        <div style=" border-style: solid; margin-bottom: 10px; padding: 10px;width:500px;height:100px">
           <div class="colis grid-item--full">
-              <strong >Bon de livraison:</strong>
-              <span>{{ $bon->id_BD }}</span>
+              <strong >Bon de retour pour Livreur:</strong>
+              <span>{{ $bon->id_BRL }}</span>
           </div>
           <div class="colis grid-item--full">
               <strong >Date: </strong>
               <span>{{ $bon->created_at }}</span>
+          </div>
+          <div class="colis grid-item--full">
+              <strong >Ville:</strong> 
+              <span>{{ $bon->liv_zone }}</span> 
           </div>
           <div class="colis grid-item--full">
               <strong >Colis:</strong> 
@@ -111,8 +106,8 @@ th {
     <tr style="height:15.6pt; -aw-height-rule:exactly">
         <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri">Num</span></p>        </td>
         <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri">Code d envoi</span></p>        </td>
-        <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri">Telephone</span></p>        </td>
-        <td class="td" ><p style="font-size:8pt"><span style="font-family:Calibri">Ville</span></p>        </td>
+        <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri">Client</span></p>        </td>
+        <td class="td" ><p style="font-size:8pt"><span style="font-family:Calibri">Date Reception</span></p>        </td>
         <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri">Crbt</span></p>       </td>
     </tr>
     @foreach($colis as $i=>$item)
@@ -122,25 +117,14 @@ th {
           </td>
           <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->code_d_envoi }} </span></p>
           </td>
-          <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->telephone }} </</span></p>
+          <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->client->nomcomplet }} </</span></p>
           </td>
-          <td class="td"> <p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->ville->villename }} </</span></p>
-          </td>
-          <td class="td"> <p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->prix }}  Dhs</span></p>
-          </td>
-      </tr>
-      <tr style="height:18.65pt; -aw-height-rule:exactly">
-          <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $i+1 }} </span></p>
-          </td>
-          <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->code_d_envoi }} </span></p>
-          </td>
-          <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->telephone }} </</span></p>
-          </td>
-          <td class="td"> <p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->ville->villename }} </</span></p>
+          <td class="td"> <p style="font-size:8pt"><span style="font-family:Calibri"> {{ $bon->created_at }} </</span></p>
           </td>
           <td class="td"> <p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->prix }}  Dhs</span></p>
           </td>
       </tr>
+    
       @endforeach
       <tr style="height:18.65pt; -aw-height-rule:exactly">
           <td class="td" colspan="4" ><p style="font-size:8pt"><strong style="font-family:Calibri"> Total </strong></p></td>
