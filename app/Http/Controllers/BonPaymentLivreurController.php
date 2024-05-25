@@ -190,6 +190,12 @@ class BonPaymentLivreurController extends Controller
             ->update(['status' => 'Paye']);
         return back();
     }
+    public function nonrecu($id_BPL)
+    {
+        BonPaymentLivreur::where('id_BPL', $id_BPL)
+            ->update(['status' => 'Nouveau']);
+        return back();
+    }
 
     
     public function exportColis($id_BPL)

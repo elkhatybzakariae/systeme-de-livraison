@@ -42,6 +42,12 @@ class BonRetourLivreurController extends Controller
                     'id_Z' => $id_Z,
                     'id_Liv' => $request->input('id_Liv'),
                 ]);
+                // $colis = Colis::query()->with('ville')->whereNull('id_BRL')->where('zone', $id_Z)
+                //     ->whereNotIn(
+                //         'status',
+                //         ['Livre', 'Ramasse', 'Nouveau', 'Attente de Ramassage', 'Expedie', 'Mise en distribution', 'Recu']
+                //     )
+                //     ->get();
             } else {
                 return redirect(route('auth.client.signIn'));
             }
@@ -50,10 +56,9 @@ class BonRetourLivreurController extends Controller
             $colisBon = DB::select('select * from colis 
             inner join villes on villes.id_V = colis.ville_id 
             where id_BRL =?', [$id_BRL]);
-
         }
         $breads = [
-            ['title' => 'créer un Bon Distribution', 'url' => null],
+            ['title' => 'créer un Bon Retour', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
         return view('pages.admin.BonRetourLivreur.index', compact("colis", "bonLivraison", 'colisBon', 'breads'));
@@ -78,14 +83,14 @@ class BonRetourLivreurController extends Controller
             ->get();
         // $bons=BonRetourLivreur::all();
         // dd($bons);
-        
-        $cl=Option::all();
-        $etat=Etat::all();
+
+        $cl = Option::all();
+        $etat = Etat::all();
         $breads = [
-            ['title' => 'Liste des Bons de distributions ', 'url' => null],
+            ['title' => 'Liste des Bons de retour pour livreur ', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.BonRetourLivreur.list', compact("bons",'cl','etat', 'breads'));
+        return view('pages.admin.BonRetourLivreur.list', compact("bons", 'cl', 'etat', 'breads'));
     }
     public function create()
     {
@@ -133,7 +138,7 @@ class BonRetourLivreurController extends Controller
     }
     public function recu($id_BRL)
     {
-        
+
         Colis::where('id_BRL', $id_BRL)
             ->update(['status' => 'Recu par Centre Retour']);
         BonRetourLivreur::where('id_BRL', $id_BRL)
@@ -142,6 +147,21 @@ class BonRetourLivreurController extends Controller
         $colisinfo = colisinfo::where('id', $coli['id'])->first();
         $oldinfo = $colisinfo['info'];
         $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Recu par Centre Retour,' . $coli['updated_at'] . ',' . ' ' . '_';
+
+        $colisinfo->update(['info' => $newInfo]);
+        return redirect()->route('bon.retour.livreur.list');
+    }
+    public function nonrecu($id_BRL)
+    {
+
+        Colis::where('id_BRL', $id_BRL)
+            ->update(['status' => 'Expedier vers Centre Retour Centre Retour']);
+        BonRetourLivreur::where('id_BRL', $id_BRL)
+            ->update(['status' => 'Nouveau']);
+        $coli = Colis::where('id_BRL', $id_BRL)->first();
+        $colisinfo = colisinfo::where('id', $coli['id'])->first();
+        $oldinfo = $colisinfo['info'];
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Expedier vers Centre Retour,' . $coli['updated_at'] . ',' . ' ' . '_';
 
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.retour.livreur.list');
@@ -214,15 +234,16 @@ class BonRetourLivreurController extends Controller
             ->leftJoin('zones', 'bon_retour_livreurs.id_Z', '=', 'zones.id_Z')
             ->leftJoin('colis', 'bon_retour_livreurs.id_BRL', '=', 'colis.id_BRL')
             ->leftJoin('clients', 'clients.id_Cl', '=', 'colis.id_Cl')
-            ->select('bon_retour_livreurs.*',
-            //  'livreurs.nomcomplet as liv_nom',
-            //   'livreurs.fraislivraison as frais', 
-            //   'livreurs.Phone as liv_tele', 
-              'clients.nomcomplet as nomcomplet', 
-              'colis.status as status', 
-              'zones.zonename as liv_zone'
-              
-              )
+            ->select(
+                'bon_retour_livreurs.*',
+                //  'livreurs.nomcomplet as liv_nom',
+                //   'livreurs.fraislivraison as frais', 
+                //   'livreurs.Phone as liv_tele', 
+                'clients.nomcomplet as nomcomplet',
+                'colis.status as status',
+                'zones.zonename as liv_zone'
+
+            )
             ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BRL = bon_retour_livreurs.id_BRL) as colis_count'))
             ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BRL = bon_retour_livreurs.id_BRL) as prix_total')) // Corrected table name (BL -> BD)
             ->with('colis', 'colis.ville')
@@ -230,8 +251,8 @@ class BonRetourLivreurController extends Controller
 
         // dd($bon);
         $colis = Colis::query()->where('id_BRL', $id)
-        ->with('client')
-        ->get();
+            ->with('client')
+            ->get();
         // dd($colis[0]->bonPaymentLivreur->livreur->fraislivraison);
         $data = [
             'bon' => $bon,
@@ -245,5 +266,4 @@ class BonRetourLivreurController extends Controller
         $dompdf->render();
         return $dompdf->stream('bon-' . $bon->id_BRL . '.pdf');
     }
-
 }

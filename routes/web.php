@@ -263,10 +263,13 @@ Route::middleware('check.admin')->group(function () {
     Route::get('admin/bon-livraisons/', [BonLivraisonController::class, 'list'])->name('bon.livraison.list');
     
     Route::post('admin/bon-livraisons/bl/{id_BL}', [BonLivraisonController::class, 'recu'])->name('bon.livraison.recu');
-    Route::post('admin/bon-envoies/be/{id_BE}', [BonEnvoisController::class, 'recu'])->name('bon.envoie.recu');
-    Route::post('admin/bon-distributions/bd/{id_BD}', [BonDistributionController::class, 'recu'])->name('bon.distribution.recu');
-    Route::post('admin/bon-payment-livreur/bpl/{id_BPL}', [BonPaymentLivreurController::class, 'recu'])->name('bon.payment.livreur.recu');
-    Route::get('admin/bon-livraisons//export/colis/{id}', [BonLivraisonController::class, 'exportColis'])->name('bon.livraison.exportColis');
+    Route::post('admin/bon-envoies/ber/{id_BE}', [BonEnvoisController::class, 'recu'])->name('bon.envoie.recu');
+    Route::post('admin/bon-envoies/benr/{id_BE}', [BonEnvoisController::class, 'nonrecu'])->name('bon.envoie.nonrecu');
+    Route::post('admin/bon-distributions/bdr/{id_BD}', [BonDistributionController::class, 'recu'])->name('bon.distribution.recu');
+    Route::post('admin/bon-distributions/bdnr/{id_BD}', [BonDistributionController::class, 'nonrecu'])->name('bon.distribution.nonrecu');
+    Route::post('admin/bon-payment-livreur/bplr/{id_BPL}', [BonPaymentLivreurController::class, 'recu'])->name('bon.payment.livreur.recu');
+    Route::post('admin/bon-payment-livreur/bplnr/{id_BPL}', [BonPaymentLivreurController::class, 'nonrecu'])->name('bon.payment.livreur.nonrecu');
+    Route::get('admin/bon-livraisons/export/colis/{id}', [BonLivraisonController::class, 'exportColis'])->name('bon.livraison.exportColis');
     Route::get('admin/paramete/generale', [ParamtreController::class, 'index'])->name('parametre.index');
 });
 

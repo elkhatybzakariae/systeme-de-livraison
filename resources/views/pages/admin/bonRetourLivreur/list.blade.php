@@ -139,6 +139,16 @@
                                                 </button>
                                             </form>
                                         </div>
+                                        @else
+                                        <div class="menu-item px-3">
+                                            <form action="{{ route('bon.retour.livreur.nonrecu', $item->id_BRL) }}"
+                                                method="post">
+                                                @csrf
+                                                <button type="submit"class="btn">
+                                                    <i class="fa fa-check"></i>non recu
+                                                </button>
+                                            </form>
+                                        </div>
                                     @endif
                                     <div class="menu-item px-3">
                                         <a class="btn"

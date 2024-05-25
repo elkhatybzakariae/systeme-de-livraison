@@ -141,6 +141,20 @@ class BonRetourZoneController extends Controller
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.retour.zone.list');
     }
+    public function nonrecu($id_BRZ)
+    {
+        Colis::where('id_BRZ', $id_BRZ)
+            ->update(['status' => 'Recu par Centre Retour']);
+            BonRetourZone::where('id_BRZ', $id_BRZ)
+            ->update(['status' => 'Nouveau']);
+        $coli = Colis::where('id_BRZ', $id_BRZ)->first();
+        $colisinfo = colisinfo::where('id', $coli['id'])->first();
+        $oldinfo = $colisinfo['info'];
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Recu par Centre Retour,' . $coli['updated_at'] . ',' . ' ' . '_';
+
+        $colisinfo->update(['info' => $newInfo]);
+        return redirect()->route('bon.retour.zone.list');
+    }
     public function updateDelete($id, $id_BRZ)
     {
         $colis = Colis::where('id', $id)
