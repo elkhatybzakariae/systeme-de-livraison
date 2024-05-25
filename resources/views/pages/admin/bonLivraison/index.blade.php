@@ -204,6 +204,15 @@
                                                 </button>
                                             </form>
                                         </div>
+                                        @else
+                                        <div class="menu-item px-3">
+                                            <form action="{{ route('bon.livraison.nonrecu', $item->id_BL) }}" method="post">
+                                                @csrf
+                                                <button type="submit"class="btn">
+                                                    <i class="fa fa-check"></i>non recu
+                                                </button>
+                                            </form>
+                                        </div>
                                     @endif
                                     @if ($item->colis->count() == 0)
                                         <div class="menu-item  text-hover-danger px-3">

@@ -155,6 +155,20 @@ class BonLivraisonController extends Controller
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.livraison.list');
     }
+    public function nonrecu($id_BL)
+    {
+        Colis::where('id_BL', $id_BL)
+            ->update(['status' => 'Attente de Ramassage']);
+        BonLivraison::where('id_BL', $id_BL)
+            ->update(['status' => 'Nouveau']);
+        $coli = Colis::where('id_BL', $id_BL)->first();
+        $colisinfo = colisinfo::where('id', $coli['id'])->first();
+        $oldinfo = $colisinfo['info'];
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Attente de Ramassage,' . $coli['updated_at'] .','.' '.'_';
+
+        $colisinfo->update(['info' => $newInfo]);
+        return redirect()->route('bon.livraison.list');
+    }
     public function updateDelete($id, $id_BL)
     {
         $colis = Colis::where('id', $id)

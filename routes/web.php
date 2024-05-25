@@ -262,7 +262,8 @@ Route::middleware('check.admin')->group(function () {
     Route::get('/admin/colis', [ColisController::class, 'indexAdmin'])->name('colis.indexAdmin');
     Route::get('admin/bon-livraisons/', [BonLivraisonController::class, 'list'])->name('bon.livraison.list');
     
-    Route::post('admin/bon-livraisons/bl/{id_BL}', [BonLivraisonController::class, 'recu'])->name('bon.livraison.recu');
+    Route::post('admin/bon-livraisons/blr/{id_BL}', [BonLivraisonController::class, 'recu'])->name('bon.livraison.recu');
+    Route::post('admin/bon-livraisons/blnr/{id_BL}', [BonLivraisonController::class, 'nonrecu'])->name('bon.livraison.nonrecu');
     Route::post('admin/bon-envoies/ber/{id_BE}', [BonEnvoisController::class, 'recu'])->name('bon.envoie.recu');
     Route::post('admin/bon-envoies/benr/{id_BE}', [BonEnvoisController::class, 'nonrecu'])->name('bon.envoie.nonrecu');
     Route::post('admin/bon-distributions/bdr/{id_BD}', [BonDistributionController::class, 'recu'])->name('bon.distribution.recu');
