@@ -74,7 +74,7 @@
                     </td>
                     <td
                         style="width:82.35pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
-                        <p style="font-size:8pt"><span style="font-family:Calibri">{{ $item->telephone }}</span></p>
+                        <p style="font-size:8pt"><span style="font-family:Calibri">{{ $item->telepone }}</span></p>
                     </td>
                 </tr>
                 <tr style="height:18.2pt; -aw-height-rule:exactly">
@@ -84,7 +84,7 @@
                     </td>
                     <td
                         style="width:105.75pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
-                        <p style="font-size:8pt"><span style="font-family:Calibri">{{ $item->adresse }}</span></p>
+                        <p style="font-size:8pt"><span style="font-family:Calibri">kkkkkkkk</span></p>
                     </td>
                 </tr>
                 <tr style="height:18.2pt; -aw-height-rule:exactly">
@@ -94,7 +94,7 @@
                     </td>
                     <td
                         style="width:105.75pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
-                        <p style="font-size:8pt"><span style="font-family:Calibri">{{ $item->ville->villename }}</span></p>
+                        <p style="font-size:8pt"><span style="font-family:Calibri">fes</span></p>
                     </td>
                 </tr>
                 <tr style="height:18.2pt; -aw-height-rule:exactly">
@@ -104,7 +104,7 @@
                     </td>
                     <td
                         style="width:105.75pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
-                        <p style="font-size:8pt"><span style="font-family:Calibri">{{ $item->commentaire }}</span></p>
+                        <p style="font-size:8pt"><span style="font-family:Calibri">ccccccccccc</span></p>
                     </td>
                 </tr>
                 <tr style="height:18.2pt; -aw-height-rule:exactly">
@@ -114,7 +114,7 @@
                     </td>
                     <td
                         style="width:105.75pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
-                        <p style="font-size:8pt"><span style="font-family:Calibri">-</span></p>
+                        <p style="font-size:8pt"><span style="font-family:Calibri">llllllllllll</span></p>
                     </td>
                 </tr>
                 <tr style="height:18.2pt; -aw-height-rule:exactly">
@@ -124,8 +124,7 @@
                     </td>
                     <td
                         style="width:105.75pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
-                        <p style="font-size:8pt"><span style="font-family:Calibri">{{ $item->ouvrir? 'Oui' : 'Non' }}</span></p>
-
+                        <p style="font-size:8pt"><span style="font-family:Calibri">non</span></p>
                     </td>
                 </tr>
                 <tr style="height:18.2pt; -aw-height-rule:exactly">
@@ -135,7 +134,7 @@
                     </td>
                     <td
                         style="width:105.75pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt single">
-                        <p style="font-size:8pt"><span style="font-family:Calibri">{{ $item->prix }} Dhs</span></p>
+                        <p style="font-size:8pt"><span style="font-family:Calibri">632 Dhs</span></p>
                     </td>
                 </tr>
             </table> <br>
