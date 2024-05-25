@@ -65,7 +65,7 @@
 												@yield('filter')
 										</div>
 								</div>
-						</div>
+							</div>
 							<!--begin::Toolbar-->
 							<!--end::Toolbar-->
 							<!--begin::Content-->

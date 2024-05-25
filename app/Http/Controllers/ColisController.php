@@ -25,7 +25,7 @@ class ColisController extends Controller
     public function index()
     {
         $id=Auth::id();
-        $colis = Colis::query()->where('id_Cl',$id)->with('client')->whereNot('status','nouveau')
+        $colis = Colis::query()->where('id_Cl',$id)->with('client','bonLivraison','bonEnvoi','bonDistribution','bonPaymentLivreur','bonPaymentZone')->whereNot('status','nouveau')
         ->get();        
         $colisstatuss = $colis->pluck('status')->toArray();
         $cl=ModelsOption::all();
@@ -44,7 +44,7 @@ class ColisController extends Controller
  
     public function indexAdmin()
     {
-        $colis = Colis::query()->whereNot('status','Nouveau')->with(['client'])->get();
+        $colis = Colis::query()->whereNot('status','Nouveau')->with(['client','bonLivraison','bonEnvoi','bonDistribution','bonPaymentLivreur','bonPaymentZone'])->get();
         $status = Colis::query()->select('status')->distinct()->get();
         
         $cl=ModelsOption::all();

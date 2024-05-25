@@ -67,6 +67,10 @@ class Colis extends Model
     {
         return $this->belongsTo(BonLivraison::class, 'id_BL', 'id_BL');
     }
+    public function bonEnvoi()
+    {
+        return $this->belongsTo(BonEnvois::class, 'id_BE', 'id_BE');
+    }
    
     public function bonDistribution()
     {
@@ -75,6 +79,10 @@ class Colis extends Model
     public function bonPaymentLivreur()
     {
         return $this->belongsTo(BonPaymentLivreur::class, 'id_BPL', 'id_BPL');
+    }
+    public function bonPaymentZone()
+    {
+        return $this->belongsTo(BonPaymentZone::class, 'id_BPZ', 'id_BPZ');
     }
     public function BRZ()
     {

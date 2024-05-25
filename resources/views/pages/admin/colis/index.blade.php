@@ -164,6 +164,30 @@
                                         </form>
                                     </div>
                                 </div>
+                            </td>  
+                            <td>
+                               @if ($coli->bonLivraison)
+                                   
+                               <a href="" class="menu-link">{{ $coli->bonLivraison->id_BL }}</a>
+                               @endif
+                               @if ($coli->bonEnvoi)
+                                   
+                               <a href="" class="menu-link">{{ $coli->bonEnvoi->id_BL }}</a>
+                               @endif
+                                 
+                               @if ($coli->bonDistribution)
+                                   
+                               <a href="" class="menu-link">{{ $coli->bonDistribution->id_BL }}</a>
+                               @endif
+                               @if ($coli->bonPaymentLivreur)
+                                   
+                               <a href="" class="menu-link">{{ $coli->bonPaymentLivreur->id_BL }}</a>
+                               @endif
+                               @if ($coli->bonPaymentZone)
+                                   
+                               <a href="" class="menu-link">{{ $coli->bonPaymentZone->id_BL }}</a>
+                               @endif
+                                 
                             </td>
                         </tr>
                     @endforeach
