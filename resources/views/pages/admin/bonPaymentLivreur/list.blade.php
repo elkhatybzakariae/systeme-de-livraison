@@ -130,7 +130,6 @@
                                             href="{{ route('bon.payment.livreur.exportColis', $item->id_BPL) }}"><i
                                                 class="far fa-file-excel"></i>Exporter les colis</a>
                                     </div>
-                                    <div class="menu-item px-3">
                                         @if ($item->status != 'Paye')
                                             <div class="menu-item px-3">
                                                 <form action="{{ route('bon.payment.livreur.recu', $item->id_BPL) }}"
@@ -138,6 +137,15 @@
                                                     @csrf
                                                     <button type="submit"class="btn">
                                                         <i class="fa fa-check"></i>changer en paye</a>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <div class="menu-item px-3">
+                                                <form action="{{ route('bon.payment.livreur.encours', $item->id_BPL) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    <button type="submit"class="btn">
+                                                        <i class="fa fa-check"></i>changer en Cours</a>
                                                     </button>
                                                 </form>
                                             </div>
@@ -151,8 +159,8 @@
                                                     </button>
                                                 </form>
                                             </div>
+                                            
                                         @endif
-                                    </div>
                                     <div class="menu-item px-3">
                                         <a class="btn"
                                             href="{{ route('bon.payment.livreur.getPdf', $item->id_BPL) }}"><i

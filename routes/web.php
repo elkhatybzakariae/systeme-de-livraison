@@ -273,6 +273,7 @@ Route::middleware('check.admin')->group(function () {
     Route::post('admin/bon-distributions/bdnr/{id_BD}', [BonDistributionController::class, 'nonrecu'])->name('bon.distribution.nonrecu');
     Route::post('admin/bon-payment-livreur/bplr/{id_BPL}', [BonPaymentLivreurController::class, 'recu'])->name('bon.payment.livreur.recu');
     Route::post('admin/bon-payment-livreur/bplnr/{id_BPL}', [BonPaymentLivreurController::class, 'nonrecu'])->name('bon.payment.livreur.nonrecu');
+    Route::post('admin/bon-payment-livreur/bplc/{id_BPL}', [BonPaymentLivreurController::class, 'encours'])->name('bon.payment.livreur.encours');
     Route::get('admin/bon-livraisons/export/colis/{id}', [BonLivraisonController::class, 'exportColis'])->name('bon.livraison.exportColis');
     Route::get('admin/paramete/generale', [ParamtreController::class, 'index'])->name('parametre.index');
 });
