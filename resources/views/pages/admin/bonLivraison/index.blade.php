@@ -316,6 +316,9 @@
             let bons = @json($bons);
             let BL = bons.find(ele => ele.id_BL == id)
             let text = ''
+            var updateDeleteColisUrl = "{{ route('bon.livraison.updateDelete.colis', ['id' => 'ELEMENT_ID']) }}";
+
+
             text = `<div class="row">
                         <div class="dn-inv-infos-box col-6">
                         <b>Bon d envoie : </b> ${BL.id_BL}<br>
@@ -338,13 +341,14 @@
                         <th>Commentaire</th>
                         <th>Status</th>
                         <th>Crbt</th>
+                        <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
 
                         `
             BL.colis.forEach(element => {
-
+                let deleteUrl = updateDeleteColisUrl.replace('ELEMENT_ID', element.id);
                 text += `
                         <tr>
                                 <td>${element.id}</td>
@@ -357,13 +361,18 @@
                                     <span class="badge" style="color:#835476; border:1px solid #835476">${element.status}</span>
                                 </td>
                                 <td>${element.prix} Dhs</td>
+                                ${
+                                    BL.status == 'Nouveau' ? `
+                                    <td><a class='btn btn-danger' href="${deleteUrl}"><i class='fas fa-trash '></i></a> </td>
+                                    ` : ''
+                                }
                             </tr>`
             });
 
             text += `           
               <tr class="dn-inv-table-body">
               <td colspan="6" style="text-align:right"><b>Total</b></td>
-              <td>${BL.total_prix} Dhs</td>
+              <td>${BL.total_prix?BL.total_prix:0} Dhs</td>
             </tr>
             </tbody>
             </table>

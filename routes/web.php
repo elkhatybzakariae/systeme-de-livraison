@@ -263,6 +263,7 @@ Route::middleware('check.admin')->group(function () {
     Route::get('/admin/colis/export', [ColisController::class, 'exportColis'])->name('colis.export');
     Route::post('/admin/colis/prix/{id}', [ColisController::class, 'changePrix'])->name('colis.change.prix');
     Route::get('admin/bon-livraisons/', [BonLivraisonController::class, 'list'])->name('bon.livraison.list');
+    Route::get('/updateDelete/{id}/bl/', [BonLivraisonController::class, 'updateDeleteColis'])->name('bon.livraison.updateDelete.colis');
     
     Route::post('admin/bon-livraisons/blr/{id_BL}', [BonLivraisonController::class, 'recu'])->name('bon.livraison.recu');
     Route::post('admin/bon-livraisons/blnr/{id_BL}', [BonLivraisonController::class, 'nonrecu'])->name('bon.livraison.nonrecu');

@@ -176,6 +176,12 @@ class BonLivraisonController extends Controller
             ->update(['id_BL' => null, 'status' => 'Nouveau']);
         return redirect()->route('bon.livraison.index', $id_BL);
     }
+    public function updateDeleteColis($id)
+    {
+        $colis = Colis::where('id', $id)
+            ->update(['id_BL' => null, 'status' => 'Nouveau']);
+        return redirect()->route('bon.livraison.list');
+    }
 
     public function updateAll(Request $request, $id_BL)
     {
