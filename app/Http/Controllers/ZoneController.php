@@ -11,7 +11,7 @@ class ZoneController extends Controller
 {
     public function index()
     {
-        $zones = Zone::all();
+        $zones = Zone::query()->orderBy('created_at','desc')->get();
         $breads = [
             ['title' => 'Liste des Zones', 'url' => null],
             ['text' => 'Zones', 'url' => null], // You can set the URL to null for the last breadcrumb

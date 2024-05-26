@@ -71,6 +71,7 @@ class BonLivraisonController extends Controller
             ->leftJoin('colis', 'bon_livraisons.id_BL', '=', 'colis.id_BL')
             ->with('colis', 'colis.ville')
             ->distinct()
+            ->orderBy('created_at','desc')
             ->get();
 
             $cl=Option::all();

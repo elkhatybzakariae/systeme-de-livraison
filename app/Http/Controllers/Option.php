@@ -12,10 +12,10 @@ class Option extends Controller
 {
     public function index()
     {
-        $Options = ModelsOption::all();
-        $typeClient = typeClient::all();
-        $typeBank = typeBank::all();
-        $etat = Etat::all();
+        $Options = ModelsOption::query()->orderBy('created_at','desc')->get();
+        $typeClient = typeClient::query()->orderBy('created_at','desc')->get();
+        $typeBank = typeBank::query()->orderBy('created_at','desc')->get();
+        $etat = Etat::query()->orderBy('created_at','desc')->get();
         $breads = [
             ['title' => 'Liste des Options', 'url' => null],
             ['text' => 'Options', 'url' => null],

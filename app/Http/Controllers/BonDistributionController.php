@@ -73,7 +73,10 @@ class BonDistributionController extends Controller
             ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BD = bon_distributions.id_BD) as colis_count'))
             ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BD = bon_distributions.id_BD) as total_prix')) // Corrected table name (BL -> BD)
             ->leftJoin('colis', 'bon_distributions.id_BD', '=', 'colis.id_BD')
-            ->with('colis', 'colis.ville')
+            ->with(['colis'=> function ($query) {
+                $query->orderBy('created_at','desc');
+            }, 'colis.ville'])
+            ->orderBy('created_at','desc')
             ->distinct()
             ->get();
             
@@ -217,7 +220,8 @@ class BonDistributionController extends Controller
             ->select('bon_distributions.*', 'livreurs.nomcomplet as liv_nom', 'livreurs.Phone as liv_tele', 'zones.zonename as liv_zone')
             ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BD = bon_distributions.id_BD) as colis_count'))
             ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BD = bon_distributions.id_BD) as prix_total')) // Corrected table name (BL -> BD)
-            ->with('colis', 'colis.ville')
+            ->with(['colis', 'colis.ville'])
+
             ->first();
 
         // dd($bon);

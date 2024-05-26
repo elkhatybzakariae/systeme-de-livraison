@@ -9,7 +9,7 @@ class ProduitController extends Controller
 {
     public function index()
     {
-        $produits = Produit::all();
+        $produits = Produit::query()->orderBy('created_at','desc')->get();
         return view('pages.produit.index', compact('produits'));
     }
 

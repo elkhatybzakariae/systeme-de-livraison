@@ -11,7 +11,7 @@ class RemarqueController extends Controller
 {
     public function index()
     {
-        $remarques = Remarque::all();
+        $remarques = Remarque::query()->orderBy('created_at','desc')->get();
         $breads = [
             ['title' => 'Liste des remarques', 'url' => null],
             ['text' => 'remarques', 'url' => null], // You can set the URL to null for the last breadcrumb

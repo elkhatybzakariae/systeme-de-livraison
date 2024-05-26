@@ -82,6 +82,8 @@ class BonPaymentLivreurController extends Controller
             ->leftJoin('livreurs', 'bon_payment_livreurs.id_Liv', '=', 'livreurs.id_Liv')
             ->with('colis', 'colis.ville')
             ->distinct()
+            ->orderBy('created_at','desc')
+
             ->get();
         // $bons=BonPaymentLivreur::all();
         // dd($bons);

@@ -12,7 +12,7 @@ class RamassagecoliController extends Controller
     public function index()
     {
         $idU= Auth::id();
-        $Ramassages = Ramassagecoli::where('id_Cl', $idU)->get();
+        $Ramassages = Ramassagecoli::where('id_Cl', $idU)->orderBy('created_at','desc')->get();
         $breads = [
             ['title' => 'Liste des Ramassages', 'url' => null],
             ['text' => 'Ramassages', 'url' => null], // You can set the URL to null for the last breadcrumb
@@ -21,7 +21,7 @@ class RamassagecoliController extends Controller
     }
     public function all()
     {
-        $ramassages = Ramassagecoli::query()->with('client')->get(); 
+        $ramassages = Ramassagecoli::query()->with('client')->orderBy('created_at','desc')->get(); 
         $breads = [
             ['title' => 'Liste des Ramassages', 'url' => null],
             ['text' => 'Ramassages', 'url' => null], // You can set the URL to null for the last breadcrumb

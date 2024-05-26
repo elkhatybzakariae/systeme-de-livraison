@@ -12,7 +12,7 @@ class DepenseController extends Controller
 {
     public function index()
     {
-        $depenses = Depense::all();
+        $depenses = Depense::query()->orderBy('created_at','desc')->get();
         $breads = [
             ['title' => 'Liste des depenses', 'url' => null],
             ['text' => 'Depenses', 'url' => null], // You can set the URL to null for the last breadcrumb

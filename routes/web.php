@@ -260,6 +260,7 @@ Route::middleware('check.admin')->group(function () {
         Route::delete('/refuse/{id}', [DemandeModificationColiController::class, 'refuse'])->name('demandemodificationcolis.refuse');
     });
     Route::get('/admin/colis', [ColisController::class, 'indexAdmin'])->name('colis.indexAdmin');
+    Route::get('/admin/colis/export', [ColisController::class, 'exportColis'])->name('colis.export');
     Route::get('admin/bon-livraisons/', [BonLivraisonController::class, 'list'])->name('bon.livraison.list');
     
     Route::post('admin/bon-livraisons/blr/{id_BL}', [BonLivraisonController::class, 'recu'])->name('bon.livraison.recu');

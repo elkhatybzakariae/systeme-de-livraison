@@ -80,6 +80,8 @@ class BonRetourLivreurController extends Controller
             ->leftJoin('colis', 'bon_retour_livreurs.id_BRL', '=', 'colis.id_BRL')
             ->with('colis', 'colis.ville')
             ->distinct()
+            ->orderBy('created_at','desc')
+
             ->get();
         // $bons=BonRetourLivreur::all();
         // dd($bons);

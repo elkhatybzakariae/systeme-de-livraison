@@ -91,6 +91,8 @@ class BonRetourClientController extends Controller
             ->with('colis', 'colis.ville')
             ->where('clients.id_Cl', session('user')['id_Cl'])
             ->distinct()
+            ->orderBy('created_at','desc')
+
             ->get();
 
         $cl = Option::all();

@@ -21,7 +21,7 @@ class HomeController extends Controller
         return view('pages.landing.index');
     }
     public function tarifs() {
-        $tarifs = Tarif::query()->with('villle', 'villleRamassage')->get();
+        $tarifs = Tarif::query()->with('villle', 'villleRamassage')->orderBy('created_at','desc')->get();
         return view('pages.landing.tarifs', compact('tarifs'));
     }
     public function option() {
@@ -31,46 +31,4 @@ class HomeController extends Controller
         ];
         return view('pages.option.index',compact('breads'));
     }
-    public function generatePDF()
-    {
-         // Create new PDF instance
-         $pdf = new TCPDF();
-
-         // Set document information, etc.
- 
-         // Add a page
-         $pdf->AddPage();
- 
-         // Get the HTML content from a Blade view
-         $bon=BonLivraison::query()->first();
-        $colis=Colis::query()->get();
-        $data=[
-            'bon'=>$bon,
-            'colis'=>$colis
-        ];
-         $html = view('pages.clients.pdfs.pdf1',$data)->render();
-
- 
-        // Path to store the generated PDF
-        $pdfPath = storage_path('app/public/sample.pdf');
-
-        // Generate PDF using wkhtmltopdf
-        $process = new Process([
-            'wkhtmltopdf',
-            '-',
-            $pdfPath
-        ]);
-
-        // Set input and run the process
-        $process->setInput($html);
-        $process->run();
-
-        // Check if process was successful
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        // Return a response or redirect to the generated PDF
-        return response()->file($pdfPath);
-}
 }

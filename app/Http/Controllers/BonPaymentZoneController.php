@@ -77,6 +77,8 @@ class BonPaymentZoneController extends Controller
             ->leftJoin('colis', 'bon_retour_zones.id_BRZ', '=', 'colis.id_BRZ')
             ->with('colis', 'colis.ville')
             ->distinct()
+            ->orderBy('created_at','desc')
+            
             ->get();
         // $bons=BonPaymentZone::all();
         // dd($bons);

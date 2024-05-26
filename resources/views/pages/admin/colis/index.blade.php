@@ -61,7 +61,71 @@
                     </select>
                 </div>
                 <button class="btn btn-primary">Filtrer Colis</button>
+                <a href="{{ route('colis.export') }}" class="btn btn-success">export Colis</a>
             </div>
+            <form method="GET" action="{{ route('admin.index') }}">
+                <div class="form-group row">
+                    <!-- Date Filter -->
+                    <label for="date_filter" class="col-md-2 col-form-label">Filtrer par date:</label>
+                    <div class="col-md-4">
+                        <select class="form-control" id="date_filter" name="date_filter" onchange="this.form.submit()">
+                            <option value="">Depuis le lancement</option>
+                            <option value="today" {{ request('date_filter') == 'today' ? 'selected' : '' }}>Aujourd'hui</option>
+                            <option value="yesterday" {{ request('date_filter') == 'yesterday' ? 'selected' : '' }}>Hier</option>
+                            <option value="last_7_days" {{ request('date_filter') == 'last_7_days' ? 'selected' : '' }}>7 derniers jours</option>
+                            <option value="last_30_days" {{ request('date_filter') == 'last_30_days' ? 'selected' : '' }}>30 derniers jours</option>
+                            <option value="this_month" {{ request('date_filter') == 'this_month' ? 'selected' : '' }}>Ce mois</option>
+                            <option value="last_month" {{ request('date_filter') == 'last_month' ? 'selected' : '' }}>Le mois dernier</option>
+                            <option value="custom_range" {{ request('date_filter') == 'custom_range' ? 'selected' : '' }}>Plage personnalisée</option>
+                        </select>
+                    </div>
+                    {{-- <div class="col-md-3">
+                        <input type="date" class="form- " name="start_date" placeholder="Date de début" value="{{ request('start_date') }}" {{ request('date_filter') != 'custom_range' ? 'disabled' : '' }}>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="date" class="form-control" name="end_date" placeholder="Date de fin" value="{{ request('end_date') }}" {{ request('date_filter') != 'custom_range' ? 'disabled' : '' }}>
+                    </div> --}}
+                </div>
+                <div class="form-group row mt-3">
+                    <div class="col-md-4">
+                        <select class="form-control" id="status_filter" name="status_filter" onchange="this.form.submit()">
+                            <option value="">Tous les statuts</option>
+                            @foreach ($status as $st)
+                                <option value="{{ $st }}" {{ request('status_filter') == $st ? 'selected' : '' }}>{{ $st }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row mt-3">
+                    <div class="col-md-4">
+                        <select class="form-control" id="etat_filter" name="etat_filter" onchange="this.form.submit()">
+                            <option value="">Tous les états</option>
+                            <option value="Paye" {{ request('etat_filter') == 'Paye' ? 'selected' : '' }}>Payé</option>
+                            <option value="Non Paye" {{ request('etat_filter') == 'Non Paye' ? 'selected' : '' }}>Non Payé</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row mt-3">
+                    <div class="col-md-4">
+                        <select class="form-control" id="ville_filter" name="ville_filter" onchange="this.form.submit()">
+                            <option value="">Toutes les villes</option>
+                            @foreach ($villes as $ville)
+                                <option value="{{ $ville->id_V }}" {{ request('ville_filter') == $ville->id_V ? 'selected' : '' }}>{{ $ville->nom }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row mt-3">
+                    <div class="col-md-4">
+                        <select class="form-control" id="zone_filter" name="zone_filter" onchange="this.form.submit()">
+                            <option value="">Toutes les zones</option>
+                            @foreach ($zones as $zone)
+                                <option value="{{ $zone->id_Z }}" {{ request('zone_filter') == $zone->id_Z ? 'selected' : '' }}>{{ $zone->nom }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </form>
         </div>
 
         <div class="card-body pt-0">

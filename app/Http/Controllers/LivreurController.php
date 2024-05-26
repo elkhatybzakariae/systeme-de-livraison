@@ -125,8 +125,8 @@ class LivreurController extends Controller
             $query->where('id_Liv', $liv);
         })->with(['bonDistribution', 'client'])->get();
 
-        $cl=Option::all();
-        $etat=Etat::all();
+        $cl=Option::query()->orderBy('created_at','desc')->get();
+        $etat=Etat::query()->orderBy('created_at','desc')->get();
         // dd($colis);
         return view('pages.livreur.colis.index', compact('colis','cl','etat', 'breads'));
     }
@@ -227,7 +227,7 @@ class LivreurController extends Controller
 
         // Check if the user exists and if the token is valid
         if (!$user || !Hash::check($request->token, $user->token)) {
-            // dd($request->all());
+            // dd($request->query()->orderBy('created_at','desc')->get());
             return back()->withErrors(['email' => 'The provided credentials are incorrect.']);
         }
 

@@ -78,13 +78,12 @@ class BonEnvoisController extends Controller
             ->leftJoin('colis', 'bon_envois.id_BE', '=', 'colis.id_BE')
             ->leftJoin('clients', 'colis.id_Cl', '=', 'clients.id_Cl')
             ->with('colis', 'colis.ville')
+            ->orderBy('created_at','desc')
             ->distinct()
             ->get();
 
             $cl=Option::all();
             $etat=Etat::all();
-        // $bons=BonEnvois::all();
-        // dd($bons);
         $breads = [
             ['title' => 'Liste des Bons d\'Envoi', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
@@ -100,7 +99,8 @@ class BonEnvoisController extends Controller
 
         $zones = Zone::withCount([
             'colis' => function ($query) {
-                $query->where('status', 'Ramasse');
+                $query->where('status', 'Ramasse')
+            ->orderBy('created_at','desc') ;
             }
         ])->get();
         $breads = [

@@ -67,6 +67,7 @@ class FactureController extends Controller
             ->leftJoin('colis', 'factures.id_F', '=', 'colis.id_F')
             ->with('colis', 'colis.ville')
             ->distinct()
+            ->orderBy('created_at','desc')
             ->get();
         $breads = [
             ['title' => 'Liste des Bons de retour de client ', 'url' => null],
@@ -87,7 +88,9 @@ class FactureController extends Controller
             ->leftJoin('colis', 'factures.id_F', '=', 'colis.id_F')
             ->with('colis', 'colis.ville')
             ->where('clients.id_Cl', session('user')['id_Cl'])
-            ->distinct()
+            ->distinct()            
+            ->orderBy('created_at','desc')
+
             ->get();
         // $bons=Facture::all();
         // dd($bons);

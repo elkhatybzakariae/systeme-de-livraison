@@ -3,22 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helpers;
+use App\Imports\ColisImport;
 use App\Models\Colis;
 use App\Models\colisinfo;
-use App\Models\Livreur;
-use App\Models\Ville;
-use App\Models\Zone;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkProcessor;
-use Picqer\Barcode\BarcodeGeneratorPNG;
-
-use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\ColisImport;
 use App\Models\DemandeModificationColi;
 use App\Models\Etat;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Livreur;
 use App\Models\Option as ModelsOption;
+use App\Models\Ville;
+use App\Models\Zone;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkProcessor;
+use League\Csv\Writer;
+use Maatwebsite\Excel\Facades\Excel;
+use Picqer\Barcode\BarcodeGeneratorPNG;
 
 class ColisController extends Controller
 {
@@ -26,15 +27,16 @@ class ColisController extends Controller
     {
         $id=Auth::id();
         $colis = Colis::query()->where('id_Cl',$id)->with('client','bonLivraison','bonEnvoi','bonDistribution','bonPaymentLivreur','bonPaymentZone')->whereNot('status','nouveau')
-        ->get();        
+            ->orderBy('created_at','desc')
+            ->get();        
         $colisstatuss = $colis->pluck('status')->toArray();
-        $cl=ModelsOption::all();
-        $etat=Etat::all();
+        $cl=ModelsOption::query()->orderBy('created_at','desc')->get();
+        $etat=Etat::query()->orderBy('created_at','desc')->get();
         // dd($cl);
         // $cl=$colis->getColisWithCouleur($colis->status);
         $colisIds = $colis->pluck('id')->toArray();
         $demandes=DemandeModificationColi::whereIn('id',$colisIds)->get();
-        $colisinfo = colisinfo::all();
+        $colisinfo = colisinfo::query()->orderBy('created_at','desc')->get();
         $breads = [
             ['title' => 'Liste des Colis', 'url' => null],
             ['text' => 'Colis', 'url' => null], // You can set the URL to null for the last breadcrumb
@@ -42,18 +44,46 @@ class ColisController extends Controller
         return view('pages.clients.colis.index', compact('colis','demandes','cl','etat','breads','colisinfo'));
     }
  
-    public function indexAdmin()
+    public function indexAdmin(Request $request)
     {
-        $colis = Colis::query()->whereNot('status','Nouveau')->with(['client','bonLivraison','bonEnvoi','bonDistribution','bonPaymentLivreur','bonPaymentZone'])->get();
+
+        $statusesList = Colis::select('status')->distinct()->pluck('status');
+        $villes = Ville::query()->orderBy('created_at','desc')->get();
+        $zones = Zone::query()->orderBy('created_at','desc')->get();
+
+        $query = Colis::query()->whereNot('status','Nouveau')->with(['client','bonLivraison','bonEnvoi','bonDistribution','bonPaymentLivreur','bonPaymentZone']);
+        
+    
+    if ($request->has('client_id') && $request->client_id) {
+        $query->where('id_Cl', $request->client_id);
+    }
+    
+    if ($request->has('status_filter') && $request->status_filter) {
+        $query->where('status', $request->status_filter);
+    }
+    
+    if ($request->has('etat_filter') && $request->etat_filter) {
+        $query->where('etat', $request->etat_filter);
+    }
+    
+    if ($request->has('ville_filter') && $request->ville_filter) {
+        $query->where('id_V', $request->ville_filter);
+    }
+    
+    if ($request->has('zone_filter') && $request->zone_filter) {
+        $query->where('id_Z', $request->zone_filter);
+    }
+
+    $colis=Helpers::applyDateFilter($query, $request);
         $status = Colis::query()->select('status')->distinct()->get();
         
-        $cl=ModelsOption::all();
-        $etat=Etat::all();
+        $cl=ModelsOption::query()->orderBy('created_at','desc')->get();
+        $etat=Etat::query()->orderBy('created_at','desc')->get();
         $breads = [
             ['title' => 'Liste des Colis', 'url' => null],
             ['text' => 'Colis', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.colis.index', compact('colis','cl','etat','status','breads'));
+        return view('pages.admin.colis.index', compact('colis','cl','etat','status','breads', 'villes', 'zones'));
     }
     public function indexRamassage()
     {
@@ -68,8 +98,8 @@ class ColisController extends Controller
 
     public function create()
     {
-        $villes=Ville::all();
-        $zones=Zone::all();
+        $villes=Ville::query()->orderBy('created_at','desc')->get();
+        $zones=Zone::query()->orderBy('created_at','desc')->get();
         $breads = [
             ['title' => 'Nouveau Colis', 'url' => null],
             ['text' => 'Nouveau Colis', 'url' => null], // You can set the URL to null for the last breadcrumb
@@ -160,7 +190,25 @@ class ColisController extends Controller
         return redirect()->route('colis.index')->with('success', 'Colis deleted successfully.');
     }
 
-
+    public function exportColis()
+    {
+        $colis = Colis::query()->get();
+        $csv = Writer::createFromString('');
+        $csv->insertOne(['Code d\'envoi', 'Destinataire', 'Date de creation', 'Prix', 'Ville']);
+        foreach ($colis as $colisItem) {
+            $csv->insertOne([
+                $colisItem->code_d_envoi,
+            $colisItem->destinataire,
+                $colisItem->created_at,
+                $colisItem->prix,
+                $colisItem->ville->villename
+            ]);
+        }
+        $fileName = 'colis_all.csv';
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="' . $fileName . '"');
+        echo $csv->getContent();
+    }
 
     public function showImportPage()
     {

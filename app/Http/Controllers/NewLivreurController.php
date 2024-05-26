@@ -9,7 +9,7 @@ class NewLivreurController extends Controller
 {
     public function newlivreurs()
     {
-        $list= Livreur::where('isAccepted',0)->get();
+        $list= Livreur::where('isAccepted',0)->orderBy('created_at','desc')->get();
         $breads = [
             ['title' => 'Liste des nouveaux Livreurs', 'url' => null],
             ['text' => 'Nouveax livreurs', 'url' => null], // You can set the URL to null for the last breadcrumb

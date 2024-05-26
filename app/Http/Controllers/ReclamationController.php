@@ -30,7 +30,7 @@ class ReclamationController extends Controller
     }
     public function all()
     {
-        $reclamations = Reclamation::query()->with('client','message')->get(); 
+        $reclamations = Reclamation::query()->with('client','message')->orderBy('created_at','desc')->get(); 
         $messages = Message::whereIn('id_Rec', $reclamations->pluck('id_Rec'))->get(); 
         $breads = [
             ['title' => 'Liste des Reclamations', 'url' => null],
@@ -39,10 +39,7 @@ class ReclamationController extends Controller
         return view('pages.admin.reclamation.index', compact('reclamations','messages','breads'));
     }
 
-    // public function create()
-    // {
-    //     return view('pages.reclamation.create');
-    // }
+   
 
     public function store(Request $request)
     {

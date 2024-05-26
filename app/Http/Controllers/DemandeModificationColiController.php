@@ -13,10 +13,12 @@ class DemandeModificationColiController extends Controller
 {
     public function all()
     {
-        $demandes = DemandeModificationColi::with('colis')->get();
+        $demandes = DemandeModificationColi::with('colis')
+        ->orderBy('created_at','desc')
+        ->get();
         
-        $cl=Option::all();
-        $etat=Etat::all();
+        $cl=Option::query()->orderBy('created_at','desc')->get();
+        $etat=Etat::query()->orderBy('created_at','desc')->get();
         $breads = [
             ['title' => 'Liste des Demandes Modification Colis', 'url' => null],
             ['text' => 'Demandes', 'url' => null], // You can set the URL to null for the last breadcrumb

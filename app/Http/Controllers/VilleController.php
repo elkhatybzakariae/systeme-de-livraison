@@ -12,8 +12,8 @@ class VilleController extends Controller
 {
     public function index()
     {
-        $villes = Ville::all();
-        $zones = Zone::all();
+        $villes = Ville::query()->orderBy('created_at','desc')->get();
+        $zones = Zone::query()->orderBy('created_at','desc')->get();
         $breads = [
             ['title' => 'Liste des Villes', 'url' => null],
             ['text' => 'Villes', 'url' => null], // You can set the URL to null for the last breadcrumb

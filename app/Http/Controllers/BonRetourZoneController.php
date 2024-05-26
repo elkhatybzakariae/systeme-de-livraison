@@ -86,6 +86,8 @@ class BonRetourZoneController extends Controller
             ->with('colis', 'colis.ville')
             ->where('zones.id_Z',session('user')['id_Z'])
             ->distinct()
+            ->orderBy('created_at','desc')
+
             ->get();
         // $bons=BonRetourClient::all();
         // dd($bons);
@@ -220,15 +222,11 @@ class BonRetourZoneController extends Controller
         // $bon = BonDistribution::where('id_BRZ', $id)->first();
         $bon = BonRetourZone::where('bon_retour_zones.id_BRZ', $id) // Specify the table for id_BRZ
             ->withCount('colis') // Count related colis
-            ->withSum('colis', 'prix') // Sum prices of related colis
-            // ->leftJoin('livreurs', 'bon_retour_zones.id_Liv', '=', 'livreurs.id_Liv')
+            ->withSum('colis', 'prix')
             ->leftJoin('zones', 'bon_retour_zones.id_Z', '=', 'zones.id_Z')
             ->leftJoin('colis', 'bon_retour_zones.id_BRZ', '=', 'colis.id_BRZ')
             ->leftJoin('clients', 'clients.id_Cl', '=', 'colis.id_Cl')
             ->select('bon_retour_zones.*',
-            //  'livreurs.nomcomplet as liv_nom',
-            //   'livreurs.fraislivraison as frais', 
-            //   'livreurs.Phone as liv_tele', 
               'clients.nomcomplet as nomcomplet', 
               'colis.status as status', 
               'zones.zonename as liv_zone'

@@ -13,7 +13,7 @@ class TarifController extends Controller
     public function index()
     {
 
-        $tarifs = tarif::query()->with('villle', 'villleRamassage')->get();
+        $tarifs = tarif::query()->with('villle', 'villleRamassage')->orderBy('created_at','desc')->get();
 
         $villes = Ville::all();
         $breads = [

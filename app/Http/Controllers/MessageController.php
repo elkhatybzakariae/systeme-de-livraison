@@ -32,9 +32,6 @@ class MessageController extends Controller
         return back()->with('success', 'message created successfully.');
     }
 
-   
-
-
     public function show(reclamation $reclamation)
     {
         return view('reclamation.show', compact('reclamation'));

@@ -203,6 +203,7 @@
                 </div>
                 <button class="btn btn-primary">Filtrer Colis</button>
             </div>
+            
         </div>
 
         <div class="card-body pt-0">
@@ -299,24 +300,24 @@
                             <td>
                                 @if ($coli->bonLivraison)
                                     
-                                <a href="{{ route('bon.livraison.getPdf',$coli->bonLivraison->id_BL) }}" class="menu-link">{{ $coli->bonLivraison->id_BL }}</a>
+                                <a href="{{ route('bon.livraison.getPdf.colis',['id'=>$coli->bonLivraison->id_BL,'idC'=>$coli->id]) }}" class="menu-link">{{ $coli->bonLivraison->id_BL }}</a>
                                 @endif
                                 @if ($coli->bonEnvoi)
                                     
-                                <a href="" class="menu-link">{{ $coli->bonEnvoi->id_BL }}</a>
+                                <a href="{{ route('bon.envoi.getPdf.colis',['id'=>$coli->bonEnvoi->id_BE,'idC'=>$coli->id]) }}" class="menu-link">{{ $coli->bonEnvoi->id_BE }}</a>
                                 @endif
                                   
                                 @if ($coli->bonDistribution)
                                     
-                                <a href="" class="menu-link">{{ $coli->bonDistribution->id_BL }}</a>
+                                <a href="{{ route('bon.distribution.getPdf.colis',['id'=>$coli->bonDistribution->id_BD,'idC'=>$coli->id]) }}" class="menu-link">{{ $coli->bonDistribution->id_BD }}</a>
                                 @endif
                                 @if ($coli->bonPaymentLivreur)
                                     
-                                <a href="" class="menu-link">{{ $coli->bonPaymentLivreur->id_BL }}</a>
+                                <a href="{{ route('bon.payment.livreur.getPdf.colis',['id'=>$coli->bonPaymentLivreur->id_BPL,'idC'=>$coli->id]) }}" class="menu-link">{{ $coli->bonPaymentLivreur->id_BPL }}</a>
                                 @endif
                                 @if ($coli->bonPaymentZone)
                                     
-                                <a href="" class="menu-link">{{ $coli->bonPaymentZone->id_BL }}</a>
+                                <a href="{{ route('bon.payement.zone.getPdf.colis',['id'=>$coli->bonPaymentZone->id_BPZ,'idC'=>$coli->id]) }}" class="menu-link">{{ $coli->bonPaymentZone->id_BPZ }}</a>
                                 @endif
                                   
                             </td>
