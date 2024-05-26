@@ -228,7 +228,7 @@
                                     </div>
                                     <div class="menu-item px-3">
                                         <a class="btn" href="{{ route('generate.stikers',$item->id_BL) }}">
-                                            <<i class="fas fa-ticket-alt"></i>Voir les etiqutte
+                                            <i class="fas fa-ticket-alt"></i>Voir les etiqutte
                                         </a>
                                     </div>
                                     <div class="menu-item px-3">

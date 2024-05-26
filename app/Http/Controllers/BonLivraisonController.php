@@ -281,6 +281,45 @@ class BonLivraisonController extends Controller
         $dompdf->render();
         return $dompdf->stream('bon-' . $bon->id_BL . '.pdf');
     }
+    public function generateEtiqueteuseColis($id,$id_BL)
+    {
+      
+        $bon = BonLivraison::where('id_BL', $id_BL)->first();
+        $colis = Colis::query()->where('id', $id)->get();
+       
+        $data = [
+            'bon' => $bon,
+            'colis' => $colis
+        ];
+        $dompdf = new Dompdf();
+        
+        $html = view('pages.clients.bonLivraison.stickers', $data)->render();
+        $dompdf->loadHtml($html);
+        $customPaper = array(0, 0, 250, 250); 
+        $dompdf->setPaper($customPaper, 'portrait');
+        // Render the PDF
+        $dompdf->render();
+        return $dompdf->stream('bon-' . $bon->id_BL . '.pdf');
+    }
+    public function generateStikersColis($id,$id_BL)
+    {
+      
+        $bon = BonLivraison::where('id_BL', $id_BL)->first();
+        $colis = Colis::query()->where('id', $id)->get();
+       
+        $data = [
+            'bon' => $bon,
+            'colis' => $colis
+        ];
+        $dompdf = new Dompdf();
+        
+        $html = view('pages.clients.bonLivraison.tickets', $data)->render();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        // Render the PDF
+        $dompdf->render();
+        return $dompdf->stream('bon-' . $bon->id_BL . '.pdf');
+    }
     public function generateEtiqueteuse($id)
     {
       

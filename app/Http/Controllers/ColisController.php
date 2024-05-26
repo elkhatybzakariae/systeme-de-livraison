@@ -26,7 +26,7 @@ class ColisController extends Controller
     public function index()
     {
         $id=Auth::id();
-        $colis = Colis::query()->where('id_Cl',$id)->with('client','bonLivraison','bonEnvoi','bonDistribution','bonPaymentLivreur','bonPaymentZone')->whereNot('status','nouveau')
+        $colis = Colis::query()->where('id_Cl',$id)->whereNot('statut','Nouveau')->with('client','bonLivraison','bonEnvoi','bonDistribution','bonPaymentLivreur','bonPaymentZone')->whereNot('status','nouveau')
             ->orderBy('created_at','desc')
             ->get();        
         $colisstatuss = $colis->pluck('status')->toArray();
@@ -144,6 +144,15 @@ class ColisController extends Controller
         return redirect()->route('colis.indexRamassage')->with('success', 'Colis created successfully.');
     }
 
+    public function changePrix(Request $request,  $id)
+    {
+        $validatedData = $request->validate([   
+            'prix' => 'required|numeric',
+        ]);
+        $colis=Colis::where('id',$id)->first();
+        $colis->update($validatedData);
+        return redirect()->route('colis.indexAdmin')->with('success', 'prix du Colis modifie avec  succes.');
+    }
     public function update(Request $request, Colis $colis)
     {
         $validatedData = $request->validate([
@@ -168,19 +177,8 @@ class ColisController extends Controller
     }
 
 
-    public function show(Colis $colis)
-    {
-        return view('colis.show', compact('colis'));
-    }
-
-    public function edit(Colis $colis)
-    {
-        $breads = [
-            ['title' => 'Liste des Colis', 'url' => null],
-            ['text' => 'Colis', 'url' => null], // You can set the URL to null for the last breadcrumb
-        ];
-        return view('pages.clients.colis.edit', compact('colis','breads'));
-    }
+  
+   
 
 
 

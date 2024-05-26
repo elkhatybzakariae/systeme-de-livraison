@@ -113,6 +113,7 @@
                 <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
                     
                     <button class="btn btn-primary">Filtrer Colis</button>
+                    <a href="{{ route('colis.indexAdmin') }}" class="btn btn-info">All Colis</a>
                     <a href="{{ route('colis.export') }}" class="btn btn-success">export Colis</a>
                 </div>
             </div>
@@ -131,8 +132,8 @@
                         {{-- <th class="min-w-200px">Id</th> --}}
                         <th class="min-w-100px">Code d'Envoi</th>
                         <th class="min-w-100px">Date d'Expedition</th>
-                        {{-- <th class="min-w-100px">Telephone</th>
-          <th class="min-w-100px">Nom du Magasin</th> --}}
+                        <th class="min-w-100px">Telephone</th>
+          <th class="min-w-100px">Nom du Magasin</th>
                         <th class="min-w-100px">Etat</th>
                         <th class="min-w-100px">Status</th>
                         <th class="min-w-100px">Ville</th>
@@ -164,12 +165,12 @@
                                 <span class="fw-bold"
                                     data-kt-ecommerce-product-filter="date">{{ $coli->date_d_expedition }}</span>
                             </td>
-                            {{-- <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="telephone">{{ $coli->client->telephone }}</span>
-            </td>
-            <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="magasin">{{ $coli->client->nom_magasin }}</span>
-            </td> --}}
+                            <td class="pe-0">
+                                <span class="fw-bold" data-kt-ecommerce-product-filter="telephone">{{ $coli->telephone }}</span>
+                            </td>
+                            <td class="pe-0">
+                                <span class="fw-bold" data-kt-ecommerce-product-filter="magasin">{{ $coli->client->nommagasin }}</span>
+                            </td>
                             <td class="pe-0">
                                 <span class="fw-bold" data-kt-ecommerce-product-filter="etat">{{ $coli->etat }}</span>
                             </td>
@@ -196,28 +197,45 @@
                                         </svg>
                                     </span>
                                 </a>
-                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-250px py-4"
                                     data-kt-menu="true">
 
                                     <div class="menu-item px-3">
+                                        <a onclick="openModal('{{ $coli->id }}')"
+                                            data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"
+                                            class="btn menu-link"> <i class="fas fa-eye"></i> Details Suivi</a>
+                                    </div>
+                                    <div class="menu-item px-3">
+                                        <a onclick="openModalInfo('{{ $coli->id }}','{{ route('admin.changestatus', $coli->id) }}')"
+                                            data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"
+                                            class="btn menu-link"> <i class="fas fa-info"></i> Information Colis</a>
+                                    </div>
+                                    <div class="menu-item px-3">
                                         <a onclick="openModal('{{ $coli->id }}','{{ route('admin.changestatus', $coli->id) }}')"
                                             data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"
-                                            class="menu-link px-3">changer le
+                                            class="btn menu-link"> <i class="fas fa-pen"></i> changer le
                                             statut</a>
                                     </div>
                                     <div class="menu-item px-3">
+                                        <a onclick="openModalPrix('{{ $coli->id }}','{{ route('colis.change.prix', $coli->id) }}')"
+                                            data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"
+                                            class="btn menu-link"> <i class="fas fa-dollar-sign"></i> changer le prix</a>
+                                    </div>
+                                    <div class="menu-item   px-3">
                                         <a onclick="openModal('{{ $coli->villename }}','{{ $coli->zonename }}','{{ $coli->ref }}','{{ route('colis.update', $coli->id) }}')"
                                             data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"
-                                            class="menu-link px-3">Edit</a>
+                                            class="menu-link btn "><i class="fas fa-pen"></i>Modifier Colis</a>
                                     </div>
                                     <div class="menu-item px-3">
-                                        <form action="{{ route('colis.destroy', $coli->id) }}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                            <input type="submit" class="menu-link px-3 btn text-danger"
-                                                data-kt-ecommerce-product-filter="delete_row" value="delete">
-                                        </form>
+                                        <a class="btn menu-link" href="{{ route('generate.stikers.colis',['id'=>$coli->id,'id_BL'=>$coli->bonLivraison->id_BL]) }}">
+                                            <i class="fas fa-ticket-alt"></i>Voir les etiqutte
+                                        </a>
                                     </div>
+                                    <div class="menu-item px-3">
+                                        <a class="btn menu-link" href="{{ route('generate.etiqueteuse.colis',['id'=>$coli->id,'id_BL'=>$coli->bonLivraison->id_BL]) }}" ><i class="fas fa-ticket-alt"></i> etiquetteuse</a>
+                                    </div>
+                                    
+                                    
                                 </div>
                             </td>  
                             <td>
@@ -270,7 +288,6 @@
                     }
                 });
                 etat.forEach(element => {
-                    console.log(element);
                     if (EtatColi === element.nom) {
                         $thisRow.find('td:eq(3)').css('color', element
                             .couleur);
@@ -343,7 +360,6 @@
             var colis = @json($colis);
             let bb = '';
             let item = colis.find(ele => ele.id == id)
-            console.log(item);
             bb += `
                 <div class="">
                     <div class="d-flex flex-column ">
@@ -418,6 +434,118 @@
                                 </form>
                             
                         </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('show').innerHTML = bb;
+        }
+        function openModalPrix(id, action) {
+            var colis = @json($colis);
+            let bb = '';
+            let item = colis.find(ele => ele.id == id)
+            bb += `
+                <div class="">
+                    <div class="d-flex flex-column ">
+                        <div class="d-flex justify-content-center align-items-center  mb-2">
+                            <div class="symbol symbol-35px symbol-circle">
+                                <h3>Change le statut du colis.</h3>
+                            </div>
+                        </div>
+                        <div class=" rounded text-dark fw-semibold text-start row" data-kt-element="message-text">
+                            <div class="form-group mb-3 col-6 row">
+                                <div class="form-group mb-3 col col-12">
+                                <label class="fw-bold" for="nom_livreur">Nom Client:${item.client.nomcomplet}</label>
+                                </div>
+                                <div class="form-group mb-3 col col-md-12">
+                                    <label class="fw-bold" for="nom_livreur">Telephone:${item.client.Phone}</label>
+                                </div>    
+                            </div>
+                            <div class="form-group mb-3 col-6 row">
+                                <div class="form-group mb-3 col col-12">
+                                <label class="fw-bold" for="nom_livreur">Code d envoie:${item.code_d_envoi}</label>
+                                </div>
+                                <div class="form-group mb-3 col col-12">
+                                    <label class="fw-bold" for="nom_livreur">Destinataire:${item.destinataire}</label>
+                                </div>                                    
+                                <div class="form-group mb-3 col col-12">
+                                    <label class="fw-bold" for="nom_livreur">Telephone:${item.telephone}</label>
+                                </div>                                      
+                                <div class="form-group mb-3 col col-12">
+                                    <label class="fw-bold" for="nom_livreur">Ville:${item.ville.villename}</label>
+                                </div>                                    
+                                <div class="form-group mb-3 col col-12">
+                                    <label class="fw-bold" for="nom_livreur">Adresse:${item.adresse}</label>
+                                </div>                                   
+                                <div class="form-group mb-3 col col-12">
+                                    <label class="fw-bold" for="nom_livreur">Crbt:${item.prix * item.quantite}</label>
+                                </div>    
+                            </div>
+                        </div>
+                        <hr>
+                        <div class=" rounded text-dark fw-semibold text-start row" data-kt-element="message-text">
+                            <form action="${action}" method="POST">
+                                @csrf
+                                <div class="form-group mb-3 col col-md-12">
+                                <label class="fw-bold" for="nom_livreur">Veuillez choisir un statut:</label>
+                               <input type='number' class='form-control' value='${item.prix}' name='prix'/>
+                                </div>
+                                
+                                <div class="d-flex justify-content-end align-items-end  mb-2">
+                                    <input type="submit" class="menu-link px-3 btn btn-primary" value="Enregister">
+                                </div>    
+                                </form>
+                            
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('show').innerHTML = bb;
+        }
+        function openModalInfo(id, action) {
+            var colis = @json($colis);
+            let bb = '';
+            let item = colis.find(ele => ele.id == id)
+            bb += `
+                <div class="">
+                    <div class="d-flex flex-column ">
+                        <div class="d-flex justify-content-center align-items-center  mb-2">
+                            <div class="symbol symbol-35px symbol-circle">
+                                <h3>Info du colis.</h3>
+                            </div>
+                        </div>
+                        <div class=" rounded text-dark fw-semibold text-start row" data-kt-element="message-text">
+                            <div class="form-group mb-3 col-6 row">
+                                <div class="form-group mb-3 col col-12">
+                                <label class="fw-bold" for="nom_livreur">Nom Client:${item.client.nomcomplet}</label>
+                                </div>
+                                <div class="form-group mb-3 col col-md-12">
+                                    <label class="fw-bold" for="nom_livreur">Telephone:${item.client.Phone}</label>
+                                </div>    
+                            </div>
+                            <div class="form-group mb-3 col-6 row">
+                                <div class="form-group mb-3 col col-12">
+                                <label class="fw-bold" for="nom_livreur">Code d envoie:${item.code_d_envoi}</label>
+                                </div>
+                                <div class="form-group mb-3 col col-12">
+                                    <label class="fw-bold" for="nom_livreur">Destinataire:${item.destinataire}</label>
+                                </div>                                    
+                                <div class="form-group mb-3 col col-12">
+                                    <label class="fw-bold" for="nom_livreur">Telephone:${item.telephone}</label>
+                                </div>                                      
+                                <div class="form-group mb-3 col col-12">
+                                    <label class="fw-bold" for="nom_livreur">Ville:${item.ville.villename}</label>
+                                </div>                                    
+                                <div class="form-group mb-3 col col-12">
+                                    <label class="fw-bold" for="nom_livreur">Adresse:${item.adresse}</label>
+                                </div>                                   
+                                <div class="form-group mb-3 col col-12">
+                                    <label class="fw-bold" for="nom_livreur">Crbt:${item.prix * item.quantite}</label>
+                                </div>    
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             `;

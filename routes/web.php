@@ -261,6 +261,7 @@ Route::middleware('check.admin')->group(function () {
     });
     Route::get('/admin/colis', [ColisController::class, 'indexAdmin'])->name('colis.indexAdmin');
     Route::get('/admin/colis/export', [ColisController::class, 'exportColis'])->name('colis.export');
+    Route::post('/admin/colis/prix/{id}', [ColisController::class, 'changePrix'])->name('colis.change.prix');
     Route::get('admin/bon-livraisons/', [BonLivraisonController::class, 'list'])->name('bon.livraison.list');
     
     Route::post('admin/bon-livraisons/blr/{id_BL}', [BonLivraisonController::class, 'recu'])->name('bon.livraison.recu');
@@ -370,6 +371,8 @@ Route::middleware('check.livreur')->group(function () {
         Route::get('/bons_distributions',  'allBD')->name('livreur.BD');
     });
 });
+Route::get('colis/generate-stikers/{id}/{id_BL}', [BonLivraisonController::class, 'generateStikersColis'])->name('generate.stikers.colis');
+Route::get('colis/generate-etiqueteuse/{id}/{id_BL}', [BonLivraisonController::class, 'generateEtiqueteuseColis'])->name('generate.etiqueteuse.colis');
 Route::get('/generate-stikers/{id}', [BonLivraisonController::class, 'generateStikers'])->name('generate.stikers');
 Route::get('/generate-etiqueteuse/{id}', [BonLivraisonController::class, 'generateEtiqueteuse'])->name('generate.etiqueteuse');
 Route::get('/generate-facture/{id}', [BonLivraisonController::class, 'generateFacture'])->name('generate.facture');

@@ -174,9 +174,13 @@ class ColisSeeder extends Seeder
                         break;
                    
                     default:
-                    $colis = Colis::factory()->create([
-                        'status' => $status,
+                    $bl= BonLivraison::factory()->create([
+                        'status' => 'Nouveau',
                     ]);
+                        $colis = Colis::factory()->create([
+                            'status' => $status,
+                            'id_BL'=>$bl->id_BL
+                        ]);
                     $colis = Colis::factory()->create([
                         'status' => 'Nouveau',
                     ]);
