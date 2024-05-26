@@ -210,21 +210,14 @@
                                             class="menu-link px-3">Edit</a>
                                     </div>
                                     <div class="menu-item px-3">
-                                        <form action="{{ route('tarif.destroy', $tarif->id_Tar) }}" method="POST">
+                                        <form action="{{ route('tarif.destroy', $tarif->id_Tar) }}" class="w-100" method="POST">
                                             @method('DELETE')
                                             @csrf
-                                            <input type="submit" class="menu-link px-3 btn text-danger"
+                                            <input type="submit" class="menu-link px-3  btn w-100 text-danger"
                                                 data-kt-ecommerce-product-filter="delete_row" value="Delete">
                                         </form>
                                     </div>
-                                    <div class="menu-item px-3">
-                                        <form action="{{ route('tarif.destroy', $tarif->id_Tar) }}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                            <input type="submit" class="menu-link px-3 btn text-danger"
-                                                data-kt-ecommerce-product-filter="delete_row" value="Delete">
-                                        </form>
-                                    </div>
+                                    
                                 </div>
                             </td>
 

@@ -3,6 +3,7 @@
     <x-breadcrumb :breads="$breads" />
 @endsection
 @section('content')
+{{-- @dd($colis) --}}
     <div class="modal fade" id="kt_modal_new_target" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered mw-650px">
             <div class="modal-content rounded">
@@ -30,44 +31,28 @@
     </div>
 
     <div class="card card-flush">
-        <div class="card-header align-items-center py-5 gap-2 gap-md-5">
-            <div class="card-title">
-                <!-- Search and filter options -->
-                <div class="d-flex align-items-center position-relative my-1">
-                    <span class="svg-icon svg-icon-1 position-absolute ms-4">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1"
-                                transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
-                            <path
-                                d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                                fill="currentColor" />
-                        </svg>
-                    </span>
-                    <input type="text" data-kt-ecommerce-product-filter="search"
-                        class="form-control form-control-solid w-250px ps-14" placeholder="Rechercher Colis" />
+        <form method="GET" action="{{ route('colis.indexAdmin') }}">
+            <div class="card-header row py-5 gap-2 gap-md-5">
+                <div class="card-title col-md-3 ">
+                    <!-- Search and filter options -->
+                    <div class="d-flex align-items-center position-relative my-1">
+                        <span class="svg-icon svg-icon-1 position-absolute ms-4">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1"
+                                    transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
+                                <path
+                                    d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+                                    fill="currentColor" />
+                            </svg>
+                        </span>
+                        <input type="text" data-kt-ecommerce-product-filter="search"
+                            class="form-control form-control-solid w-250px ps-14" placeholder="Rechercher Colis" />
+                    </div>
                 </div>
-            </div>
-            <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-                <div class="w-100 mw-150px">
-                    {{-- @dd($status) --}}
-                    <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
-                        data-placeholder="Status" data-kt-ecommerce-product-filter="status">
-
-                        <option value="all">All</option>
-                        @foreach ($status as $st)
-                            <option value="{{ $st->status }}">{{ ucfirst($st->status) }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <button class="btn btn-primary">Filtrer Colis</button>
-                <a href="{{ route('colis.export') }}" class="btn btn-success">export Colis</a>
-            </div>
-            <form method="GET" action="{{ route('admin.index') }}">
-                <div class="form-group row">
-                    <!-- Date Filter -->
-                    <label for="date_filter" class="col-md-2 col-form-label">Filtrer par date:</label>
-                    <div class="col-md-4">
+                
+                <div class="form-group col-md-8 row mr-1">
+                    <div class="d-flex align-items-center col-md-4 ">
                         <select class="form-control" id="date_filter" name="date_filter" onchange="this.form.submit()">
                             <option value="">Depuis le lancement</option>
                             <option value="today" {{ request('date_filter') == 'today' ? 'selected' : '' }}>Aujourd'hui</option>
@@ -79,25 +64,25 @@
                             <option value="custom_range" {{ request('date_filter') == 'custom_range' ? 'selected' : '' }}>Plage personnalisée</option>
                         </select>
                     </div>
-                    {{-- <div class="col-md-3">
-                        <input type="date" class="form- " name="start_date" placeholder="Date de début" value="{{ request('start_date') }}" {{ request('date_filter') != 'custom_range' ? 'disabled' : '' }}>
+                    <div class="col-md-4 d-flex align-items-center ">
+                        <input type="date" class="form-control " name="start_date" placeholder="Date de début" value="{{ request('start_date') }}" {{ request('date_filter') != 'custom_range' ? 'disabled' : '' }}>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4 d-flex align-items-center ">
                         <input type="date" class="form-control" name="end_date" placeholder="Date de fin" value="{{ request('end_date') }}" {{ request('date_filter') != 'custom_range' ? 'disabled' : '' }}>
-                    </div> --}}
+                    </div>
                 </div>
-                <div class="form-group row mt-3">
-                    <div class="col-md-4">
+                <div class="form-group col-md-3 row mt-3">
+                    <div>
                         <select class="form-control" id="status_filter" name="status_filter" onchange="this.form.submit()">
                             <option value="">Tous les statuts</option>
                             @foreach ($status as $st)
-                                <option value="{{ $st }}" {{ request('status_filter') == $st ? 'selected' : '' }}>{{ $st }}</option>
+                                <option value="{{ $st->status }}" {{ request('status_filter') == $st->status ? 'selected' : '' }}>{{ $st->status }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
-                <div class="form-group row mt-3">
-                    <div class="col-md-4">
+                <div class="form-group col-md-3 row mt-3">
+                    <div >
                         <select class="form-control" id="etat_filter" name="etat_filter" onchange="this.form.submit()">
                             <option value="">Tous les états</option>
                             <option value="Paye" {{ request('etat_filter') == 'Paye' ? 'selected' : '' }}>Payé</option>
@@ -105,28 +90,33 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group row mt-3">
-                    <div class="col-md-4">
+                <div class="form-group col-md-3 row mt-3">
+                    <div >
                         <select class="form-control" id="ville_filter" name="ville_filter" onchange="this.form.submit()">
                             <option value="">Toutes les villes</option>
                             @foreach ($villes as $ville)
-                                <option value="{{ $ville->id_V }}" {{ request('ville_filter') == $ville->id_V ? 'selected' : '' }}>{{ $ville->nom }}</option>
+                                <option value="{{ $ville->id_V }}" {{ request('ville_filter') == $ville->id_V ? 'selected' : '' }}>{{ $ville->villename }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
-                <div class="form-group row mt-3">
-                    <div class="col-md-4">
+                <div class="form-group col-md-3 row mt-3">
+                    <div >
                         <select class="form-control" id="zone_filter" name="zone_filter" onchange="this.form.submit()">
                             <option value="">Toutes les zones</option>
                             @foreach ($zones as $zone)
-                                <option value="{{ $zone->id_Z }}" {{ request('zone_filter') == $zone->id_Z ? 'selected' : '' }}>{{ $zone->nom }}</option>
+                                <option value="{{ $zone->id_Z }}" {{ request('zone_filter') == $zone->id_Z ? 'selected' : '' }}>{{ $zone->zonename }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
-            </form>
-        </div>
+                <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+                    
+                    <button class="btn btn-primary">Filtrer Colis</button>
+                    <a href="{{ route('colis.export') }}" class="btn btn-success">export Colis</a>
+                </div>
+            </div>
+        </form>
 
         <div class="card-body pt-0">
             <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_products_table">
@@ -152,6 +142,7 @@
                 </thead>
                 <tbody class="fw-semibold text-gray-600">
                     @foreach ($colis as $index => $coli)
+                    {{-- {{ var_dump($colis) }} --}}
                         <tr>
                             <td>
                                 <div class="form-check form-check-sm form-check-custom form-check-solid">

@@ -79,7 +79,7 @@ class ColisSeeder extends Seeder
         ];
 
         foreach ($statuses as $status) {
-            for ($i = 0; $i < 4; $i++) {
+            for ($i = 0; $i < 5; $i++) {
                
 
                 switch ($status) {

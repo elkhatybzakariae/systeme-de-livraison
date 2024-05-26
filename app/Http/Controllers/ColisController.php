@@ -47,7 +47,6 @@ class ColisController extends Controller
     public function indexAdmin(Request $request)
     {
 
-        $statusesList = Colis::select('status')->distinct()->pluck('status');
         $villes = Ville::query()->orderBy('created_at','desc')->get();
         $zones = Zone::query()->orderBy('created_at','desc')->get();
 
@@ -67,14 +66,15 @@ class ColisController extends Controller
     }
     
     if ($request->has('ville_filter') && $request->ville_filter) {
-        $query->where('id_V', $request->ville_filter);
+        $query->where('ville_id', $request->ville_filter);
     }
     
     if ($request->has('zone_filter') && $request->zone_filter) {
-        $query->where('id_Z', $request->zone_filter);
+        $query->where('zone', $request->zone_filter);
     }
 
-    $colis=Helpers::applyDateFilter($query, $request);
+    $colis=Helpers::applyDateFilter($query, $request)->get();
+    // dd($colis->get());
         $status = Colis::query()->select('status')->distinct()->get();
         
         $cl=ModelsOption::query()->orderBy('created_at','desc')->get();
