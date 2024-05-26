@@ -1,7 +1,7 @@
 @extends('layouts.admin.admin')
 @section('content')
     <div class="modal fade" id="kt_modal_new_target" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered mw-650px">
+        <div class="modal-dialog modal-dialog-centered modal-xl mw-650px">
             <div class="modal-content rounded">
                 <div class="modal-header pb-0 border-0 justify-content-end">
                     <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -185,45 +185,7 @@
                 </div>
             </div>
             <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-                {{-- <div class="w-100 mw-150px">
-                    <select class="form-select form-select-solid" data-control="zone" data-hide-search="true"
-                        data-placeholder="Zone" data-kt-ecommerce-product-filter="zone">
-
-                        <option value="all">Toutes les zones</option>
-                        @foreach ($zones as $item)
-                            <option value="{{ $item->id_Z }}">{{ $item->zonename }}</option>
-                        @endforeach
-                    </select>
-                </div> --}}
-                {{-- <div class="w-100 mw-150px">
-                    <select class="form-select form-select-solid" data-control="ville" data-hide-search="true"
-                        data-placeholder="Ville" data-kt-ecommerce-product-filter="ville">
-
-                        <option value="all">Toutes les villes</option>
-                        @foreach ($villes as $item)
-                            <option value="{{ $item->villename }}">{{ $item->villename }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="w-100 mw-150px">
-                    <select class="form-select form-select-solid" data-control="role" data-hide-search="true"
-                        data-placeholder="role" data-kt-ecommerce-product-filter="role">
-                        <option value="all">Toutes les roles</option>
-                        <option value="Admin">Admin</option>
-                        <option value="Moderateur">Moderateur</option>
-                        <option value="Equipe de suivi">Equipe de suivi</option>
-                    </select>
-                </div>
-                <div class="w-100 mw-150px">
-                    <select class="form-select form-select-solid" data-control="admin" data-hide-search="true"
-                        data-placeholder="admin" data-kt-ecommerce-product-filter="admin">
-
-                        <option value="all">Admins</option>
-                        @foreach ($admins as $item)
-                            <option value="{{ $item->nomcomplet }}">{{ $item->nomcomplet }}</option>
-                        @endforeach
-                    </select>
-                </div> --}}
+                
                 <div class="w-100 mw-150px">
                     <select class="form-select form-select-solid" data-control="ville" data-hide-search="true"
                         data-placeholder="Ville" data-kt-ecommerce-product-filter="ville">
@@ -290,23 +252,7 @@
                                 </div>
                             </td>
 
-                            {{-- <td class="pe-0" data-kt-ecommerce-product-filter="information">
-                                <span class="fw-bold">Numero de telephone :{{ $item->Phone }} <br>
-                                    Email :{{ $item->email }} <br>Adresse:{{ $item->adress }}
-                                </span><br>
-                                <span class="fw-bold">Ville :{{ $item->ville }} <br>
-                                </span>
-                            </td>
-                            <td data-role="{{ strtolower($item->role) }}">
-                                <div class="fw-semibold fs-6 text-gray-400">
-                                    {{ $item->role ? $item->role : 'N/A' }}
-                                </div>
-                            </td>
-                            <td data-role="{{ strtolower($item->referrer->nomcomplet) }}">
-                                <div class="fw-semibold fs-6 text-gray-400">
-                                    {{ $item->user ? $item->referrer->nomcomplet : 'N/A' }}
-                                </div>
-                            </td> --}}
+                           
                             <td class="pe-0" data-kt-ecommerce-product-filter="information">
                                 <span class="fw-bold">Numero de telephone: {{ $item->Phone }} <br>
                                     Email: {{ $item->email }} <br>Adresse: {{ $item->adress }}
@@ -345,31 +291,7 @@
                                         class="menu-link px-3"><i class="fa fa-edit"></i></a>
                                 </div>
 
-                                {{-- @if ($item->valider == 0)
-                                    <div class="menu-item px-3 col-4">
-                                        <form action="{{ route('newuser.valider.update', $item->id_Ad) }}"
-                                            method="POST">
-                                            @method('PUT')
-                                            @csrf
-                                            <button type="submit" class="menu-link px-3 btn text-danger"
-                                                data-kt-ecommerce-product-filter="delete_row"><i
-                                                    class="fa fa-check"></i></button>
-                                        </form>
-                                    </div>
-                                @endif
-
-                                @if ($item->valider == 1)
-                                    <div class="menu-item px-3 col-4">
-                                        <form action="{{ route('newuser.nonvalider.update', $item->id_Ad) }}"
-                                            method="POST">
-                                            @method('PUT')
-                                            @csrf
-                                            <button type="submit" class="menu-link px-3 btn "
-                                                data-kt-ecommerce-product-filter="delete_row"><i
-                                                    class="fa fa-times"></i></button>
-                                        </form>
-                                    </div>
-                                @endif --}}
+                               
                                 <div class="menu-item px-3 col-4">
                                     <form action="{{ route('admin.newuser.delete', $item->id_Ad) }}" method="POST">
                                         @method('DELETE')
@@ -390,114 +312,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
-        // $(document).ready(function() {
-        //     $('[data-kt-ecommerce-product-filter="ville"]').on('change', function() {
-        //         var selectedCity = $(this).val();
-        //         filterTableByCity(selectedCity);
-        //     });
-
-        //     function filterTableByCity(city) {
-        //         if (city === 'all') {
-        //             $('#kt_ecommerce_products_table tbody tr').show();
-        //         } else {
-        //             $('#kt_ecommerce_products_table tbody tr').each(function() {
-        //                 var rowCity = $(this).find(
-        //                         'td[data-kt-ecommerce-product-filter="information"] span:contains("Ville")')
-        //                     .text().trim().toLowerCase();
-        //                 if (rowCity.includes(city.toLowerCase())) {
-        //                     $(this).show();
-        //                 } else {
-        //                     $(this).hide();
-        //                 }
-        //             });
-        //         }
-        //     }
-        //     $('[data-kt-ecommerce-product-filter="role"]').on('change', function() {
-        //         var selectedRole = $(this).val();
-        //         filterTableByRole(selectedRole);
-        //     });
-
-        //     function filterTableByRole(role) {
-        //         if (role === 'all' || role === '') {
-        //             $('#kt_ecommerce_products_table tbody tr').show();
-        //         } else {
-        //             $('#kt_ecommerce_products_table tbody tr').each(function() {
-        //                 var rowRole = $(this).find('td[data-role]').text().trim().toLowerCase();
-        //                 if (rowRole === role.toLowerCase()) {
-        //                     $(this).show();
-        //                 } else {
-        //                     $(this).hide();
-        //                 }
-        //             });
-        //         }
-        //     }
-        //     $('[data-kt-ecommerce-product-filter="admin"]').on('change', function() {
-        //         var selectedAdmin = $(this).val().toLowerCase();
-        //         filterTableByAdmin(selectedAdmin);
-        //     });
-
-        //     function filterTableByAdmin(selectedAdmin) {
-        //         if (selectedAdmin === 'all' || selectedAdmin === '') {
-        //             $('#kt_ecommerce_products_table tbody tr').show();
-        //         } else {
-        //             $('#kt_ecommerce_products_table tbody tr').each(function() {
-        //                 var rowAdmin = $(this).find('td[data-role]').text().trim().toLowerCase();
-        //                 if (rowAdmin === selectedAdmin) {
-        //                     $(this).show();
-        //                 } else {
-        //                     $(this).hide();
-        //                 }
-        //             });
-        //         }
-        //     }
-
-        //     // Filter by search input
-        //     $('[data-kt-ecommerce-product-filter="search"]').on('input', function() {
-        //         var searchText = $(this).val().toLowerCase();
-        //         filterTable(searchText);
-        //     });
-
-        //     // Filter by status select
-        //     $('[data-kt-ecommerce-product-filter="status"]').on('change', function() {
-        //         var status = $(this).val();
-        //         filterTableByStatus(status);
-        //     });
-
-        //     // Function to filter table by search text
-        //     function filterTable(searchText) {
-        //         $('#kt_ecommerce_products_table tbody tr').each(function() {
-        //             var information = $(this).find('[data-kt-ecommerce-product-filter="information"]')
-        //                 .text().toLowerCase();
-        //             var date = $(this).find('[data-kt-ecommerce-product-filter="date"]').text()
-        //                 .toLowerCase();
-        //             var nomcomplet = $(this).find('[data-kt-ecommerce-product-filter="nomcomplet"]').text()
-        //                 .toLowerCase();
-
-        //             if (information.includes(searchText) || date.includes(searchText) || nomcomplet
-        //                 .includes(searchText)) {
-        //                 $(this).show();
-        //             } else {
-        //                 $(this).hide();
-        //             }
-        //         });
-        //     }
-
-        //     // Function to filter table by status
-        //     function filterTableByStatus(status) {
-        //         if (status === 'all') {
-        //             $('#kt_ecommerce_products_table tbody tr').show();
-        //         } else {
-        //             $('#kt_ecommerce_products_table tbody tr').each(function() {
-        //                 var zoneStatus = $(this).find('td:eq(3)').text().trim().toLowerCase();
-        //                 if (zoneStatus === status) {
-        //                     $(this).show();
-        //                 } else {
-        //                     $(this).hide();
-        //                 }
-        //             });
-        //         }
-        //     }
-        // });
+    
         $(document).ready(function() {
             $('[data-kt-ecommerce-product-filter="ville"]').on('change', function() {
                 var selectedCity = $(this).val();

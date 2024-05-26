@@ -710,7 +710,7 @@
                     <!--begin:Menu sub-->
                     <div class="menu-sub menu-sub-accordion">
                         <!--begin:Menu item-->
-                        <div class="menu-item">
+                        {{-- <div class="menu-item">
                             <!--begin:Menu link-->
                             <a class="menu-link {{ request()->routeIs('parametre.index') ?'active':'' }}" href="{{ route('parametre.index') }}">
                                 <span class="menu-bullet">
@@ -719,7 +719,7 @@
                                 <span class="menu-title">General</span>
                             </a>
                             <!--end:Menu link-->
-                        </div>
+                        </div> --}}
                         <!--end:Menu item-->
                         <!--begin:Menu item-->
                         <div class="menu-item">
@@ -732,20 +732,6 @@
                             </a>
                             <!--end:Menu link-->
                         </div>
-                        <!--end:Menu item-->
-                        <!--begin:Menu item-->
-                        <div class="menu-item">
-                            <!--begin:Menu link-->
-                            <a class="menu-link" href="">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Villes de Ramassage</span>
-                            </a>
-                            <!--end:Menu link-->
-                        </div>
-                        <!--end:Menu item-->
-                        <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
 
@@ -782,31 +768,7 @@
                             </a>
                             <!--end:Menu link-->
                         </div>
-                        <!--end:Menu item-->
-                        <!--begin:Menu item-->
-                        <div class="menu-item">
-                            <!--begin:Menu link-->
-                            <a class="menu-link" href="">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">SMS</span>
-                            </a>
-                            <!--end:Menu link-->
-                        </div>
-                        <!--end:Menu item-->
-                        <!--begin:Menu item-->
-                        <div class="menu-item">
-                            <!--begin:Menu link-->
-                            <a class="menu-link" href="">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">E-mail</span>
-                            </a>
-                            <!--end:Menu link-->
-                        </div>
-                        <!--end:Menu item-->
+                        
                     </div>
                     <!--end:Menu sub-->
                 </div>
