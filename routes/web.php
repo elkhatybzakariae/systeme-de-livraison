@@ -252,12 +252,12 @@ Route::middleware('check.admin')->group(function () {
         Route::get('/all', [ReclamationController::class, 'all'])->name('reclamation.all');
         Route::post('/traiteRec/{id}', [ReclamationController::class, 'traiteRec'])->name('reclamation.traiteRec');
     });
-    Route::group(['prefix' => 'admin/demandemodificationcolis'], function () {
+    Route::group(['prefix' => 'admin/modification/colis'], function () {
         Route::get('/all', [DemandeModificationColiController::class, 'all'])->name('demandemodificationcolis.all');
         Route::post('/traiteRec/{id}', [DemandeModificationColiController::class, 'traiteRec'])->name('demandemodificationcolis.traiteRec');
         
-        Route::post('/accepte/{id}', [DemandeModificationColiController::class, 'accepte'])->name('demandemodificationcolis.accepte');
-        Route::delete('/refuse/{id}', [DemandeModificationColiController::class, 'refuse'])->name('demandemodificationcolis.refuse');
+        Route::get('/accepte/{id}', [DemandeModificationColiController::class, 'accepte'])->name('demandemodificationcolis.accepte');
+        Route::get('/refuse/{id}', [DemandeModificationColiController::class, 'refuse'])->name('demandemodificationcolis.refuse');
     });
     Route::get('/admin/colis', [ColisController::class, 'indexAdmin'])->name('colis.indexAdmin');
     Route::get('/admin/colis/export', [ColisController::class, 'exportColis'])->name('colis.export');

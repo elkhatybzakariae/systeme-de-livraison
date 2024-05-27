@@ -257,9 +257,11 @@
 
         function openModal(id_DMC, action) {
             var item = demandes.find(element => element.id_DMC == id_DMC);
-            console.log('====================================');
-            console.log(item);
-            console.log('====================================');
+            var accept = "{{ route('demandemodificationcolis.accepte', ['id' => 'ELEMENT_ID']) }}";
+            let acceptUrl = accept.replace('ELEMENT_ID', item.id_DMC);
+            var refuse = "{{ route('demandemodificationcolis.refuse', ['id' => 'ELEMENT_ID']) }}";
+            let refuseUrl = refuse.replace('ELEMENT_ID', item.id_DMC);
+
             let bb = '';
 
             bb += `
@@ -330,20 +332,17 @@
                 <br>
                 <div class="btn-group btn-group-lg" role="group">
                     ${item.isAccepted !== 'Accepte' && item.isAccepted !== 'Annule' ? `
-                                <form action="{{ route('demandemodificationcolis.refuse', '') }}/${item.id_DMC}" method="POST">
-                                    {{ csrf_field() }}
-                                    {{ method_field('PUT') }}
+                                <form action="${refuse}" method="get">
+                                   
                                     <button type="submit" class="btn btn-danger"><i class="fa fa-times"></i></button>
                                 </form>
-                                <form action="{{ route('demandemodificationcolis.accepte', '') }}/${item.id_DMC}" method="POST">
-                                    {{ csrf_field() }}
+                                <form action="${acceptUrl}" method="get">
+                                   
                                     <button type="submit" class="btn btn-success"><i class="fa fa-check"></i></button>
-                                </form>
-                            ` : ''}
-                    ${item.isAccepted !== 'Accepte' && item.isAccepted !== 'Annule' ? `
-                                <a href="{{ route('demandemodificationcolis.accepte', '') }}/${item.id_DMC}" class="btn btn-success"><i class="fa fa-check"></i></a>
-                                <a href="{{ route('demandemodificationcolis.refuse', '') }}/${item.id_DMC}" class="btn btn-danger"><i class="fa fa-times"></i></a>
-                            ` : ''}
+                                    </form>
+                                    ` : ''}
+                                    <a href="${acceptUrl}"  class="btn btn-success"><i class="fa fa-check"></i></a>
+                  
                 </div>
             </div>
         </div>
