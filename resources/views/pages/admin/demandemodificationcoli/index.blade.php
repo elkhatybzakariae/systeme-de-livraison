@@ -19,15 +19,8 @@
                         </span>
                     </div>
                 </div>
-                <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
-                    <form id="kt_modal_new_message_form" method="POST" class="form" action="">
-                        @csrf
-                        <div class="card-body" id="kt_drawer_chat_messenger_body">
-                            <div class="scroll-y me-n5 pe-5" id="show" style="height: 400px">
-                            </div>
-                        </div>
-
-                    </form>
+                <div id="show" class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                    
                 </div>
             </div>
         </div>
@@ -351,8 +344,6 @@
             document.getElementById('show').innerHTML = bb;
             document.getElementById('kt_modal_new_message_form').action = action;
 
-            document.getElementById('show').innerHTML = bb;
-            document.getElementById('kt_modal_new_message_form').action = action;
 
         }
     </script>
