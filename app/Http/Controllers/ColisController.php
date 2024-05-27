@@ -26,7 +26,7 @@ class ColisController extends Controller
     public function index()
     {
         $id=Auth::id();
-        $colis = Colis::query()->where('id_Cl',$id)->whereNot('statut','Nouveau')->with('client','bonLivraison','bonEnvoi','bonDistribution','bonPaymentLivreur','bonPaymentZone')->whereNot('status','nouveau')
+        $colis = Colis::query()->where('id_Cl',$id)->whereNot('status','Nouveau')->with('client','bonLivraison','bonEnvoi','bonDistribution','bonPaymentLivreur','bonPaymentZone')->whereNot('status','nouveau')
             ->orderBy('created_at','desc')
             ->get();        
         $colisstatuss = $colis->pluck('status')->toArray();
@@ -39,7 +39,7 @@ class ColisController extends Controller
         $colisinfo = colisinfo::query()->orderBy('created_at','desc')->get();
         $breads = [
             ['title' => 'Liste des Colis', 'url' => null],
-            ['text' => 'Colis', 'url' => null], // You can set the URL to null for the last breadcrumb
+            ['text' => 'Colis', 'url' => null], 
         ];
         return view('pages.clients.colis.index', compact('colis','demandes','cl','etat','breads','colisinfo'));
     }
@@ -79,18 +79,19 @@ class ColisController extends Controller
         
         $cl=ModelsOption::query()->orderBy('created_at','desc')->get();
         $etat=Etat::query()->orderBy('created_at','desc')->get();
+        $colisinfo = colisinfo::query()->orderBy('created_at','desc')->get();
         $breads = [
             ['title' => 'Liste des Colis', 'url' => null],
-            ['text' => 'Colis', 'url' => null], // You can set the URL to null for the last breadcrumb
+            ['text' => 'Colis', 'url' => null], 
         ];
-        return view('pages.admin.colis.index', compact('colis','cl','etat','status','breads', 'villes', 'zones'));
+        return view('pages.admin.colis.index', compact('colis','cl','etat','status','breads', 'villes', 'zones','colisinfo'));
     }
     public function indexRamassage()
     {
         $colis = Colis::query()->where('status','Nouveau')->get();
         $breads = [
             ['title' => 'Liste des Colis', 'url' => null],
-            ['text' => 'Colis', 'url' => null], // You can set the URL to null for the last breadcrumb
+            ['text' => 'Colis', 'url' => null], 
         ];
 
         return view('pages.clients.colis.indexRamassage', compact('colis','breads'));
@@ -102,7 +103,7 @@ class ColisController extends Controller
         $zones=Zone::query()->orderBy('created_at','desc')->get();
         $breads = [
             ['title' => 'Nouveau Colis', 'url' => null],
-            ['text' => 'Nouveau Colis', 'url' => null], // You can set the URL to null for the last breadcrumb
+            ['text' => 'Nouveau Colis', 'url' => null], 
         ];
         return view('pages.clients.colis.create',compact('zones','villes','breads'));
     }

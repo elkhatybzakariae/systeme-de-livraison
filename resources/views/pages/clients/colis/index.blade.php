@@ -203,7 +203,7 @@
                 </div>
                 <button class="btn btn-primary">Filtrer Colis</button>
             </div>
-            
+
         </div>
 
         <div class="card-body pt-0">
@@ -281,45 +281,41 @@
                                         data-bs-target="#kt_modal_info" class="btn btn-sm btn-info"><i
                                             class="fa fa-info"></i>
                                     </a>
-
-
                                     <a data-bs-toggle="modal" onclick="openModalRecColis('{{ $coli->id }}')"
                                         data-bs-target="#kt_modal_new_targetRecColis"class="btn btn-sm btn-primary"><i
                                             class="fa fa-question-circle" aria-hidden="true"></i></a>
-                                    {{-- <a href="javascript:ajaxIframeBox('parcels?action=add-claim-coli&amp;parcel-code=colis11');"
-                                        class="btn btn-sm btn-primary"><i class="fa fa-question-circle"
-                                            aria-hidden="true"></i> --}}
                                     </a>
                                     <a onclick="openModalDMC('{{ $coli->id }}','{{ $coli->code_d_envoi }}','{{ $coli->destinataire }}','{{ $coli->telephone }}'
                                         ,'{{ $coli->prix }}','{{ $coli->commentaire }}','{{ $coli->adresse }}',
                                         '{{ $coli->fragile }}','{{ $coli->ouvrir }}','{{ route('demandemodificationcolis.store', $coli->id) }}')"
                                         data-bs-toggle="modal" data-bs-target="#kt_modal_new_target2"
-                                        class="btn btn-sm btn-secondary"><i class="fa fa-edit"></i></a>
+                                        class="btn btn-sm btn-secondary"><i class="fa fa-edit"></i>
+                                    </a>
                                 </div>
                             </td>
                             <td>
                                 @if ($coli->bonLivraison)
-                                    
-                                <a href="{{ route('bon.livraison.getPdf.colis',['id'=>$coli->bonLivraison->id_BL,'idC'=>$coli->id]) }}" class="menu-link">{{ $coli->bonLivraison->id_BL }}</a>
+                                    <a href="{{ route('bon.livraison.getPdf.colis', ['id' => $coli->bonLivraison->id_BL, 'idC' => $coli->id]) }}"
+                                        class="menu-link">{{ $coli->bonLivraison->id_BL }}</a>
                                 @endif
                                 @if ($coli->bonEnvoi)
-                                    
-                                <a href="{{ route('bon.envoi.getPdf.colis',['id'=>$coli->bonEnvoi->id_BE,'idC'=>$coli->id]) }}" class="menu-link">{{ $coli->bonEnvoi->id_BE }}</a>
+                                    <a href="{{ route('bon.envoi.getPdf.colis', ['id' => $coli->bonEnvoi->id_BE, 'idC' => $coli->id]) }}"
+                                        class="menu-link">{{ $coli->bonEnvoi->id_BE }}</a>
                                 @endif
-                                  
+
                                 @if ($coli->bonDistribution)
-                                    
-                                <a href="{{ route('bon.distribution.getPdf.colis',['id'=>$coli->bonDistribution->id_BD,'idC'=>$coli->id]) }}" class="menu-link">{{ $coli->bonDistribution->id_BD }}</a>
+                                    <a href="{{ route('bon.distribution.getPdf.colis', ['id' => $coli->bonDistribution->id_BD, 'idC' => $coli->id]) }}"
+                                        class="menu-link">{{ $coli->bonDistribution->id_BD }}</a>
                                 @endif
                                 @if ($coli->bonPaymentLivreur)
-                                    
-                                <a href="{{ route('bon.payment.livreur.getPdf.colis',['id'=>$coli->bonPaymentLivreur->id_BPL,'idC'=>$coli->id]) }}" class="menu-link">{{ $coli->bonPaymentLivreur->id_BPL }}</a>
+                                    <a href="{{ route('bon.payment.livreur.getPdf.colis', ['id' => $coli->bonPaymentLivreur->id_BPL, 'idC' => $coli->id]) }}"
+                                        class="menu-link">{{ $coli->bonPaymentLivreur->id_BPL }}</a>
                                 @endif
                                 @if ($coli->bonPaymentZone)
-                                    
-                                <a href="{{ route('bon.payement.zone.getPdf.colis',['id'=>$coli->bonPaymentZone->id_BPZ,'idC'=>$coli->id]) }}" class="menu-link">{{ $coli->bonPaymentZone->id_BPZ }}</a>
+                                    <a href="{{ route('bon.payement.zone.getPdf.colis', ['id' => $coli->bonPaymentZone->id_BPZ, 'idC' => $coli->id]) }}"
+                                        class="menu-link">{{ $coli->bonPaymentZone->id_BPZ }}</a>
                                 @endif
-                                  
+
                             </td>
                         </tr>
                     @endforeach
@@ -382,10 +378,7 @@
 
         function openModalallinfo(id) {
             var modal = document.getElementById('modal-body');
-            var colisinfos = colisinfo.find(e => e.id == id ).info;
-            // console.log('====================================');
-            // console.log(colisinfos);
-            // console.log('====================================');
+            var colisinfos = colisinfo.find(e => e.id == id).info;
             let text = ''
             text = `<div class="row">
                       <div class="dn-inv-infos-box col-6">
@@ -426,7 +419,7 @@
                 }
             });
             modal.innerHTML = text;
-            
+
             $('#ColiInfo tbody tr').each(function() {
                 var $thisRow = $(this);
                 var zoneStatus = $(this).find('td:eq(2)').text().trim();
@@ -454,9 +447,6 @@
             if (dmc && dmc.length > 0) {
                 var dmcs = dmc.find(element => element.id === id);
             }
-            // console.log('====================================');
-            // console.log(dmcs);
-            // console.log('====================================');
             let text = ''
             if (dmcs) {
                 text = `
@@ -575,7 +565,6 @@
             var colis = @json($colis);
             let bb = '';
             let item = colis.find(ele => ele.id == id)
-            // console.log(item);
             bb += `
                 <div class="">
                     <div class="d-flex flex-column ">

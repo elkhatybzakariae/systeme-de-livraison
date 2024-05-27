@@ -3,7 +3,32 @@
     <x-breadcrumb :breads="$breads" />
 @endsection
 @section('content')
-{{-- @dd($colis) --}}
+    {{-- @dd($colis) --}}
+
+
+    <div class="modal fade" id="kt_modal_new_target1" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content rounded">
+                <div class="modal-header pb-0 border-0 justify-content-end">
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                    transform="rotate(45 7.41422 6)" fill="currentColor" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <div id="modal-body1" class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="kt_modal_new_target" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered mw-650px">
             <div class="modal-content rounded">
@@ -30,6 +55,30 @@
         </div>
     </div>
 
+    <div class="modal fade" id="kt_modal_new_target2" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content rounded">
+                <div class="modal-header pb-0 border-0 justify-content-end">
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                    transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                    transform="rotate(45 7.41422 6)" fill="currentColor" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <div id="modal-body2" class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card card-flush">
         <form method="GET" action="{{ route('colis.indexAdmin') }}">
             <div class="card-header row py-5 gap-2 gap-md-5">
@@ -39,8 +88,8 @@
                         <span class="svg-icon svg-icon-1 position-absolute ms-4">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
-                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1"
-                                    transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
+                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2"
+                                    rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
                                 <path
                                     d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
                                     fill="currentColor" />
@@ -50,68 +99,89 @@
                             class="form-control form-control-solid w-250px ps-14" placeholder="Rechercher Colis" />
                     </div>
                 </div>
-                
+
                 <div class="form-group col-md-8 row mr-1">
                     <div class="d-flex align-items-center col-md-4 ">
                         <select class="form-control" id="date_filter" name="date_filter" onchange="this.form.submit()">
                             <option value="">Depuis le lancement</option>
-                            <option value="today" {{ request('date_filter') == 'today' ? 'selected' : '' }}>Aujourd'hui</option>
-                            <option value="yesterday" {{ request('date_filter') == 'yesterday' ? 'selected' : '' }}>Hier</option>
-                            <option value="last_7_days" {{ request('date_filter') == 'last_7_days' ? 'selected' : '' }}>7 derniers jours</option>
-                            <option value="last_30_days" {{ request('date_filter') == 'last_30_days' ? 'selected' : '' }}>30 derniers jours</option>
-                            <option value="this_month" {{ request('date_filter') == 'this_month' ? 'selected' : '' }}>Ce mois</option>
-                            <option value="last_month" {{ request('date_filter') == 'last_month' ? 'selected' : '' }}>Le mois dernier</option>
-                            <option value="custom_range" {{ request('date_filter') == 'custom_range' ? 'selected' : '' }}>Plage personnalisée</option>
+                            <option value="today" {{ request('date_filter') == 'today' ? 'selected' : '' }}>Aujourd'hui
+                            </option>
+                            <option value="yesterday" {{ request('date_filter') == 'yesterday' ? 'selected' : '' }}>Hier
+                            </option>
+                            <option value="last_7_days" {{ request('date_filter') == 'last_7_days' ? 'selected' : '' }}>7
+                                derniers jours</option>
+                            <option value="last_30_days" {{ request('date_filter') == 'last_30_days' ? 'selected' : '' }}>
+                                30
+                                derniers jours</option>
+                            <option value="this_month" {{ request('date_filter') == 'this_month' ? 'selected' : '' }}>Ce
+                                mois</option>
+                            <option value="last_month" {{ request('date_filter') == 'last_month' ? 'selected' : '' }}>Le
+                                mois dernier</option>
+                            <option value="custom_range" {{ request('date_filter') == 'custom_range' ? 'selected' : '' }}>
+                                Plage personnalisée</option>
                         </select>
                     </div>
                     <div class="col-md-4 d-flex align-items-center ">
-                        <input type="date" class="form-control " name="start_date" placeholder="Date de début" value="{{ request('start_date') }}" {{ request('date_filter') != 'custom_range' ? 'disabled' : '' }}>
+                        <input type="date" class="form-control " name="start_date" placeholder="Date de début"
+                            value="{{ request('start_date') }}"
+                            {{ request('date_filter') != 'custom_range' ? 'disabled' : '' }}>
                     </div>
                     <div class="col-md-4 d-flex align-items-center ">
-                        <input type="date" class="form-control" name="end_date" placeholder="Date de fin" value="{{ request('end_date') }}" {{ request('date_filter') != 'custom_range' ? 'disabled' : '' }}>
+                        <input type="date" class="form-control" name="end_date" placeholder="Date de fin"
+                            value="{{ request('end_date') }}"
+                            {{ request('date_filter') != 'custom_range' ? 'disabled' : '' }}>
                     </div>
                 </div>
                 <div class="form-group col-md-3 row mt-3">
                     <div>
-                        <select class="form-control" id="status_filter" name="status_filter" onchange="this.form.submit()">
+                        <select class="form-control" id="status_filter" name="status_filter"
+                            onchange="this.form.submit()">
                             <option value="">Tous les statuts</option>
                             @foreach ($status as $st)
-                                <option value="{{ $st->status }}" {{ request('status_filter') == $st->status ? 'selected' : '' }}>{{ $st->status }}</option>
+                                <option value="{{ $st->status }}"
+                                    {{ request('status_filter') == $st->status ? 'selected' : '' }}>{{ $st->status }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="form-group col-md-3 row mt-3">
-                    <div >
+                    <div>
                         <select class="form-control" id="etat_filter" name="etat_filter" onchange="this.form.submit()">
                             <option value="">Tous les états</option>
                             <option value="Paye" {{ request('etat_filter') == 'Paye' ? 'selected' : '' }}>Payé</option>
-                            <option value="Non Paye" {{ request('etat_filter') == 'Non Paye' ? 'selected' : '' }}>Non Payé</option>
+                            <option value="Non Paye" {{ request('etat_filter') == 'Non Paye' ? 'selected' : '' }}>Non Payé
+                            </option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group col-md-3 row mt-3">
-                    <div >
-                        <select class="form-control" id="ville_filter" name="ville_filter" onchange="this.form.submit()">
+                    <div>
+                        <select class="form-control" id="ville_filter" name="ville_filter"
+                            onchange="this.form.submit()">
                             <option value="">Toutes les villes</option>
                             @foreach ($villes as $ville)
-                                <option value="{{ $ville->id_V }}" {{ request('ville_filter') == $ville->id_V ? 'selected' : '' }}>{{ $ville->villename }}</option>
+                                <option value="{{ $ville->id_V }}"
+                                    {{ request('ville_filter') == $ville->id_V ? 'selected' : '' }}>
+                                    {{ $ville->villename }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="form-group col-md-3 row mt-3">
-                    <div >
+                    <div>
                         <select class="form-control" id="zone_filter" name="zone_filter" onchange="this.form.submit()">
                             <option value="">Toutes les zones</option>
                             @foreach ($zones as $zone)
-                                <option value="{{ $zone->id_Z }}" {{ request('zone_filter') == $zone->id_Z ? 'selected' : '' }}>{{ $zone->zonename }}</option>
+                                <option value="{{ $zone->id_Z }}"
+                                    {{ request('zone_filter') == $zone->id_Z ? 'selected' : '' }}>{{ $zone->zonename }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-                    
+
                     <button class="btn btn-primary">Filtrer Colis</button>
                     <a href="{{ route('colis.indexAdmin') }}" class="btn btn-info">All Colis</a>
                     <a href="{{ route('colis.export') }}" class="btn btn-success">export Colis</a>
@@ -126,14 +196,15 @@
                         <th class="w-10px pe-2">
                             <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                 <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                    data-kt-check-target="#kt_ecommerce_products_table .form-check-input" value="1" />
+                                    data-kt-check-target="#kt_ecommerce_products_table .form-check-input"
+                                    value="1" />
                             </div>
                         </th>
                         {{-- <th class="min-w-200px">Id</th> --}}
                         <th class="min-w-100px">Code d'Envoi</th>
                         <th class="min-w-100px">Date d'Expedition</th>
                         <th class="min-w-100px">Telephone</th>
-          <th class="min-w-100px">Nom du Magasin</th>
+                        <th class="min-w-100px">Nom du Magasin</th>
                         <th class="min-w-100px">Etat</th>
                         <th class="min-w-100px">Status</th>
                         <th class="min-w-100px">Ville</th>
@@ -143,7 +214,7 @@
                 </thead>
                 <tbody class="fw-semibold text-gray-600">
                     @foreach ($colis as $index => $coli)
-                    {{-- {{ var_dump($colis) }} --}}
+                        {{-- {{ var_dump($colis) }} --}}
                         <tr>
                             <td>
                                 <div class="form-check form-check-sm form-check-custom form-check-solid">
@@ -166,10 +237,12 @@
                                     data-kt-ecommerce-product-filter="date">{{ $coli->date_d_expedition }}</span>
                             </td>
                             <td class="pe-0">
-                                <span class="fw-bold" data-kt-ecommerce-product-filter="telephone">{{ $coli->telephone }}</span>
+                                <span class="fw-bold"
+                                    data-kt-ecommerce-product-filter="telephone">{{ $coli->telephone }}</span>
                             </td>
                             <td class="pe-0">
-                                <span class="fw-bold" data-kt-ecommerce-product-filter="magasin">{{ $coli->client->nommagasin }}</span>
+                                <span class="fw-bold"
+                                    data-kt-ecommerce-product-filter="magasin">{{ $coli->client->nommagasin }}</span>
                             </td>
                             <td class="pe-0">
                                 <span class="fw-bold" data-kt-ecommerce-product-filter="etat">{{ $coli->etat }}</span>
@@ -201,9 +274,9 @@
                                     data-kt-menu="true">
 
                                     <div class="menu-item px-3">
-                                        <a onclick="openModal('{{ $coli->id }}')"
-                                            data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"
-                                            class="btn menu-link"> <i class="fas fa-eye"></i> Details Suivi</a>
+                                        <a onclick="openModalallinfo('{{ $coli->id }}')" data-bs-toggle="modal"
+                                            data-bs-target="#kt_modal_new_target1" class="btn menu-link"> <i
+                                                class="fas fa-eye"></i> Details Suivi</a>
                                     </div>
                                     <div class="menu-item px-3">
                                         <a onclick="openModalInfo('{{ $coli->id }}','{{ route('admin.changestatus', $coli->id) }}')"
@@ -222,45 +295,53 @@
                                             class="btn menu-link"> <i class="fas fa-dollar-sign"></i> changer le prix</a>
                                     </div>
                                     <div class="menu-item   px-3">
-                                        <a onclick="openModal('{{ $coli->villename }}','{{ $coli->zonename }}','{{ $coli->ref }}','{{ route('colis.update', $coli->id) }}')"
-                                            data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"
+                                        <a onclick="openModalDMC('{{ $coli->id }}','{{ $coli->code_d_envoi }}',
+                                            '{{ $coli->destinataire }}','{{ $coli->telephone }}'
+                                                ,'{{ $coli->prix }}','{{ $coli->commentaire }}','{{ $coli->adresse }}',
+                                                '{{ $coli->fragile }}','{{ $coli->ouvrir }}',
+                                                '{{ route('demandemodificationcolis.store', $coli->id) }}')"
+                                            data-bs-toggle="modal" data-bs-target="#kt_modal_new_target2"
                                             class="menu-link btn "><i class="fas fa-pen"></i>Modifier Colis</a>
+                                        </a>
                                     </div>
                                     <div class="menu-item px-3">
-                                        <a class="btn menu-link" href="{{ route('generate.stikers.colis',['id'=>$coli->id,'id_BL'=>$coli->bonLivraison->id_BL]) }}">
+                                        <a class="btn menu-link"
+                                            href="{{ route('generate.stikers.colis', ['id' => $coli->id, 'id_BL' => $coli->bonLivraison->id_BL]) }}">
                                             <i class="fas fa-ticket-alt"></i>Voir les etiqutte
                                         </a>
                                     </div>
                                     <div class="menu-item px-3">
-                                        <a class="btn menu-link" href="{{ route('generate.etiqueteuse.colis',['id'=>$coli->id,'id_BL'=>$coli->bonLivraison->id_BL]) }}" ><i class="fas fa-ticket-alt"></i> etiquetteuse</a>
+                                        <a class="btn menu-link"
+                                            href="{{ route('generate.etiqueteuse.colis', ['id' => $coli->id, 'id_BL' => $coli->bonLivraison->id_BL]) }}"><i
+                                                class="fas fa-ticket-alt"></i> etiquetteuse</a>
                                     </div>
-                                    
-                                    
+
+
                                 </div>
-                            </td>  
+                            </td>
                             <td>
                                 @if ($coli->bonLivraison)
-                                    
-                                <a href="{{ route('bon.livraison.getPdf.colis',['id'=>$coli->bonLivraison->id_BL,'idC'=>$coli->id]) }}" class="menu-link">{{ $coli->bonLivraison->id_BL }}</a>
+                                    <a href="{{ route('bon.livraison.getPdf.colis', ['id' => $coli->bonLivraison->id_BL, 'idC' => $coli->id]) }}"
+                                        class="menu-link">{{ $coli->bonLivraison->id_BL }}</a>
                                 @endif
                                 @if ($coli->bonEnvoi)
-                                    
-                                <a href="{{ route('bon.envoi.getPdf.colis',['id'=>$coli->bonEnvoi->id_BE,'idC'=>$coli->id]) }}" class="menu-link">{{ $coli->bonEnvoi->id_BE }}</a>
+                                    <a href="{{ route('bon.envoi.getPdf.colis', ['id' => $coli->bonEnvoi->id_BE, 'idC' => $coli->id]) }}"
+                                        class="menu-link">{{ $coli->bonEnvoi->id_BE }}</a>
                                 @endif
-                                  
+
                                 @if ($coli->bonDistribution)
-                                    
-                                <a href="{{ route('bon.distribution.getPdf.colis',['id'=>$coli->bonDistribution->id_BD,'idC'=>$coli->id]) }}" class="menu-link">{{ $coli->bonDistribution->id_BD }}</a>
+                                    <a href="{{ route('bon.distribution.getPdf.colis', ['id' => $coli->bonDistribution->id_BD, 'idC' => $coli->id]) }}"
+                                        class="menu-link">{{ $coli->bonDistribution->id_BD }}</a>
                                 @endif
                                 @if ($coli->bonPaymentLivreur)
-                                    
-                                <a href="{{ route('bon.payment.livreur.getPdf.colis',['id'=>$coli->bonPaymentLivreur->id_BPL,'idC'=>$coli->id]) }}" class="menu-link">{{ $coli->bonPaymentLivreur->id_BPL }}</a>
+                                    <a href="{{ route('bon.payment.livreur.getPdf.colis', ['id' => $coli->bonPaymentLivreur->id_BPL, 'idC' => $coli->id]) }}"
+                                        class="menu-link">{{ $coli->bonPaymentLivreur->id_BPL }}</a>
                                 @endif
                                 @if ($coli->bonPaymentZone)
-                                    
-                                <a href="{{ route('bon.payement.zone.getPdf.colis',['id'=>$coli->bonPaymentZone->id_BPZ,'idC'=>$coli->id]) }}" class="menu-link">{{ $coli->bonPaymentZone->id_BPZ }}</a>
+                                    <a href="{{ route('bon.payement.zone.getPdf.colis', ['id' => $coli->bonPaymentZone->id_BPZ, 'idC' => $coli->id]) }}"
+                                        class="menu-link">{{ $coli->bonPaymentZone->id_BPZ }}</a>
                                 @endif
-                                  
+
                             </td>
                         </tr>
                     @endforeach
@@ -273,8 +354,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
-            var cl = @json($cl);
-            var etat = @json($etat);
+        var cl = @json($cl);
+        var etat = @json($etat);
         $(document).ready(function() {
 
             $('#kt_ecommerce_products_table tbody tr').each(function() {
@@ -313,16 +394,16 @@
                     var ville = $(this).find('[data-kt-ecommerce-product-filter="ville"]').text()
                         .toLowerCase();
                     var etat = $(this).find('[data-kt-ecommerce-product-filter="etat"]').text()
-                    .toLowerCase();
+                        .toLowerCase();
                     var prix = $(this).find('[data-kt-ecommerce-product-filter="prix"]').text()
-                    .toLowerCase();
+                        .toLowerCase();
                     var status = $(this).find('[data-kt-ecommerce-product-filter="status"]').text()
                         .toLowerCase();
                     var id = $(this).find('[data-kt-ecommerce-product-filter="id"]').text().toLowerCase();
                     var code = $(this).find('[data-kt-ecommerce-product-filter="code"]').text()
-                    .toLowerCase();
+                        .toLowerCase();
                     var date = $(this).find('[data-kt-ecommerce-product-filter="date"]').text()
-                    .toLowerCase();
+                        .toLowerCase();
                     if (ville.includes(searchText) ||
                         etat.includes(searchText) ||
                         prix.includes(searchText) ||
@@ -440,6 +521,7 @@
 
             document.getElementById('show').innerHTML = bb;
         }
+
         function openModalPrix(id, action) {
             var colis = @json($colis);
             let bb = '';
@@ -503,6 +585,7 @@
 
             document.getElementById('show').innerHTML = bb;
         }
+
         function openModalInfo(id, action) {
             var colis = @json($colis);
             let bb = '';
@@ -551,6 +634,195 @@
             `;
 
             document.getElementById('show').innerHTML = bb;
+        }
+
+        var colisinfo = @json($colisinfo);
+
+        function openModalallinfo(id) {
+            var modal = document.getElementById('modal-body1');
+            // console.log(colisinfo.find(e => e.id == id));
+            var colisinfos = colisinfo.find(e => e.id == id).info;
+            let text = ''
+            text = `<div class="row">
+                      <div class="dn-inv-infos-box col-6">
+                        
+                      </div>
+                    </div>
+
+
+                    <div >
+                      <table class="table table-striped table-bordered    mb-0" id='ColiInfo'>
+                      <thead>
+                      <tr class="dn-inv-table-head">
+                        <th>Code d envoi</th>
+                        <th>Etat</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Informations</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+
+                      `;
+            let allinfo = colisinfos.split('_');
+            // console.log(allinfo);
+            allinfo.forEach(e => {
+                let cc = e.split(',');
+                // console.log(cc);
+                if (cc != '') {
+                    text += `
+                <tr>
+                        <td>${cc[0]}</td>
+                        <td>${cc[1]}</td>
+                        <td>${cc[2]}</td>
+                        <td>${cc[3]}</td>
+                        <td>${cc[4]}</td>
+                    </tr>`
+
+                }
+            });
+            modal.innerHTML = text;
+
+            $('#ColiInfo tbody tr').each(function() {
+                var $thisRow = $(this);
+                var zoneStatus = $(this).find('td:eq(2)').text().trim();
+                var EtatColi = $(this).find('td:eq(1)').text().trim();
+                cl.forEach(element => {
+                    if (zoneStatus === element.nom) {
+                        $thisRow.find('td:eq(2)').css('color', element
+                            .couleur);
+                    }
+                });
+                etat.forEach(element => {
+                    if (EtatColi === element.nom) {
+                        $thisRow.find('td:eq(1)').css('color', element
+                            .couleur);
+                    }
+                });
+
+            });
+        }
+
+
+        function openModalDMC(id, code_d_envoi, destinataire, telephone, prix, commentaire, adresse, fragile, ouvrir,
+            action) {
+
+            var modal = document.getElementById('modal-body2');
+            if (dmc && dmc.length > 0) {
+                var dmcs = dmc.find(element => element.id === id);
+            }
+            let text = ''
+            if (dmcs) {
+                text = `
+                        <form method="POST" class="form row" action='${action}' >
+                        @csrf
+                        <div class="mb-13 text-center">
+                            <h1 class="mb-3">Demande de modification du colis :${code_d_envoi}</h1>
+                        </div>
+                        <hr>
+                        <div class="col-6 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Destinataire</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input readOnly type="text" class="form-control form-control-solid" value="${destinataire}" id="destinataire" name="destinataire" />
+                        </div>
+                        <div class="col-6 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Telephone</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input readOnly type="text" class="form-control form-control-solid" value="${telephone}" id="telephone" name="telephone" />
+                        </div>
+                        <div class="col-12 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Adresse</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input readOnly type="text" class="form-control form-control-solid" value="${adresse}" id="adresse" name="adresse" />
+                        </div>
+                        <div class="col-12 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Commentaire ( Autre telephone, Date de livraison ...)</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input readOnly type="text" class="form-control form-control-solid" value="${commentaire}" id="commentaire" name="commentaire" />
+                        </div>
+                        <div class="col-12 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Prix</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input readOnly type="text" class="form-control form-control-solid" value="${prix}" id="prix" name="prix" />
+                        </div>
+                        <br>                        
+                        <div class="text-center">
+                            <button type="submit"  class="btn btn-primary">
+                            <span class="indicator-label">Envoyer la demande</span>
+                            <span class="indicator-progress">Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                        </form>
+                                    `;
+
+            } else {
+
+                text = `
+                        <form method="POST" class="form row" action='${action}' >
+                        @csrf
+                        <div class="mb-13 text-center">
+                            <h1 class="mb-3">Demande de modification du colis :${code_d_envoi}</h1>
+                        </div>
+                        <hr>
+                        <div class="col-6 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Destinataire</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" value="${destinataire}" id="destinataire" name="destinataire" />
+                        </div>
+                        <div class="col-6 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Telephone</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" value="${telephone}" id="telephone" name="telephone" />
+                        </div>
+                        <div class="col-12 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Adresse</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" value="${adresse}" id="adresse" name="adresse" />
+                        </div>
+                        <div class="col-12 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Commentaire ( Autre telephone, Date de livraison ...)</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" value="${commentaire}" id="commentaire" name="commentaire" />
+                        </div>
+                        <div class="col-12 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Prix</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" value="${prix}" id="prix" name="prix" />
+                        </div>
+                        <br>
+                        
+                        <div class="text-center">
+                            <button type="submit"  class="btn btn-primary">
+                            <span class="indicator-label">Envoyer la demande</span>
+                            <span class="indicator-progress">Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                        </div>
+                        </form>
+                                    `;
+            }
+            modal.innerHTML = text
         }
     </script>
 @endsection
