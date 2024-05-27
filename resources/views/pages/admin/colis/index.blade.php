@@ -279,17 +279,17 @@
 
             $('#kt_ecommerce_products_table tbody tr').each(function() {
                 var $thisRow = $(this);
-                var zoneStatus = $(this).find('td:eq(4)').text().trim();
-                var EtatColi = $(this).find('td:eq(3)').text().trim();
+                var zoneStatus = $(this).find('td:eq(6)').text().trim();
+                var EtatColi = $(this).find('td:eq(5)').text().trim();
                 cl.forEach(element => {
                     if (zoneStatus === element.nom) {
-                        $thisRow.find('td:eq(4)').css('color', element
+                        $thisRow.find('td:eq(6)').css('color', element
                             .couleur);
                     }
                 });
                 etat.forEach(element => {
                     if (EtatColi === element.nom) {
-                        $thisRow.find('td:eq(3)').css('color', element
+                        $thisRow.find('td:eq(5)').css('color', element
                             .couleur);
                     }
                 });
