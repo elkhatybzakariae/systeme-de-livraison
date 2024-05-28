@@ -254,10 +254,12 @@ Route::middleware('check.admin')->group(function () {
     });
     Route::group(['prefix' => 'admin/modification/colis'], function () {
         Route::get('/all', [DemandeModificationColiController::class, 'all'])->name('demandemodificationcolis.all');
-        Route::post('/traiteRec/{id}', [DemandeModificationColiController::class, 'traiteRec'])->name('demandemodificationcolis.traiteRec');
-        
+
         Route::get('/accepte/{id}', [DemandeModificationColiController::class, 'accepte'])->name('demandemodificationcolis.accepte');
         Route::get('/refuse/{id}', [DemandeModificationColiController::class, 'refuse'])->name('demandemodificationcolis.refuse');
+    });
+    Route::group(['prefix' => 'colis'], function () {
+        Route::post('/update/colis/{id}', [ColisController::class, 'adminupdate'])->name('colis.updateadmin');
     });
     Route::get('/admin/colis', [ColisController::class, 'indexAdmin'])->name('colis.indexAdmin');
     Route::get('/admin/colis/export', [ColisController::class, 'exportColis'])->name('colis.export');

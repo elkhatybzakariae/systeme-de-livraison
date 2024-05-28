@@ -247,17 +247,16 @@
 
 
         var demandes = @json($demandes);
-
         function openModal(id_DMC, action) {
-            var item = demandes.find(element => element.id_DMC == id_DMC);
-            var accept = "{{ route('demandemodificationcolis.accepte', ['id' => 'ELEMENT_ID']) }}";
-            let acceptUrl = accept.replace('ELEMENT_ID', item.id_DMC);
-            var refuse = "{{ route('demandemodificationcolis.refuse', ['id' => 'ELEMENT_ID']) }}";
-            let refuseUrl = refuse.replace('ELEMENT_ID', item.id_DMC);
+    var item = demandes.find(element => element.id_DMC == id_DMC);
+    var accept = "{{ route('demandemodificationcolis.accepte', ['id' => 'ELEMENT_ID']) }}";
+    let acceptUrl = accept.replace('ELEMENT_ID', item.id_DMC);
+    var refuse = "{{ route('demandemodificationcolis.refuse', ['id' => 'ELEMENT_ID']) }}";
+    let refuseUrl = refuse.replace('ELEMENT_ID', item.id_DMC);
 
-            let bb = '';
+    let bb = '';
 
-            bb += `
+    bb += `
     <div class="">
         <div class="d-flex flex-column">
             <div class="d-flex justify-content-center align-items-center mb-2">
@@ -271,7 +270,7 @@
                     <div class="form-group mb-3 col col-12">
                         <label class="fw-bold" for="nom_livreur">Nom Client: ${item.colis.client.nomcomplet}</label>
                     </div>
-                    <div class="form-group mb-3 col col-md-12">
+                    <div class="form-group mb-3 col col-12">
                         <label class="fw-bold" for="nom_livreur">Telephone: ${item.colis.client.Phone}</label>
                     </div>
                 </div>
@@ -325,26 +324,21 @@
                 <br>
                 <div class="btn-group btn-group-lg" role="group">
                     ${item.isAccepted !== 'Accepte' && item.isAccepted !== 'Annule' ? `
-                                <form action="${refuse}" method="get">
-                                   
-                                    <button type="submit" class="btn btn-danger"><i class="fa fa-times"></i></button>
-                                </form>
-                                <form action="${acceptUrl}" method="get">
-                                   
-                                    <button type="submit" class="btn btn-success"><i class="fa fa-check"></i></button>
-                                    </form>
-                                    ` : ''}
-                                    <a href="${acceptUrl}"  class="btn btn-success"><i class="fa fa-check"></i></a>
-                  
+                    <form action="${acceptUrl}" method="get">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-check"></i></button>
+                    </form>
+                    <form action="${refuseUrl}" method="get">
+                        <button type="submit" class="btn btn-danger"><i class="fa fa-times"></i></button>
+                    </form>
+                    ` : ''}
                 </div>
             </div>
         </div>
     </div>
 `;
-            document.getElementById('show').innerHTML = bb;
-            document.getElementById('kt_modal_new_message_form').action = action;
+    document.getElementById('show').innerHTML = bb;
+    document.getElementById('kt_modal_new_message_form').action = action;
+}
 
-
-        }
     </script>
 @endsection

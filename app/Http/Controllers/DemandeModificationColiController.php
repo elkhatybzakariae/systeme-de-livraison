@@ -61,10 +61,9 @@ class DemandeModificationColiController extends Controller
 
     public function accepte(Request $request, $id)
     {
-        // dd($id);
         $dmc = DemandeModificationColi::findOrFail($id);
-        $coli = Colis::findOrFail($dmc->coli_id); 
-        // dd($coli);
+        // dd($dmc);
+        $coli = Colis::findOrFail($dmc->id); 
         $dmc->update([
             'isAccepted' => 'Accepte',
         ]);
@@ -75,7 +74,6 @@ class DemandeModificationColiController extends Controller
             'commentaire' => $dmc->commentaire,
             'adresse' => $dmc->adresse,
         ]);
-        dd($c->prix);
         return back();
     }
     public function refuse(Request $request, $id)

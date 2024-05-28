@@ -200,7 +200,6 @@
                                     value="1" />
                             </div>
                         </th>
-                        {{-- <th class="min-w-200px">Id</th> --}}
                         <th class="min-w-100px">Code d'Envoi</th>
                         <th class="min-w-100px">Date d'Expedition</th>
                         <th class="min-w-100px">Telephone</th>
@@ -214,20 +213,12 @@
                 </thead>
                 <tbody class="fw-semibold text-gray-600">
                     @foreach ($colis as $index => $coli)
-                        {{-- {{ var_dump($colis) }} --}}
                         <tr>
                             <td>
                                 <div class="form-check form-check-sm form-check-custom form-check-solid">
                                     <input class="form-check-input" type="checkbox" value="{{ $coli->id }}" />
                                 </div>
                             </td>
-                            {{-- <td>
-              <div class="">
-                <div class="ms-5">
-                  <a href="" class="text-gray-800 text-hover-primary fs-5 fw-bold" data-kt-ecommerce-product-filter="id">{{ $coli->id }}</a>
-                </div>
-              </div>
-            </td> --}}
                             <td class="pe-0">
                                 <span class="fw-bold"
                                     data-kt-ecommerce-product-filter="code">{{ $coli->code_d_envoi }}</span>
@@ -286,8 +277,7 @@
                                     <div class="menu-item px-3">
                                         <a onclick="openModal('{{ $coli->id }}','{{ route('admin.changestatus', $coli->id) }}')"
                                             data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"
-                                            class="btn menu-link"> <i class="fas fa-pen"></i> changer le
-                                            statut</a>
+                                            class="btn menu-link"> <i class="fas fa-pen"></i> changer le statut</a>
                                     </div>
                                     <div class="menu-item px-3">
                                         <a onclick="openModalPrix('{{ $coli->id }}','{{ route('colis.change.prix', $coli->id) }}')"
@@ -295,11 +285,12 @@
                                             class="btn menu-link"> <i class="fas fa-dollar-sign"></i> changer le prix</a>
                                     </div>
                                     <div class="menu-item   px-3">
-                                        <a onclick="openModalDMC('{{ $coli->id }}','{{ $coli->code_d_envoi }}',
-                                            '{{ $coli->destinataire }}','{{ $coli->telephone }}'
-                                                ,'{{ $coli->prix }}','{{ $coli->commentaire }}','{{ $coli->adresse }}',
-                                                '{{ $coli->fragile }}','{{ $coli->ouvrir }}',
-                                                '{{ route('demandemodificationcolis.store', $coli->id) }}')"
+                                        <a onclick="openModalcolis('{{ $coli->id }}',
+                                        '{{ $coli->code_d_envoi }}','{{ $coli->destinataire }}',
+                                        '{{ $coli->telephone }}','{{ $coli->prix }}','{{ $coli->quantite }}',
+                                        '{{ $coli->commentaire }}','{{ $coli->adresse }}',
+                                        '{{ $coli->fragile }}','{{ $coli->ouvrir }}',
+                                        '{{ route('colis.updateadmin', $coli->id) }}')"
                                             data-bs-toggle="modal" data-bs-target="#kt_modal_new_target2"
                                             class="menu-link btn "><i class="fas fa-pen"></i>Modifier Colis</a>
                                         </a>
@@ -315,8 +306,6 @@
                                             href="{{ route('generate.etiqueteuse.colis', ['id' => $coli->id, 'id_BL' => $coli->bonLivraison->id_BL]) }}"><i
                                                 class="fas fa-ticket-alt"></i> etiquetteuse</a>
                                     </div>
-
-
                                 </div>
                             </td>
                             <td>
@@ -341,10 +330,10 @@
                                     <a href="{{ route('bon.payement.zone.getPdf.colis', ['id' => $coli->bonPaymentZone->id_BPZ, 'idC' => $coli->id]) }}"
                                         class="menu-link">{{ $coli->bonPaymentZone->id_BPZ }}</a>
                                 @endif
-
                             </td>
                         </tr>
                     @endforeach
+
                 </tbody>
             </table>
         </div>
@@ -356,6 +345,7 @@
     <script>
         var cl = @json($cl);
         var etat = @json($etat);
+            var colis = @json($colis);
         $(document).ready(function() {
 
             $('#kt_ecommerce_products_table tbody tr').each(function() {
@@ -438,7 +428,6 @@
         });
 
         function openModal(id, action) {
-            var colis = @json($colis);
             let bb = '';
             let item = colis.find(ele => ele.id == id)
             bb += `
@@ -704,20 +693,20 @@
         }
 
 
-        function openModalDMC(id, code_d_envoi, destinataire, telephone, prix, commentaire, adresse, fragile, ouvrir,
+        function openModalcolis(id, code_d_envoi, destinataire, telephone, prix, quantite,commentaire, adresse, fragile, ouvrir,
             action) {
 
             var modal = document.getElementById('modal-body2');
-            if (dmc && dmc.length > 0) {
-                var dmcs = dmc.find(element => element.id === id);
+            if (colis && colis.length > 0) {
+                var coliss = colis.find(element => element.id === id);
             }
             let text = ''
-            if (dmcs) {
+            if (coliss) {
                 text = `
                         <form method="POST" class="form row" action='${action}' >
                         @csrf
                         <div class="mb-13 text-center">
-                            <h1 class="mb-3">Demande de modification du colis :${code_d_envoi}</h1>
+                            <h1 class="mb-3">Modification du colis :${code_d_envoi}</h1>
                         </div>
                         <hr>
                         <div class="col-6 mb-8 fv-row">
@@ -725,40 +714,47 @@
                             <span class="required">Destinataire</span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                             </label>
-                            <input readOnly type="text" class="form-control form-control-solid" value="${destinataire}" id="destinataire" name="destinataire" />
+                            <input  type="text" class="form-control form-control-solid" value="${destinataire}" id="destinataire" name="destinataire" />
                         </div>
                         <div class="col-6 mb-8 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                             <span class="required">Telephone</span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                             </label>
-                            <input readOnly type="text" class="form-control form-control-solid" value="${telephone}" id="telephone" name="telephone" />
+                            <input  type="text" class="form-control form-control-solid" value="${telephone}" id="telephone" name="telephone" />
                         </div>
                         <div class="col-12 mb-8 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                             <span class="required">Adresse</span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                             </label>
-                            <input readOnly type="text" class="form-control form-control-solid" value="${adresse}" id="adresse" name="adresse" />
+                            <input  type="text" class="form-control form-control-solid" value="${adresse}" id="adresse" name="adresse" />
                         </div>
                         <div class="col-12 mb-8 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                             <span class="required">Commentaire ( Autre telephone, Date de livraison ...)</span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                             </label>
-                            <input readOnly type="text" class="form-control form-control-solid" value="${commentaire}" id="commentaire" name="commentaire" />
+                            <input  type="text" class="form-control form-control-solid" value="${commentaire}" id="commentaire" name="commentaire" />
                         </div>
                         <div class="col-12 mb-8 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                             <span class="required">Prix</span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                             </label>
-                            <input readOnly type="text" class="form-control form-control-solid" value="${prix}" id="prix" name="prix" />
+                            <input  type="text" class="form-control form-control-solid" value="${prix}" id="prix" name="prix" />
+                        </div>
+                        <div class="col-12 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Quantite</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input  type="text" class="form-control form-control-solid" value="${quantite}" id="quantite" name="quantite" />
                         </div>
                         <br>                        
                         <div class="text-center">
                             <button type="submit"  class="btn btn-primary">
-                            <span class="indicator-label">Envoyer la demande</span>
+                            <span class="indicator-label">Modifier</span>
                             <span class="indicator-progress">Please wait...
                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                             </button>

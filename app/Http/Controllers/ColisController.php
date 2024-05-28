@@ -157,7 +157,6 @@ class ColisController extends Controller
     public function update(Request $request, Colis $colis)
     {
         $validatedData = $request->validate([
-            // 'code_d_envoi' => 'required|string|max:255',
             'destinataire' => 'required|string|max:255',
             'telephone' => 'required|string|max:255',
             'marchandise' => 'required|string|max:255',
@@ -175,6 +174,21 @@ class ColisController extends Controller
         $colis->update($validatedData);
 
         return redirect()->route('colis.indexRamassage')->with('success', 'Colis updated successfully.');
+    }
+    public function adminupdate(Request $request,$id)
+    {
+        $colis=Colis::find($id);
+        $validatedData = $request->validate([
+            'destinataire' => 'required|string|max:255',
+            'telephone' => 'required|string|max:255',
+            'prix' => 'required|numeric',
+            'quantite' => 'required|integer',
+            'commentaire' => 'nullable|string',
+            'adresse' => 'required|string|max:255',
+        ]);
+        $colis->update($validatedData);
+
+        return back()->with('success', 'Colis updated successfully.');
     }
 
 
