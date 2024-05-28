@@ -37,11 +37,13 @@ class ColisController extends Controller
         $colisIds = $colis->pluck('id')->toArray();
         $demandes=DemandeModificationColi::whereIn('id',$colisIds)->get();
         $colisinfo = colisinfo::query()->orderBy('created_at','desc')->get();
+        $zones = Zone::all();
+        $villes = Ville::all();
         $breads = [
             ['title' => 'Liste des Colis', 'url' => null],
             ['text' => 'Colis', 'url' => null], 
         ];
-        return view('pages.clients.colis.index', compact('colis','demandes','cl','etat','breads','colisinfo'));
+        return view('pages.clients.colis.index', compact('colis','demandes','cl','etat','breads','colisinfo','zones','villes'));
     }
  
     public function indexAdmin(Request $request)
@@ -181,6 +183,9 @@ class ColisController extends Controller
         $validatedData = $request->validate([
             'destinataire' => 'required|string|max:255',
             'telephone' => 'required|string|max:255',
+            'marchandise' => 'required|string|max:255',
+            'zone' => 'required|string|max:255',
+            'ville_id' => 'required|string|max:255',
             'prix' => 'required|numeric',
             'quantite' => 'required|integer',
             'commentaire' => 'nullable|string',

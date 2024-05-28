@@ -13,7 +13,7 @@ class DemandeModificationColiController extends Controller
 {
     public function all()
     {
-        $demandes = DemandeModificationColi::with('colis')
+        $demandes = DemandeModificationColi::with('colis','zone','ville')
         ->orderBy('created_at','desc')
         ->get();
         
@@ -31,9 +31,13 @@ class DemandeModificationColiController extends Controller
         $validatedData = $request->validate([
             'destinataire' => 'required|string|max:255',
             'telephone' => 'required|string|max:255',
+            'marchandise' => 'required|string|max:255',
             'prix' => 'required|numeric',
+            'quantite' => 'required|numeric',
             'commentaire' => 'nullable|string',
             'adresse' => 'required|string|max:255',
+            'zone' => 'required|string|max:255',
+            'ville_id' => 'required|string',
             // 'fragile' => 'nullable|boolean',
             // 'ouvrir' => 'nullable|boolean',
         ]);
@@ -70,7 +74,11 @@ class DemandeModificationColiController extends Controller
         $c=$coli->update([
             'destinataire' => $dmc->destinataire,
             'telephone' => $dmc->telephone,
+            'marchandise' => $dmc->marchandise,
+            'zone' => $dmc->zone,
+            'ville_id' => $dmc->ville_id,
             'prix' => $dmc->prix,
+            'quantite' => $dmc->quantite,
             'commentaire' => $dmc->commentaire,
             'adresse' => $dmc->adresse,
         ]);

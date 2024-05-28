@@ -19,6 +19,10 @@ class Ville extends Model
     {
         return $this->belongsTo(Zone::class,'id_Z');
     }
+    public function dmc()
+    {
+        return $this->hasMany(DemandeModificationColi::class,'id_V');
+    }
     public function tarifvr()
     {
         return $this->hasMany(Tarif::class,'id_V','villeRamassage');

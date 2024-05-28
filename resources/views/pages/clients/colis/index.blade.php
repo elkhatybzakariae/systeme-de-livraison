@@ -231,6 +231,7 @@
                 </thead>
                 <tbody class="fw-semibold text-gray-600">
                     @foreach ($colis as $index => $coli)
+                        {{-- @dd($coli) --}}
                         <tr>
                             <td>
                                 <div class="form-check form-check-sm form-check-custom form-check-solid">
@@ -285,9 +286,14 @@
                                         data-bs-target="#kt_modal_new_targetRecColis"class="btn btn-sm btn-primary"><i
                                             class="fa fa-question-circle" aria-hidden="true"></i></a>
                                     </a>
-                                    <a onclick="openModalDMC('{{ $coli->id }}','{{ $coli->code_d_envoi }}','{{ $coli->destinataire }}','{{ $coli->telephone }}'
-                                        ,'{{ $coli->prix }}','{{ $coli->commentaire }}','{{ $coli->adresse }}',
-                                        '{{ $coli->fragile }}','{{ $coli->ouvrir }}','{{ route('demandemodificationcolis.store', $coli->id) }}')"
+                                    <a onclick="openModalDMC('{{ $coli->id }}','{{ $coli->code_d_envoi }}',
+                                                    '{{ $coli->destinataire }}','{{ $coli->telephone }}',
+                                                    '{{ $coli->marchandise }}','{{ $coli->zone }}',
+                                                    '{{ $coli->ville_id }}','{{ $coli->colis_a_remplacer }}',
+                                                    '{{ $coli->prix }}','{{ $coli->commentaire }}','{{ $coli->adresse }}',
+                                                    '{{ $coli->fragile }}','{{ $coli->ouvrir }}',
+                                                    '{{ $coli->quantite }}',
+                                                    '{{ route('demandemodificationcolis.store', $coli->id) }}')"
                                         data-bs-toggle="modal" data-bs-target="#kt_modal_new_target2"
                                         class="btn btn-sm btn-secondary"><i class="fa fa-edit"></i>
                                     </a>
@@ -374,6 +380,8 @@
         });
 
         var colisinfo = @json($colisinfo);
+        var zones = @json($zones);
+        var villes = @json($villes);
         var dmc = @json($demandes);
 
         function openModalallinfo(id) {
@@ -440,15 +448,30 @@
             });
         }
 
-        function openModalDMC(id, code_d_envoi, destinataire, telephone, prix, commentaire, adresse, fragile, ouvrir,
-            action) {
-
+        function openModalDMC(id, code_d_envoi, destinataire, telephone, marchandise, zone, ville_id, colis_a_remplacer,
+            prix, commentaire, adresse, fragile, ouvrir,
+            quantite, action) {
+            console.log(zone);
+            let zoneOptions = zones.map(item =>
+                `<option value="${item.id_Z}" ${item.id_Z == zone ? 'selected' : ''}>${item.zonename}</option>`
+            ).join('');
+            let villeOptions = villes.map(item =>
+                `<option value="${item.id_V}" ${item.id_V == ville_id ? 'selected' : ''}>${item.villename}</option>`
+            ).join('');
+            console.log(zoneOptions);
             var modal = document.getElementById('modal-body2');
             if (dmc && dmc.length > 0) {
                 var dmcs = dmc.find(element => element.id === id);
+
             }
             let text = ''
-            if (dmcs) {
+            if (dmcs && dmcs.isAccepted !=='Accepte') {
+                let zoneOptions = zones.map(item =>
+                    `<option value="${item.id_Z}" ${item.id_Z == dmcs.zone ? 'selected' : ''}>${item.zonename}</option>`
+                ).join('');
+                let villeOptions = villes.map(item =>
+                    `<option value="${item.id_V}" ${item.id_V == dmcs.ville_id ? 'selected' : ''}>${item.villename}</option>`
+                ).join('');
                 text = `
                         <form method="POST" class="form row" action='${action}' >
                         @csrf
@@ -456,45 +479,86 @@
                             <h1 class="mb-3">Demande de modification du colis :${code_d_envoi}</h1>
                         </div>
                         <hr>
-                        <div class="col-6 mb-8 fv-row">
+                        <div class="col-12 mb-8 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                             <span class="required">Destinataire</span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                             </label>
-                            <input readOnly type="text" class="form-control form-control-solid" value="${destinataire}" id="destinataire" name="destinataire" />
+                            <input readOnly type="text" class="form-control form-control-solid" value="${dmcs.destinataire}" id="destinataire" name="destinataire" />
                         </div>
                         <div class="col-6 mb-8 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                             <span class="required">Telephone</span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                             </label>
-                            <input readOnly type="text" class="form-control form-control-solid" value="${telephone}" id="telephone" name="telephone" />
+                            <input readOnly type="text" class="form-control form-control-solid" value="${dmcs.telephone}" id="telephone" name="telephone" />
+                        </div>
+                        <div class="col-6 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Marchandise</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input readOnly type="text" class="form-control form-control-solid" value="${dmcs.marchandise}" id="marchandise" name="marchandise" />
                         </div>
                         <div class="col-12 mb-8 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                             <span class="required">Adresse</span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                             </label>
-                            <input readOnly type="text" class="form-control form-control-solid" value="${adresse}" id="adresse" name="adresse" />
+                            <input readOnly type="text" class="form-control form-control-solid" value="${dmcs.adresse}" id="adresse" name="adresse" />
                         </div>
                         <div class="col-12 mb-8 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                             <span class="required">Commentaire ( Autre telephone, Date de livraison ...)</span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                             </label>
-                            <input readOnly type="text" class="form-control form-control-solid" value="${commentaire}" id="commentaire" name="commentaire" />
+                            <input readOnly type="text" class="form-control form-control-solid" value="${dmcs.commentaire}" id="commentaire" name="commentaire" />
                         </div>
-                        <div class="col-12 mb-8 fv-row">
+
+
+
+                        <div class="col-6 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Zone</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <select disabled id="zone" class="form-control @error('zone') is-invalid @enderror"
+                                    name="zone">
+                                    ${zoneOptions}
+                                </select>
+                        </div>
+                        <div class="col-6 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Ville</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <select disabled id="ville_id" class="form-control @error('ville_id') is-invalid @enderror"
+                                    name="ville_id">
+                                    ${villeOptions}
+                                </select>
+                        </div>
+
+
+
+
+                        <div class="col-6 mb-8 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                             <span class="required">Prix</span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                             </label>
-                            <input readOnly type="text" class="form-control form-control-solid" value="${prix}" id="prix" name="prix" />
+                            <input readOnly type="text" class="form-control form-control-solid" value="${dmcs.prix}" id="prix" name="prix" />
+                        </div>
+                        <div class="col-6 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Quantite</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input readOnly type="text" class="form-control form-control-solid" value="${dmcs.quantite}" id="quantite" name="quantite" />
                         </div>
                         <br>                        
                         <div class="text-center">
-                            <button type="submit"  class="btn btn-primary">
-                            <span class="indicator-label">Envoyer la demande</span>
+                            <button type="button"  class="btn btn-primary">
+                            <span class="indicator-label">Attender repanse</span>
                             <span class="indicator-progress">Please wait...
                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                             </button>
@@ -505,46 +569,87 @@
             } else {
 
                 text = `
-                        <form method="POST" class="form row" action='${action}' >
+                <form method="POST" class="form row" action='${action}' >
                         @csrf
                         <div class="mb-13 text-center">
                             <h1 class="mb-3">Demande de modification du colis :${code_d_envoi}</h1>
                         </div>
                         <hr>
-                        <div class="col-6 mb-8 fv-row">
+                        <div class="col-12 mb-8 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                             <span class="required">Destinataire</span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                             </label>
-                            <input type="text" class="form-control form-control-solid" value="${destinataire}" id="destinataire" name="destinataire" />
+                            <input  type="text" class="form-control form-control-solid" value="${destinataire}" id="destinataire" name="destinataire" />
                         </div>
                         <div class="col-6 mb-8 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                             <span class="required">Telephone</span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                             </label>
-                            <input type="text" class="form-control form-control-solid" value="${telephone}" id="telephone" name="telephone" />
+                            <input  type="text" class="form-control form-control-solid" value="${telephone}" id="telephone" name="telephone" />
+                        </div>
+                        <div class="col-6 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Marchandise</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input  type="text" class="form-control form-control-solid" value="${marchandise}" id="marchandise" name="marchandise" />
                         </div>
                         <div class="col-12 mb-8 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                             <span class="required">Adresse</span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                             </label>
-                            <input type="text" class="form-control form-control-solid" value="${adresse}" id="adresse" name="adresse" />
+                            <input  type="text" class="form-control form-control-solid" value="${adresse}" id="adresse" name="adresse" />
                         </div>
                         <div class="col-12 mb-8 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                             <span class="required">Commentaire ( Autre telephone, Date de livraison ...)</span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                             </label>
-                            <input type="text" class="form-control form-control-solid" value="${commentaire}" id="commentaire" name="commentaire" />
+                            <input  type="text" class="form-control form-control-solid" value="${commentaire}" id="commentaire" name="commentaire" />
                         </div>
-                        <div class="col-12 mb-8 fv-row">
+
+
+
+                        <div class="col-6 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Zone</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <select  id="zone" class="form-control @error('zone') is-invalid @enderror"
+                                    name="zone">
+                                    ${zoneOptions}
+                                </select>
+                        </div>
+                        <div class="col-6 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Ville</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <select  id="ville_id" class="form-control @error('ville_id') is-invalid @enderror"
+                                    name="ville_id">
+                                    ${villeOptions}
+                                </select>
+                        </div>
+
+
+
+
+                        <div class="col-6 mb-8 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                             <span class="required">Prix</span>
                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
                             </label>
-                            <input type="text" class="form-control form-control-solid" value="${prix}" id="prix" name="prix" />
+                            <input  type="number" class="form-control form-control-solid" value="${prix}" id="prix" name="prix" />
+                        </div>
+                        <div class="col-6 mb-8 fv-row">
+                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                            <span class="required">Quantite</span>
+                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                            </label>
+                            <input  type="number" class="form-control form-control-solid" value="${quantite}" id="quantite" name="quantite" />
                         </div>
                         <br>
                         

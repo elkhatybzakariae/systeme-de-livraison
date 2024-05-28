@@ -15,6 +15,10 @@ class Zone extends Model
     public $incrementing = false;
     public $timestamps = true;
     protected $fillable = ['id_Z','zonename','statut'];
+    public function dmc()
+    {
+        return $this->hasMany(DemandeModificationColi::class,'id_Z');
+    }
     public function ville()
     {
         return $this->hasMany(Ville::class,'id_Z');

@@ -345,7 +345,10 @@
     <script>
         var cl = @json($cl);
         var etat = @json($etat);
-            var colis = @json($colis);
+        var colis = @json($colis);
+        var colisinfo = @json($colisinfo);
+        var zones = @json($zones);
+        var villes = @json($villes);
         $(document).ready(function() {
 
             $('#kt_ecommerce_products_table tbody tr').each(function() {
@@ -625,7 +628,6 @@
             document.getElementById('show').innerHTML = bb;
         }
 
-        var colisinfo = @json($colisinfo);
 
         function openModalallinfo(id) {
             var modal = document.getElementById('modal-body1');
@@ -693,132 +695,113 @@
         }
 
 
-        function openModalcolis(id, code_d_envoi, destinataire, telephone, prix, quantite,commentaire, adresse, fragile, ouvrir,
-            action) {
+        function openModalcolis(id, code_d_envoi, destinataire, telephone,  marchandise, adresse, commentaire, zone, ville_id, prix, quantite,actionUrl) {
+    var modal = document.getElementById('modal-body2');
+    var coliss = colis.find(element => element.id === id);
 
-            var modal = document.getElementById('modal-body2');
-            if (colis && colis.length > 0) {
-                var coliss = colis.find(element => element.id === id);
-            }
-            let text = ''
-            if (coliss) {
-                text = `
-                        <form method="POST" class="form row" action='${action}' >
-                        @csrf
-                        <div class="mb-13 text-center">
-                            <h1 class="mb-3">Modification du colis :${code_d_envoi}</h1>
-                        </div>
-                        <hr>
-                        <div class="col-6 mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Destinataire</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
-                            </label>
-                            <input  type="text" class="form-control form-control-solid" value="${destinataire}" id="destinataire" name="destinataire" />
-                        </div>
-                        <div class="col-6 mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Telephone</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
-                            </label>
-                            <input  type="text" class="form-control form-control-solid" value="${telephone}" id="telephone" name="telephone" />
-                        </div>
-                        <div class="col-12 mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Adresse</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
-                            </label>
-                            <input  type="text" class="form-control form-control-solid" value="${adresse}" id="adresse" name="adresse" />
-                        </div>
-                        <div class="col-12 mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Commentaire ( Autre telephone, Date de livraison ...)</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
-                            </label>
-                            <input  type="text" class="form-control form-control-solid" value="${commentaire}" id="commentaire" name="commentaire" />
-                        </div>
-                        <div class="col-12 mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Prix</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
-                            </label>
-                            <input  type="text" class="form-control form-control-solid" value="${prix}" id="prix" name="prix" />
-                        </div>
-                        <div class="col-12 mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Quantite</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
-                            </label>
-                            <input  type="text" class="form-control form-control-solid" value="${quantite}" id="quantite" name="quantite" />
-                        </div>
-                        <br>                        
-                        <div class="text-center">
-                            <button type="submit"  class="btn btn-primary">
-                            <span class="indicator-label">Modifier</span>
-                            <span class="indicator-progress">Please wait...
-                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                            </button>
-                        </div>
-                        </form>
-                                    `;
+    let zoneOptions = zones.map(item =>
+        `<option value="${item.id_Z}" ${item.id_Z == zone ? 'selected' : ''}>${item.zonename}</option>`
+    ).join('');
+    let villeOptions = villes.map(item =>
+        `<option value="${item.id_V}" ${item.id_V == ville_id ? 'selected' : ''}>${item.villename}</option>`
+    ).join('');
+    
+    let text = `
+        <form method="POST" class="form row" action='${actionUrl}'>
+            @csrf
+            <div class="mb-13 text-center">
+                <h1 class="mb-3">Demande de modification du colis : ${code_d_envoi}</h1>
+            </div>
+            <hr>
+            <div class="col-12 mb-8 fv-row">
+                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                    <span class="required">Code d'envoi</span>
+                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                </label>
+                <input type="text" class="form-control form-control-solid" value="${code_d_envoi}" id="code_d_envoi" name="code_d_envoi" readonly />
+            </div>
+            <div class="col-12 mb-8 fv-row">
+                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                    <span class="required">Destinataire</span>
+                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                </label>
+                <input type="text" class="form-control form-control-solid" value="${destinataire}" id="destinataire" name="destinataire" />
+            </div>
+            <div class="col-6 mb-8 fv-row">
+                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                    <span class="required">Téléphone</span>
+                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                </label>
+                <input type="text" class="form-control form-control-solid" value="${telephone}" id="telephone" name="telephone" />
+            </div>
+            <div class="col-6 mb-8 fv-row">
+                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                    <span class="required">Marchandise</span>
+                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                </label>
+                <input type="text" class="form-control form-control-solid" value="${marchandise}" id="marchandise" name="marchandise" />
+            </div>
+            <div class="col-12 mb-8 fv-row">
+                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                    <span class="required">Adresse</span>
+                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                </label>
+                <input type="text" class="form-control form-control-solid" value="${adresse}" id="adresse" name="adresse" />
+            </div>
+            <div class="col-12 mb-8 fv-row">
+                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                    <span class="required">Commentaire (Autre téléphone, Date de livraison ...)</span>
+                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                </label>
+                <input type="text" class="form-control form-control-solid" value="${commentaire}" id="commentaire" name="commentaire" />
+            </div>
+            <div class="col-6 mb-8 fv-row">
+                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                    <span class="required">Zone</span>
+                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                </label>
+                <select id="zone" class="form-control @error('zone') is-invalid @enderror" name="zone" disabled>
+                    ${zoneOptions}
+                </select>
+                <input type="hidden" name="zone" value="${zone}">
+            </div>
+            <div class="col-6 mb-8 fv-row">
+                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                    <span class="required">Ville</span>
+                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                </label>
+                <select id="ville_id" class="form-control @error('ville_id') is-invalid @enderror" name="ville_id">
+                    ${villeOptions}
+                </select>
+            </div>
+            <div class="col-6 mb-8 fv-row">
+                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                    <span class="required">Prix</span>
+                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                </label>
+                <input type="number" class="form-control form-control-solid" value="${prix}" id="prix" name="prix" />
+            </div>
+            <div class="col-6 mb-8 fv-row">
+                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                    <span class="required">Quantité</span>
+                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
+                </label>
+                <input type="number" class="form-control form-control-solid" value="${quantite}" id="quantite" name="quantite" />
+            </div>
+            <br>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">
+                    <span class="indicator-label">Envoyer la demande</span>
+                    <span class="indicator-progress">Please wait...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </span>
+                </button>
+            </div>
+        </form>
+    `;
 
-            } else {
+    modal.innerHTML = text;
+}
 
-                text = `
-                        <form method="POST" class="form row" action='${action}' >
-                        @csrf
-                        <div class="mb-13 text-center">
-                            <h1 class="mb-3">Demande de modification du colis :${code_d_envoi}</h1>
-                        </div>
-                        <hr>
-                        <div class="col-6 mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Destinataire</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
-                            </label>
-                            <input type="text" class="form-control form-control-solid" value="${destinataire}" id="destinataire" name="destinataire" />
-                        </div>
-                        <div class="col-6 mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Telephone</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
-                            </label>
-                            <input type="text" class="form-control form-control-solid" value="${telephone}" id="telephone" name="telephone" />
-                        </div>
-                        <div class="col-12 mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Adresse</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
-                            </label>
-                            <input type="text" class="form-control form-control-solid" value="${adresse}" id="adresse" name="adresse" />
-                        </div>
-                        <div class="col-12 mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Commentaire ( Autre telephone, Date de livraison ...)</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
-                            </label>
-                            <input type="text" class="form-control form-control-solid" value="${commentaire}" id="commentaire" name="commentaire" />
-                        </div>
-                        <div class="col-12 mb-8 fv-row">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                            <span class="required">Prix</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i>
-                            </label>
-                            <input type="text" class="form-control form-control-solid" value="${prix}" id="prix" name="prix" />
-                        </div>
-                        <br>
-                        
-                        <div class="text-center">
-                            <button type="submit"  class="btn btn-primary">
-                            <span class="indicator-label">Envoyer la demande</span>
-                            <span class="indicator-progress">Please wait...
-                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                            </button>
-                        </div>
-                        </form>
-                                    `;
-            }
-            modal.innerHTML = text
-        }
     </script>
 @endsection

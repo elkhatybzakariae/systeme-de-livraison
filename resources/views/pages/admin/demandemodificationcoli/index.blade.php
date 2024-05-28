@@ -306,6 +306,9 @@
                         <label class="fw-bold" for="nom_livreur">Destinataire: ${item.destinataire}</label>
                     </div>
                     <div class="form-group mb-3 col col-12">
+                        <label class="fw-bold" for="nom_livreur">marchandise: ${item.marchandise}</label>
+                    </div>
+                    <div class="form-group mb-3 col col-12">
                         <label class="fw-bold" for="nom_livreur">Telephone: ${item.telephone}</label>
                     </div>
                     <div class="form-group mb-3 col col-12">
@@ -315,7 +318,16 @@
                         <label class="fw-bold" for="nom_livreur">Commentaire: ${item.commentaire}</label>
                     </div>
                     <div class="form-group mb-3 col col-12">
+                        <label class="fw-bold" for="nom_livreur">zone: ${item.zone.zonename}</label>
+                    </div>
+                    <div class="form-group mb-3 col col-12">
+                        <label class="fw-bold" for="nom_livreur">ville: ${item.ville.villename}</label>
+                    </div>
+                    <div class="form-group mb-3 col col-12">
                         <label class="fw-bold" for="nom_livreur">Prix: ${item.prix}</label>
+                    </div>
+                    <div class="form-group mb-3 col col-12">
+                        <label class="fw-bold" for="nom_livreur">quantite: ${item.quantite}</label>
                     </div>
                 </div>
             </div>

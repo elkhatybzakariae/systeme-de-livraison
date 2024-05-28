@@ -15,14 +15,21 @@ return new class extends Migration
             $table->string('id_DMC')->primary();            
             $table->string('destinataire');
             $table->string('telephone');
+            $table->string('marchandise');
             $table->string('adresse');
             $table->text('commentaire')->nullable();
+            $table->integer('quantite');
             $table->decimal('prix', 8, 2);
             $table->enum('isAccepted', [
                 'Nouveau','Annule', 'Accepte'
             ])->default('Nouveau');;
             // $table->boolean('fragile');
             // $table->boolean('ouvrir');
+            $table->string('zone');
+            $table->foreign('zone')->on('zones')->references('id_Z');
+            $table->string('ville_id');
+            $table->foreign('ville_id')->on('villes')->references('id_V');
+            
             $table->string('id');
             $table->foreign('id')->on('colis')->references('id');
             

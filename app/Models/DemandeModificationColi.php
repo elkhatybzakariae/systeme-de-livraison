@@ -18,12 +18,14 @@ class DemandeModificationColi extends Model
         'id_DMC',
         'destinataire',
         'telephone',
+        'marchandise',
+        'zone',
+        'ville_id',
+        'isAccepted',
         'prix',
+        'quantite',
         'commentaire',
         'adresse',
-        'isAccepted',
-        // 'fragile',
-        // 'ouvrir',
         'id',
     ];
 
@@ -31,6 +33,14 @@ class DemandeModificationColi extends Model
     public function colis()
     {
         return $this->belongsTo(Colis::class, 'id');
+    }
+    public function zone()
+    {
+        return $this->belongsTo(Zone::class, 'zone');
+    }
+    public function ville()
+    {
+        return $this->belongsTo(Ville::class, 'ville_id');
     }
 
     
