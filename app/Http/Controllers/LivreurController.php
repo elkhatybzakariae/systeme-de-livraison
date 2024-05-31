@@ -111,7 +111,7 @@ class LivreurController extends Controller
     {
         $liv = Auth::id();
         $breads = [
-            ['title' => 'Liste des colid', 'url' => null],
+            ['title' => 'Liste des colis', 'url' => null],
             ['text' => 'colis', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
         // $colis= BonDistribution::where('id_Liv',$liv)->with('colis')->get();

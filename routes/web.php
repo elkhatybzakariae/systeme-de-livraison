@@ -183,7 +183,8 @@ Route::middleware('check.admin')->group(function () {
         Route::post('/update/delete/all/{id_BRL}', [BonRetourLivreurController::class, 'updateDeleteAll'])->name('bon.retour.livreur.updateDelete.all');
         Route::get('/export/colis/{id}', [BonRetourLivreurController::class, 'exportColis'])->name('bon.retour.livreur.exportColis');
         Route::get('/get/pdf/{id_BRL}', [BonRetourLivreurController::class, 'getPdf'])->name('bon.retour.livreur.getPdf');
-        Route::post('admin/bon-retour/bd/{id}', [BonRetourLivreurController::class, 'recu'])->name('bon.retour.livreur.recu');
+        Route::post('admin/bon-retour/bdr/{id}', [BonRetourLivreurController::class, 'recu'])->name('bon.retour.livreur.recu');
+        Route::post('admin/bon-retour/bdcr/{id}', [BonRetourLivreurController::class, 'nonrecu'])->name('bon.retour.livreur.nonrecu');
         Route::get('/destroy/{id}', [BonRetourLivreurController::class, 'destroy'])->name('bon.retour.livreur.destroy');
 
 
@@ -201,7 +202,8 @@ Route::middleware('check.admin')->group(function () {
         Route::post('/update/delete/all/{id_BRZ}', [BonRetourZoneController::class, 'updateDeleteAll'])->name('bon.retour.zone.updateDelete.all');
         Route::get('/export/colis/{id}', [BonRetourZoneController::class, 'exportColis'])->name('bon.retour.zone.exportColis');
         Route::get('/get/pdf/{id_BRZ}', [BonRetourZoneController::class, 'getPdf'])->name('bon.retour.zone.getPdf');
-        Route::post('admin/bon-retour/bd/{id}', [BonRetourZoneController::class, 'recu'])->name('bon.retour.zone.recu');
+        Route::post('admin/bon-retour/bdr/{id}', [BonRetourZoneController::class, 'recu'])->name('bon.retour.zone.recu');
+        Route::post('admin/bon-retour/bdnr/{id}', [BonRetourZoneController::class, 'nonrecu'])->name('bon.retour.zone.nonrecu');
         Route::get('/destroy/{id}', [BonRetourZoneController::class, 'destroy'])->name('bon.retour.zone.destroy');
 
 
@@ -219,7 +221,8 @@ Route::middleware('check.admin')->group(function () {
         Route::post('/update/delete/all/{id_BRC}', [BonRetourClientController::class, 'updateDeleteAll'])->name('bon.retour.client.updateDelete.all');
         Route::get('/export/colis/{id}', [BonRetourClientController::class, 'exportColis'])->name('bon.retour.client.exportColis');
         Route::get('/get/pdf/{id_BRC}', [BonRetourClientController::class, 'getPdf'])->name('bon.retour.client.getPdf');
-        Route::post('admin/bon-retour/bd/{id}', [BonRetourClientController::class, 'recu'])->name('bon.retour.client.recu');
+        Route::post('admin/bon-retour/bdr/{id}', [BonRetourClientController::class, 'recu'])->name('bon.retour.client.recu');
+        Route::post('admin/bon-retour/bdnr/{id}', [BonRetourClientController::class, 'nonrecu'])->name('bon.retour.client.nonrecu');
         Route::get('/destroy/{id}', [BonRetourClientController::class, 'destroy'])->name('bon.retour.client.destroy');
 
 
@@ -349,6 +352,7 @@ Route::middleware('check.client')->group(function () {
     });
 
     Route::get('/bon/retour', [BonRetourClientController::class, 'getClientBons'])->name('bon.retour.client.getClientBons');
+    Route::get('/client/bon/facture', [FactureController::class, 'getClientBons'])->name('bon.facture.client.getClientBons');
 
     Route::group(['prefix' => 'demandemodificationcolis'], function () {
         // Route::get('/', [DemandeModificationColiController::class, 'index'])->name('demandemodificationcolis.index');

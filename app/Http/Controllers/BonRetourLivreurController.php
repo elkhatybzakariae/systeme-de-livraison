@@ -25,7 +25,8 @@ class BonRetourLivreurController extends Controller
             session(['zone' => $id_Z]);
         }
         $user = session('user');
-        $colis = Colis::query()->with('ville')->whereNull('id_BRL')->where('zone', $id_Z)
+        $colis = Colis::query()->with('ville')
+        ->whereNull('id_BRL')->where('zone', $id_Z)
             ->whereNotIn(
                 'status',
                 ['Livre', 'Ramasse', 'Nouveau', 'Attente de Ramassage', 'Expedie', 'Mise en distribution', 'Recu']
@@ -157,7 +158,7 @@ class BonRetourLivreurController extends Controller
     {
 
         Colis::where('id_BRL', $id_BRL)
-            ->update(['status' => 'Expedier vers Centre Retour Centre Retour']);
+            ->update(['status' => 'Expedier vers Centre Retour']);
         BonRetourLivreur::where('id_BRL', $id_BRL)
             ->update(['status' => 'Nouveau']);
         $coli = Colis::where('id_BRL', $id_BRL)->first();
