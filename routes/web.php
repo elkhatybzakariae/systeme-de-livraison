@@ -349,6 +349,7 @@ Route::middleware('check.client')->group(function () {
     });
 
     Route::get('/bon/retour', [BonRetourClientController::class, 'getClientBons'])->name('bon.retour.client.getClientBons');
+    Route::get('/client/bon/facture', [FactureController::class, 'getClientBons'])->name('bon.facture.client.getClientBons');
 
     Route::group(['prefix' => 'demandemodificationcolis'], function () {
         // Route::get('/', [DemandeModificationColiController::class, 'index'])->name('demandemodificationcolis.index');

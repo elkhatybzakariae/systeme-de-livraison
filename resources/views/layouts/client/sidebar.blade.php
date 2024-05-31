@@ -196,12 +196,12 @@
                 </div>
                 <!--end:Menu sub-->
 
-
                 <!--begin:Menu link-->
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                    <span class="menu-link">
+                <div class="menu-item">
+                    <!--begin:Menu link-->
+                    <a class="menu-link {{ request()->routeIs('bon.facture.client.getClientBons') ?'active':'' }}" href="{{ route('bon.facture.client.getClientBons') }}">
                         <span class="menu-icon">
-                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
@@ -212,30 +212,10 @@
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-title">Factures</span>
-                        <span class="menu-arrow"></span>
-                    </span>
+                    </a>
                     <!--end:Menu link-->
-                    <!--begin:Menu sub-->
-                    <div class="menu-sub menu-sub-accordion">
-                       
-                        <div class="menu-item">
-                            <!--begin:Menu link-->
-                            <a class="menu-link" href="">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title"> Factures</span>
-                            </a>
-                            <!--end:Menu link-->
-                        </div>
-                        <!--end:Menu item-->
-                    </div>
-                    <!--end:Menu sub-->
                 </div>
                 <!--end:Menu sub-->
-
-
-
                 <!--begin:Menu link-->
                 <div class="menu-item">
                     <!--begin:Menu link-->

@@ -30,12 +30,11 @@ class FactureController extends Controller
             // ->whereNot('id_BPZ',null)
             ->where('id_Cl', $id_Cl)
             ->get();
-        // dd($colis);
         $colisBon = [];
         if (!$id_F) {
             $bonLivraison = Facture::create([
-                'id_F' => 'BRC-' . Str::random(10),
-                'reference' => 'BRC-' . Str::random(10),
+                'id_F' => 'Fac-' . Str::random(10),
+                'reference' => 'Fac-' . Str::random(10),
                 'status' => 'Nouveau',
                 'date_paiment' => now(),
                 'id_Cl' => $id_Cl,
@@ -63,7 +62,7 @@ class FactureController extends Controller
             ->leftJoin('clients', 'factures.id_Cl', '=', 'clients.id_Cl')
             ->select('factures.*', 'clients.nomcomplet as nomcomplet')
             ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_F = factures.id_F) as colis_count'))
-            ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_F = factures.id_F) as total_prix')) // Corrected table name (BL -> BD)
+            ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_F = factures.id_F) as total_prix')) 
             ->leftJoin('colis', 'factures.id_F', '=', 'colis.id_F')
             ->with('colis', 'colis.ville')
             ->distinct()
@@ -137,7 +136,7 @@ class FactureController extends Controller
         $coli = Colis::find($id);
 
         $colisinfo = colisinfo::where('id', $id)->first();
-        dd($colisinfo);
+        // dd($colisinfo);
         $oldinfo = $colisinfo['info'];
         $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,Expedier vers Client,' . $coli['updated_at'] . ',' . ' ' . '_';
 
