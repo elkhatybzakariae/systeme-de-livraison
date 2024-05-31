@@ -128,17 +128,7 @@
                                         <a class="btn" href="{{ route('bon.livraison.exportColis', $item->id_BL) }}"><i
                                                 class="far fa-file-excel"></i>Exporter les colis</a>
                                     </div>
-                                    @if ($item->status != 'Ramasse')
-                                        <div class="menu-item px-3">
-                                            <form action="{{ route('bon.livraison.recu', $item->id_BL) }}"
-                                                method="post">
-                                                @csrf
-                                                <button type="submit"class="btn">
-                                                    <i class="fa fa-check"></i>bon bien recu
-                                                </button>
-                                            </form>
-                                        </div>
-                                    @endif
+                                    
                                     @if ($item->colis->count() == 0)
                                         <div class="menu-item  text-hover-danger px-3">
                                             <a href="{{ route('bon.livraison.destroy', $item->id_BL) }}"
