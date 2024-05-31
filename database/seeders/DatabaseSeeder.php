@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
                 'password' => Hash::make('password'),
             ]);
         \App\Models\Client::factory()->create([
-                'email' => 'admin@gmail.com',
+                'email' => 'client@gmail.com',
                 'password' => Hash::make('password'),
                 'id_Cl'=>'iecFC3g7Jx',
                 'isAccepted'=>1
@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
                 'isAccepted'=>0
             ]);
         \App\Models\Livreur::factory()->create([
-                'email' => 'admin@gmail.com',
+                'email' => 'liv@gmail.com',
                 'password' => Hash::make('password'),
             ]);
            
