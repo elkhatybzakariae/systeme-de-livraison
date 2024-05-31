@@ -230,7 +230,11 @@ class ColisController extends Controller
 
     public function showImportPage()
     {
-        return view('pages.clients.colis.import');
+        $breads = [
+            ['title' => 'Import  Colis', 'url' => null],
+            ['text' => 'Import  Colis', 'url' => null], 
+        ];
+        return view('pages.clients.colis.import',compact('breads'));
     }
 
     public function import(Request $request)
