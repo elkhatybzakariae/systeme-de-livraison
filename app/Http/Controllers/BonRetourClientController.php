@@ -153,13 +153,13 @@ class BonRetourClientController extends Controller
     public function nonrecu($id_BRC)
     {
         Colis::where('id_BRC', $id_BRC)
-            ->update(['status' => 'Recu par Centre Principale']);
+            ->update(['status' => 'Expedier vers Client']);
         BonRetourClient::where('id_BRC', $id_BRC)
             ->update(['status' => 'Nouveau']);
         $coli = Colis::where('id_BRC', $id_BRC)->first();
         $colisinfo = colisinfo::where('id', $coli['id'])->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Recu par Centre Principale,' . $coli['updated_at'] . ',' . ' ' . '_';
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Expedier vers Client,' . $coli['updated_at'] . ',' . ' ' . '_';
 
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.retour.client.list');

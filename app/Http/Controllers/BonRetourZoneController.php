@@ -25,7 +25,12 @@ class BonRetourZoneController extends Controller
             session(['zone' => $id_Z]);
         }
         $user = session('user');
-        $colis = Colis::query()->with('ville')->whereNull('id_BRZ')->where('zone', $id_Z)->get();
+        $colis = Colis::query()->with('ville')
+        ->whereNull('id_BRZ')->where('zone', $id_Z)
+        ->whereIn(
+            'status',
+            ['Recu par Centre Retour']
+        )->get();
 
         $colisBon = [];
         if (!$id_BRZ) {
@@ -146,13 +151,13 @@ class BonRetourZoneController extends Controller
     public function nonrecu($id_BRZ)
     {
         Colis::where('id_BRZ', $id_BRZ)
-            ->update(['status' => 'Recu par Centre Retour']);
+            ->update(['status' => 'Expedier vers Centre Principale']);
             BonRetourZone::where('id_BRZ', $id_BRZ)
             ->update(['status' => 'Nouveau']);
         $coli = Colis::where('id_BRZ', $id_BRZ)->first();
         $colisinfo = colisinfo::where('id', $coli['id'])->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Recu par Centre Retour,' . $coli['updated_at'] . ',' . ' ' . '_';
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',Non Paye,Expedier vers Centre Principale,' . $coli['updated_at'] . ',' . ' ' . '_';
 
         $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('bon.retour.zone.list');

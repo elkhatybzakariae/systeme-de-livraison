@@ -129,7 +129,7 @@
                                             href="{{ route('bon.retour.livreur.exportColis', $item->id_BRL) }}"><i
                                                 class="far fa-file-excel"></i>Exporter les colis</a>
                                     </div>
-                                    @if ($item->status != 'Recu par Centre Retour')
+                                    @if ($item->status != 'Recu')
                                         <div class="menu-item px-3">
                                             <form action="{{ route('bon.retour.livreur.recu', $item->id_BRL) }}"
                                                 method="post">

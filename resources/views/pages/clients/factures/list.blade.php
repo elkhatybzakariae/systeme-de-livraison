@@ -49,7 +49,7 @@
           <option></option>
           <option value="all">All</option>
           <option value="nouveau">Nouveau</option>
-          <option value="recu">recu</option>
+          <option value="recu">Recu</option>
         </select>
       </div>
     </div>
