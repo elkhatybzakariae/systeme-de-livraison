@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helpers;
 use App\Models\BonDistribution;
+use App\Models\BonRetourLivreur;
 use App\Models\Colis;
 use App\Models\colisinfo;
 use App\Models\Etat;
@@ -23,13 +24,57 @@ class LivreurController extends Controller
 {
     public function index()
     {
-        $remarques=Remarque::query()->where('cible','Livreur')->get();
+        $idLiv = Auth::id();
+
+        // $query = BonDistribution::query()->where('id_Liv', $idLiv);
+        // $statistics = $query->selectRaw('status, COUNT(*) as count')
+        //     ->groupBy('status')
+        //     ->pluck('count', 'status')
+        //     ->toArray();
+
+        // $statuses = array_keys($statistics);
+        // $counts = array_values($statistics);
+
+        // $query = BonRetourLivreur::query()->where('id_Liv', $idLiv);
+        // $statistics = $query->selectRaw('status, COUNT(*) as count')
+        //     ->groupBy('status')
+        //     ->pluck('count', 'status')
+        //     ->toArray();
+
+        // $statusesBRL = array_keys($statistics);
+        // $countsBRL = array_values($statistics);
+        $query = BonDistribution::query()->where('id_Liv', $idLiv);
+    $distributionStatistics = $query->selectRaw('status, COUNT(*) as count')
+        ->groupBy('status')
+        ->pluck('count', 'status')
+        ->toArray();
+
+    // Fetch BonRetourLivreur statistics
+    $query = BonRetourLivreur::query()->where('id_Liv', $idLiv);
+    $retourStatistics = $query->selectRaw('status, COUNT(*) as count')
+        ->groupBy('status')
+        ->pluck('count', 'status')
+        ->toArray();
+        $remarques = Remarque::query()->where('cible', 'Livreur')->get();
 
         $breads = [
             ['title' => 'Taleau de bord', 'url' => null],
             ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.livreur.dashboard', compact('breads','remarques'));
+        // return view('pages.livreur.dashboard', compact(
+        //     'breads',
+        //     'remarques',
+        //     'statuses',
+        //     'counts',
+        //     'statusesBRL',
+        //     'countsBRL',
+        // ));
+        return view('pages.livreur.dashboard', compact(
+            'breads',
+            'remarques',
+            'distributionStatistics',
+            'retourStatistics'
+        ));
     }
     public function signuppage()
     {
@@ -91,9 +136,9 @@ class LivreurController extends Controller
 
                 Auth::login($Livreur);
                 session(["user" => $Livreur]);
-                $url=session('url.intended');
+                $url = session('url.intended');
                 if ($url) {
-                    session(['url'=>null]);
+                    session(['url' => null]);
                     return redirect()->to($url);
                 }
                 return redirect()->route('livreur.index');
@@ -125,10 +170,10 @@ class LivreurController extends Controller
             $query->where('id_Liv', $liv);
         })->with(['bonDistribution', 'client'])->get();
 
-        $cl=Option::query()->orderBy('created_at','desc')->get();
-        $etat=Etat::query()->orderBy('created_at','desc')->get();
+        $cl = Option::query()->orderBy('created_at', 'desc')->get();
+        $etat = Etat::query()->orderBy('created_at', 'desc')->get();
         // dd($colis);
-        return view('pages.livreur.colis.index', compact('colis','cl','etat', 'breads'));
+        return view('pages.livreur.colis.index', compact('colis', 'cl', 'etat', 'breads'));
     }
 
     public function changestatus(Request $req, $id)
@@ -152,13 +197,13 @@ class LivreurController extends Controller
         } else {
             $cmt = 'Commentaire:' . $req->cmt;
         }
-        $info = 'Livreur:'.$livreur->nomcomplet.'<br>Telephone:'.$livreur->Phone.'<br>'.$cmt;
+        $info = 'Livreur:' . $livreur->nomcomplet . '<br>Telephone:' . $livreur->Phone . '<br>' . $cmt;
         $colis = Colis::where('id', $id)
             ->update(['status' => $req->status]);
         $coli = Colis::where('id', $id)->first();
         $colisinfo = colisinfo::where('id', $id)->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',' . $dt . ',' . $coli['updated_at'] . ',' .$info . '_';
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',' . $dt . ',' . $coli['updated_at'] . ',' . $info . '_';
 
         $colisinfo->update(['info' => $newInfo]);
 

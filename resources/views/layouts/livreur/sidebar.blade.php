@@ -84,7 +84,7 @@
 
                 </div>
                 <!--begin:Menu link-->
-                <div class="menu-item">
+                {{-- <div class="menu-item">
                     <!--begin:Menu link-->
                     <a class="menu-link" href="">
                         <span class="menu-icon">
@@ -101,7 +101,7 @@
                         <span class="menu-title">Bons d envoie</span>
                     </a>
                     <!--end:Menu link-->
-                </div>
+                </div> --}}
                 <!--end:Menu sub-->
                 <!--begin:Menu link-->
                 <div class="menu-item">
