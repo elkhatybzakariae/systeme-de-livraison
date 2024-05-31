@@ -194,12 +194,17 @@
                         <span class="menu-title">Bons de retour</span>
                     </a>
                 </div>
+<<<<<<< HEAD
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <span class="menu-link">
+=======
                 <!--end:Menu sub-->
 
                 <!--begin:Menu link-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
                     <a class="menu-link {{ request()->routeIs('bon.facture.client.getClientBons') ?'active':'' }}" href="{{ route('bon.facture.client.getClientBons') }}">
+>>>>>>> 3b7be7cdcc3d9628a35344e026733d6831d5cec1
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                             <span class="svg-icon svg-icon-2">
