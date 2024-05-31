@@ -131,55 +131,52 @@ class FactureController extends Controller
     public function update($id, $id_F)
     {
         $colis = Colis::where('id', $id)
-            ->update(['id_F' => $id_F, 'status' => 'Expedier vers Client']);
+            ->update(['id_F' => $id_F]);
 
-        $coli = Colis::find($id);
+        // $coli = Colis::find($id);
 
-        $colisinfo = colisinfo::where('id', $id)->first();
-        // dd($colisinfo);
-        $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,Expedier vers Client,' . $coli['updated_at'] . ',' . ' ' . '_';
+        // $colisinfo = colisinfo::where('id', $id)->first();
+        // // dd($colisinfo);
+        // $oldinfo = $colisinfo['info'];
+        // $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,Expedier vers Client,' . $coli['updated_at'] . ',' . ' ' . '_';
 
-        $colisinfo->update(['info' => $newInfo]);
+        // $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('factures.index', $id_F);
     }
     public function recu($id_F)
     {
-        Colis::where('id_F', $id_F)
-            ->update(['status' => 'Recu par Client']);
+        // Colis::where('id_F', $id_F)
+        //     ->update(['status' => 'Recu par Client']);
         Facture::where('id_F', $id_F)
             ->update(['status' => 'Recu']);
-        $coli = Colis::where('id_F', $id_F)->first();
-        $colisinfo = colisinfo::where('id', $coli['id'])->first();
-        $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,Recu par Client,' . $coli['updated_at'] . ',' . ' ' . '_';
+        // $coli = Colis::where('id_F', $id_F)->first();
+        // $colisinfo = colisinfo::where('id', $coli['id'])->first();
+        // $oldinfo = $colisinfo['info'];
+        // $newInfo = $oldinfo . $coli['code_d_envoi'] . ',non paye,Recu par Client,' . $coli['updated_at'] . ',' . ' ' . '_';
 
-        $colisinfo->update(['info' => $newInfo]);
+        // $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('factures.list');
     }
     public function updateDelete($id, $id_F)
     {
         $colis = Colis::where('id', $id)
-            ->update(['id_F' => null, 'status' => 'Recu par Centre Principale']);
-
-        // dd($colis);
+            ->update(['id_F' => null]);
         return redirect()->route('factures.index', $id_F);
     }
 
 
     public function updateAll(Request $request, $id_F)
     {
-        // dd($request->input('query'));
         if ($request->input('query')) {
             $colis = Colis::where('id', $request->input('query'))
-                ->update(['id_F' => $id_F, 'status' => 'Expedier vers Client']);
+                ->update(['id_F' => $id_F]);
         } else {
 
 
             foreach ($request->colis as $colis) {
 
                 $colis = Colis::where('id', $colis)
-                    ->update(['id_F' => $id_F, 'status' => 'Expedier vers Client']);
+                    ->update(['id_F' => $id_F]);
             }
         }
         return redirect()->route('factures.index', $id_F);
@@ -188,12 +185,12 @@ class FactureController extends Controller
     {
         if ($request->query) {
             $colis = Colis::where('id', $request->input('query'))
-                ->update(['id_F' => null, 'status' => 'Recu par Centre Principale']);
+                ->update(['id_F' => null]);
         } else {
             foreach ($request->colisDelete as $colis) {
 
                 $colis = Colis::where('id', $colis)
-                    ->update(['id_F' => null, 'status' => 'Recu par Centre Principale']);
+                    ->update(['id_F' => null]);
             }
         }
         return redirect()->route('factures.index', $id_F);
