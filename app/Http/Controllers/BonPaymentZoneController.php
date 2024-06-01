@@ -30,7 +30,6 @@ class BonPaymentZoneController extends Controller
             ->where('zone', $id_Z)
             ->where('status', 'Livre')
             ->where('etat', 'Paye')
-            ->whereNot('id_BPZ',null)
             ->get();
 
         $colisBon = [];
@@ -93,19 +92,22 @@ class BonPaymentZoneController extends Controller
         $user = session('user');
 
         $zones = Zone::whereHas('colis', function ($query) {
-            $query
-            ->where('status', 'Livre')
-            ->where('etat', 'Paye')
-            ->whereNot('id_BPZ',null );
+            $query->where('status', 'Livre')
+                ->where('etat', 'Paye')
+                ->whereNull('id_BPZ');
         })
-            ->with([
-                'colis' => function ($query) {
-                    $query->where('status', 'Livre');
-                }
-            ])
-            ->withCount('colis')
-            ->get();
-
+        ->with(['colis' => function ($query) {
+            $query->where('status', 'Livre')
+                ->where('etat', 'Paye')
+                ->whereNull('id_BPZ');
+        }])
+        ->withCount(['colis' => function ($query) {
+            $query->where('status', 'Livre')
+                ->where('etat', 'Paye')
+                ->whereNull('id_BPZ');
+        }])
+        ->get();
+        // dd($zones);
         $breads = [
             ['title' => 'créer un Bon Payement', 'url' => null],
             ['text' => 'Bons', 'url' => null],

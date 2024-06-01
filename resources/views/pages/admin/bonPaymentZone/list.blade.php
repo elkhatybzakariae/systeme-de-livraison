@@ -124,14 +124,7 @@
                   </form>
                 </div>
                 @else
-                <div class="menu-item px-3">
-              <form action="{{route('bon.payment.zone.nonrecu',$item->id_BPZ)}}" method="post">
-                @csrf
-                <button type="submit"class="btn">
-                  <i class="fa fa-check"></i>changer en nouveau</a>
-                </button>
-              </form>
-            </div>
+                
                 @endif
                 </div>
                 <div class="menu-item px-3">
