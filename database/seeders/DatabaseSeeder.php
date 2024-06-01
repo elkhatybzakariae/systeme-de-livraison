@@ -64,5 +64,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DemandeModificationColiSeeder::class);
         $this->call(OptionSeeder::class);
         $this->call(EtatSeeder::class);
+        $this->call(FraisSeeder::class);
     }
 }

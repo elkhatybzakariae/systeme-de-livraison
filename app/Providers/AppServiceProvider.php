@@ -5,8 +5,14 @@ namespace App\Providers;
 use App\Models\BonDistribution;
 use App\Models\BonEnvois;
 use App\Models\BonLivraison;
+use App\Models\BonPaymentLivreur;
+use App\Models\BonPaymentZone;
+use App\Models\BonRetourClient;
+use App\Models\BonRetourLivreur;
+use App\Models\BonRetourZone;
 use App\Models\Client;
 use App\Models\DemandeModificationColi;
+use App\Models\Facture;
 use App\Models\Livreur;
 use App\Models\Ramassagecoli;
 use App\Models\Reclamation;
@@ -38,6 +44,12 @@ class AppServiceProvider extends ServiceProvider
             $numberOfBE = BonEnvois::where('status', 'nouveau')->count();
             $numberOfBD = BonDistribution::where('status', 'nouveau')->count();
             $numberOfDMC = DemandeModificationColi::where('isAccepted', 'Nouveau')->count();
+            $numberOfBRL = BonRetourLivreur::where('status', 'Nouveau')->count();
+            $numberOfBRC = BonRetourClient::where('status', 'Nouveau')->count();
+            $numberOfBRZ = BonRetourZone::where('status', 'Nouveau')->count();
+            $numberOfF = Facture::where('status', 'Nouveau')->count();
+            $numberOfBPL = BonPaymentLivreur::where('status', 'Nouveau')->count();
+            $numberOfBPZ = BonPaymentZone::where('status', 'Nouveau')->count();
             $view->with([
                 'numberOfItems' => $numberOfItems,
                 'numberOfLivreurs' => $numberOfLivreurs,
@@ -47,7 +59,13 @@ class AppServiceProvider extends ServiceProvider
                 'numberOfBL' => $numberOfBL,
                 'numberOfBE' => $numberOfBE,
                 'numberOfBD' => $numberOfBD,
-                'numberOfDMC' => $numberOfDMC
+                'numberOfDMC' => $numberOfDMC,
+                'numberOfBRL' => $numberOfBRL,
+                'numberOfBRC' => $numberOfBRC,
+                'numberOfBRZ' => $numberOfBRZ,
+                'numberOfF' => $numberOfF,
+                'numberOfBPL' => $numberOfBPL,
+                'numberOfBPZ' => $numberOfBPZ
             ]);
         });
     }

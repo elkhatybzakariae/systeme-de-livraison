@@ -20,6 +20,10 @@ class Facture extends Model
     {
         return $this->hasMany(Colis::class,'id_F');
     }
+    public function frais()
+    {
+        return $this->hasMany(Frais::class,'id_F');
+    }
     public function client()
     {
         return $this->belongsTo(Client::class,'id_Cl');

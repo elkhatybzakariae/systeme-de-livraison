@@ -336,6 +336,7 @@
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-title">Bons de payments</span>
+                        <span class="icon-number">{{ $numberOfBPL+$numberOfBPZ}}</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <!--end:Menu link-->
@@ -349,6 +350,7 @@
                                     <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">Pour livreur</span>
+                                <span class="icon-number">{{ $numberOfBPL}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -361,6 +363,7 @@
                                     <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">Pour zone</span>
+                                <span class="icon-number">{{ $numberOfBPZ}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -384,7 +387,8 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Bons de retour</span>
+                        <span class="menu-title">Bons de retour</span>                        
+                        <span class="icon-number" >{{ $numberOfBRL+$numberOfBRC+$numberOfBRZ}}</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <!--end:Menu link-->
@@ -398,6 +402,7 @@
                                     <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">Pour livreur</span>
+                                <span class="icon-number">{{ $numberOfBRL}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -410,6 +415,7 @@
                                     <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">Pour zone</span>
+                                <span class="icon-number">{{ $numberOfBRZ}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -423,6 +429,7 @@
                                     <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">Pour client</span>
+                                <span class="icon-number">{{ $numberOfBRC}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -449,6 +456,7 @@
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-title">Factures</span>
+                        <span class="icon-number">{{ $numberOfF}}</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <!--end:Menu link-->
@@ -474,6 +482,7 @@
                                     <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">Toutes Factures</span>
+                                <span class="icon-number">{{ $numberOfF}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
