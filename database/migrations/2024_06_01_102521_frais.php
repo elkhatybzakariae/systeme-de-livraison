@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('frais', function (Blueprint $table) {
             $table->string('id_Fr')->primary();            
             $table->string('title');
+            $table->integer('quntite');            
             $table->decimal('prix', 8, 2);            
             $table->string('id_F');
             $table->foreign('id_F')->on('factures')->references('id_F');            
