@@ -322,7 +322,7 @@
                                         class="menu-link">{{ $coli->bonPaymentLivreur->id_BPL }}</a>
                                 @endif
                                 @if ($coli->bonPaymentZone)
-                                    <a href="{{ route('bon.payement.zone.getPdf.colis', ['id' => $coli->bonPaymentZone->id_BPZ, 'idC' => $coli->id]) }}"
+                                    <a href="{{ route('bon.payment.zone.getPdf.colis', ['id' => $coli->bonPaymentZone->id_BPZ, 'idC' => $coli->id]) }}"
                                         class="menu-link">{{ $coli->bonPaymentZone->id_BPZ }}</a>
                                 @endif
                             </td>
