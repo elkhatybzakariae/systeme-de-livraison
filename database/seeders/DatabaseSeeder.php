@@ -54,16 +54,16 @@ class DatabaseSeeder extends Seeder
             ]);
            
         \App\Models\Admin::factory(10)->create();
-        $this->call(ColisSeeder::class);
+        // $this->call(ColisSeeder::class);
         $this->call(DepenseSeeder::class);
         $this->call(TarifSeeder::class);
-        $this->call(ReclamationSeeder::class);
-        $this->call(MessageSeeder::class);
-        $this->call(RamassagecoliSeeder::class);
-        $this->call(RemarqueSeeder::class);
-        $this->call(DemandeModificationColiSeeder::class);
+        // $this->call(ReclamationSeeder::class);
+        // $this->call(MessageSeeder::class);
+        // $this->call(RamassagecoliSeeder::class);
+        // $this->call(RemarqueSeeder::class);
+        // $this->call(DemandeModificationColiSeeder::class);
         $this->call(OptionSeeder::class);
         $this->call(EtatSeeder::class);
-        $this->call(FraisSeeder::class);
+        // $this->call(FraisSeeder::class);
     }
 }

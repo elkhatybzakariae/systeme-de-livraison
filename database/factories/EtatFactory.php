@@ -21,7 +21,7 @@ class EtatFactory extends Factory
         // Convert the integer to hexadecimal format
         $hexColor = sprintf('#%06X', $randomInteger);
         $status = $this->faker->randomElement([
-            'Paye', 'Non Paye'
+            'Paye', 'Non Paye','Facture','Paye a Client'
         ]);
         return [
             'couleur' => $hexColor,

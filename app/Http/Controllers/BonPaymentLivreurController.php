@@ -111,17 +111,31 @@ class BonPaymentLivreurController extends Controller
         // ])
         // ->withCount('colis')
         // ->get();
+        // $zones = Zone::whereHas('colis', function ($query) {
+        //     $query->where(['status'=>'Livre','etat'=>'Paye']);
+        // })
+        //     ->with([
+        //         'colis' => function ($query) {
+        //             $query->where(['status'=>'Livre','etat'=>'Paye']);
+        //         },
+        //         'livreurs'
+        //     ])
+        //     ->withCount('colis')->distinct()
+        //     ->get();
         $zones = Zone::whereHas('colis', function ($query) {
-            $query->where('status', 'Livre');
+            $query->where(['status' => 'Livre', 'etat' => 'Paye']);
         })
-            ->with([
-                'colis' => function ($query) {
-                    $query->where('status', 'Livre');
-                },
-                'livreurs'
-            ])
-            ->withCount('colis')
-            ->get();
+        ->with([
+            'colis' => function ($query) {
+                $query->where(['status' => 'Livre', 'etat' => 'Paye']);
+            },
+            'livreurs'
+        ])
+        ->withCount(['colis' => function ($query) {
+            $query->where(['status' => 'Livre', 'etat' => 'Paye']);
+        }])
+        ->distinct('zones.id') // Assuming 'id' is the primary key in 'zones' table
+        ->get();
 
         // dd($zones);
 
