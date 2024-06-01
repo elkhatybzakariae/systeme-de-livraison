@@ -63,7 +63,6 @@
           
           <th class="min-w-200px">reference</th>
           <th class="min-w-70px">Zone</th>
-          <th class="min-w-100px">Livreurs</th>
           <th class="min-w-100px">Date de creation</th>
           <th class="min-w-100px">statut</th>
           <th class="min-w-100px">colis</th>
@@ -82,9 +81,6 @@
             </td>
             <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="zonename">{{ $item->zone }}</span>
-            </td>
-            <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="nomcomplet">{{ $item->nomComplet }}</span>
             </td>
             <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="date">{{ $item->created_at }}</span>
