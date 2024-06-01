@@ -25,8 +25,8 @@ class FactureController extends Controller
         $user = session('user');
         $colis = Colis::query()->with('ville')
             ->whereNull('id_F')
-            ->where('status','livre')
-            ->where('etat','paye')
+            ->where('status','Livre')
+            ->where('etat','Paye')
             // ->whereNot('id_BPZ',null)
             ->where('id_Cl', $id_Cl)
             ->get();
@@ -108,8 +108,8 @@ class FactureController extends Controller
             ->where('colis.etat', 'paye')
             // ->whereNotNull('colis.id_BPZ')
             ->withCount(['colis as colis_count' => function ($query) {
-                $query->where('status', 'livre')
-                    ->where('etat', 'paye')
+                $query->where('status', 'Livre')
+                    ->where('etat', 'Paye')
                     // ->whereNotNull('id_BPZ')
                     ;
             }])

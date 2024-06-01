@@ -36,6 +36,7 @@
                             <span class="menu-title">Dashboards</span>
                             <span class="menu-arrow d-lg-none"></span>
                         </span>
+                        
                         <!--end:Menu link-->
                         <!--begin:Menu sub-->
                         <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0 w-100 w-lg-600px">
@@ -75,7 +76,7 @@
                                         <!--begin:Menu item-->
                                         <div class="menu-item p-0 m-0">
                                             <!--begin:Menu link-->
-                                            <a href="../../demo1/dist/dashboards/projects.html" class="menu-link">
+                                            <a href="" class="menu-link">
                                                 <span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
                                                     <!--begin::Svg Icon | path: icons/duotune/abstract/abs045.svg-->
                                                     <span class="svg-icon svg-icon-info svg-icon-1">
@@ -103,6 +104,7 @@
                         </div>
                         <!--end:Menu sub-->
                     </div>
+                    
                     <!--end:Menu item-->
                 </div>
                 <!--end::Menu-->
@@ -110,6 +112,13 @@
             <!--end::Menu wrapper-->
             <!--begin::Navbar-->
             <div class="app-navbar flex-shrink-0">
+                
+                <div class="app-navbar-item ms-1 ms-lg-3">
+                    <a href="#!" style="color: #000000;" onclick="javascript:toggleFullScreen()">
+                        {{-- <i class="ti-fullscreen"></i> --}}
+                        <i class="fa-solid fa-maximize"></i>
+                    </a>
+                </div>
                 <div class="app-navbar-item ms-1 ms-lg-3">
                     <!--begin::Menu toggle-->
                     <a href="#" class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px w-md-40px h-md-40px" data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
@@ -139,6 +148,7 @@
                         </span>
                         <!--end::Svg Icon-->
                     </a>
+                    
                     <!--begin::Menu toggle-->
                     <!--begin::Menu-->
                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-title-gray-700 menu-icon-muted menu-active-bg menu-state-color fw-semibold py-4 fs-base w-150px" data-kt-menu="true" data-kt-element="theme-mode-menu">
