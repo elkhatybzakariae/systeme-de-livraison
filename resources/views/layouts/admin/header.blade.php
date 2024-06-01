@@ -114,7 +114,7 @@
             <div class="app-navbar flex-shrink-0">
                 
                 <div class="app-navbar-item ms-1 ms-lg-3">
-                    <a href="#!" style="color: #000000;" onclick="javascript:toggleFullScreen()">
+                    <a href="#" style="color: #000000;" onclick="toggleFullScreen()">
                         {{-- <i class="ti-fullscreen"></i> --}}
                         <i class="fa-solid fa-maximize"></i>
                     </a>

@@ -161,6 +161,7 @@
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
     <script src="{{ asset('storage/assets/plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ asset('storage/assets/js/scripts.bundle.js') }}"></script>
+    <script src="{{ asset('storage/assets/js/fullscreen.js') }}"></script>
     <!--end::Global Javascript Bundle-->
     <!--begin::Vendors Javascript(used for this page only)-->
     <script src="{{ asset('storage/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
@@ -192,28 +193,31 @@
 <!--end::Body-->
 
 <script>
-    function toggleFullScreen() {
-        if (!document.fullscreenElement) {
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
-            } else if (document.documentElement.mozRequestFullScreen) { // Firefox
-                document.documentElement.mozRequestFullScreen();
-            } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                document.documentElement.webkitRequestFullscreen();
-            } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
-                document.documentElement.msRequestFullscreen();
-            }
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.mozCancelFullScreen) { // Firefox
-                document.mozCancelFullScreen();
-            } else if (document.webkitExitFullscreen) { // Chrome, Safari and Opera
-                document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) { // IE/Edge
-                document.msExitFullscreen();
-            }
-        }
-    }
+    // function toggleFullScreen() {
+    //     if (!document.fullscreenElement) {
+    //         if (document.documentElement.requestFullscreen) {
+    //             document.documentElement.requestFullscreen();
+    //         } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+    //             document.documentElement.mozRequestFullScreen();
+    //         } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+    //             document.documentElement.webkitRequestFullscreen();
+    //         } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+    //             document.documentElement.msRequestFullscreen();
+    //         }
+    //     } else {
+    //         if (document.exitFullscreen) {
+    //             document.exitFullscreen();
+    //         } else if (document.mozCancelFullScreen) { // Firefox
+    //             document.mozCancelFullScreen();
+    //         } else if (document.webkitExitFullscreen) { // Chrome, Safari and Opera
+    //             document.webkitExitFullscreen();
+    //         } else if (document.msExitFullscreen) { // IE/Edge
+    //             document.msExitFullscreen();
+    //         }
+    //     }
+    // }
+    // Function to request full-screen mode
+    
 </script>
+
 </html>
