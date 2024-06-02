@@ -154,14 +154,25 @@
                   
                 <div class="row">
                   <div class="col-xs-12 col-sm-12">
-                    <table class="table table-striped   dataTable" >
+                    <form action="{{ route('factures.frais.store',$bonLivraison->id_F) }}" method='post'>
+                      @csrf
+                    <table class="table table-striped   " >
                       <thead>
                         <tr role="row"><th class="sorting" tabindex="0" aria-controls="inv_extra_fees_table" rowspan="1" colspan="1" aria-label="Designation: activate to sort column ascending" style="width: 205.859px;">Designation</th><th class="sorting" tabindex="0" aria-controls="inv_extra_fees_table" rowspan="1" colspan="1" aria-label="Quantite: activate to sort column ascending" style="width: 163.469px;">Quantite</th><th class="sorting" tabindex="0" aria-controls="inv_extra_fees_table" rowspan="1" colspan="1" aria-label="Prix unitaire: activate to sort column ascending" style="width: 213.156px;">Prix unitaire</th><th class="sorting" tabindex="0" aria-controls="inv_extra_fees_table" rowspan="1" colspan="1" aria-label="Total: activate to sort column ascending" style="width: 108.625px;">Total</th><th class="sorting" tabindex="0" aria-controls="inv_extra_fees_table" rowspan="1" colspan="1" aria-label="Actions: activate to sort column ascending" style="width: 140.906px;">Actions</th></tr>
                       </thead>
                       <tbody id="tbody">
-
+                        @foreach ($frais as $item )
+                        <tr id="add-new-extra">
+                          <td ><input readonly class='form-control' type='text' value="{{ $item->title }}" /></td>
+                          <td ><input readonly type='number'class='form-control' value="{{ $item->quntite }}" /></td>
+                          <td ><input readonly type='number' class='form-control'  value="{{ $item->prix }}" /></td>
+                          <td >{{ $item->quntite*$item->prix }}DH</td>
+                          <td  ><a href="{{ route('factures.frais.delete',$item->id_Fr) }}" type='submit' class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a></td>
+                          </tr>
+                        @endforeach
                       </tbody>
                     </table>
+                    </form>
           
                   </div>
                 </div>
@@ -185,15 +196,15 @@ function ajouterFrais(){
   var tbody=document.getElementById('tbody')
   const randomString = generateRandomString(10);
 
-      var tr=`<form action="">
-        
-        <tr id="add-new-extra">
-          <td ><input class='form-control' type='text' value="" /></td>
-          <td ><input type='number'class='form-control' name='quntite' value="1" /></td>
-          <td ><input type='number' class='form-control' name='quntite' value="0" /></td>
-          <td ></td>
-          <td  class="btn btn-sm btn-info"><i class="fa fa-plus"></i></a></td></tr>
-        </form>
+      var tr=`
+    
+      <tr id="add-new-extra">
+            <td ><input class='form-control' type='text' name='title' value="" /></td>
+            <td ><input type='number'class='form-control' name='quntite' value="1" /></td>
+            <td ><input type='number' class='form-control' name='prix' value="0" /></td>
+            <td ></td>
+            <td  ><input type='submit' class='btn btn-info'  value="Ajouter" /></td>
+            </tr>
       `
         tbody.innerHTML=tr
     

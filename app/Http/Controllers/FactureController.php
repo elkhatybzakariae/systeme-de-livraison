@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Colis;
 use App\Models\colisinfo;
 use App\Models\Facture;
+use App\Models\Frais;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,7 +36,6 @@ class FactureController extends Controller
             $bonLivraison = Facture::create([
                 'id_F' => 'Fac-' . Str::random(10),
                 'reference' => 'Fac-' . Str::random(10),
-                'status' => 'Nouveau',
                 'date_paiment' => now(),
                 'id_Cl' => $id_Cl,
                 'id_Ad' => session('user')['id_Ad'],
@@ -46,11 +46,12 @@ class FactureController extends Controller
             inner join villes on villes.id_V = colis.ville_id 
             where id_F =?', [$id_F]);
         }
+        $frais=Frais::query()->where('id_F',$bonLivraison->id_F)->get();
         $breads = [
             ['title' => 'créer un Facture', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.Factures.index', compact("colis", "bonLivraison", 'colisBon', 'breads'));
+        return view('pages.admin.Factures.index', compact("colis", "bonLivraison", 'colisBon', 'breads','frais'));
     }
     public function list()
     {
@@ -120,6 +121,32 @@ class FactureController extends Controller
         ];
         return view('pages.admin.Factures.create', compact("clients", 'breads'));
     }
+    public function store(Request $request,$id_F)
+{
+    
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'quntite' => 'required|integer',
+        'prix' => 'required|numeric',
+    ]);
+    // dd($request);
+    // Create a new record in the 'factures' table
+    $facture = Frais::create([
+        'id_Fr' => 'Frais'. Str::random(10),
+        'title' => $request->title,
+        'quntite' => $request->quntite,
+        'prix' => $request->prix,
+        'id_F' => $id_F,
+    ]);
+    return redirect()->route('factures.index', $id_F);
+    
+}
+public function deleteFrais($id)
+{
+    $bon = Frais::find($id);
+    $bon->delete();
+    return redirect()->route('factures.index',$bon->id_F)->with('success', 'Frais deleted successfully.');
+}
 
     public function destroy($id)
     {
@@ -143,18 +170,19 @@ class FactureController extends Controller
     }
     public function recu($id_F)
     {
+      
+        Facture::where('id_F', $id_F)
+            ->update(['status' => 'Enregistre']);
+        
+        return redirect()->route('factures.list');
+    }
+    public function paye($id_F)
+    {
         Colis::where('id_F', $id_F)
             ->update(['etat' => 'Paye a Client']);
         Facture::where('id_F', $id_F)
-            ->update(['status' => 'Recu']);
-        // $coli = Colis::where('id_F', $id_F)->get();
-
-        //     dd($coli);
-        // $colisinfo = colisinfo::where('id', $col->id)->first();
-        // $oldinfo = $colisinfo['info'];
-        // $newInfo = $oldinfo . $coli['code_d_envoi'] . $coli['etat'] . $coli['status'] .  $coli['updated_at'] . ',' . ' ' . '_';
-
-        // $colisinfo->update(['info' => $newInfo]);
+            ->update(['status' => 'Paye']);
+        
         return redirect()->route('factures.list');
     }
     public function updateDelete($id, $id_F)

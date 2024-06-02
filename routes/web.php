@@ -240,8 +240,11 @@ Route::middleware('check.admin')->group(function () {
         Route::post('/update/delete/all/{id_F}', [FactureController::class, 'updateDeleteAll'])->name('factures.updateDelete.all');
         Route::get('/export/colis/{id}', [FactureController::class, 'exportColis'])->name('factures.exportColis');
         Route::get('/get/pdf/{id_F}', [FactureController::class, 'getPdf'])->name('factures.getPdf');
-        Route::post('admin/bon-retour/bd/{id}', [FactureController::class, 'recu'])->name('factures.recu');
+        Route::post('admin/facture/engestre/{id}', [FactureController::class, 'recu'])->name('factures.recu');
+        Route::post('admin/facture/paye/{id}', [FactureController::class, 'paye'])->name('factures.paye');
         Route::get('/destroy/{id}', [FactureController::class, 'destroy'])->name('factures.destroy');
+        Route::post('/facture/frais/{id}', [FactureController::class, 'store'])->name('factures.frais.store');
+        Route::get('/facture/frais/delete/{id}', [FactureController::class, 'deleteFrais'])->name('factures.frais.delete');
 
 
     });
@@ -250,6 +253,7 @@ Route::middleware('check.admin')->group(function () {
         Route::get('/pres/preparation/colis', 'pres')->name('stock.colis.pres');
         // Route::get('/nouveau/colis', 'nouveau')->name('stock.colis.nouveau');
     });
+    
 
     Route::group(['prefix' => 'admin/reclamation'], function () {
         Route::get('/all', [ReclamationController::class, 'all'])->name('reclamation.all');

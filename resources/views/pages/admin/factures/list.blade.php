@@ -109,15 +109,24 @@
                 <div class="menu-item px-3">
                   <a  class="btn" href="{{ route('factures.exportColis',$item->id_F) }}"><i class="far fa-file-excel"></i>Exporter les colis</a>
                 </div>
-                @if ($item->status != 'Recu')
-                    <div class="menu-item px-3">
-                  <form action="{{route('factures.recu',$item->id_F)}}" method="post">
-                    @csrf
-                    <button type="submit"class="btn">
-                      <i class="fa fa-check"></i>bon bien recu
-                    </button>
-                  </form>
-                </div>
+                @if ($item->status == 'Brouillon')
+                  <div class="menu-item px-3">
+                    <form action="{{route('factures.recu',$item->id_F)}}" method="post">
+                      @csrf
+                      <button type="submit"class="btn">
+                        <i class="fa fa-check"></i>Enregistre Facture
+                      </button>
+                    </form>
+                  </div>
+                @elseif ($item->status == 'Enregistre')
+                  <div class="menu-item px-3"><div class="menu-item px-3">
+                    <form action="{{route('factures.paye',$item->id_F)}}" method="post">
+                      @csrf
+                      <button type="submit"class="btn">
+                        <i class="fa fa-check"></i>Paye Facture
+                      </button>
+                    </form>
+                  </div>
                 @endif
                 <div class="menu-item px-3">
                   <a  class="btn"  href="{{ route('factures.getPdf',$item->id_F) }}"><i class="far fa-file-pdf"></i>Voir en Pdf</a>

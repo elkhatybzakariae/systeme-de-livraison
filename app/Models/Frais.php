@@ -18,7 +18,7 @@ class Frais extends Model
         'id_Fr',
         'title',
         'prix',
-        'id_F',
+        'id_F','quntite'
     ];
 
 
