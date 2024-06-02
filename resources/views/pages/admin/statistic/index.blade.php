@@ -62,39 +62,82 @@
           </tr>
         </thead>	
         <tbody>
-          <tr>
-            <td><b>Brouillon</b></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0 Dhs</td>
-            <td><b>-</b>0 Dhs</td>
-            <td><b>+</b>0 Dhs</td>
-            <td><b>-</b>0 Dhs</td>
-            <td><b>0 Dhs</b></td>
-            <td>0 Dhs</td>
-          </tr>
-          <tr>
-            <td><b>Enregistre</b></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0 Dhs</td>
-            <td><b>-</b>0 Dhs</td>
-            <td><b>+</b>0 Dhs</td>
-            <td><b>-</b>0 Dhs</td>
-            <td><b>0 Dhs</b></td>
-            <td>0 Dhs</td>
-          </tr>
-          <tr>
-            <td><b>Paye</b></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0 Dhs</td>
-            <td><b>-</b>0 Dhs</td>
-            <td><b>+</b>0 Dhs</td>
-            <td><b>-</b>0 Dhs</td>
-            <td><b>0 Dhs</b></td>
-            <td>0 Dhs</td>
-          </tr>
+          @if ($facturesBrouillon)
+            <tr>
+              <td><b>Brouillon</b></td>
+              <td>{{ $facturesBrouillon->factures_count ?? 0 }}</td>
+              <td>{{ $facturesBrouillon->colis_count ?? 0 }}</td>
+              <td>{{ $facturesBrouillon->prix_total ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $facturesBrouillon->frais_total ?? 0 }} Dhs</td>
+              <td><b>+</b>{{ $facturesBrouillon->remis ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $facturesBrouillon->frais_total ?? 0 }} Dhs</td>
+              <td><b>{{ $facturesBrouillon->frais_total ?? 0 + $facturesBrouillon->frais_total ?? 0 }} Dhs</b></td>
+              <td>{{ $facturesBrouillon->prix_total - ($facturesBrouillon->frais_total ?? 0) - ($facturesBrouillon->frais_total ?? 0) }} Dhs</td>
+            </tr>
+          @else
+            <tr>
+              <td><b>Brouillon</b></td>
+              <td>0</td>
+              <td>0</td>
+              <td>0 Dhs</td>
+              <td><b>-</b>0 Dhs</td>
+              <td><b>+</b>0 Dhs</td>
+              <td><b>-</b>0Dhs</td>
+              <td><b>0 Dhs</b></td>
+              <td>0 Dhs</td>
+            </tr>
+          @endif
+          @if ($facturesEnregistre)
+            <tr>
+              <td><b>Enregistre</b></td>
+              <td>{{ $facturesEnregistre->factures_count ?? 0 }}</td>
+              <td>{{ $facturesEnregistre->colis_count ?? 0 }}</td>
+              <td>{{ $facturesEnregistre->prix_total ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $facturesEnregistre->frais_total ?? 0 }} Dhs</td>
+              <td><b>+</b>{{ $facturesEnregistre->remis ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $facturesEnregistre->frais_total ?? 0 }} Dhs</td>
+              <td><b>{{ $facturesEnregistre->frais_total ?? 0 + $facturesEnregistre->frais_total ?? 0 }} Dhs</b></td>
+              <td>{{ $facturesEnregistre->prix_total - ($facturesEnregistre->frais_total ?? 0) - ($facturesEnregistre->frais_total ?? 0) }} Dhs</td>
+            </tr>
+          @else
+            <tr>
+              <td><b>Enregistre</b></td>
+              <td>0</td>
+              <td>0</td>
+              <td>0 Dhs</td>
+              <td><b>-</b>0 Dhs</td>
+              <td><b>+</b>0 Dhs</td>
+              <td><b>-</b>0Dhs</td>
+              <td><b>0 Dhs</b></td>
+              <td>0 Dhs</td>
+            </tr>
+          @endif
+          @if ($facturesPaye)
+            <tr>
+              <td><b>Paye</b></td>
+              <td>{{ $facturesPaye->factures_count ?? 0 }}</td>
+              <td>{{ $facturesPaye->colis_count ?? 0 }}</td>
+              <td>{{ $facturesPaye->prix_total ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $facturesPaye->frais_total ?? 0 }} Dhs</td>
+              <td><b>+</b>{{ $facturesPaye->remis ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $facturesPaye->frais_total ?? 0 }} Dhs</td>
+              <td><b>{{ $facturesPaye->frais_total ?? 0 + $facturesPaye->frais_total ?? 0 }} Dhs</b></td>
+              <td>{{ $facturesPaye->prix_total - ($facturesPaye->frais_total ?? 0) - ($facturesPaye->frais_total ?? 0) }} Dhs</td>
+            </tr>
+          @else
+            <tr>
+              <td><b>Paye</b></td>
+              <td>0</td>
+              <td>0</td>
+              <td>0 Dhs</td>
+              <td><b>-</b>0 Dhs</td>
+              <td><b>+</b>0 Dhs</td>
+              <td><b>-</b>0Dhs</td>
+              <td><b>0 Dhs</b></td>
+              <td>0 Dhs</td>
+            </tr>
+          @endif
+         
           <tr>
             <td><b>Total</b></td>
             <td>0</td>
