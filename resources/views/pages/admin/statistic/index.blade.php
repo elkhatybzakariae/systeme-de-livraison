@@ -138,17 +138,32 @@
             </tr>
           @endif
          
-          <tr>
-            <td><b>Total</b></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0 Dhs</td>
-            <td><b>-</b>0 Dhs</td>
-            <td><b>+</b>0 Dhs</td>
-            <td><b>-</b>0 Dhs</td>
-            <td><b>0 Dhs</b></td>
-            <td>0 Dhs</td>
-          </tr>
+          @if ($total)
+            <tr>
+              <td><b>Paye</b></td>
+              <td>{{ $total->factures_count ?? 0 }}</td>
+              <td>{{ $total->colis_count ?? 0 }}</td>
+              <td>{{ $total->prix_total ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $total->frais_total ?? 0 }} Dhs</td>
+              <td><b>+</b>{{ $total->remis ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $total->frais_total ?? 0 }} Dhs</td>
+              <td><b>{{ $total->frais_total ?? 0 + $total->frais_total ?? 0 }} Dhs</b></td>
+              <td>{{ $total->prix_total - ($total->frais_total ?? 0) - ($total->frais_total ?? 0) }} Dhs</td>
+            </tr>
+          @else
+            <tr>
+              <td><b>Paye</b></td>
+              <td>0</td>
+              <td>0</td>
+              <td>0 Dhs</td>
+              <td><b>-</b>0 Dhs</td>
+              <td><b>+</b>0 Dhs</td>
+              <td><b>-</b>0Dhs</td>
+              <td><b>0 Dhs</b></td>
+              <td>0 Dhs</td>
+            </tr>
+          @endif
+         
         </tbody>	
       </table>
     </div>
@@ -178,11 +193,11 @@
         <tbody>
           <tr>
             <td><b>Attente &nbsp;Paiement</b></td>
-            <td>0 </td>
-            <td>0 </td>
-            <td>0 Dhs</td>
-            <td>0 Dhs</td>
-            <td>0 Dhs</td>
+            <td>{{ $livBonAttent->bons_count }} </td>
+            <td>{{ $livBonAttent->colis_count }} </td>
+            <td>{{ $livBonAttent->prix_total }} Dhs</td>
+            <td>{{ $livBonAttent->bons_count }} Dhs</td>
+            <td>{{ $livBonAttent->prix_total }} Dhs</td>
           </tr>
           <tr>
             <td><b>Paye</b></td>

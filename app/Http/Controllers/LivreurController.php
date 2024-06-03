@@ -127,25 +127,26 @@ class LivreurController extends Controller
     {
         $v = $request->validate([
             'email' => 'required|email|max:50',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string',
         ]);
-
+        
         $Livreur = Livreur::where('email', $request->email)->first();
         if ($Livreur) {
             if (Hash::check($request->password, $Livreur->password)) {
-
+                
                 Auth::login($Livreur);
                 session(["user" => $Livreur]);
                 $url = session('url.intended');
                 if ($url) {
+                    // dd($url);
                     session(['url' => null]);
                     return redirect()->to($url);
                 }
+                // dd($url);
                 return redirect()->route('livreur.index');
             }
-        } else {
-            return back()->with('error', 'Invalid email or password.');
-        }
+        } 
+        return back()->with('error', 'Invalid email or password.');
     }
     public function signout()
     {

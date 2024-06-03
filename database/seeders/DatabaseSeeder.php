@@ -46,7 +46,10 @@ class DatabaseSeeder extends Seeder
                 'isAccepted'=>0
             ]);
         \App\Models\Livreur::factory(20)->create([
-                'isAccepted'=>0
+                'isAccepted'=>0,
+                'password' => Hash::make('aa'),
+
+
             ]);
         \App\Models\Livreur::factory()->create([
                 'email' => 'liv@gmail.com',
