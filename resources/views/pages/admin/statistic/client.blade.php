@@ -3,6 +3,44 @@
 <x-breadcrumb :breads="$breads" />
 
 @endsection
+@section('filter')
+<form method="GET" id="formFilter" action="{{ route('admin.statistic.client') }}">
+  <div class="form-group row">
+    <div class="col-md-3">
+
+      <select name="client_id" id="client_id" class="form-control " onchange="this.form.submit()">
+          <option value="">All Clients</option>
+          @foreach($clients as $client)
+              <option value="{{ $client->id_Cl }}" {{ request('client_id') == $client->id_Cl ? 'selected' : '' }}>
+                  {{ $client->nomcomplet }} <!-- Adjust attribute to match your client's name attribute -->
+              </option>
+          @endforeach
+      </select>
+    </div>
+      <div class="col-md-3">
+          <select class="form-control" id="date_filter" name="date_filter" onchange="this.form.submit()">
+            <option disabled selected>Filtrer avec : </option>
+              <option value="">Depuis le lancement</option>
+              <option value="today" {{ request('date_filter') == 'today' ? 'selected' : '' }}>Aujourd'hui</option>
+              <option value="yesterday" {{ request('date_filter') == 'yesterday' ? 'selected' : '' }}>Hier</option>
+              <option value="last_7_days" {{ request('date_filter') == 'last_7_days' ? 'selected' : '' }}>7 derniers jours</option>
+              <option value="last_30_days" {{ request('date_filter') == 'last_30_days' ? 'selected' : '' }}>30 derniers jours</option>
+              <option value="this_month" {{ request('date_filter') == 'this_month' ? 'selected' : '' }}>Ce mois</option>
+              <option value="last_month" {{ request('date_filter') == 'last_month' ? 'selected' : '' }}>Le mois dernier</option>
+              <option value="custom_range" {{ request('date_filter') == 'custom_range' ? 'selected' : '' }}>Plage personnalisée</option>
+          </select>
+      </div>
+      <div class="col-md-3">
+          <input type="date" class="form-control" name="start_date" placeholder="Date de début" value="{{ request('start_date') }}" 
+                 {{ request('date_filter') != 'custom_range' ? 'disabled' : '' }}>
+      </div>
+      <div class="col-md-3">
+          <input type="date" class="form-control" name="end_date" placeholder="Date de fin" value="{{ request('end_date') }}" 
+                 {{ request('date_filter') != 'custom_range' ? 'disabled' : '' }}>
+      </div>
+  </div>
+</form>
+@endsection
 @section('content')
 <style>
   table{
@@ -62,220 +100,113 @@
           </tr>
         </thead>	
         <tbody>
-          <tr>
-            <td><b>Brouillon</b></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0 Dhs</td>
-            <td><b>-</b>0 Dhs</td>
-            <td><b>+</b>0 Dhs</td>
-            <td><b>-</b>0 Dhs</td>
-            <td><b>0 Dhs</b></td>
-            <td>0 Dhs</td>
-          </tr>
-          <tr>
-            <td><b>Enregistre</b></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0 Dhs</td>
-            <td><b>-</b>0 Dhs</td>
-            <td><b>+</b>0 Dhs</td>
-            <td><b>-</b>0 Dhs</td>
-            <td><b>0 Dhs</b></td>
-            <td>0 Dhs</td>
-          </tr>
-          <tr>
-            <td><b>Paye</b></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0 Dhs</td>
-            <td><b>-</b>0 Dhs</td>
-            <td><b>+</b>0 Dhs</td>
-            <td><b>-</b>0 Dhs</td>
-            <td><b>0 Dhs</b></td>
-            <td>0 Dhs</td>
-          </tr>
-          <tr>
-            <td><b>Total</b></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0 Dhs</td>
-            <td><b>-</b>0 Dhs</td>
-            <td><b>+</b>0 Dhs</td>
-            <td><b>-</b>0 Dhs</td>
-            <td><b>0 Dhs</b></td>
-            <td>0 Dhs</td>
-          </tr>
+          @if ($facturesBrouillon)
+            <tr>
+              <td><b>Brouillon</b></td>
+              <td>{{ $facturesBrouillon->factures_count ?? 0 }}</td>
+              <td>{{ $facturesBrouillon->colis_count ?? 0 }}</td>
+              <td>{{ $facturesBrouillon->prix_total ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $facturesBrouillon->frais_total ?? 0 }} Dhs</td>
+              <td><b>+</b>{{ $facturesBrouillon->remis ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $facturesBrouillon->frais_total ?? 0 }} Dhs</td>
+              <td><b>{{ $facturesBrouillon->frais_total ?? 0 + $facturesBrouillon->frais_total ?? 0 }} Dhs</b></td>
+              <td>{{ $facturesBrouillon->prix_total - ($facturesBrouillon->frais_total ?? 0) - ($facturesBrouillon->frais_total ?? 0) }} Dhs</td>
+            </tr>
+          @else
+            <tr>
+              <td><b>Brouillon</b></td>
+              <td>0</td>
+              <td>0</td>
+              <td>0 Dhs</td>
+              <td><b>-</b>0 Dhs</td>
+              <td><b>+</b>0 Dhs</td>
+              <td><b>-</b>0Dhs</td>
+              <td><b>0 Dhs</b></td>
+              <td>0 Dhs</td>
+            </tr>
+          @endif
+          @if ($facturesEnregistre)
+            <tr>
+              <td><b>Enregistre</b></td>
+              <td>{{ $facturesEnregistre->factures_count ?? 0 }}</td>
+              <td>{{ $facturesEnregistre->colis_count ?? 0 }}</td>
+              <td>{{ $facturesEnregistre->prix_total ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $facturesEnregistre->frais_total ?? 0 }} Dhs</td>
+              <td><b>+</b>{{ $facturesEnregistre->remis ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $facturesEnregistre->frais_total ?? 0 }} Dhs</td>
+              <td><b>{{ $facturesEnregistre->frais_total ?? 0 + $facturesEnregistre->frais_total ?? 0 }} Dhs</b></td>
+              <td>{{ $facturesEnregistre->prix_total - ($facturesEnregistre->frais_total ?? 0) - ($facturesEnregistre->frais_total ?? 0) }} Dhs</td>
+            </tr>
+          @else
+            <tr>
+              <td><b>Enregistre</b></td>
+              <td>0</td>
+              <td>0</td>
+              <td>0 Dhs</td>
+              <td><b>-</b>0 Dhs</td>
+              <td><b>+</b>0 Dhs</td>
+              <td><b>-</b>0Dhs</td>
+              <td><b>0 Dhs</b></td>
+              <td>0 Dhs</td>
+            </tr>
+          @endif
+          @if ($facturesPaye)
+            <tr>
+              <td><b>Paye</b></td>
+              <td>{{ $facturesPaye->factures_count ?? 0 }}</td>
+              <td>{{ $facturesPaye->colis_count ?? 0 }}</td>
+              <td>{{ $facturesPaye->prix_total ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $facturesPaye->frais_total ?? 0 }} Dhs</td>
+              <td><b>+</b>{{ $facturesPaye->remis ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $facturesPaye->frais_total ?? 0 }} Dhs</td>
+              <td><b>{{ $facturesPaye->frais_total ?? 0 + $facturesPaye->frais_total ?? 0 }} Dhs</b></td>
+              <td>{{ $facturesPaye->prix_total - ($facturesPaye->frais_total ?? 0) - ($facturesPaye->frais_total ?? 0) }} Dhs</td>
+            </tr>
+          @else
+            <tr>
+              <td><b>Paye</b></td>
+              <td>0</td>
+              <td>0</td>
+              <td>0 Dhs</td>
+              <td><b>-</b>0 Dhs</td>
+              <td><b>+</b>0 Dhs</td>
+              <td><b>-</b>0Dhs</td>
+              <td><b>0 Dhs</b></td>
+              <td>0 Dhs</td>
+            </tr>
+          @endif
+         
+          @if ($total)
+            <tr>
+              <td><b>Total</b></td>
+              <td>{{ $total->factures_count ?? 0 }}</td>
+              <td>{{ $total->colis_count ?? 0 }}</td>
+              <td>{{ $total->prix_total ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $total->frais_total ?? 0 }} Dhs</td>
+              <td><b>+</b>{{ $total->remis ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $total->frais_total ?? 0 }} Dhs</td>
+              <td><b>{{ $total->frais_total ?? 0 + $total->frais_total ?? 0 }} Dhs</b></td>
+              <td>{{ $total->prix_total - ($total->frais_total ?? 0) - ($total->frais_total ?? 0) }} Dhs</td>
+            </tr>
+          @else
+            <tr>
+              <td><b>Total</b></td>
+              <td>0</td>
+              <td>0</td>
+              <td>0 Dhs</td>
+              <td><b>-</b>0 Dhs</td>
+              <td><b>+</b>0 Dhs</td>
+              <td><b>-</b>0Dhs</td>
+              <td><b>0 Dhs</b></td>
+              <td>0 Dhs</td>
+            </tr>
+          @endif
+         
         </tbody>	
       </table>
     </div>
   </div>
-  <div class="card mt-5">
-    <div class="card-header">
-      <div class="card-title">
-        <h1 class="main-box-title" style="margin-bottom:1%;margin-top:1%;">
-          <i class="fas fa-chart-line"></i> 
-          <i class="fa fa-chevron-right"></i> Statistiques 
-          <i class="fa fa-chevron-right"></i> Bons de payment (<b>Pour livreur</b>)
-        </h1>
-      </div>
-    </div>
-    <div class="card-body">
-      <table class="table table-striped table-analytics">
-        <thead>
-          <tr>
-            <th>Statut</th>
-            <th>Bon de payement</th>
-            <th>Colis</th>
-            <th>Total Crbt</th>
-            <th>Frais</th>
-            <th>Total</th>
-          </tr>
-        </thead>	
-        <tbody>
-          <tr>
-            <td><b>Attente &nbsp;Paiement</b></td>
-            <td>0 </td>
-            <td>0 </td>
-            <td>0 Dhs</td>
-            <td>0 Dhs</td>
-            <td>0 Dhs</td>
-          </tr>
-          <tr>
-            <td><b>Paye</b></td>
-            <td>0 </td>
-            <td>0</td>
-            <td>0 Dhs</td>
-            <td>0 Dhs</td>
-            <td>0 Dhs</td>
-          </tr>
-          <tr>
-            <td><b>Total</b></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0 Dhs</td>
-            <td>0 Dhs</td>
-            <td>0 Dhs</td>
-          </tr>
-        </tbody>	
-      </table>
-    </div>
-  </div>
-  <div class="card mt-5">
-    <div class="card-header">
-      <div class="card-title">
-        <h1 class="main-box-title" style="margin-bottom:1%;margin-top:1%;">
-          <i class="fas fa-chart-line"></i> 
-          <i class="fa fa-chevron-right"></i> Statistiques 
-          <i class="fa fa-chevron-right"></i> Bons de payment (<b>Pour zone</b>)
-        </h1>
-      </div>
-    </div>
-    <div class="card-body">
-      <table class="table table-striped table-analytics">
-        <thead>
-          <tr>
-            <th>Statut</th>
-            <th>Bon de payement</th>
-            <th>Colis</th>
-            <th>Total Crbt</th>
-            <th>Frais</th>
-            <th>Total</th>
-          </tr>
-        </thead>	
-        <tbody>
-          <tr>
-            <td><b>Attente &nbsp;Paiement</b></td>
-            <td>0 </td>
-            <td>0</td>
-            <td>0 Dhs</td>
-            <td>0 Dhs</td>
-            <td>0 Dhs</td>
-          </tr>
-          <tr>
-            <td><b>Paye</b></td>
-            <td>0 </td>
-            <td>0</td>
-            <td>0 Dhs</td>
-            <td>0 Dhs</td>
-            <td>0 Dhs</td>
-          </tr>
-          <tr>
-            <td><b>Total</b></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0 Dhs</td>
-            <td>0 Dhs</td>
-            <td>0 Dhs</td>
-          </tr>
-        </tbody>	
-      </table>
-    </div>
-  </div>
-  <div class="card mt-5">
-    <div class="card-header">
-      <div class="card-title">
-        <h1 class="main-box-title" style="margin-bottom:1%;margin-top:1%;">
-          <i class="fas fa-chart-line"></i> <i class="fa fa-chevron-right"></i> Statistiques 
-          <i class="fa fa-chevron-right"></i> Statistiques Les depenses
-        </h1>
-      </div>
-    </div>
-    <div class="card-body">
-      <table class="table table-striped table-analytics">
-        <thead>
-          <tr>
-            <th>Les depenses</th>
-            <th>Total</th>
-          </tr>
-        </thead>	
-        <tbody>
-          <tr>
-            <td>0</td>
-            <td> Dhs</td>
-          </tr>
-        </tbody>	
-      </table>
-    </div>
-  </div>
-  <div class="card mt-5">
-    <div class="card-header">
-      <div class="card-title">
-        <h1 class="main-box-title" style="margin-bottom:1%;margin-top:1%;">
-          <i class="fas fa-chart-line"></i> <i class="fa fa-chevron-right"></i> Statistiques 
-          <i class="fa fa-chevron-right"></i> Benefice
-        </h1>
-      </div>
-    </div>
-    <div class="card-body">
-      <table class="table table-striped table-analytics">
-        <thead>
-          <tr>
-            <th>Description</th>
-            <th>Total</th>
-          </tr>
-        </thead>	
-        <tbody>
-          <tr>
-            <td>Benefice des factures</td>
-            <td>0 Dhs</td>
-          </tr>
-          <tr>
-            <td>Frais de Livraison ( Livreur )</td>
-            <td><b>-</b>0 Dhs</td>
-          </tr>
-          <tr>
-            <td>Total des Depenses</td>
-            <td><b>-</b> Dhs</td>
-          </tr>
-          <tr>
-            <td><b>Total</b></td>
-            <td><b>0 Dhs</b></td>
-          </tr>
-        </tbody>	
-      </table>
-    </div>
-  </div>
+  
 </div>
 
 

@@ -87,7 +87,7 @@
                 <!--begin:Menu link-->
                 @if (session('user')['role']=='Admin')
                     
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('admin.statistic.client')||request()->routeIs('admin.statistic.index')||request()->routeIs('admin.statistic.livreur')||request()->routeIs('admin.statistic.zone') ?'show':'' }}">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -109,7 +109,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="{{ route('admin.statistic.index') }}">
+                            <a class="menu-link {{ request()->routeIs('admin.statistic.index') ?'active':'' }}"  href="{{ route('admin.statistic.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -121,7 +121,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="">
+                            <a class="menu-link {{ request()->routeIs('admin.statistic.client') ?'active':'' }}" href="{{ route('admin.statistic.client') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -133,7 +133,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="">
+                            <a class="menu-link {{ request()->routeIs('admin.statistic.livreur') ?'active':'' }}" href="{{ route('admin.statistic.livreur') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -145,7 +145,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="">
+                            <a class="menu-link {{ request()->routeIs('admin.statistic.zone') ?'active':'' }}" href="{{ route('admin.statistic.zone') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -153,31 +153,7 @@
                             </a>
                             <!--end:Menu link-->
                         </div>
-                        <!--end:Menu item-->
-                        <!--begin:Menu item-->
-                        <div class="menu-item">
-                            <!--begin:Menu link-->
-                            <a class="menu-link" href="">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Villes</span>
-                            </a>
-                            <!--end:Menu link-->
-                        </div>
-                        <!--end:Menu item-->
-                        <!--begin:Menu item-->
-                        <div class="menu-item">
-                            <!--begin:Menu link-->
-                            <a class="menu-link" href="">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Comparer</span>
-                            </a>
-                            <!--end:Menu link-->
-                        </div>
-                        <!--end:Menu item-->
+                        
                     </div>
                     <!--end:Menu sub-->
                 </div>

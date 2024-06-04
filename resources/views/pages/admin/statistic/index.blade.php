@@ -3,6 +3,34 @@
 <x-breadcrumb :breads="$breads" />
 
 @endsection
+@section('filter')
+<form method="GET" id="formFilter" action="{{ route('admin.statistic.index') }}">
+  <div class="form-group row">
+   
+      <div class="col-md-4">
+          <select class="form-control" id="date_filter" name="date_filter" onchange="this.form.submit()">
+            <option disabled selected>Filtrer avec : </option>
+              <option value="">Depuis le lancement</option>
+              <option value="today" {{ request('date_filter') == 'today' ? 'selected' : '' }}>Aujourd'hui</option>
+              <option value="yesterday" {{ request('date_filter') == 'yesterday' ? 'selected' : '' }}>Hier</option>
+              <option value="last_7_days" {{ request('date_filter') == 'last_7_days' ? 'selected' : '' }}>7 derniers jours</option>
+              <option value="last_30_days" {{ request('date_filter') == 'last_30_days' ? 'selected' : '' }}>30 derniers jours</option>
+              <option value="this_month" {{ request('date_filter') == 'this_month' ? 'selected' : '' }}>Ce mois</option>
+              <option value="last_month" {{ request('date_filter') == 'last_month' ? 'selected' : '' }}>Le mois dernier</option>
+              <option value="custom_range" {{ request('date_filter') == 'custom_range' ? 'selected' : '' }}>Plage personnalisée</option>
+          </select>
+      </div>
+      <div class="col-md-3">
+          <input type="date" class="form-control" name="start_date" placeholder="Date de début" value="{{ request('start_date') }}" 
+                 {{ request('date_filter') != 'custom_range' ? 'disabled' : '' }}>
+      </div>
+      <div class="col-md-3">
+          <input type="date" class="form-control" name="end_date" placeholder="Date de fin" value="{{ request('end_date') }}" 
+                 {{ request('date_filter') != 'custom_range' ? 'disabled' : '' }}>
+      </div>
+  </div>
+</form>
+@endsection
 @section('content')
 <style>
   table{

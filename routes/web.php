@@ -54,6 +54,9 @@ Route::middleware('check.admin')->group(function () {
 
     Route::controller(StatisticController::class)->prefix('admin/statistiques')->group(function () {
         Route::get('/tous',  'index')->name('admin.statistic.index');
+        Route::get('/clients',  'client')->name('admin.statistic.client');
+        Route::get('/livreurs',  'livreur')->name('admin.statistic.livreur');
+        Route::get('/zones',  'zone')->name('admin.statistic.zone');
     });
 
     Route::controller(NewClientController::class)->prefix('admin')->group(function () {
