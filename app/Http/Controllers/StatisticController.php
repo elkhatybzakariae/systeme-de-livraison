@@ -12,6 +12,7 @@ use App\Models\BonRetourLivreur;
 use App\Models\BonRetourZone;
 use App\Models\Client;
 use App\Models\Colis;
+use App\Models\Depense;
 use App\Models\Facture;
 use App\Models\Reclamation;
 use Illuminate\Http\Request;
@@ -67,6 +68,7 @@ class StatisticController extends Controller
         ->leftJoin('colis', 'colis.id_F', '=', 'factures.id_F')
         ->leftJoin('frais', 'frais.id_F', '=', 'factures.id_F')
         ->first();
+
         $livBonAttent = BonPaymentLivreur::select( 'bon_payment_livreurs.status',
         DB::raw('COUNT(bon_payment_livreurs.id_BPL) AS bons_count'),
         DB::raw('COUNT(colis.id) AS colis_count'),
@@ -102,14 +104,55 @@ class StatisticController extends Controller
         ->leftJoin('livreurs', 'livreurs.id_Liv', '=', 'bon_payment_livreurs.id_Liv')
         ->first();
 
+        $zoneBonAttent = BonPaymentZone::select( 'bon_payment_zones.status',
+        DB::raw('COUNT(bon_payment_zones.id_BPZ) AS bons_count'),
+        DB::raw('COUNT(colis.id) AS colis_count'),
+        DB::raw('SUM(colis.prix) AS prix_total'),
+        DB::raw('SUM(livreurs.fraislivraison) AS frais_total')
+        )
 
-      dd($livBonTotal);
+        ->leftJoin('colis', 'colis.id_BPZ', '=', 'bon_payment_zones.id_BPZ')
+        ->leftJoin('bon_payment_livreurs', 'bon_payment_livreurs.id_BPL', '=', 'colis.id_BPL')
+        ->leftJoin('livreurs', 'livreurs.id_Liv', '=', 'bon_payment_livreurs.id_Liv')
+        ->groupBy(  'bon_payment_zones.status')
+        ->where('bon_payment_zones.status', 'Attente Payment')
+        ->first();
+        $zoneBonPaye = BonPaymentZone::select( 'bon_payment_zones.status',
+        DB::raw('COUNT(bon_payment_zones.id_BPZ) AS bons_count'),
+        DB::raw('COUNT(colis.id) AS colis_count'),
+        DB::raw('SUM(colis.prix) AS prix_total'),        
+        DB::raw('SUM(livreurs.fraislivraison) AS frais_total')
+
+        )
+        ->leftJoin('colis', 'colis.id_BPZ', '=', 'bon_payment_zones.id_BPZ')
+        ->leftJoin('bon_payment_livreurs', 'bon_payment_livreurs.id_BPL', '=', 'colis.id_BPL')
+        ->leftJoin('livreurs', 'livreurs.id_Liv', '=', 'bon_payment_livreurs.id_Liv')
+        ->groupBy(  'bon_payment_zones.status')
+        ->where('bon_payment_zones.status', 'Paye')
+        ->first();
+        
+        $zoneBonTotal = BonPaymentZone::select( 
+        DB::raw('COUNT(bon_payment_zones.id_BPZ) AS bons_count'),
+        DB::raw('COUNT(colis.id) AS colis_count'),
+        DB::raw('SUM(colis.prix) AS prix_total'),
+        DB::raw('SUM(livreurs.fraislivraison) AS frais_total')
+        )
+        ->leftJoin('colis', 'colis.id_BPZ', '=', 'bon_payment_zones.id_BPZ')
+        ->leftJoin('bon_payment_livreurs', 'bon_payment_livreurs.id_BPL', '=', 'colis.id_BPL')
+        ->leftJoin('livreurs', 'livreurs.id_Liv', '=', 'bon_payment_livreurs.id_Liv')->first();
+
+        $depenses = Depense::select(DB::raw('count(id_Dep) as dep_count'), DB::raw('sum(montant) as dep_prix'))
+    
+        ->first();
+    //   dd($depenses);
         $breads = [
             ['title' => 'Tableau de bord', 'url' => null],
             ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
         return view('pages.admin.statistic.index' ,compact('breads',
         'facturesBrouillon','facturesEnregistre','facturesPaye','total',
+        'livBonAttent','livBonPaye','livBonTotal',
+        'zoneBonAttent','zoneBonPaye','zoneBonTotal','depenses',
         'colisStatus',));
     }
 }

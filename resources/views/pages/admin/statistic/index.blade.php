@@ -140,7 +140,7 @@
          
           @if ($total)
             <tr>
-              <td><b>Paye</b></td>
+              <td><b>Total</b></td>
               <td>{{ $total->factures_count ?? 0 }}</td>
               <td>{{ $total->colis_count ?? 0 }}</td>
               <td>{{ $total->prix_total ?? 0 }} Dhs</td>
@@ -152,7 +152,7 @@
             </tr>
           @else
             <tr>
-              <td><b>Paye</b></td>
+              <td><b>Total</b></td>
               <td>0</td>
               <td>0</td>
               <td>0 Dhs</td>
@@ -191,14 +191,38 @@
           </tr>
         </thead>	
         <tbody>
+          @if ($livBonAttent)
+              
           <tr>
             <td><b>Attente &nbsp;Paiement</b></td>
             <td>{{ $livBonAttent->bons_count }} </td>
             <td>{{ $livBonAttent->colis_count }} </td>
             <td>{{ $livBonAttent->prix_total }} Dhs</td>
-            <td>{{ $livBonAttent->bons_count }} Dhs</td>
-            <td>{{ $livBonAttent->prix_total }} Dhs</td>
+            <td><b>-</b>{{ $livBonAttent->frais_total }} Dhs</td>
+            <td>{{ $livBonAttent->prix_total - $livBonAttent->frais_total }} Dhs</td>
           </tr>
+          @else
+          <tr>
+            <td><b>Attente &nbsp;Paiement</b></td>
+            <td>0 </td>
+            <td>0</td>
+            <td>0 Dhs</td>
+            <td>0 Dhs</td>
+            <td>0 Dhs</td>
+          </tr>
+              
+          @endif
+          @if ($livBonPaye)
+              
+          <tr>
+            <td><b>Paye</b></td>
+            <td>{{ $livBonPaye->bons_count }} </td>
+            <td>{{ $livBonPaye->colis_count }} </td>
+            <td>{{ $livBonPaye->prix_total }} Dhs</td>
+            <td><b>-</b>{{ $livBonPaye->frais_total }} Dhs</td>
+            <td>{{ $livBonPaye->prix_total - $livBonPaye->frais_total }} Dhs</td>
+          </tr>
+          @else
           <tr>
             <td><b>Paye</b></td>
             <td>0 </td>
@@ -207,14 +231,30 @@
             <td>0 Dhs</td>
             <td>0 Dhs</td>
           </tr>
+              
+          @endif
+          @if ($livBonTotal)
+              
           <tr>
             <td><b>Total</b></td>
-            <td>0</td>
+            <td>{{ $livBonTotal->bons_count }} </td>
+            <td>{{ $livBonTotal->colis_count }} </td>
+            <td>{{ $livBonTotal->prix_total }} Dhs</td>
+            <td><b>-</b>{{ $livBonTotal->frais_total }} Dhs</td>
+            <td>{{ $livBonTotal->prix_total - $livBonTotal->frais_total }} Dhs</td>
+          </tr>
+          @else
+          <tr>
+            <td><b>Total</b></td>
+            <td>0 </td>
             <td>0</td>
             <td>0 Dhs</td>
             <td>0 Dhs</td>
             <td>0 Dhs</td>
           </tr>
+              
+          @endif
+          
         </tbody>	
       </table>
     </div>
@@ -242,6 +282,17 @@
           </tr>
         </thead>	
         <tbody>
+          @if ($zoneBonAttent)
+              
+          <tr>
+            <td><b>Attente &nbsp;Paiement</b></td>
+            <td>{{ $zoneBonAttent->bons_count }} </td>
+            <td>{{ $zoneBonAttent->colis_count }} </td>
+            <td>{{ $zoneBonAttent->prix_total }} Dhs</td>
+            <td><b>-</b>{{ $zoneBonAttent->frais_total }} Dhs</td>
+            <td>{{ $zoneBonAttent->prix_total - $zoneBonAttent->frais_total }} Dhs</td>
+          </tr>
+          @else
           <tr>
             <td><b>Attente &nbsp;Paiement</b></td>
             <td>0 </td>
@@ -250,6 +301,19 @@
             <td>0 Dhs</td>
             <td>0 Dhs</td>
           </tr>
+              
+          @endif
+          @if ($zoneBonPaye)
+              
+          <tr>
+            <td><b>Paye</b></td>
+            <td>{{ $zoneBonPaye->bons_count }} </td>
+            <td>{{ $zoneBonPaye->colis_count }} </td>
+            <td>{{ $zoneBonPaye->prix_total }} Dhs</td>
+            <td><b>-</b>{{ $zoneBonPaye->frais_total }} Dhs</td>
+            <td>{{ $zoneBonPaye->prix_total - $zoneBonPaye->frais_total}} Dhs</td>
+          </tr>
+          @else
           <tr>
             <td><b>Paye</b></td>
             <td>0 </td>
@@ -258,15 +322,31 @@
             <td>0 Dhs</td>
             <td>0 Dhs</td>
           </tr>
+              
+          @endif
+          @if ($zoneBonTotal)
+              
           <tr>
             <td><b>Total</b></td>
-            <td>0</td>
+            <td>{{ $zoneBonTotal->bons_count }} </td>
+            <td>{{ $zoneBonTotal->colis_count }} </td>
+            <td>{{ $zoneBonTotal->prix_total }} Dhs</td>
+            <td><b>-</b>{{ $zoneBonTotal->frais_total }} Dhs</td>
+            <td>{{ $zoneBonTotal->prix_total -  $zoneBonTotal->frais_total }} Dhs</td>
+          </tr>
+          @else
+          <tr>
+            <td><b>Total</b></td>
+            <td>0 </td>
             <td>0</td>
             <td>0 Dhs</td>
             <td>0 Dhs</td>
             <td>0 Dhs</td>
           </tr>
-        </tbody>	
+              
+          @endif
+          
+        </tbody>		
       </table>
     </div>
   </div>
@@ -289,8 +369,8 @@
         </thead>	
         <tbody>
           <tr>
-            <td>0</td>
-            <td> Dhs</td>
+            <td>{{ $depenses->dep_count }}</td>
+            <td>{{ $depenses->dep_prix }} Dhs</td>
           </tr>
         </tbody>	
       </table>
