@@ -190,10 +190,14 @@ class StatisticController extends Controller
     public function zone(Request $request)
     {
         $colisStatus = Colis::query()
-        ->select('status', DB::raw('count(*) as total'))
-        ->groupBy('status')
-        ->orderBy('status')
+        ->select('colis.status', DB::raw('count(*) as total'))
+        ->leftJoin('bon_payment_zones','colis.id_BPZ','bon_payment_zones.id_BPZ')
+        ->leftJoin('zones','bon_payment_zones.id_Z','zones.id_Z')
+        ->groupBy('colis.status')
         ;
+        if ($request->has('zone_id') && $request->zone_id) {
+            $colisStatus->where('zones.id_Z', $request->zone_id);
+        }
 
         $colisStatus=Helpers::applyDateFilter($colisStatus,$request,'colis.');
         $colisStatus=$colisStatus->get();
@@ -211,7 +215,9 @@ class StatisticController extends Controller
         ->leftJoin('livreurs', 'livreurs.id_Liv', '=', 'bon_payment_livreurs.id_Liv')
         ->groupBy(  'bon_payment_zones.status')
         ->where('bon_payment_zones.status', 'Attente Payment');
-
+        if ($request->has('zone_id') && $request->zone_id) {
+            $zoneBonAttent->where('bon_payment_zones.id_Z', $request->zone_id);
+        }
         $zoneBonAttent=Helpers::applyDateFilter($zoneBonAttent,$request,'bon_payment_zones.');
         $zoneBonAttent=$zoneBonAttent->first();
         $zoneBonPaye = BonPaymentZone::select( 'bon_payment_zones.status',
@@ -226,7 +232,9 @@ class StatisticController extends Controller
         ->leftJoin('livreurs', 'livreurs.id_Liv', '=', 'bon_payment_livreurs.id_Liv')
         ->groupBy(  'bon_payment_zones.status')
         ->where('bon_payment_zones.status', 'Paye');
-
+        if ($request->has('zone_id') && $request->zone_id) {
+            $zoneBonPaye->where('bon_payment_zones.id_Z', $request->zone_id);
+        }
         $zoneBonPaye=Helpers::applyDateFilter($zoneBonPaye,$request,'bon_payment_zones.');
         $zoneBonPaye=$zoneBonPaye->first();
         
@@ -239,7 +247,9 @@ class StatisticController extends Controller
         ->leftJoin('colis', 'colis.id_BPZ', '=', 'bon_payment_zones.id_BPZ')
         ->leftJoin('bon_payment_livreurs', 'bon_payment_livreurs.id_BPL', '=', 'colis.id_BPL')
         ->leftJoin('livreurs', 'livreurs.id_Liv', '=', 'bon_payment_livreurs.id_Liv');
-
+        if ($request->has('zone_id') && $request->zone_id) {
+            $zoneBonTotal->where('bon_payment_zones.id_Z', $request->zone_id);
+        }
         $zoneBonTotal=Helpers::applyDateFilter($zoneBonTotal,$request,'bon_payment_zones.');
         $zoneBonTotal=$zoneBonTotal->first();
         $zones=Zone::all();
