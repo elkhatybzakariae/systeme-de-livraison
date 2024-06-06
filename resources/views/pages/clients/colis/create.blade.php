@@ -14,24 +14,16 @@
     @endif
     <div class="container">
         <div class="card">
-            <div class="card-header">{{ __('Create Colis') }}</div>
+            <div class="card-header "><div class="card-title">{{ __('Create Colis') }}</div></div>
 
             <div class="card-body">
                 <form method="POST" action="{{ route('colis.store') }}">
                     @csrf
                     <div class="form-group row">
-                        {{-- <div class="form-group col-md-6 ">
-                  <label for="code_d_envoi" class=" col-md-4 col-form-label text-md-right">{{ __('Code d\'envoi') }}</label>
-
-                  <div class="">
-                      <input id="code_d_envoi" type="text" class="form-control @error('code_d_envoi') is-invalid @enderror" name="code_d_envoi" value="{{ old('code_d_envoi') }}"  autocomplete="code_d_envoi" autofocus>
-
-                      <x-error field='code_d_envoi' />
-                  </div>
-              </div> --}}
+                      
 
 
-                        <div class="form-group col-md-12 ">
+                        <div class="form-group col-md-6 ">
                             <label for="destinataire"
                                 class="col-md-4 col-form-label text-md-right">{{ __('Destinataire') }}</label>
 
@@ -42,19 +34,6 @@
                                 <x-error field='destinataire' />
                             </div>
                         </div>
-
-                        <div class="form-group col-md-6 ">
-                            <label for="telephone"
-                                class="col-md-4 col-form-label text-md-right">{{ __('Telephone') }}</label>
-
-                            <div class="">
-                                <input id="telephone" type="text"
-                                    class="form-control @error('telephone') is-invalid @enderror" name="telephone"
-                                    value="{{ old('telephone') }}" required autocomplete="telephone">
-                                <x-error field='telephone' />
-                            </div>
-                        </div>
-
                         <div class="form-group col-md-6 ">
                             <label for="marchandise"
                                 class="col-md-4 col-form-label text-md-right">{{ __('Marchandise') }}</label>
@@ -67,7 +46,21 @@
                             </div>
                         </div>
 
-                        <div class="form-group col-md-6 ">
+                        <div class="form-group col-md-4 ">
+                            <label for="telephone"
+                                class="col-md-4 col-form-label text-md-right">{{ __('Telephone') }}</label>
+
+                            <div class="">
+                                <input id="telephone" type="text"
+                                    class="form-control @error('telephone') is-invalid @enderror" name="telephone"
+                                    value="{{ old('telephone') }}" required autocomplete="telephone">
+                                <x-error field='telephone' />
+                            </div>
+                        </div>
+
+                        
+
+                        <div class="form-group col-md-4 ">
                             <label for="quantite" class="col-md-4 col-form-label text-md-right">{{ __('Quantite') }}</label>
 
                             <div class="">
@@ -78,7 +71,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group col-md-6 ">
+                        <div class="form-group col-md-4 ">
                             <label for="prix" class="col-md-4 col-form-label text-md-right">{{ __('Prix') }}</label>
 
                             <div class="">
@@ -88,25 +81,6 @@
                                 <x-error field='prix' />
                             </div>
                         </div>
-                        <div class="form-group col-md-6 ">
-                            <label for="zone" class="col-md-4 col-form-label text-md-right">{{ __('Adress') }}</label>
-
-                            <div class="">
-                                <textarea name="adresse" class="form-control @error('prix') is-invalid @enderror" id="" cols=""
-                                    rows="1">{{ old('prix') }}</textarea>
-                                <x-error field='adresse' />
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6 ">
-                            <label for="zone"
-                                class="col-md-4 col-form-label text-md-right">{{ __('commentaire') }}</label>
-
-                            <div class="">
-                                <textarea name="commentaire" class="form-control @error('prix') is-invalid @enderror" cols="" rows="1">{{ old('prix') }}</textarea>
-                                <x-error field='commentaire' />
-                            </div>
-                        </div>
-
                         <div class="form-group col-md-6 ">
                             <label for="zone" class="col-md-4 col-form-label text-md-right">{{ __('Zone') }}</label>
 
@@ -135,6 +109,26 @@
                                 <x-error field='ville_id' />
                             </div>
                         </div>
+                        <div class="form-group col-md-6 ">
+                            <label for="zone" class="col-md-4 col-form-label text-md-right">{{ __('Adress') }}</label>
+
+                            <div class="">
+                                <textarea name="adresse" rows="2" class="form-control @error('prix') is-invalid @enderror" id="" cols=""
+                                    rows="1">{{ old('prix') }}</textarea>
+                                <x-error field='adresse' />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 ">
+                            <label for="zone"
+                                class="col-md-4 col-form-label text-md-right">{{ __('commentaire') }}</label>
+
+                            <div class="">
+                                <textarea name="commentaire" rows="2"  class="form-control @error('prix') is-invalid @enderror" cols="" rows="1">{{ old('prix') }}</textarea>
+                                <x-error field='commentaire' />
+                            </div>
+                        </div>
+
+                        
                         <div class="form-group ">
                             <div class=" mt-2">
                                 <button type="submit" class="btn btn-primary">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helpers;
 use App\Models\BonDistribution;
+use App\Models\BonPaymentLivreur;
 use App\Models\BonRetourLivreur;
 use App\Models\Colis;
 use App\Models\colisinfo;
@@ -22,58 +23,82 @@ use Illuminate\Support\Str;
 
 class LivreurController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $idLiv = Auth::id();
 
-        // $query = BonDistribution::query()->where('id_Liv', $idLiv);
-        // $statistics = $query->selectRaw('status, COUNT(*) as count')
-        //     ->groupBy('status')
-        //     ->pluck('count', 'status')
-        //     ->toArray();
+        $query = Colis::query()
+        ->leftJoin('bon_distributions','colis.id_BD','bon_distributions.id_BD')
+        ->leftJoin('livreurs','bon_distributions.id_Liv','livreurs.id_Liv')
+        ->where('livreurs.id_Liv',$idLiv)
+        ;
 
-        // $statuses = array_keys($statistics);
-        // $counts = array_values($statistics);
+        $query=Helpers::applyDateFilter($query,$request,'colis.');
+        $statistics = $query->selectRaw('colis.status, COUNT(*) as count')
+                            ->groupBy('colis.status')
+                            ->pluck('count', 'status')
+                            ->toArray();
 
-        // $query = BonRetourLivreur::query()->where('id_Liv', $idLiv);
-        // $statistics = $query->selectRaw('status, COUNT(*) as count')
-        //     ->groupBy('status')
-        //     ->pluck('count', 'status')
-        //     ->toArray();
+        $statuses = array_keys($statistics);
+        $counts = array_values($statistics);
 
-        // $statusesBRL = array_keys($statistics);
-        // $countsBRL = array_values($statistics);
-        $query = BonDistribution::query()->where('id_Liv', $idLiv);
-    $distributionStatistics = $query->selectRaw('status, COUNT(*) as count')
-        ->groupBy('status')
-        ->pluck('count', 'status')
-        ->toArray();
+        $query = BonDistribution::query() 
+        ->leftJoin('livreurs','bon_distributions.id_Liv','livreurs.id_Liv')
+        ->where('livreurs.id_Liv',$idLiv);
+        $query=Helpers::applyDateFilter($query,$request,'bon_distributions.');
+        $statistics = $query->selectRaw('status, COUNT(*) as count')
+                            ->groupBy('status')
+                            ->pluck('count', 'status')
+                            ->toArray();
+        $statusesBD = array_keys($statistics);
+        $countsBD = array_values($statistics);
 
-    // Fetch BonRetourLivreur statistics
-    $query = BonRetourLivreur::query()->where('id_Liv', $idLiv);
-    $retourStatistics = $query->selectRaw('status, COUNT(*) as count')
-        ->groupBy('status')
-        ->pluck('count', 'status')
-        ->toArray();
+        $query = BonPaymentLivreur::query() 
+        ->leftJoin('livreurs','bon_payment_livreurs.id_Liv','livreurs.id_Liv')
+        ->where('livreurs.id_Liv',$idLiv);
+        $query=Helpers::applyDateFilter($query,$request,'bon_payment_livreurs.');
+        $statistics = $query->selectRaw('status, COUNT(*) as count')
+                            ->groupBy('status')
+                            ->pluck('count', 'status')
+                            ->toArray();
+        $statusesBPL = array_keys($statistics);
+        $countsBPL = array_values($statistics);
+        $query = BonRetourLivreur::query()
+        ->leftJoin('livreurs','bon_retour_livreurs.id_Liv','livreurs.id_Liv')
+        ->where('livreurs.id_Liv',$idLiv);
+
+        $query=Helpers::applyDateFilter($query,$request,'bon_retour_livreurs.');
+        $statistics = $query->selectRaw('status, COUNT(*) as count')
+                            ->groupBy('status')
+                            ->pluck('count', 'status')
+                            ->toArray();
+        $statusesBRL = array_keys($statistics);
+        $countsBRL = array_values($statistics);
+
+        $colisStatus = Colis::query()
+        ->select('colis.status', DB::raw('count(*) as total'))
+        ->leftJoin('bon_distributions','colis.id_BD','bon_distributions.id_BD')
+        ->leftJoin('livreurs','bon_distributions.id_Liv','livreurs.id_Liv')
+        ->where('livreurs.id_Liv',$idLiv)
+        ->groupBy('colis.status')
+        ->orderBy('colis.status')
+        ;
+
+        $colisStatus=Helpers::applyDateFilter($colisStatus,$request,'colis.');
+        $colisStatus=$colisStatus->get();
+
         $remarques = Remarque::query()->where('cible', 'Livreur')->get();
 
         $breads = [
             ['title' => 'Taleau de bord', 'url' => null],
-            ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
-        ];
-        // return view('pages.livreur.dashboard', compact(
-        //     'breads',
-        //     'remarques',
-        //     'statuses',
-        //     'counts',
-        //     'statusesBRL',
-        //     'countsBRL',
-        // ));
+            ['text' => 'Tableau', 'url' => null], ];
+       
         return view('pages.livreur.dashboard', compact(
-            'breads',
-            'remarques',
-            'distributionStatistics',
-            'retourStatistics'
+            'breads','remarques', 
+            'statuses', 'counts','colisStatus',
+            'statusesBD', 'countsBD',
+            'statusesBPL', 'countsBPL',
+            'statusesBRL', 'countsBRL',
         ));
     }
     public function signuppage()

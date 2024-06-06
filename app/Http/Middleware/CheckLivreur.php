@@ -16,12 +16,16 @@ class CheckLivreur
      */
     public function handle(Request $request, Closure $next)
     {
+        
+        if(isset(session('user')['id_Liv'])){
+          
         $user=Livreur::find(session('user')['id_Liv']);
 
         if ($user && $user->isAccepted) {
             return $next($request);
         }
         session(['url.intended' => $request->fullUrl()]);
-        return redirect(route('auth.livreur.signIn'));
     }
+    return redirect(route('auth.livreur.signIn'));
+}
 }
