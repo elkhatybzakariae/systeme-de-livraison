@@ -95,47 +95,45 @@ class BonPaymentLivreurController extends Controller
     }
     public function create()
     {
-        $user = session('user');
+        // $user = session('user');
 
-        // $zones = Zone::whereHas('colis', function ($query) {
-        //     $query->where('status', 'livre');
-        // })
-        //     ->with(['colis', 'livreurs'])
-        //     ->withCount('colis')
-        //     ->get();
-        // $zones = Zone::with([
-        //     'colis' => function ($query) {
-        //         $query->where('status', 'livre');
-        //     },
-        //     'livreurs'
-        // ])
-        // ->withCount('colis')
-        // ->get();
-        // $zones = Zone::whereHas('colis', function ($query) {
-        //     $query->where(['status'=>'Livre','etat'=>'Paye']);
-        // })
-        //     ->with([
-        //         'colis' => function ($query) {
-        //             $query->where(['status'=>'Livre','etat'=>'Paye']);
-        //         },
-        //         'livreurs'
-        //     ])
-        //     ->withCount('colis')->distinct()
-        //     ->get();
+      
         $zones = Zone::whereHas('colis', function ($query) {
-            $query->where(['status' => 'Livre', 'etat' => 'Paye']);
+            $query->where('status', 'Livre')
+                ->where('etat', 'Paye')
+                // ->whereNull('id_BPL')
+                ; 
         })
         ->with([
             'colis' => function ($query) {
-                $query->where(['status' => 'Livre', 'etat' => 'Paye']);
+                $query->where('status', 'Livre')
+                    ->where('etat', 'Paye')
+                    // ->whereNull('id_BPL')
+                    ; 
             },
-            'livreurs'
+            'livreurs' => function ($query) {
+                $query
+                // ->select('livreurs.id_Liv')
+                ->withCount(['colis as colis_livre' => function ($query) {
+                        $query->where('colis.status', 'Livre')
+                              ->where('colis.etat', 'Paye');
+                    }])
+                ->whereHas('bonDistributions.colis', function ($query) {
+                    $query->where('colis.status', 'Livre')
+                        ->where('colis.etat', 'Paye');
+                });
+            },
         ])
         ->withCount(['colis' => function ($query) {
-            $query->where(['status' => 'Livre', 'etat' => 'Paye']);
-        }])
-        ->distinct('zones.id') // Assuming 'id' is the primary key in 'zones' table
+            $query->where('status', 'Livre')
+                ->where('etat', 'Paye')
+                // ->whereNull('id_BPL')
+                ; 
+            }])
+        ->distinct('id_Z')
         ->get();
+        
+        
 
         // dd($zones);
 

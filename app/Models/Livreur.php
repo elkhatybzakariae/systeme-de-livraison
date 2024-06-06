@@ -29,5 +29,19 @@ class Livreur extends Authenticatable
     {
         return $this->hasMany(BonDistribution::class, 'id_Liv', 'id_Liv');
     }
+    public function colis()
+    {
+        return $this->hasManyThrough(Colis::class, BonDistribution::class, 'id_Liv', 'id_BD', 'id_Liv', 'id_BD');
+    }
+
+    public function deliveredColisCount()
+    {
+        return $this->colis()
+                    ->where('status', 'Livre')
+                    ->where('etat', 'Paye')
+                    ->selectRaw('livreurs.id_Liv, COUNT(colis.id) as delivered_colis_count')
+                    ->groupBy('livreurs.id_Liv');
+    }
+
 
 }

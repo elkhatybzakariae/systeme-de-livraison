@@ -40,20 +40,16 @@
       const zoneSelect = document.getElementById('zone_select');
       const liv = document.getElementById('id_Liv');
       var zones = @json($zones);
-      console.log(zones);
       zoneSelect.addEventListener('change', function() {
         cardLiv.style.display='block'
         const selectedZoneId = this.value;
         let data= zones.find(ele=>ele.id_Z==selectedZoneId)
         
-          console.log(data);
-          
           liv.innerHTML = '';
-                  data.livreurs.forEach(city => {
-                    console.log(city);
+                  data.livreurs.forEach(liv_item => {
                       const option = document.createElement('option');
-                      option.value = city.id_Liv;
-                      option.textContent = city.nomcomplet+ ' (Colis non pays)'
+                      option.value = liv_item.id_Liv;
+                      option.textContent = liv_item.nomcomplet+ ' (Colis '+liv_item.colis_livre+' non pays)'
                       liv.appendChild(option)
                   });
   });
