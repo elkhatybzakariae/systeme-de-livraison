@@ -39,7 +39,7 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12">
                                         <table id="customers_table_json"
-                                            class="table table-striped table-bordered table-sm mb-0 no-footer dataTable"
+                                            class="table table-striped table-bordered table-sm mb-0 no-footer "
                                             role="grid" aria-describedby="customers_table_json_info"
                                             style="width: 864px;">
                                             <thead>
