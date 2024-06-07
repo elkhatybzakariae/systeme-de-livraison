@@ -292,42 +292,21 @@
           </div>
           <!--end::Col-->
       </div>
-      <!--end::Row-->
-            
-      <!--begin::Row-->
-      <div class="row mb-7">
-          <!--begin::Label-->
-          <label class="col-lg-4 fw-semibold text-muted">Photo</label>
-          <!--end::Label-->
-          <!--begin::Col-->
-          <div class="col-lg-8">
-              <img src="{{ asset('storage/' . $livreur->photo) }}" alt="Photo" class="img-fluid">
-          </div>
-          <!--end::Col-->
-      </div>
-      <!--end::Row-->
-      
-      <!--begin::Row-->
+    
       <div class="row mb-7">
           <!--begin::Label-->
           <label class="col-lg-4 fw-semibold text-muted">CIN Recto</label>
           <!--end::Label-->
           <!--begin::Col-->
           <div class="col-lg-8">
-              <img src="{{ asset('storage/' . $livreur->cinrecto) }}" alt="CIN Recto" class="img-fluid">
+              <img src="{{ asset( 'imgs/'.$livreur->cinrecto) }}" alt="CIN Recto" class="img-fluid">
           </div>
-          <!--end::Col-->
       </div>
-      <!--end::Row-->
-      
-      <!--begin::Row-->
       <div class="row mb-7">
           <!--begin::Label-->
           <label class="col-lg-4 fw-semibold text-muted">CIN Verso</label>
-          <!--end::Label-->
-          <!--begin::Col-->
           <div class="col-lg-8">
-              <img src="{{ asset('storage/' . $livreur->cinverso) }}" alt="CIN Verso" class="img-fluid">
+              <img src="{{ asset( 'imgs/'.$livreur->cinverso) }}" alt="CIN Verso" class="img-fluid">
           </div>
           <!--end::Col-->
       </div>
@@ -340,16 +319,13 @@
           <!--end::Label-->
           <!--begin::Col-->
           <div class="col-lg-8">
-              {{-- <span class="fw-bold fs-6 text-gray-800">{{ $livreur->RIB }}</span> --}}
-              <img src="{{ asset('storage/' . $livreur->RIB) }}" alt="RIB" class="img-fluid">
+            {{-- @dd() --}}
+              <img src="{{ asset('imgs/'.$livreur->RIB) }}" alt="RIB" class="img-fluid">
 
           </div>
           <!--end::Col-->
       </div>
-      <!--end::Row-->
   </div>
-  
-    <!--end::Card body-->
   </div>
  
 </div>

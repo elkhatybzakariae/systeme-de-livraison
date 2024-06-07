@@ -43,6 +43,29 @@ class NewLivreurController extends Controller
             'cinverso' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'RIB' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+      
+            if ($request->file('cinrecto')) {
+                $file = $request->file('cinrecto');
+                $cinrecto = time() . '_' . $file->getClientOriginalName();
+                $path = public_path('imgs'); 
+                $file->move($path, $cinrecto);        
+                $validation['cinrecto'] = $cinrecto;
+            }
+            if ($request->file('cinverso')) {
+                $file = $request->file('cinverso');
+                $cinverso = time() . '_' . $file->getClientOriginalName();
+                $path = public_path('imgs'); 
+                $file->move($path, $cinverso);        
+                $validation['cinverso'] = $cinverso;
+            }
+            if ($request->file('RIB')) {
+                $file = $request->file('RIB');
+                $RIB = time() . '_' . $file->getClientOriginalName();
+                $path = public_path('imgs'); 
+                $file->move($path, $RIB);        
+                $validation['RIB'] = $RIB;
+            }
+            
         $validation['isAccepted']=1;
         Livreur::where('id_Liv', $id)->update($validation);
         return redirect()->route('newlivreurs');

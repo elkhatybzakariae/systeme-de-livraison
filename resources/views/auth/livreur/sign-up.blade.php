@@ -31,10 +31,7 @@
    
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/bootstrap.min.css') }}">
     <!-- Owl Theme Default CSS -->
-
-    <link rel="stylesheet" href="https://cdn.vitex.ma/assets/home-page/css/boxicons.min.css"> 
-    <!-- Flaticon CSS -->
-     <link rel="stylesheet" href="https://cdn.vitex.ma/assets/home-page/css/flaticon.css">
+    <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/bootstrap.min.css') }}">
      <link href="{{ asset('storage/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
      <link href="{{ asset('storage/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
    
@@ -80,11 +77,11 @@
     
         <div class="container">
             
-      <div class="d-flex flex-column flex-root mt-10" id="kt_app_root">
+      <div class="d-flex flex-column flex-root " id="kt_app_root">
         <!--begin::Authentication - Sign-up -->
         <div class="d-flex flex-column flex-lg-row flex-column-fluid">
             
-            <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 mt-15">
+            <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-4 mt-4">
                 <!--begin::Form-->
                 <div class="d-flex flex-center flex-column flex-lg-row-fluid">
                     <!--begin::Wrapper-->
@@ -99,40 +96,96 @@
                                 <h1 class="text-dark fw-bolder mb-3">Devenir Livreur</h1>
                                 <!--end::Title-->
                             </div>
-                            <div class="fv-row mb-8 col-6">
+                            <div class="fv-row mb-4 col-md-4">
 
                                 <input type="text" placeholder="Nom Complet" name="nomcomplet" autocomplete="off"
-                                    class="form-control bg-transparent" />
+                                    class="form-control" />
 
                             </div>
-                            <!--begin::Input group=-->
-                            <div class="fv-row mb-8 col-6">
+                            <div class="fv-row mb-4 col-md-4">
 
                                 <input type="text" placeholder="CIN" name="cin" autocomplete="off"
-                                    class="form-control bg-transparent" />
+                                    class="form-control" />
 
                             </div>
-                            <!--begin::Input group=-->
-                            <div class="fv-row mb-8 col-6">
+                            <div class="fv-row mb-4 col-md-4">
 
                                 <input type="text" placeholder="Numero de telephone" name="Phone"
-                                    autocomplete="off" class="form-control bg-transparent" />
+                                    autocomplete="off" class="form-control" />
 
                             </div>
-                            <!--begin::Input group=-->
-                            <div class="fv-row mb-8 col-6">
+                            <div class="fv-row mb-4 col-md-12">
 
+                                <input type="text" placeholder="Adresse" name="adress" autocomplete="off"
+                                    class="form-control" />
+
+                            </div>
+                            <div class="fv-row mb-4 col-md-3">
+                                <label class="" >Zone </label>
+                                <select name="id_Z" id="zone_select" class="form-select">
+                                    @foreach ($zones as $item)
+                                        <option value="{{ $item->id_Z }}">{{ $item->zonename }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            
+                            <div class="fv-row mb-4 col-md-3">
+                                
+                                <label class="" >Ville </label>
+                                <select name="ville" id="ville_select" class="form-select">
+
+                                </select>
+                            </div>
+                            <div class="fv-row mb-4 col-md-3">
+
+                                <input type="number" placeholder="Frais de livraison (DH)" name="fraislivraison"
+                                    autocomplete="off" class="form-control" />
+
+                            </div>
+                            <div class="fv-row mb-4 col-md-3">
+
+                                <input type="number" placeholder="Frais de refus (DH)" name="fraisrefus"
+                                    autocomplete="off" class="form-control" />
+
+                            </div>
+                            <div class="fv-row mb-4 col-md-6">
+
+                                <input type="text" placeholder="Banque" name="nombanque" autocomplete="off"
+                                    class="form-control" />
+
+                            </div>
+                            <div class="fv-row mb-4 col-md-6">
+
+                                <input type="text" placeholder="Numero du compte" name="numerocompte"
+                                    autocomplete="off" class="form-control" />
+
+                            </div>
+                            <div class="fv-row mb-4 col-md-4">
+
+                                <input type="file" name="cinrecto" autocomplete="off" accept="image/*"
+                                    class="form-control" />
+
+                            </div>
+                            <div class="fv-row mb-4 col-md-4">
+
+                                <input type="file" name="cinverso" autocomplete="off" accept="image/*"
+                                    class="form-control" />
+
+                            </div>
+                            <div class="fv-row mb-4 col-md-4">
+
+                                <input type="file" name="RIB" autocomplete="off" accept="image/*"
+                                    class="form-control" />
+
+                            </div>
+                            <div class="fv-row mb-4 col-md-4">
                                 <input type="text" placeholder="Email" name="email" autocomplete="off"
-                                    class="form-control bg-transparent" />
-
+                                    class="form-control" />
                             </div>
-                            <!--begin::Input group-->
-                            <div class="fv-row mb-8 col-6" data-kt-password-meter="true">
-                                <!--begin::Wrapper-->
+                            <div class="fv-row mb-4 col-md-4" data-kt-password-meter="true">
                                 <div class="mb-1">
-                                    <!--begin::Input wrapper-->
                                     <div class="position-relative mb-3">
-                                        <input class="form-control bg-transparent" type="password"
+                                        <input class="form-control" type="password"
                                             placeholder="Password" name="password" autocomplete="off" />
                                         <span
                                             class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
@@ -141,8 +194,6 @@
                                             <i class="bi bi-eye fs-2 d-none"></i>
                                         </span>
                                     </div>
-                                    <!--end::Input wrapper-->
-                                    <!--begin::Meter-->
                                     <div class="d-flex align-items-center mb-3"
                                         data-kt-password-meter-control="highlight">
                                         <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2">
@@ -156,120 +207,21 @@
                                     </div>
                                     <!--end::Meter-->
                                 </div>
-                                <!--end::Wrapper-->
-                                <!--begin::Hint-->
+                             
                                 <div class="text-muted">Use 8 or more characters with a mix of letters, numbers &
                                     symbols.</div>
                                 <!--end::Hint-->
                             </div>
-                            <!--end::Input group=-->
-                            <!--end::Input group=-->
-                            <div class="fv-row mb-8 col-6">
-                                <!--begin::Repeat Password-->
+                            <div class="fv-row mb-4 col-md-4">
+                                
                                 <input placeholder="Repeat Password" name="confirmpassword" type="password"
-                                autocomplete="off" class="form-control bg-transparent" />
+                                autocomplete="off" class="form-control" />
                                 <!--end::Repeat Password-->
                             </div>
-                            <div class="fv-row mb-8 col-6">
-                                <label class="" >Zone </label>
-                                <select name="id_Z" id="zone_select" class="form-select">
-                                    @foreach ($zones as $item)
-                                        <option value="{{ $item->id_Z }}">{{ $item->zonename }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            
-                            <div class="fv-row mb-8 col-6">
-                                
-                                <label class="" >Ville </label>
-                                <select name="ville" id="ville_select" class="form-select">
-
-                                </select>
-                            </div>
-                            
-                            <!--end::Input group=-->
-
-                            <!--begin::Input group=-->
-                            <div class="fv-row mb-8 col-6">
-
-                                <input type="text" placeholder="Adresse" name="adress" autocomplete="off"
-                                    class="form-control bg-transparent" />
-
-                            </div>
-                            <!--end::Input group=-->
-                            <!--begin::Input group=-->
-                            <div class="fv-row mb-8 col-6">
-
-                                <input type="number" placeholder="Frais de livraison (DH)" name="fraislivraison"
-                                    autocomplete="off" class="form-control bg-transparent" />
-
-                            </div>
-                            <!--end::Input group=-->
-                            <!--begin::Input group=-->
-                            <div class="fv-row mb-8 col-6">
-
-                                <input type="number" placeholder="Frais de refus (DH)" name="fraisrefus"
-                                    autocomplete="off" class="form-control bg-transparent" />
-
-                            </div>
-                            <!--end::Input group=-->
-                            <!--begin::Input group=-->
-                            <div class="fv-row mb-8 col-6">
-
-                                <input type="text" placeholder="Banque" name="nombanque" autocomplete="off"
-                                    class="form-control bg-transparent" />
-
-                            </div>
-                            <!--end::Input group=-->
-                            <!--begin::Input group=-->
-                            <div class="fv-row mb-8 col-6">
-
-                                <input type="text" placeholder="Numero du compte" name="numerocompte"
-                                    autocomplete="off" class="form-control bg-transparent" />
-
-                            </div>
-                            <!--end::Input group=-->
-                            <!--begin::Input group=-->
-                            <div class="fv-row mb-8 col-4">
-
-                                <input type="file" name="cinrecto" autocomplete="off" accept="image/*"
-                                    class="form-control bg-transparent" />
-
-                            </div>
-                            <!--end::Input group=-->
-                            <!--begin::Input group=-->
-                            <div class="fv-row mb-8 col-4">
-
-                                <input type="file" name="cinverso" autocomplete="off" accept="image/*"
-                                    class="form-control bg-transparent" />
-
-                            </div>
-                            <!--end::Input group=-->
-                            <!--begin::Input group=-->
-                            <div class="fv-row mb-8 col-4">
-
-                                <input type="file" name="RIB" autocomplete="off" accept="image/*"
-                                    class="form-control bg-transparent" />
-
-                            </div>
-                            <!--end::Input group=-->
-                            <!--begin::Accept-->
-                            <div class="fv-row mb-8 col-6">
-                                <label class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="toc" value="1" />
-                                    <span class="form-check-label fw-semibold text-gray-700 fs-base ms-1">I Accept
-                                        the
-                                        <a href="#" class="ms-1 link-primary">Terms</a></span>
-                                </label>
-                            </div>
-                            <!--end::Accept-->
-                            <!--begin::Submit button-->
                             <div class="d-grid mb-10">
                                 <button type="submit" {{-- id="kt_sign_up_submit" --}} class="btn btn-primary">
                                     <!--begin::Indicator label-->
                                     <span class="indicator-label">Devenir Livreur</span>
-                                    <!--end::Indicator label-->
-                                    <!--begin::Indicator progress-->
                                     <span class="indicator-progress">Please wait...
                                         <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                     <!--end::Indicator progress-->
@@ -343,21 +295,8 @@
     <script>
         var hostUrl = "assets/";
     </script>
-    <!--begin::Global Javascript Bundle(mandatory for all pages)-->
 
-    {{-- <script src="{{ asset('storage/assets/plugins/global/plugins.bundle.js') }}"></script>
-    <script src="{{ asset('storage/assets/js/scripts.bundle.js') }}"></script>
-    <!--end::Global Javascript Bundle-->
-    <!--begin::Custom Javascript(used for this page only)-->
-    <script src="{{ asset('storage/assets/js/custom/authentication/sign-up/general.js') }}"></script> --}}
-    
-    <!--end::Custom Javascript-->
-    <!--end::Javascript-->
-
-        </div>
-        
-
-<script>
+    <script>
     var defaultThemeMode = "light";
     var themeMode;
     if (document.documentElement) {

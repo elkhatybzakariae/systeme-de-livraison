@@ -128,14 +128,30 @@ class LivreurController extends Controller
             'RIB' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         if ($request->password === $request->confirmpassword) {
-            $cinrecto = $request->file('cinrecto')->store('public/images');
-            $cinverso = $request->file('cinverso')->store('public/images');
-            $RIB = $request->file('RIB')->store('public/images');
+            if ($request->file('cinrecto')) {
+                $file = $request->file('cinrecto');
+                $cinrecto = time() . '_' . $file->getClientOriginalName();
+                $path = public_path('imgs'); 
+                $file->move($path, $cinrecto);        
+                $validation['cinrecto'] = $cinrecto;  
+            }
+            if ($request->file('cinverso')) {
+                $file = $request->file('cinverso');
+                $cinverso = time() . '_' . $file->getClientOriginalName();
+                $path = public_path('imgs'); 
+                $file->move($path, $cinverso);        
+                $validation['cinverso'] = $cinverso;
+            }
+            if ($request->file('RIB')) {
+                $file = $request->file('RIB');
+                $RIB = time() . '_' . $file->getClientOriginalName();
+                $path = public_path('imgs'); 
+                $file->move($path, $RIB);        
+                $validation['RIB'] = $RIB;
+            }
             $validation['id_Liv'] = $id_Liv;
-            $validation['cinverso'] = $cinverso;
-            $validation['cinrecto'] = $cinrecto;
-            $validation['RIB'] = $RIB;
             $validation['password'] = Hash::make($validation['password']);
+            // dd($validation);
             $newLivreur = Livreur::create($validation);
 
             return back()->with('success', 'Nous avons bien reçu votre demande de création de compte. Nous vous contacterons ultérieurement.');
