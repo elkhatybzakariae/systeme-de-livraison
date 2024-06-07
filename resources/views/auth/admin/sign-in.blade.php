@@ -4,7 +4,7 @@
 
 <head>
     <base href="../../../" />
-    <title>Keen - Multi-demo Bootstrap 5 HTML Admin Dashboard Template by Keenthemes</title>
+    <title>ELM EXPRESS</title>
     <meta charset="utf-8" />
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Bootstrap Market trusted by over 4,000 beginners and professionals. Multi-demo, Dark Mode, RTL support. Grab your copy now and get life-time updates for free." />
@@ -13,11 +13,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Keen - Multi-demo Bootstrap 5 HTML Admin Dashboard Theme" />
-    <meta property="og:url" content="https://keenthemes.com/keen" />
-    <meta property="og:site_name" content="Keenthemes | Keen" />
-    <link rel="canonical" href="https://preview.keenthemes.com/keen" />
-    <link rel="shortcut icon" href="{{ asset('storage/assets/media/logos/favicon.ico') }}" />
+    <meta property="og:title" content="ELM EXPRESS" />
+    {{-- <meta property="og:url" content="https" /> --}}
+    <meta property="og:site_name" content="ELM EXPRESS" />
+    <link rel="canonical" href="" />
+    <link rel="shortcut icon" href="{{ asset('storage/images/appLogo.png') }}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <link href="{{ asset('storage/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('storage/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -48,17 +48,17 @@
         <div class="d-flex flex-column flex-lg-row flex-column-fluid">
             <!--begin::Aside-->
             <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center"
-                style="background-image: url({{ asset('storage/assets/media/misc/auth-bg.png)') }}">
+                style="background-color: #000000">
                 <!--begin::Content-->
                 <div class="d-flex flex-column flex-center p-6 p-lg-10 w-100">
                     <!--begin::Logo-->
-                    <a href="../../demo1/dist/index.html" class="mb-0 mb-lg-20">
+                    {{-- <a href="" class="mb-0 mb-lg-20">
                         <img alt="Logo" src="{{ asset('storage/assets/media/logos/default-white.svg') }}"
                             class="h-40px h-lg-50px" />
-                    </a>
+                    </a> --}}
                     <img class="d-none d-lg-block mx-auto w-300px w-lg-75 w-xl-500px mb-10 mb-lg-20"
-                        src="{{ asset('storage/assets/media/misc/auth-screens.png') }}" alt="" />
-                    <h1 class="d-none d-lg-block text-white fs-2qx fw-bold text-center mb-7">Fast, Efficient and
+                        src="{{ asset('storage/images/l.png') }}" alt="" />
+                    {{-- <h1 class="d-none d-lg-block text-white fs-2qx fw-bold text-center mb-7">Fast, Efficient and
                         Productive</h1>
                     <div class="d-none d-lg-block text-white fs-base text-center">In this kind of post,
                         <a href="#" class="opacity-75-hover text-warning fw-semibold me-1">the
@@ -67,7 +67,7 @@
                         <a href="#" class="opacity-75-hover text-warning fw-semibold me-1">the interviewee</a>and
                         their
                         <br />work following this is a transcript of the interview.
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10">
@@ -139,12 +139,12 @@
                 <!--begin::Footer-->
                 <div class="d-flex flex-center flex-wrap px-5">
                     <!--begin::Links-->
-                    <div class="d-flex fw-semibold text-primary fs-base">
+                    {{-- <div class="d-flex fw-semibold text-primary fs-base">
                         <a href="https://keenthemes.com" class="px-5" target="_blank">Terms</a>
                         <a href="https://devs.keenthemes.com" class="px-5" target="_blank">Plans</a>
                         <a href="https://themes.getbootstrap.com/product/keen-the-ultimate-bootstrap-admin-theme/"
                             class="px-5" target="_blank">Contact Us</a>
-                    </div>
+                    </div> --}}
                     <!--end::Links-->
                 </div>
                 <!--end::Footer-->

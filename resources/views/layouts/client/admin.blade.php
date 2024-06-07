@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head><base href=""/>
-		<title>Keen - Multi-demo Bootstrap 5 HTML Admin Dashboard Template by Keenthemes</title>
+		<title>ELM EXPRESS</title>
+		<link rel="shortcut icon" href="{{ asset('storage/images/appLogo.png') }}" />
+
 		<meta charset="utf-8" />
-		<meta name="description" content="The most advanced Bootstrap Admin Theme on Bootstrap Market trusted by over 4,000 beginners and professionals. Multi-demo, Dark Mode, RTL support. Grab your copy now and get life-time updates for free." />
-		<meta name="keywords" content="keen, bootstrap, bootstrap 5, bootstrap 4, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
+		{{-- <meta name="description" content="The most advanced Bootstrap Admin Theme on Bootstrap Market trusted by over 4,000 beginners and professionals. Multi-demo, Dark Mode, RTL support. Grab your copy now and get life-time updates for free." /> --}}
+		{{-- <meta name="keywords" content="keen, bootstrap, bootstrap 5, bootstrap 4, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" /> --}}
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta property="og:locale" content="en_US" />
 		<meta property="og:type" content="article" />
-		<meta property="og:title" content="Keen - Multi-demo Bootstrap 5 HTML Admin Dashboard Theme" />
-		<meta property="og:url" content="https://keenthemes.com/keen" />
-		<meta property="og:site_name" content="Keenthemes | Keen" />
-		<link rel="canonical" href="https://preview.keenthemes.com/keen" />
-		<link rel="shortcut icon" href="{{ asset('storage/assets/media/logos/favicon.ico') }}" />
+		<meta property="og:title" content="ELM EXPRESS" />
+		<meta property="og:url" content="" />
+		<meta property="og:site_name" content="ELM EXPRESS" />
+		<link rel="canonical" href="" />
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 		<link href="{{ asset('storage/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('storage/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -71,17 +72,17 @@
 							<div class="app-container container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3">
 								<div class="text-dark order-2 order-md-1">
 									<span class="text-muted fw-semibold me-1">2023&copy;</span>
-									<a href="https://keenthemes.com" target="_blank" class="text-gray-800 text-hover-primary">Keenthemes</a>
+									<a href="" target="_blank" class="text-gray-800 text-hover-primary">Keenthemes</a>
 								</div>
 								<ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
 									<li class="menu-item">
-										<a href="https://keenthemes.com" target="_blank" class="menu-link px-2">About</a>
+										<a href="" target="_blank" class="menu-link px-2">About</a>
 									</li>
 									<li class="menu-item">
-										<a href="https://devs.keenthemes.com" target="_blank" class="menu-link px-2">Support</a>
+										<a href="" target="_blank" class="menu-link px-2">Support</a>
 									</li>
 									<li class="menu-item">
-										<a href="https://themes.getbootstrap.com/product/keen-the-ultimate-bootstrap-admin-theme/" target="_blank" class="menu-link px-2">Purchase</a>
+										<a href="" target="_blank" class="menu-link px-2">Purchase</a>
 									</li>
 								</ul>
 							</div>

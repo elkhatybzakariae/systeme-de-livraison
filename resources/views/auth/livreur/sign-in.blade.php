@@ -15,7 +15,7 @@
     <meta property="og:url" content="https://keenthemes.com/keen" />
     <meta property="og:site_name" content="Keenthemes | Keen" />
     <link rel="canonical" href="https://preview.keenthemes.com/keen" />
-    <link rel="shortcut icon" href="{{ asset('storage/assets/media/logos/favicon.ico') }}" />
+    <link rel="shortcut icon" href="{{ asset('storage/images/appLogo.png') }}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <link href="{{ asset('storage/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('storage/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
