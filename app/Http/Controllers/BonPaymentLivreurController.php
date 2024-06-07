@@ -101,14 +101,14 @@ class BonPaymentLivreurController extends Controller
         $zones = Zone::whereHas('colis', function ($query) {
             $query->where('status', 'Livre')
                 ->where('etat', 'Paye')
-                // ->whereNull('id_BPL')
+                ->whereNull('id_BPL')
                 ; 
         })
         ->with([
             'colis' => function ($query) {
                 $query->where('status', 'Livre')
                     ->where('etat', 'Paye')
-                    // ->whereNull('id_BPL')
+                    ->whereNull('id_BPL')
                     ; 
             },
             'livreurs' => function ($query) {
@@ -127,7 +127,7 @@ class BonPaymentLivreurController extends Controller
         ->withCount(['colis' => function ($query) {
             $query->where('status', 'Livre')
                 ->where('etat', 'Paye')
-                // ->whereNull('id_BPL')
+                ->whereNull('id_BPL')
                 ; 
             }])
         ->distinct('id_Z')

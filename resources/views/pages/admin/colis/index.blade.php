@@ -193,32 +193,33 @@
             <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_products_table">
                 <thead>
                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                        <th class="w-10px pe-2">
+                        {{-- <th class="w-10px pe-2">
                             <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                 <input class="form-check-input" type="checkbox" data-kt-check="true"
                                     data-kt-check-target="#kt_ecommerce_products_table .form-check-input"
                                     value="1" />
                             </div>
-                        </th>
+                        </th> --}}
                         <th class="min-w-100px">Code d'Envoi</th>
                         <th class="min-w-100px">Date d'Expedition</th>
                         <th class="min-w-100px">Telephone</th>
-                        <th class="min-w-100px">Nom du Magasin</th>
-                        <th class="min-w-100px">Etat</th>
-                        <th class="min-w-100px">Status</th>
-                        <th class="min-w-100px">Ville</th>
-                        <th class="min-w-70px">Prix</th>
+                        <th class="min-w-90px">Nom du Magasin</th>
+                        <th class="min-w-70px">Etat</th>
+                        <th class="min-w-70px">Status</th>
+                        <th class="min-w-70px">Ville</th>
+                        <th class="min-w-50px">Prix</th>
                         <th class="min-w-70px">Actions</th>
+                        <th class="min-w-70px">Bons</th>
                     </tr>
                 </thead>
                 <tbody class="fw-semibold text-gray-600">
                     @foreach ($colis as $index => $coli)
                         <tr>
-                            <td>
+                            {{-- <td>
                                 <div class="form-check form-check-sm form-check-custom form-check-solid">
                                     <input class="form-check-input" type="checkbox" value="{{ $coli->id }}" />
                                 </div>
-                            </td>
+                            </td> --}}
                             <td class="pe-0">
                                 <span class="fw-bold"
                                     data-kt-ecommerce-product-filter="code">{{ $coli->code_d_envoi }}</span>
@@ -306,24 +307,24 @@
                             <td>
                                 @if ($coli->bonLivraison)
                                     <a href="{{ route('bon.livraison.getPdf.colis', ['id' => $coli->bonLivraison->id_BL, 'idC' => $coli->id]) }}"
-                                        class="menu-link">{{ $coli->bonLivraison->id_BL }}</a>
+                                        class="menu-link d-block">{{ $coli->bonLivraison->id_BL }}</a>
                                 @endif
                                 @if ($coli->bonEnvoi)
                                     <a href="{{ route('bon.envoi.getPdf.colis', ['id' => $coli->bonEnvoi->id_BE, 'idC' => $coli->id]) }}"
-                                        class="menu-link">{{ $coli->bonEnvoi->id_BE }}</a>
+                                        class="menu-link d-block">{{ $coli->bonEnvoi->id_BE }}</a>
                                 @endif
 
                                 @if ($coli->bonDistribution)
                                     <a href="{{ route('bon.distribution.getPdf.colis', ['id' => $coli->bonDistribution->id_BD, 'idC' => $coli->id]) }}"
-                                        class="menu-link">{{ $coli->bonDistribution->id_BD }}</a>
+                                        class="menu-link d-block">{{ $coli->bonDistribution->id_BD }}</a>
                                 @endif
                                 @if ($coli->bonPaymentLivreur)
                                     <a href="{{ route('bon.payment.livreur.getPdf.colis', ['id' => $coli->bonPaymentLivreur->id_BPL, 'idC' => $coli->id]) }}"
-                                        class="menu-link">{{ $coli->bonPaymentLivreur->id_BPL }}</a>
+                                        class="menu-link d-block">{{ $coli->bonPaymentLivreur->id_BPL }}</a>
                                 @endif
                                 @if ($coli->bonPaymentZone)
                                     <a href="{{ route('bon.payment.zone.getPdf.colis', ['id' => $coli->bonPaymentZone->id_BPZ, 'idC' => $coli->id]) }}"
-                                        class="menu-link">{{ $coli->bonPaymentZone->id_BPZ }}</a>
+                                        class="menu-link d-block">{{ $coli->bonPaymentZone->id_BPZ }}</a>
                                 @endif
                             </td>
                         </tr>
