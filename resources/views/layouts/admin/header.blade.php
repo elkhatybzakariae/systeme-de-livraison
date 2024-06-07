@@ -32,14 +32,14 @@
                     <!--begin:Menu item-->
                     <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start" class="menu-item here show menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
                         <!--begin:Menu link-->
-                        <span class="menu-link">
+                        {{-- <span class="menu-link">
                             <span class="menu-title">Dashboards</span>
                             <span class="menu-arrow d-lg-none"></span>
-                        </span>
+                        </span> --}}
                         
                         <!--end:Menu link-->
                         <!--begin:Menu sub-->
-                        <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0 w-100 w-lg-600px">
+                        {{-- <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0 w-100 w-lg-600px">
                             <!--begin:Dashboards menu-->
                             <div class="menu-state-bg menu-extended overflow-hidden overflow-lg-visible py-6" data-kt-menu-dismiss="true">
                                 <!--begin:Row-->
@@ -101,7 +101,7 @@
                                 <!--end:Row-->
                             </div>
                             <!--end:Dashboards menu-->
-                        </div>
+                        </div> --}}
                         <!--end:Menu sub-->
                     </div>
                     
