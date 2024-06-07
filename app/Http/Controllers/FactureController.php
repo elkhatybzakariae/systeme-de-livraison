@@ -288,9 +288,11 @@ public function deleteFrais($id)
 
         // dd($bon);
         $colis = Colis::query()->where('id_F', $id)->get();
+        $img = $this->base64Image(public_path('storage/images/l.png'));
         $data = [
             'bon' => $bon,
-            'colis' => $colis
+            'colis' => $colis,
+            'img'=>$img
         ];
         
         $dompdf = new Dompdf();
@@ -300,4 +302,11 @@ public function deleteFrais($id)
         $dompdf->render();
         return $dompdf->stream('bon' . $bon->id_F . '.pdf');
     }
+   private  function base64Image($path)
+{
+    $type = pathinfo($path, PATHINFO_EXTENSION);
+    $data = file_get_contents($path);
+    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+    return $base64;
+}
 }
