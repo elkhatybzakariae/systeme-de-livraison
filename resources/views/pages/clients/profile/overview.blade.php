@@ -20,9 +20,9 @@
           </div>
           <!--begin::Toolbar-->
           <div class="me-0">
-            <button class="btn btn-icon btn-sm btn-active-color-primary justify-content-end pt-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+            {{-- <button class="btn btn-icon btn-sm btn-active-color-primary justify-content-end pt-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
               <i class="fonticon-settings fs-2"></i>
-            </button>
+            </button> --}}
             <!--begin::Menu 3-->
             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3" data-kt-menu="true">
               <!--begin::Heading-->
@@ -123,11 +123,11 @@
             </div>
             <!--end::Name-->
             <!--begin::Text-->
-            <span class="fw-bold text-gray-600 fs-6 mb-2 d-block">Design is like a fart. If you have to force it, it’s probably shit.</span>
+            {{-- <span class="fw-bold text-gray-600 fs-6 mb-2 d-block">Design is like a fart. If you have to force it, it’s probably shit.</span> --}}
             <!--end::Text-->
             <!--begin::Info-->
             <div class="d-flex align-items-center flex-wrap fw-semibold fs-7 pe-2">
-              <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary">clientistrateur</a>
+              <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary">Vendeur</a>
               <span class="bullet bullet-dot h-5px w-5px bg-gray-400 mx-3"></span>
               
             </div>
@@ -379,7 +379,9 @@
           <!--end::Label-->
           <!--begin::Col-->
           <div class="col-lg-8">
-              <span class="fw-bold fs-6 text-gray-800">{{ $client->RIB }}</span>
+              {{-- <span class="fw-bold fs-6 text-gray-800">{{ $client->RIB }}</span> --}}
+              <img src="{{ asset('storage/' . $client->RIB) }}" alt="RIB" class="img-fluid">
+
           </div>
           <!--end::Col-->
       </div>
