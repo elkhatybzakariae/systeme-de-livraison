@@ -305,6 +305,8 @@ Route::get('rc/get/pdf/{id}/{idC}', [BonRetourClientController::class, 'getPdfCo
 
 
 Route::middleware('check.client')->group(function () {
+    Route::get('/client/profile/',[ProfileController::class, 'overviewClient'])->name('overviewClient');
+
     Route::controller(ClientController::class)->prefix('clients')->group(function () {
         Route::get('/index',  'index')->name('client.index');
         Route::get('/profile',  'profile')->name('profile');
@@ -377,6 +379,7 @@ Route::middleware('check.client')->group(function () {
 
 
 Route::middleware('check.livreur')->group(function () {
+    Route::get('/livreur/profile/',[ProfileController::class, 'overviewLiv'])->name('overviewLiv');
 
     Route::controller(LivreurController::class)->prefix('livreurs')->group(function () {
         Route::get('/dashboard',  'index')->name('livreur.index');

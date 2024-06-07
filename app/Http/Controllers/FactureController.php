@@ -102,10 +102,19 @@ class FactureController extends Controller
     public function create()
     {
 
-        $clients = Client::select('clients.*')
-            ->leftJoin('colis', 'clients.id_Cl', 'colis.id_Cl')
-            ->where('colis.status', 'Livre')
-            ->where('colis.etat', 'Paye')
+        $clients = Client::whereHas('colis', function ($query) {
+            $query->where('status', 'Livre')
+                ->where('etat', 'Paye')
+                ->whereNotNull('id_BPZ')
+                ->whereHas('bonPaymentZone', function ($queryBPZ) {
+                    $queryBPZ->where('status', 'Paye');
+                })
+                ;
+        })
+        // select('clients.*')
+        //     ->leftJoin('colis', 'clients.id_Cl', 'colis.id_Cl')
+        //     ->where('colis.status', 'Livre')
+        //     ->where('colis.etat', 'Paye')
             // ->whereNotNull('colis.id_BPZ')
             ->withCount(['colis as colis_count' => function ($query) {
                 $query->where('status', 'Livre')
