@@ -48,8 +48,9 @@
         <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-product-filter="status">
           <option></option>
           <option value="all">All</option>
-          <option value="nouveau">Nouveau</option>
-          <option value="recu">recu</option>
+          <option value="brouillon">Brouillon</option>
+          <option value="enregistre">Enregistre</option>
+          <option value="paye">Paye</option>
         </select>
       </div>
       <a href="{{ route('factures.create') }}" class="btn btn-primary" >Ajouter Facture</a>

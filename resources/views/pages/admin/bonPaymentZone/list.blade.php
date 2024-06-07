@@ -49,7 +49,7 @@
           <option></option>
           <option value="all">All</option>
           <option value="nouveau">Nouveau</option>
-          <option value="ramasse">Ramasse</option>
+          <option value="paye">Paye</option>
         </select>
       </div>
       <a href="{{ route('bon.payment.zone.create') }}" class="btn btn-primary" >Ajouter  Bon Payment pour Zone</a>

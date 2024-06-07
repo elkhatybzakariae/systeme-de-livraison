@@ -47,7 +47,7 @@ class AppServiceProvider extends ServiceProvider
             $numberOfBRL = BonRetourLivreur::where('status', 'Nouveau')->count();
             $numberOfBRC = BonRetourClient::where('status', 'Nouveau')->count();
             $numberOfBRZ = BonRetourZone::where('status', 'Nouveau')->count();
-            $numberOfF = Facture::where('status', 'Nouveau')->count();
+            $numberOfF = Facture::where('status', 'Brouillon')->count();
             $numberOfBPL = BonPaymentLivreur::where('status', 'Nouveau')->count();
             $numberOfBPZ = BonPaymentZone::where('status', 'Nouveau')->count();
             $view->with([

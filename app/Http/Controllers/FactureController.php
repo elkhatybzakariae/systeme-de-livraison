@@ -69,7 +69,7 @@ class FactureController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
         $breads = [
-            ['title' => 'Liste des Bons de retour de client ', 'url' => null],
+            ['title' => 'Liste des Factures ', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
         return view('pages.admin.Factures.list', compact("bons", 'breads'));
