@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-4 col-md-6">
                 <div class="single-widget">
-                    <img src="{{ asset('storage/images/logo.png') }}" style="width: 150px;" alt="Logo">
+                    <img src="{{ asset('storage/images/l.png') }}" style="width: 200px;" alt="Logo">
                     <p>La société Livraison assure l’expédition, l’arrivage, le ramassage,
                         la livraison, le retour des fonds,la confirmation, le stock ,
                         la gestion documentaire et propose à chaque client professionnel ou
