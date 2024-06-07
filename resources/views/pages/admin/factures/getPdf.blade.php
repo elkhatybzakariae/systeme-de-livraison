@@ -49,11 +49,11 @@ th {
 </head>
 
 <body>
-  
+
   <table>
     <tr>
       <td style="width: 50%">
-        <strong>Livraison</strong>
+        <img src=""  alt="">
         {{-- <div class="" ><img src="{{ public_path('storage/images/logo.png') }}" alt=""></div> --}}
       </td>
       <td style="width: 50%">

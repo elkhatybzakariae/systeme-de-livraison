@@ -25,14 +25,9 @@
                         fill="currentColor" />
                 </svg>
             </span>
-            <!--end::Svg Icon-->
         </div>
-        <!--end::Sidebar toggle-->
     </div>
-    <!--end::Logo-->
-    <!--begin::sidebar menu-->
     <div class="app-sidebar-menu overflow-hidden flex-column-fluid">
-        <!--begin::Menu wrapper-->
         <div id="kt_app_sidebar_menu_wrapper" class="app-sidebar-wrapper hover-scroll-overlay-y my-5"
             data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto"
             data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer"

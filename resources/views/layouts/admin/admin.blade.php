@@ -5,8 +5,7 @@
     <base href="" />
     <title>ELM EXPRESS</title>
     <meta charset="utf-8" />
-    
-    <link rel="shortcut icon" href="{{ asset('storage/images/appLogo.png') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('storage/images/appLogo.png') }}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <link href="{{ asset('storage/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet"
         type="text/css" />

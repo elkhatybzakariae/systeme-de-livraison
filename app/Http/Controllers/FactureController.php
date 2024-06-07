@@ -130,7 +130,6 @@ class FactureController extends Controller
         'prix' => 'required|numeric',
     ]);
     // dd($request);
-    // Create a new record in the 'factures' table
     $facture = Frais::create([
         'id_Fr' => 'Frais'. Str::random(10),
         'title' => $request->title,
@@ -160,11 +159,9 @@ public function deleteFrais($id)
             ->update(['id_F' => $id_F, 'etat' => 'Facture']);
 
         // $coli = Colis::find($id);
-
         // $colisinfo = colisinfo::where('id', $id)->first();
         // $oldinfo = $colisinfo['info'];
         // $newInfo = $oldinfo . $coli['code_d_envoi'] . $coli['etat'] . $coli['status'] .  $coli['updated_at'] . ',' . ' ' . '_';
-
         // $colisinfo->update(['info' => $newInfo]);
         return redirect()->route('factures.index', $id_F);
     }
@@ -278,13 +275,12 @@ public function deleteFrais($id)
     public function getPdf($id)
     {
         // $bon = Facture::where('id_F', $id)->first();
-        $bon = Facture::where('factures.id_F', $id) // Specify the table for id_F
-            ->withCount('colis') // Count related colis
+        $bon = Facture::where('factures.id_F', $id) 
+            ->withCount('colis') 
             ->withSum('colis', 'prix') // Sum prices of related colis
-            ->leftJoin('clients', 'factures.id_Liv', '=', 'clients.id_Liv')
-            ->leftJoin('zones', 'factures.id_Cl', '=', 'zones.id_Cl')
+            ->leftJoin('clients', 'factures.id_Cl', '=', 'clients.id_Cl')
             ->leftJoin('colis', 'factures.id_F', '=', 'colis.id_F')
-            ->select('factures.*', 'clients.nomcomplet as liv_nom', 'clients.Phone as liv_tele', 'zones.zonename as liv_zone')
+            ->select('factures.*', 'clients.nomcomplet as nomcomplet', 'clients.Phone as telephone')
             ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_F = factures.id_F) as colis_count'))
             ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_F = factures.id_F) as prix_total')) // Corrected table name (BL -> BD)
             ->with('colis', 'colis.ville')
@@ -296,13 +292,11 @@ public function deleteFrais($id)
             'bon' => $bon,
             'colis' => $colis
         ];
+        
         $dompdf = new Dompdf();
-        // 
-        //     // Load the HTML content into Dompdf
         $html = view('pages.admin.Factures.getPdf', $data)->render();
         $dompdf->loadHtml($html);
 
-        // Render the PDF
         $dompdf->render();
         return $dompdf->stream('bon' . $bon->id_F . '.pdf');
     }
