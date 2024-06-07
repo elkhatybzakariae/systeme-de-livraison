@@ -151,7 +151,7 @@
                     datasets: [{
                         label: 'Colis Count',
                         data: @json($counts),
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        backgroundColor: '#d2f931',
                         borderColor: 'rgba(54, 162, 235, 1)',
                         borderWidth: 1
                     }]
@@ -175,7 +175,7 @@
                         label: 'Bon Distribution Count',
                         data: @json($countsBD),
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
+                            '#d2f931',
                             'rgba(54, 162, 235, 0.2)',
                             'rgba(255, 206, 86, 0.2)',
                             'rgba(75, 192, 192, 0.2)',
@@ -208,7 +208,7 @@
                         label: 'Bon Distribution Count',
                         data: @json($countsBRL),
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
+                            '#d2f931',
                             'rgba(54, 162, 235, 0.2)',
                             'rgba(255, 206, 86, 0.2)',
                             'rgba(75, 192, 192, 0.2)',
@@ -241,7 +241,7 @@
                         label: 'Bon Distribution Count',
                         data: @json($countsBPL),
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
+                            '#d2f931',
                             'rgba(54, 162, 235, 0.2)',
                             'rgba(255, 206, 86, 0.2)',
                             'rgba(75, 192, 192, 0.2)',

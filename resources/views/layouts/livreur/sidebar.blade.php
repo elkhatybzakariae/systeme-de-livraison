@@ -4,9 +4,9 @@
     <!--begin::Logo-->
     <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
         <!--begin::Logo image-->
-        <a href="../../demo1/dist/index.html">
-            <img alt="Logo" src="{{ asset('storage/assets/media/logos/default-dark.svg') }}"
-                class="h-30px app-sidebar-logo-default" />
+        <a href="">
+            <img alt="Logo" src="{{ asset('storage/images/l.png') }}"
+            class="h-90px app-sidebar-logo-default" />
         </a>
         <!--end::Logo image-->
         <!--begin::Sidebar toggle-->

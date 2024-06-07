@@ -261,7 +261,7 @@
                         label: 'Bon Livraisons Count',
                         data: @json($countsBL),
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
+                            '#d2f931',
                             'rgba(54, 162, 235, 0.2)',
                             'rgba(255, 206, 86, 0.2)',
                             'rgba(75, 192, 192, 0.2)',
@@ -294,7 +294,7 @@
         //                 label: 'Bon Retour Count',
         //                 data: @json($countsBRC),
         //                 backgroundColor: [
-        //                     'rgba(255, 99, 132, 0.2)',
+        //                     '#d2f931',
         //                     'rgba(54, 162, 235, 0.2)',
         //                     'rgba(255, 206, 86, 0.2)',
         //                     'rgba(75, 192, 192, 0.2)',
@@ -327,7 +327,7 @@
                         label: 'Reclamations Count',
                         data: @json($countsR),
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
+                            '#d2f931',
                             'rgba(54, 162, 235, 0.2)',
                             'rgba(255, 206, 86, 0.2)',
                             'rgba(75, 192, 192, 0.2)',

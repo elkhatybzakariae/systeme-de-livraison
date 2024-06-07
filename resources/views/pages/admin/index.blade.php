@@ -515,7 +515,7 @@
               label: 'Colis Count',
               data: @json($counts),
               backgroundColor: ['rgba(54, 162, 235, 0.2)',
-                      'rgba(255, 99, 132, 0.2)',
+                      '#d2f931',
                       'rgba(54, 162, 235, 0.2)',
                       'rgba(255, 206, 86, 0.2)',
                       'rgba(75, 192, 192, 0.2)',
@@ -555,7 +555,7 @@
                   label: 'Bon Livraisons Count',
                   data: @json($countsBL),
                   backgroundColor: [
-                      'rgba(255, 99, 132, 0.2)',
+                      '#d2f931',
                       'rgba(54, 162, 235, 0.2)',
                       'rgba(255, 206, 86, 0.2)',
                       'rgba(75, 192, 192, 0.2)',
@@ -591,7 +591,7 @@
                   label: 'Bon Envoi Count',
                   data: @json($countsBE),
                   backgroundColor: [
-                      'rgba(255, 99, 132, 0.2)',
+                      '#d2f931',
                       'rgba(54, 162, 235, 0.2)',
                       'rgba(255, 206, 86, 0.2)',
                       'rgba(75, 192, 192, 0.2)',
@@ -629,7 +629,7 @@
                   label: 'Bon Distribution Count',
                   data: @json($countsBD),
                   backgroundColor: [
-                      'rgba(255, 99, 132, 0.2)',
+                      '#d2f931',
                       'rgba(54, 162, 235, 0.2)',
                       'rgba(255, 206, 86, 0.2)',
                       'rgba(75, 192, 192, 0.2)',
@@ -666,7 +666,7 @@
                   label: 'Bon payment Livreur Count',
                   data: @json($countsBPL),
                   backgroundColor: [
-                      'rgba(255, 99, 132, 0.2)',
+                      '#d2f931',
                       'rgba(54, 162, 235, 0.2)',
                       'rgba(255, 206, 86, 0.2)',
                       'rgba(75, 192, 192, 0.2)',
@@ -701,7 +701,7 @@
                     label: 'Bon Retour Client Count',
                     data: @json($countsBRC),
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
+                        '#d2f931',
                         'rgba(54, 162, 235, 0.2)',
                         'rgba(255, 206, 86, 0.2)',
                         'rgba(75, 192, 192, 0.2)',
@@ -737,7 +737,7 @@
                   label: 'Bon Retour livreur Count',
                   data: @json($countsBRL),
                   backgroundColor: [
-                      'rgba(255, 99, 132, 0.2)',
+                      '#d2f931',
                       'rgba(54, 162, 235, 0.2)',
                       'rgba(255, 206, 86, 0.2)',
                       'rgba(75, 192, 192, 0.2)',
