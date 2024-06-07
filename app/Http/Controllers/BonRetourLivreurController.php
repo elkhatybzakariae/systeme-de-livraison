@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helpers;
 use App\Models\BonRetourLivreur;
 use App\Models\Colis;
 use App\Models\colisinfo;
@@ -257,9 +258,11 @@ class BonRetourLivreurController extends Controller
             ->with('client')
             ->get();
         // dd($colis[0]->bonPaymentLivreur->livreur->fraislivraison);
+        $img = Helpers::base64Image();
         $data = [
             'bon' => $bon,
-            'colis' => $colis
+            'colis' => $colis,
+            'img'=>$img
         ];
         $dompdf = new Dompdf();
         $html = view('pages.admin.bonRetourLivreur.getPdf', $data)->render();
@@ -299,9 +302,11 @@ class BonRetourLivreurController extends Controller
             ->with('client')
             ->get();
         // dd($colis[0]->bonPaymentLivreur->livreur->fraislivraison);
+        $img = Helpers::base64Image();
         $data = [
             'bon' => $bon,
-            'colis' => $colis
+            'colis' => $colis,
+            'img'=>$img
         ];
         $dompdf = new Dompdf();
         $html = view('pages.admin.bonRetourLivreur.getPdf', $data)->render();

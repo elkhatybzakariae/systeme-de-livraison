@@ -156,4 +156,20 @@ class Helpers
     }
     return $query;
 }
+public static function base64Image($path = 'storage/images/l.png')
+    {
+        // Check if the file exists
+        if (!file_exists(public_path($path))) {
+            return null; // or handle the error as needed
+        }
+
+        // Get the file type and contents
+        $type = pathinfo(public_path($path), PATHINFO_EXTENSION);
+        $data = file_get_contents(public_path($path));
+        
+        // Encode the file contents to base64
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        
+        return $base64;
+    }
 }

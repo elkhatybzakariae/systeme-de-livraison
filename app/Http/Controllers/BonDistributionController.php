@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helpers;
 use App\Models\BonDistribution;
 use App\Models\Colis;
 use App\Models\colisinfo;
@@ -228,9 +229,11 @@ class BonDistributionController extends Controller
         $colis = Colis::query()->where('id', $idC)
         ->with('client')
         ->get();
+        $img = Helpers::base64Image();
         $data = [
             'bon' => $bon,
-            'colis' => $colis
+            'colis' => $colis,
+            'img'=>$img
         ];
         $dompdf = new Dompdf();
         // 
@@ -261,9 +264,11 @@ class BonDistributionController extends Controller
         $colis = Colis::query()->where('id_BD', $id)
         ->with('client')
         ->get();
+        $img = Helpers::base64Image();
         $data = [
             'bon' => $bon,
-            'colis' => $colis
+            'colis' => $colis,
+            'img'=>$img
         ];
         $dompdf = new Dompdf();
         // 

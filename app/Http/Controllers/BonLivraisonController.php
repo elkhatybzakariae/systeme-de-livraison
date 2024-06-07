@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helpers;
 use App\Models\BonLivraison;
 use App\Models\Colis;
 use App\Models\colisinfo;
 use App\Models\Etat;
 use App\Models\Option;
-use Dompdf\Dompdf;
 
+use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
+use Illuminate\Support\Str;
 use League\Csv\Writer;
 
 
@@ -249,9 +250,11 @@ class BonLivraisonController extends Controller
             ->first();
         $colis = Colis::query()
         ->where('id', $idC)->get();
+        $img = Helpers::base64Image();
         $data = [
             'bon' => $bon,
-            'colis' => $colis
+            'colis' => $colis,
+            'img'=>$img
         ];
         $dompdf = new Dompdf();
         
@@ -274,9 +277,11 @@ class BonLivraisonController extends Controller
             ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BL = bon_livraisons.id_BL) as prix_total')) // Corrected table name (BL -> BD)
             ->first();
         $colis = Colis::query()->where('id_BL', $id)->get();
+        $img = Helpers::base64Image();
         $data = [
             'bon' => $bon,
-            'colis' => $colis
+            'colis' => $colis,
+            'img'=>$img
         ];
         $dompdf = new Dompdf();
         
@@ -293,9 +298,11 @@ class BonLivraisonController extends Controller
         $bon = BonLivraison::where('id_BL', $id_BL)->first();
         $colis = Colis::query()->where('id', $id)->get();
        
+        $img = Helpers::base64Image();
         $data = [
             'bon' => $bon,
-            'colis' => $colis
+            'colis' => $colis,
+            'img'=>$img
         ];
         $dompdf = new Dompdf();
         
@@ -313,9 +320,11 @@ class BonLivraisonController extends Controller
         $bon = BonLivraison::where('id_BL', $id_BL)->first();
         $colis = Colis::query()->where('id', $id)->get();
        
+        $img = Helpers::base64Image();
         $data = [
             'bon' => $bon,
-            'colis' => $colis
+            'colis' => $colis,
+            'img'=>$img
         ];
         $dompdf = new Dompdf();
         
@@ -332,9 +341,11 @@ class BonLivraisonController extends Controller
         $bon = BonLivraison::where('id_BL', $id)->first();
         $colis = Colis::query()->where('id_BL', $id)->get();
        
+        $img = Helpers::base64Image();
         $data = [
             'bon' => $bon,
-            'colis' => $colis
+            'colis' => $colis,
+            'img'=>$img
         ];
         $dompdf = new Dompdf();
         
@@ -352,9 +363,11 @@ class BonLivraisonController extends Controller
         $bon = BonLivraison::where('id_BL', $id)->first();
         $colis = Colis::query()->where('id_BL', $id)->get();
        
+        $img = Helpers::base64Image();
         $data = [
             'bon' => $bon,
-            'colis' => $colis
+            'colis' => $colis,
+            'img'=>$img
         ];
         $dompdf = new Dompdf();
         

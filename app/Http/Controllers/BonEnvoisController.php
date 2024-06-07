@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helpers;
 use App\Models\BonEnvois;
 use App\Models\BonLivraison;
 use App\Models\Colis;
@@ -9,13 +10,13 @@ use App\Models\colisinfo;
 use App\Models\Etat;
 use App\Models\Option;
 use App\Models\Zone;
-use PDF;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use League\Csv\Writer;
+use PDF;
 
 class BonEnvoisController extends Controller
 {
@@ -233,9 +234,11 @@ class BonEnvoisController extends Controller
         ->with('client')
         ->get();
         // dd($colis);
+        $img = Helpers::base64Image();
         $data = [
             'bon' => $bon,
-            'colis' => $colis
+            'colis' => $colis,
+            'img'=>$img
         ];
         $dompdf = new Dompdf();
         
@@ -262,9 +265,11 @@ class BonEnvoisController extends Controller
         ->with('client')
         ->get();
         // dd($colis);
+        $img = Helpers::base64Image();
         $data = [
             'bon' => $bon,
-            'colis' => $colis
+            'colis' => $colis,
+            'img'=>$img
         ];
         $dompdf = new Dompdf();
         

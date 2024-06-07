@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helpers;
 use App\Models\BonPaymentLivreur;
 use App\Models\Colis;
 use App\Models\Zone;
@@ -266,9 +267,11 @@ class BonPaymentLivreurController extends Controller
         ->where('id', $idC)
         ->with('client')
         ->get();
+        $img = Helpers::base64Image();
         $data = [
             'bon' => $bon,
-            'colis' => $colis
+            'colis' => $colis,
+            'img'=>$img
         ];
         $dompdf = new Dompdf();
         $html = view('pages.admin.bonPaymentLivreur.getPdf', $data)->render();
@@ -306,9 +309,11 @@ class BonPaymentLivreurController extends Controller
         $colis = Colis::query()->where('id_BPL', $id)
         ->with('client')
         ->get();
+        $img = Helpers::base64Image();
         $data = [
             'bon' => $bon,
-            'colis' => $colis
+            'colis' => $colis,
+            'img'=>$img
         ];
         $dompdf = new Dompdf();
         $html = view('pages.admin.bonPaymentLivreur.getPdf', $data)->render();

@@ -72,7 +72,8 @@ th {
                         
                             <td>
 
-                                <h4 class="fw-bold">ERRAZY LIVRASON</h4>
+                                <img width="100" src="{{ $img }}" alt="Image">
+
                             </td>
                         </tr>
                     </table>

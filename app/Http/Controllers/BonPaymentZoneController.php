@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helpers;
 use App\Models\BonPaymentZone;
 use App\Models\BonRetourClient;
 use App\Models\Colis;
@@ -233,9 +234,11 @@ class BonPaymentZoneController extends Controller
         ->with('client','BRL',)
         ->get();
         // dd($colis[0]->bonPaymentLivreur->livreur->fraislivraison);
+        $img = Helpers::base64Image();
         $data = [
             'bon' => $bon,
-            'colis' => $colis
+            'colis' => $colis,
+            'img'=>$img
         ];
         $dompdf = new Dompdf();
         $html = view('pages.admin.bonRetourZone.getPdf', $data)->render();
@@ -274,9 +277,11 @@ class BonPaymentZoneController extends Controller
         ->with('client','BRL',)
         ->get();
         // dd($colis[0]->bonPaymentLivreur->livreur->fraislivraison);
+        $img = Helpers::base64Image();
         $data = [
             'bon' => $bon,
-            'colis' => $colis
+            'colis' => $colis,
+            'img'=>$img
         ];
         $dompdf = new Dompdf();
         $html = view('pages.admin.bonRetourZone.getPdf', $data)->render();

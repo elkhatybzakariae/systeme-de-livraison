@@ -48,7 +48,8 @@
                 </td>
                 <td>
                   <div>
-                    <div style="margin: 10px; padding: 10px;">Livraison</div>
+                    <img width="100" src="{{ $img }}" alt="Image">
+
                 </div>
                 </td>
               </tr>

@@ -53,7 +53,7 @@ th {
   <table>
     <tr>
       <td style="width: 50%">
-        <img src="{{ $img }}" alt="Image">
+        <img width="400" src="{{ $img }}" alt="Image">
         {{-- <div class="" ><img src="{{ public_path('storage/images/logo.png') }}" alt=""></div> --}}
       </td>
       <td style="width: 50%">

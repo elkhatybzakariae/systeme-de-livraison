@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helpers;
 use App\Models\BonRetourZone;
 use App\Models\Colis;
 use App\Models\colisinfo;
 use App\Models\Etat;
 use App\Models\Option;
 use App\Models\Zone;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
-use League\Csv\Writer;
 use Dompdf\Dompdf;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use League\Csv\Writer;
 
 class BonRetourZoneController extends Controller
 {
@@ -247,9 +248,11 @@ class BonRetourZoneController extends Controller
         ->with('client','BRL')
         ->get();
         // dd($colis[0]->bonPaymentLivreur->livreur->fraislivraison);
+        $img = Helpers::base64Image();
         $data = [
             'bon' => $bon,
-            'colis' => $colis
+            'colis' => $colis,
+            'img'=>$img
         ];
         $dompdf = new Dompdf();
         $html = view('pages.admin.bonRetourZone.getPdf', $data)->render();
@@ -288,9 +291,11 @@ class BonRetourZoneController extends Controller
         ->with('client','BRL')
         ->get();
         // dd($colis[0]->bonPaymentLivreur->livreur->fraislivraison);
+        $img = Helpers::base64Image();
         $data = [
             'bon' => $bon,
-            'colis' => $colis
+            'colis' => $colis,
+            'img'=>$img
         ];
         $dompdf = new Dompdf();
         $html = view('pages.admin.bonRetourZone.getPdf', $data)->render();

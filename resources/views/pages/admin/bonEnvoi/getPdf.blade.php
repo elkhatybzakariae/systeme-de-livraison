@@ -53,8 +53,7 @@ th {
   <table>
     <tr>
       <td style="width: 50%">
-
-        <div class="" >Livraison</div>
+        <img width="400" src="{{ $img }}" alt="Image">
       </td>
       <td style="width: 50%">
         <div class="">
