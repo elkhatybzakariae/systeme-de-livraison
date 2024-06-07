@@ -21,35 +21,15 @@
             /* Focus color, main green color */
         }
     </style>
-    <title>Accueil - livraison </title>
+    <title>ELM EXPRESS</title>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="description"
         content="livraison est la nouvelle solution d'expédition pour gérer vos livraisons en ligne. Donnez à votre entreprise en ligne un avantage concurrentiel grâce aux solutions de livraison sur mesure de commerce électronique de livraison." />
-    <meta name="keywords" content="" />
-    <link rel="icon" href="https://cdn.vitex.ma/images/company/1702590775-780-1651191227-530-icone siteweb.jpeg"
-        sizes="16x16" type="image/png">
-    <link rel="icon" href="https://cdn.vitex.ma/images/company/1702590775-780-1651191227-530-icone siteweb.jpeg"
-        sizes="16x16 32x32" type="image/png">
+    <meta name="keywords" content="" />    <link rel="shortcut icon" href="{{ asset('storage/images/appLogo.png') }}" />
 
 
-
-    <meta name="author" content="Digixel.ma" />
-
-    <!-- keywords -->
-    <meta name="keywords"
-        content="livraison à domicile maroc,livraison à domicile,livraison Maroc,livraison Agadir,For livraison,ForLivraison, livraison, amana livraison, Oubratra , Livraison,coursier,coursier maroc casa,coursier rapide,service coursier,livraison,tournee programee,courises expresse,delivery maroc,Service Livraison et Ramassage">
-    <!-- favicon -->
-    <meta name="title" content="livraison est la nouvelle solution d'expédition pour gérer vos livraisons en ligne" />
-    <meta property="og:title"
-        content="livraison est la nouvelle solution d'expédition pour gérer vos livraisons en ligne" />
-    <meta property="og:description"
-        content="livraison œuvre avec rapidité et agilité et assure une distribution transparente de bout en bout avec passion et engagement." />
-    <meta property="og:image" content="https://cdn.vitex.ma/images/logo.png" />
-    <meta property="og:url" content="https://cdn.vitex.ma/" />
-    <meta property="og:type" content="page" />
-    <!-- Bootstrap CSS -->
 
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/bootstrap.min.css') }}">
     <!-- Owl Theme Default CSS -->

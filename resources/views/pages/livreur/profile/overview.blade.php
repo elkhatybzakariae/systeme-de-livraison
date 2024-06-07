@@ -135,7 +135,7 @@
           <!--end::User-->
           <!--begin::Actions-->
           <div class="d-flex">
-            <a href="#" class="btn btn-danger me-3" id="kt_drawer_chat_toggle">Log Out</a>
+            <a href="{{route('signout')}}" class="btn btn-danger me-3" id="kt_drawer_chat_toggle">Log Out</a>
           </div>
           <!--end::Actions-->
         </div>
@@ -171,7 +171,7 @@
       </div>
       <!--end::Card title-->
       <!--begin::Action-->
-      <a href="" class="btn btn-sm btn-primary align-self-center">Edit Profile</a>
+      {{-- <a href="" class="btn btn-sm btn-primary align-self-center">Edit Profile</a> --}}
       <!--end::Action-->
     </div>
     <div class="card-body p-9">

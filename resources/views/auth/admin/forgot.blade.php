@@ -1,21 +1,14 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
     <base href="../../../" />
-    <title>Keen - Multi-demo Bootstrap 5 HTML Admin Dashboard Template by Keenthemes</title>
+    <title>ELM EXPRESS</title>
     <meta charset="utf-8" />
-    <meta name="description"
-        content="The most advanced Bootstrap Admin Theme on Bootstrap Market trusted by over 4,000 beginners and professionals. Multi-demo, Dark Mode, RTL support. Grab your copy now and get life-time updates for free." />
-    <meta name="keywords"
-        content="keen, bootstrap, bootstrap 5, bootstrap 4, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Keen - Multi-demo Bootstrap 5 HTML Admin Dashboard Theme" />
-    <meta property="og:url" content="https://keenthemes.com/keen" />
-    <meta property="og:site_name" content="Keenthemes | Keen" />
-    <link rel="canonical" href="https://preview.keenthemes.com/keen" />
     <link rel="shortcut icon" href="{{ asset('storage/images/appLogo.png') }}" />
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
@@ -54,11 +47,16 @@
     <div class="d-flex flex-column flex-root" id="kt_app_root">
         <!--begin::Authentication - Sign-in -->
         <div class="d-flex flex-column flex-lg-row flex-column-fluid">
-            <!--begin::Aside-->
             <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center"
-            style="background-image: url({{ asset('storage/images/livreur.png)') }}">
-          
-        </div>
+                style="background-color: #000000">
+                <!--begin::Content-->
+                <div class="d-flex flex-column flex-center p-6 p-lg-10 w-100">
+
+                    <img class="d-none d-lg-block mx-auto w-300px w-lg-75 w-xl-500px mb-10 mb-lg-20"
+                        src="{{ asset('storage/images/l.png') }}" alt="" />
+
+                </div>
+            </div>
             <!--begin::Aside-->
             <!--begin::Body-->
             <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10">
@@ -70,13 +68,16 @@
 
                         <form method="POST" action="{{ route('auth.admin.password.email') }}">
                             @csrf
-    
+
                             <div class="form-group ">
-                                <label for="email" class=" col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-    
+                                <label for="email"
+                                    class=" col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+
                                 <div class="">
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-    
+                                    <input id="email" type="email"
+                                        class="form-control @error('email') is-invalid @enderror" name="email"
+                                        value="{{ old('email') }}" required autocomplete="email" autofocus>
+
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -84,7 +85,7 @@
                                     @enderror
                                 </div>
                             </div>
-    
+
                             <div class="form-group mt-3">
                                 <div class="w-100">
                                     <button type="submit" class="btn btn-primary">
@@ -100,14 +101,7 @@
                 <!--end::Form-->
                 <!--begin::Footer-->
                 <div class="d-flex flex-center flex-wrap px-5">
-                    <!--begin::Links-->
-                    <div class="d-flex fw-semibold text-primary fs-base">
-                        <a href="https://keenthemes.com" class="px-5" target="_blank">Terms</a>
-                        <a href="https://devs.keenthemes.com" class="px-5" target="_blank">Plans</a>
-                        <a href="https://themes.getbootstrap.com/product/keen-the-ultimate-bootstrap-admin-theme/"
-                            class="px-5" target="_blank">Contact Us</a>
-                    </div>
-                    <!--end::Links-->
+                    
                 </div>
                 <!--end::Footer-->
             </div>

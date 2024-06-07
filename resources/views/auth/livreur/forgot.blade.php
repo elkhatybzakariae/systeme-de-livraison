@@ -3,19 +3,11 @@
 <html lang="en">
 <head>
     <base href="../../../" />
-    <title>Keen - Multi-demo Bootstrap 5 HTML Admin Dashboard Template by Keenthemes</title>
+    <title>ELM EXPRESS</title>
     <meta charset="utf-8" />
-    <meta name="description"
-        content="The most advanced Bootstrap Admin Theme on Bootstrap Market trusted by over 4,000 beginners and professionals. Multi-demo, Dark Mode, RTL support. Grab your copy now and get life-time updates for free." />
-    <meta name="keywords"
-        content="keen, bootstrap, bootstrap 5, bootstrap 4, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Keen - Multi-demo Bootstrap 5 HTML Admin Dashboard Theme" />
-    <meta property="og:url" content="https://keenthemes.com/keen" />
-    <meta property="og:site_name" content="Keenthemes | Keen" />
-    <link rel="canonical" href="https://preview.keenthemes.com/keen" />
     <link rel="shortcut icon" href="{{ asset('storage/images/appLogo.png') }}" />
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
@@ -101,12 +93,7 @@
                 <!--begin::Footer-->
                 <div class="d-flex flex-center flex-wrap px-5">
                     <!--begin::Links-->
-                    <div class="d-flex fw-semibold text-primary fs-base">
-                        <a href="https://keenthemes.com" class="px-5" target="_blank">Terms</a>
-                        <a href="https://devs.keenthemes.com" class="px-5" target="_blank">Plans</a>
-                        <a href="https://themes.getbootstrap.com/product/keen-the-ultimate-bootstrap-admin-theme/"
-                            class="px-5" target="_blank">Contact Us</a>
-                    </div>
+                   
                     <!--end::Links-->
                 </div>
                 <!--end::Footer-->
