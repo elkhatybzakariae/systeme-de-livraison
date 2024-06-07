@@ -94,7 +94,11 @@ class BonPaymentZoneController extends Controller
         $zones = Zone::whereHas('colis', function ($query) {
             $query->where('status', 'Livre')
                 ->where('etat', 'Paye')
-                ->whereNull('id_BPZ');
+                ->whereNull('id_BPZ')
+                ->whereHas('bonPaymentLivreur', function ($queryBPZ) {
+                    $queryBPZ->where('status', 'Paye');
+                })
+                ;
         })
         ->with(['colis' => function ($query) {
             $query->where('status', 'Livre')
