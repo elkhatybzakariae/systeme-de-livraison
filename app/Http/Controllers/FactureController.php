@@ -290,14 +290,30 @@ public function deleteFrais($id)
             ->withSum('colis', 'prix') // Sum prices of related colis
             ->leftJoin('clients', 'factures.id_Cl', '=', 'clients.id_Cl')
             ->leftJoin('colis', 'factures.id_F', '=', 'colis.id_F')
-            ->select('factures.*', 'clients.nomcomplet as nomcomplet', 'clients.Phone as telephone')
+            ->leftJoin('bon_payment_livreurs', 'bon_payment_livreurs.id_BPL', '=', 'colis.id_BPL')
+            ->leftJoin('livreurs', 'bon_payment_livreurs.id_Liv', '=', 'livreurs.id_Liv')
+            ->select('factures.*', 'clients.*', 'clients.Phone as telephone')
             ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_F = factures.id_F) as colis_count'))
             ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_F = factures.id_F) as prix_total')) // Corrected table name (BL -> BD)
+            ->addSelect( DB::raw('(SELECT SUM(livreurs.fraislivraison) FROM livreurs 
+            JOIN bon_payment_livreurs ON bon_payment_livreurs.id_Liv = livreurs.id_Liv 
+            JOIN colis ON colis.id_BPL = bon_payment_livreurs.id_BPL 
+            WHERE colis.id_F = factures.id_F) as frais')) // Corrected table name (BL -> BD)
             ->with('colis', 'colis.ville')
             ->first();
 
-        // dd($bon);
-        $colis = Colis::query()->where('id_F', $id)->get();
+            $colis = Colis::query()->where('id_F', $id)
+            // ->with('ville')
+            ->leftJoin('bon_payment_livreurs', 'bon_payment_livreurs.id_BPL', '=', 'colis.id_BPL')
+            ->leftJoin('livreurs', 'bon_payment_livreurs.id_Liv', '=', 'livreurs.id_Liv')
+            ->leftJoin('villes', 'villes.id_V', '=', 'colis.ville_id')
+            ->select(
+                'colis.*',
+                'villes.villename',
+                'livreurs.fraislivraison'
+            )
+            ->get();
+            // dd($colis);
         $img = Helpers::base64Image();
         $data = [
             'bon' => $bon,

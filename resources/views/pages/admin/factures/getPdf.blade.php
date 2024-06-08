@@ -58,8 +58,8 @@ th {
       </td>
       <td style="width: 50%">
         <div class="">
-          <p><strong>LIVRAISON</strong> </p>
-          <p>
+          <p style="font-size: 14px"><strong>LIVRAISON</strong> </p>
+          <p style="font-size: 14px">
               Adresse: SYSTEME GESTION SOCIETE LIVRAISON :<br>
               Telephone: 0600000000<br>
               Email: Contact@livraison.com<br>
@@ -75,19 +75,21 @@ th {
     <tr>
       <td style="position: relative">
         <div style=" border-style: solid; margin: 10px; padding: 10px; width:300px;height:100px">
-          <strong >Livreur:</strong>
-          <span>{{ $bon->liv_nom }}</span><br>
+          <strong >Client:</strong>
+          <span>{{ $bon->nomcomplet }}</span><br>
           <strong >Téléphone:</strong> 
-          <span>{{ $bon->liv_tele }}</span><br>
-          <strong >Zone:</strong> 
-          <span>{{ $bon->liv_zone }}</span>
+          <span>{{ $bon->telephone }}</span><br>
+          <strong >Banque:</strong> 
+          <span>{{ $bon->nombanque }}</span><br>
+          <strong >Compte:</strong> 
+          <span>{{ $bon->numerocompte }}</span>
       </div>
       </td>
       <td style="position: relative">
         <div style=" border-style: solid; margin: 10px; padding: 10px;width:300px;height:100px">
           <div class="colis grid-item--full">
               <strong >Bon de livraison:</strong>
-              <span>{{ $bon->id_BD }}</span>
+              <span>{{ $bon->id_F }}</span>
           </div>
           <div class="colis grid-item--full">
               <strong >Date: </strong>
@@ -100,7 +102,7 @@ th {
 
           <div class="total">
               <strong >Total:</strong>
-              <span> {{ $bon->prix_total }} Dhs</span>
+              <span> {{ $bon->prix_total -$bon->frais }} Dhs</span>
           </div>
       </div>
       </td>
@@ -114,9 +116,10 @@ th {
         <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri">Telephone</span></p>        </td>
         <td class="td" ><p style="font-size:8pt"><span style="font-family:Calibri">Ville</span></p>        </td>
         <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri">Crbt</span></p>       </td>
+        <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri">Frais</span></p>       </td>
+        <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri">Total</span></p>       </td>
     </tr>
     @foreach($colis as $i=>$item)
-
       <tr style="height:18.65pt; -aw-height-rule:exactly">
           <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $i+1 }} </span></p>
           </td>
@@ -124,34 +127,43 @@ th {
           </td>
           <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->telephone }} </</span></p>
           </td>
-          <td class="td"> <p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->ville->villename }} </</span></p>
+          <td class="td"> <p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->villename }} </</span></p>
           </td>
           <td class="td"> <p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->prix }}  Dhs</span></p>
           </td>
-      </tr>
-      <tr style="height:18.65pt; -aw-height-rule:exactly">
-          <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $i+1 }} </span></p>
+          <td class="td"> <p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->fraislivraison }}  Dhs</span></p>
           </td>
-          <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->code_d_envoi }} </span></p>
-          </td>
-          <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->telephone }} </</span></p>
-          </td>
-          <td class="td"> <p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->ville->villename }} </</span></p>
-          </td>
-          <td class="td"> <p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->prix }}  Dhs</span></p>
+          <td class="td"> <p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->prix - $item->fraislivraison }}  Dhs</span></p>
           </td>
       </tr>
+      
       @endforeach
       <tr style="height:18.65pt; -aw-height-rule:exactly">
-          <td class="td" colspan="4" ><p style="font-size:8pt"><strong style="font-family:Calibri"> Total </strong></p></td>
-          <td class="td" ><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $bon->prix_total }} </span></p></td>
+          <td class="td" colspan="6" ><p style="font-size:8pt"><strong style="font-family:Calibri"> Total </strong></p></td>
+          <td class="td" ><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $bon->prix_total -$bon->frais }} </span></p></td>
          
       </tr>
   </table>
     <br>
+    <table class="table">
+      <tr style="height:15.6pt; -aw-height-rule:exactly">
+          <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri">Total Brut</span></p>        </td>
+          <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $bon->prix_total }}</span></p>        </td>
+      </tr>
+     
+        <tr style="height:18.65pt; -aw-height-rule:exactly">
+            <td class="td"  ><p style="font-size:8pt"><strong style="font-family:Calibri"> Frais </strong></p></td>
+            <td class="td" ><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $bon->frais }} </span></p></td>
+           
+        </tr>
+        <tr style="height:18.65pt; -aw-height-rule:exactly">
+            <td class="td"  ><p style="font-size:8pt"><strong style="font-family:Calibri"> Prix Total Net </strong></p></td>
+            <td class="td" ><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $bon->prix_total -$bon->frais }} </span></p></td>
+           
+        </tr>
+    </table>
 
-
-    
+    <strong style="font-family:Calibri"> ELM Express Livraison Vous remercier pour votre confiance    </strong>
     
   
     

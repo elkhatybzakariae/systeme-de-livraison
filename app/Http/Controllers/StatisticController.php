@@ -35,27 +35,43 @@ class StatisticController extends Controller
         $colisStatus=Helpers::applyDateFilter($colisStatus,$request,'colis.');
         $colisStatus=$colisStatus->get();
 
-        $query = Facture::select( 'factures.status',
-        DB::raw('COUNT(factures.id_F) AS factures_count'),
-        DB::raw('COUNT(colis.id) AS colis_count'),
-        DB::raw('SUM(colis.prix) AS prix_total'),
-        DB::raw('SUM(frais.prix * frais.quntite) AS frais_total'))
+        $query = Facture::select(
+            'factures.status',
+            DB::raw('COUNT(DISTINCT factures.id_F) AS factures_count'),
+            DB::raw('COUNT(colis.id) AS colis_count'),
+            DB::raw('SUM(colis.prix) AS prix_total'),
+            DB::raw('SUM(frais.prix * frais.quntite) AS frais_total'),
+            DB::raw('(SELECT SUM(livreurs.fraislivraison) FROM livreurs 
+                      JOIN bon_payment_livreurs ON bon_payment_livreurs.id_Liv = livreurs.id_Liv 
+                      JOIN colis c ON c.id_BPL = bon_payment_livreurs.id_BPL 
+                      WHERE c.id_F = factures.id_F) as frais')
+        )
         ->leftJoin('colis', 'colis.id_F', '=', 'factures.id_F')
+        ->leftJoin('bon_payment_livreurs', 'bon_payment_livreurs.id_BPL', '=', 'colis.id_BPL')
+        ->leftJoin('livreurs', 'bon_payment_livreurs.id_Liv', '=', 'livreurs.id_Liv')
         ->leftJoin('frais', 'frais.id_F', '=', 'factures.id_F')
-        ->groupBy(  'factures.status')
-        ->where('factures.status', 'Paye');
-
-        $facturesPaye=Helpers::applyDateFilter($query,$request,'factures.');
-        $facturesPaye=$facturesPaye->first();
-
+        ->where('factures.status', 'Paye')
+        ->groupBy('factures.status','factures.id_F');
+        
+        $facturesPaye = Helpers::applyDateFilter($query, $request, 'factures.');
+        $facturesPaye = $facturesPaye->first();
+        // dd($facturesPaye);
         $facturesEnregistre = Facture::select( 'factures.status',
         DB::raw('COUNT(factures.id_F) AS factures_count'),
         DB::raw('COUNT(colis.id) AS colis_count'),
         DB::raw('SUM(colis.prix) AS prix_total'),
-        DB::raw('SUM(frais.prix * frais.quntite) AS frais_total'))
+        DB::raw('SUM(frais.prix * frais.quntite) AS frais_total'),
+
+        DB::raw('(SELECT SUM(livreurs.fraislivraison) FROM livreurs 
+            JOIN bon_payment_livreurs ON bon_payment_livreurs.id_Liv = livreurs.id_Liv 
+            JOIN colis c ON c.id_BPL = bon_payment_livreurs.id_BPL 
+            WHERE c.id_F = factures.id_F) as frais')
+            )
         ->leftJoin('colis', 'colis.id_F', '=', 'factures.id_F')
+        ->leftJoin('bon_payment_livreurs', 'bon_payment_livreurs.id_BPL', '=', 'colis.id_BPL')
+        ->leftJoin('livreurs', 'bon_payment_livreurs.id_Liv', '=', 'livreurs.id_Liv')
         ->leftJoin('frais', 'frais.id_F', '=', 'factures.id_F')
-        ->groupBy(  'factures.status')
+        ->groupBy(  'factures.status','factures.id_F')
         ->where('factures.status', 'Enregistre');
 
         $facturesEnregistre=Helpers::applyDateFilter($facturesEnregistre,$request,'factures.');
@@ -65,25 +81,36 @@ class StatisticController extends Controller
         DB::raw('COUNT(factures.id_F) AS factures_count'),
         DB::raw('COUNT(colis.id) AS colis_count'),
         DB::raw('SUM(colis.prix) AS prix_total'),
-        DB::raw('SUM(frais.prix * frais.quntite) AS frais_total'))
+        DB::raw('SUM(frais.prix * frais.quntite) AS frais_total'),
+        DB::raw('(SELECT SUM(livreurs.fraislivraison) FROM livreurs 
+                JOIN bon_payment_livreurs ON bon_payment_livreurs.id_Liv = livreurs.id_Liv 
+                JOIN colis c ON c.id_BPL = bon_payment_livreurs.id_BPL 
+                WHERE c.id_F = factures.id_F) as frais')
+        )
         ->leftJoin('colis', 'colis.id_F', '=', 'factures.id_F')
+        ->leftJoin('bon_payment_livreurs', 'bon_payment_livreurs.id_BPL', '=', 'colis.id_BPL')
+        ->leftJoin('livreurs', 'bon_payment_livreurs.id_Liv', '=', 'livreurs.id_Liv')
         ->leftJoin('frais', 'frais.id_F', '=', 'factures.id_F')
-        ->groupBy(  'factures.status')
+        ->groupBy(  'factures.status','factures.id_F')
         ->where('factures.status', 'Brouillon');
 
         $facturesBrouillon=Helpers::applyDateFilter($facturesBrouillon,$request,'factures.');
         $facturesBrouillon=$facturesBrouillon->first();
 
-        $total = Facture::select( 
-        DB::raw('COUNT(factures.id_F) AS factures_count'),
-        DB::raw('COUNT(colis.id) AS colis_count'),
-        DB::raw('SUM(colis.prix) AS prix_total'),
-        DB::raw('SUM(frais.prix * frais.quntite) AS frais_total'))
+        $total = Facture::select(
+            DB::raw('COUNT(factures.id_F) AS factures_count'),
+            DB::raw('COUNT(colis.id) AS colis_count'),
+            DB::raw('SUM(colis.prix) AS prix_total'),
+            DB::raw('SUM(frais.prix * frais.quntite) AS frais_total'),
+            DB::raw(' SUM(livreurs.fraislivraison)  as frais')
+        )
         ->leftJoin('colis', 'colis.id_F', '=', 'factures.id_F')
+        ->leftJoin('bon_payment_livreurs', 'bon_payment_livreurs.id_BPL', '=', 'colis.id_BPL')
+        ->leftJoin('livreurs', 'bon_payment_livreurs.id_Liv', '=', 'livreurs.id_Liv')
         ->leftJoin('frais', 'frais.id_F', '=', 'factures.id_F');
-
-        $total=Helpers::applyDateFilter($total,$request,'factures.');
-        $total=$total->first();
+        
+        $total = Helpers::applyDateFilter($total, $request, 'factures.');
+        $total = $total->first();
 
         $livBonAttent = BonPaymentLivreur::select( 'bon_payment_livreurs.status',
         DB::raw('COUNT(bon_payment_livreurs.id_BPL) AS bons_count'),
