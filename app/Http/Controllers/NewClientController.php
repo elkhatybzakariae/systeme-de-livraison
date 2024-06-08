@@ -10,7 +10,9 @@ class NewClientController extends Controller
 {
     public function newclients()
     {
-        $list= Client::where('isAdmin',1)->where('isAccepted',0)->orderBy('created_at','desc')->get();
+        $list= Client::where('isAdmin',1)->where('isAccepted',0)
+        ->orderBy('created_at','desc')->get();
+        // dd($list);
         $breads = [
             ['title' => 'Liste des nouveaux client', 'url' => null],
             ['text' => 'Nouveaux Clients', 'url' => null], // You can set the URL to null for the last breadcrumb

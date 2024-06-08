@@ -134,20 +134,24 @@
             });
 
             function openModal(id) {
+
+
                 var users = @json($list);
-                let bb = '';
-                let item = users.find(ele => ele.id_Cl == id)
-                console.log(item);
-                bb += `
+                if (users && users.length > 0) {
+                    let bb = '';
+                    // let id = /* the id you are looking for */ ;
+                    let item = users.find(ele => ele.id_Cl == id);
+
+                    if (item) {
+                        bb += `
                 <div class="">
                     <div class="d-flex flex-column ">
-                        <div class="d-flex justify-content-center align-items-center  mb-2">
+                        <div class="d-flex justify-content-center align-items-center mb-2">
                             <div class="symbol symbol-35px symbol-circle">
-                                <img src="{{ $item->img ? '' : asset('storage/images/profile.jpg') }}" alt="image">
-
+                                <img src="${item.img ? item.img : '{{ asset('storage/images/profile.jpg') }}'}" alt="image">
                             </div>
                         </div>
-                        <div class=" rounded text-dark fw-semibold text-start row" data-kt-element="message-text">
+                        <div class="rounded text-dark fw-semibold text-start row" data-kt-element="message-text">
                             <div class="form-group mb-3 col col-md-6">
                                 <label class="fw-bold" for="nom_livreur">Nom Client:</label>
                                 <input type="text" id="nom_livreur" class="form-control" value="${item.nomcomplet}" readonly>
@@ -174,13 +178,20 @@
                             </div>
                             <div class="form-group mb-3 col col-md-12">
                                 <label class="fw-bold" for="adresse">Adresse:</label>
-                                <textarea  id="adresse" class="form-control"  readonly> ${item.adress}</textarea>
+                                <textarea id="adresse" class="form-control" readonly>${item.adress}</textarea>
                             </div>
                         </div>
                     </div>
                 </div>
             `;
-
+                        // You might want to insert the generated HTML into the DOM
+                        document.getElementById('show').innerHTML = bb;
+                    } else {
+                        console.log('User with specified id not found');
+                    }
+                } else {
+                    console.log('No users available');
+                }
                 document.getElementById('show').innerHTML = bb;
             }
         </script>
