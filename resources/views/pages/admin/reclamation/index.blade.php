@@ -202,9 +202,7 @@
 
         function openModal(id_Rec, etat, action) {
             var messages = reclamations.find(element => element.id_Rec == id_Rec).message;
-            console.log('====================================');
-            console.log(messages);
-            console.log('====================================');
+          
             let bb = '';
             if (etat == 1) {
                 document.getElementById('kt_drawer_chat_messenger_footer').style.display = 'none';
@@ -265,20 +263,10 @@
                             </div>`;
                 }
             });
-            // console.log(bb);
-            // messages.forEach(element => {
-            //     // console.log(element['id_Rec']);
-            //     if (element['id_Rec'] === id_Rec) {
-            //         console.log(element['message']);
-
-
-            //         document.getElementById('show').innerHTML = aa;
-            //     }
-            // });
+         
             document.getElementById('show').innerHTML = bb;
             document.getElementById('kt_modal_new_message_form').action = action;
-            console.log(reclamations);
-            console.log(messages);
+            
 
 
         }

@@ -157,12 +157,17 @@ th {
            
         </tr>
         <tr style="height:18.65pt; -aw-height-rule:exactly">
+            <td class="td"  ><p style="font-size:8pt"><strong style="font-family:Calibri">Autre Frais </strong></p></td>
+            <td class="td" ><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $bon->frais }} </span></p></td>
+           
+        </tr>
+        <tr style="height:18.65pt; -aw-height-rule:exactly">
             <td class="td"  ><p style="font-size:8pt"><strong style="font-family:Calibri"> Prix Total Net </strong></p></td>
             <td class="td" ><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $bon->prix_total -$bon->frais }} </span></p></td>
            
         </tr>
     </table>
-
+<br>
     <strong style="font-family:Calibri"> ELM Express Livraison Vous remercier pour votre confiance    </strong>
     
   

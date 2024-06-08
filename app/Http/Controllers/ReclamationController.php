@@ -30,7 +30,9 @@ class ReclamationController extends Controller
     }
     public function all()
     {
-        $reclamations = Reclamation::query()->with('client','message')->orderBy('created_at','desc')->get(); 
+        $reclamations = Reclamation::query()->with(['client','message' => function ($query) {
+            $query->orderBy('created_at', 'asc');
+        }])->orderBy('created_at','desc')->get(); 
         $messages = Message::whereIn('id_Rec', $reclamations->pluck('id_Rec'))->get(); 
         $breads = [
             ['title' => 'Liste des Reclamations', 'url' => null],
