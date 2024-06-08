@@ -5,7 +5,7 @@
         <div class="d-table-cell">
           <div class="container">
             <div class="prevoz-slider-text one ">
-              <a class="white video-btn video-btn-animat popup-youtube"  href="https://www.youtube.com/watch?v=Q7tYF5Bf2ok">
+              <a class="white video-btn video-btn-animat popup-youtube"  href="https://www.youtube.com">
                 <i class="bx bx-play"></i>
               </a>
               <h1 class="slider-text-header"></h1>
@@ -32,7 +32,7 @@
         <div class="d-table-cell">
           <div class="container">
             <div class="prevoz-slider-text one ">
-              <a class="white video-btn video-btn-animat popup-youtube"  href="https://www.youtube.com/watch?v=Q7tYF5Bf2ok">
+              <a class="white video-btn video-btn-animat popup-youtube"  href="https://www.youtube.com">
                 <i class="bx bx-play"></i>
               </a>
               <h1 class="slider-text-header"></h1>
