@@ -215,13 +215,13 @@
     <script type="text/javascript" src="{{ asset('storage/assets/home-page/js/floatingapp.js') }}"></script>
     <script>
         $("#myButton").floatingWhatsApp({
-            phone: "+212600000000",
-            popupMessage: "Bienvenue sur livraison, comment puis-je vous aider ?",
-            message: "Salut livraison",
+            phone: "+212680651421",
+            popupMessage: "Bienvenue sur ELM EXPRESS livraison, comment puis-je vous aider ?",
+            message: "Salut  ELM EXPRESS livraison",
             showPopup: true,
             showOnIE: true,
             headerTitle: "Salut",
-            headerColor: "green",
+            headerColor: "#d2f931",
             backgroundColor: "crimson",
 
         });

@@ -90,7 +90,7 @@
                     <div class="single-offer">
                         <i class="icon flaticon-warehouse"></i>
                         <h3>Ramassage</h3>
-                        <p>Le ramassage est un service mis en place par la société ErrazyLiv afin de faciliter au maximum votre
+                        <p>Le ramassage est un service mis en place par la société ELM EXPRESS afin de faciliter au maximum votre
                             processus d’expédition.</p>
 
                     </div>
@@ -109,7 +109,7 @@
                     <div class="single-offer">
                         <i class="icon flaticon-stopwatch"></i>
                         <h3>Expédition</h3>
-                        <p>L’équipe de ErrazyLiv assure l’acheminement de vos colis à votre destinataire contre un accusé de
+                        <p>L’équipe de ELM EXPRESS assure l’acheminement de vos colis à votre destinataire contre un accusé de
                             réception.</p>
                         </br>
 
@@ -142,10 +142,10 @@
                 <div class="col-lg-6">
                     <div class="about-content">
                         <span>CONNAÎTRE NOUS </span>
-                        <h2>ErrazyLiv</h2>
-                        <p>ErrazyLiv est la nouvelle solution d'expédition pour gérer vos livraisons en ligne. Donnez à votre
+                        <h2>ELM EXPRESS</h2>
+                        <p>ELM EXPRESS est la nouvelle solution d'expédition pour gérer vos livraisons en ligne. Donnez à votre
                             entreprise en ligne un avantage concurrentiel grâce aux solutions de livraison sur mesure de
-                            commerce électronique de ErrazyLiv. La société ErrazyLiv assure l’expédition, l’arrivage, le ramassage,
+                            commerce électronique de ELM EXPRESS. La société ELM EXPRESS assure l’expédition, l’arrivage, le ramassage,
                             la livraison, le retour des fonds,la confirmation, le stock , la gestion documentaire et propose
                             à chaque client professionnel ou particulier une offre de prestation complète, variée et
                             optimale grâce à une expérience riche et professionnelle sur le marché de la messagerie
@@ -201,7 +201,7 @@
     <section class="service-area service-area-two service-area-five fun-blue-bg pt-100 pb-100" id="avantages-section">
         <div class="container">
             <div class="section-title">
-                <h2>Les avantages de choisir ErrazyLiv</h2>
+                <h2>Les avantages de choisir ELM EXPRESS</h2>
             </div>
             <div class="row">
                 <div class="col-lg-4 col-sm-6">
@@ -224,7 +224,7 @@
                             <i class="icon flaticon-package"></i>
                             <h3>Insertion</h3>
                             <p>Qu'ils soient transactionnels ou postaux, les systèmes d'insertion hautes performances de
-                                ErrazyLiv offrent un traitement des documents sécurisé, efficace et flexible.</p>
+                                ELM EXPRESS offrent un traitement des documents sécurisé, efficace et flexible.</p>
                         </div>
                         <div class="service-heading">
                             <h3>Insertion</h3>
@@ -270,7 +270,7 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="began-wrap">
-                            <h2>Protégez vos produits avec ErrazyLiv</h2>
+                            <h2>Protégez vos produits avec ELM EXPRESS</h2>
                             <div class="row">
                                 <div class="col-lg-4 col-sm-6 p-0">
                                     <div class="single-began">
