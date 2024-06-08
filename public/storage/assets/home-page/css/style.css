@@ -4166,7 +4166,7 @@ Navbar Area Four Style
   display: block;
 }
 .logo-header {
-  max-height: 50px;
+  max-height: 100px;
 }
 .side-bar-header{color:var(--main-color)}
 .prevoz-nav-style-four .navbar-area .main-nav {
