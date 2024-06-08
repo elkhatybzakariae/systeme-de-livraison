@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Colis;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class StockController extends Controller
 {
     public function nouveau()
     {
-        $colis = Colis::query()->where('status','nouveau')->orderBy('created_at','desc')->get();
-        // $status = Colis::query()->select('status')->distinct()->orderBy('created_at','desc')->get();
+        $colis = Colis::query()->where('status','nouveau')->get();
+        // $status = Colis::query()->select('status')->distinct()->get();
         $status = DB::table(DB::raw('(SELECT DISTINCT status, created_at FROM colis) as sub'))
     ->select('status')
     ->orderBy('created_at', 'desc')
@@ -24,8 +23,8 @@ class StockController extends Controller
     }
     public function pres()
     {
-        $colis = Colis::query()->where('status','pres pour preparation')->orderBy('created_at','desc')->get();
-        $status = Colis::query()->select('status')->distinct()->orderBy('created_at','desc')->get();
+        $colis = Colis::query()->where('status','pres pour preparation')->get();
+        $status = Colis::query()->select('status')->distinct()->get();
         $breads = [
             ['title' => 'Liste des Nouvelle Colis', 'url' => null],
             ['text' => 'Colis', 'url' => null], // You can set the URL to null for the last breadcrumb

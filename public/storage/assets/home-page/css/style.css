@@ -433,7 +433,7 @@ Video wave Style
   position: relative;
   top: 3px;
   z-index: 1;
-  background-color: #ffffff;
+  background-color: #d2f931;
 }
 
 .video-btn i {
@@ -457,7 +457,7 @@ Video wave Style
   bottom: 0;
   left: 0;
   border-radius: 50%;
-  background-color: #ffffff;
+  background-color: #d2f931;
 }
 
 .video-btn::before {
@@ -535,13 +535,13 @@ Default Btn Area Style
 }
 
 .default-btn.active {
-  background-color: var(--main-color);
+  background-color: #d2f931;
   border-color: var(--main-color);
   color: #ffffff;
 }
 
 .default-btn.active:hover {
-  color: var(--hover-color);
+  color: #d2f931;
 }
 
 .default-btn.active::after {
@@ -556,7 +556,7 @@ Default Btn Area Style
 }
 
 .default-btn.active:hover {
-  background-color: var(--hover-color);
+  background-color: #d2f931;
   border-color: var(--hover-color);
   color: white;
 }
