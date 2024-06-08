@@ -130,11 +130,6 @@
         </div>
 
     </section>
-    <!-- End What We Offer Area -->
-
-
-    <!-- Start About Area -->
-
 
     <section class="about-area about-area-two about-area-four pb-100">
         <div class="container-fluid">
