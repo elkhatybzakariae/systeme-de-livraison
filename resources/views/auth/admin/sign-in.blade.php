@@ -17,10 +17,10 @@
     {{-- <meta property="og:url" content="https" /> --}}
     <meta property="og:site_name" content="ELM EXPRESS" />
     <link rel="canonical" href="" />
-    <link rel="shortcut icon" href="{{ secure_asset('storage/images/appLogo.png') }}" />
+    <link rel="shortcut icon" href="{{ asset('storage/images/appLogo.png') }}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
-    <link href="{{ secure_asset('storage/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ secure_asset('storage/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('storage/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('storage/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
 
 </head>
 <body id="kt_body" class="app-blank app-blank">
@@ -57,7 +57,7 @@
                             class="h-40px h-lg-50px" />
                     </a> --}}
                     <img class="d-none d-lg-block mx-auto w-300px w-lg-75 w-xl-500px mb-10 mb-lg-20"
-                        src="{{ secure_asset('storage/images/l.png') }}" alt="" />
+                        src="{{ asset('storage/images/l.png') }}" alt="" />
                     {{-- <h1 class="d-none d-lg-block text-white fs-2qx fw-bold text-center mb-7">Fast, Efficient and
                         Productive</h1>
                     <div class="d-none d-lg-block text-white fs-base text-center">In this kind of post,
@@ -159,11 +159,11 @@
         var hostUrl = "assets/";
     </script>
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
-    <script src={{ secure_asset('storage/assets/plugins/global/plugins.bundle.js') }}></script>
-    <script src={{ secure_asset('storage/assets/js/scripts.bundle.js') }}></script>
+    <script src={{ asset('storage/assets/plugins/global/plugins.bundle.js') }}></script>
+    <script src={{ asset('storage/assets/js/scripts.bundle.js') }}></script>
     <!--end::Global Javascript Bundle-->
     <!--begin::Custom Javascript(used for this page only)-->
-    <script src={{ secure_asset('storage/assets/js/custom/authentication/sign-in/general.js') }}></script>
+    <script src={{ asset('storage/assets/js/custom/authentication/sign-in/general.js') }}></script>
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
 </body>
