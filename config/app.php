@@ -57,7 +57,7 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'asset_url' => env('ASSET_URL', "https://elmexpresse-system-d28c5ceba8bb.herokuapp.com/public"),
+    'asset_url' => env('ASSET_URL', "https://elmexpresse-system-d28c5ceba8bb.herokuapp.com/public/"),
 
     /*
     |--------------------------------------------------------------------------
