@@ -289,12 +289,17 @@ public function deleteFrais($id)
             ->withCount('colis') 
             ->withSum('colis', 'prix') // Sum prices of related colis
             ->leftJoin('clients', 'factures.id_Cl', '=', 'clients.id_Cl')
+            ->leftJoin('frais', 'factures.id_F', '=', 'frais.id_F')
             ->leftJoin('colis', 'factures.id_F', '=', 'colis.id_F')
             ->leftJoin('bon_payment_livreurs', 'bon_payment_livreurs.id_BPL', '=', 'colis.id_BPL')
             ->leftJoin('livreurs', 'bon_payment_livreurs.id_Liv', '=', 'livreurs.id_Liv')
-            ->select('factures.*', 'clients.*', 'clients.Phone as telephone')
+            ->select('factures.*', 'clients.*', 'clients.Phone as telephone',
+            // DB::raw('SUM(frais.prix * frais.quntite) AS autre_frais'),
+            )
+            ->addSelect(DB::raw('(SELECT SUM(frais.prix * frais.quntite) FROM frais WHERE frais.id_F = factures.id_F) as autre_frais'))
             ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_F = factures.id_F) as colis_count'))
-            ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_F = factures.id_F) as prix_total')) // Corrected table name (BL -> BD)
+            ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_F = factures.id_F) as prix_total'))
+             // Corrected table name (BL -> BD)
             ->addSelect( DB::raw('(SELECT SUM(livreurs.fraislivraison) FROM livreurs 
             JOIN bon_payment_livreurs ON bon_payment_livreurs.id_Liv = livreurs.id_Liv 
             JOIN colis ON colis.id_BPL = bon_payment_livreurs.id_BPL 

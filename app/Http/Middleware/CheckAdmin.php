@@ -19,11 +19,9 @@ class CheckAdmin
             if ($admin) {
                 return $next($request);
             }
-            dd(session('admin')['id_Ad']);
             
         }
         session(['url.intended' => $request->fullUrl()]);
-        dd(session('admin'));
     
             return redirect(route('auth.admin.signIn')); 
     }

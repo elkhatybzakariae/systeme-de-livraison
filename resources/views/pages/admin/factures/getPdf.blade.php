@@ -102,7 +102,7 @@ th {
 
           <div class="total">
               <strong >Total:</strong>
-              <span> {{ $bon->prix_total -$bon->frais }} Dhs</span>
+              <span> {{ $bon->prix_total -$bon->frais-$bon->autre_frais }} Dhs</span>
           </div>
       </div>
       </td>
@@ -148,22 +148,22 @@ th {
     <table class="table">
       <tr style="height:15.6pt; -aw-height-rule:exactly">
           <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri">Total Brut</span></p>        </td>
-          <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $bon->prix_total }}</span></p>        </td>
+          <td class="td"><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $bon->prix_total }} DH</span></p>        </td>
       </tr>
      
         <tr style="height:18.65pt; -aw-height-rule:exactly">
             <td class="td"  ><p style="font-size:8pt"><strong style="font-family:Calibri"> Frais </strong></p></td>
-            <td class="td" ><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $bon->frais }} </span></p></td>
+            <td class="td" ><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $bon->frais }} DH </span></p></td>
            
         </tr>
         <tr style="height:18.65pt; -aw-height-rule:exactly">
             <td class="td"  ><p style="font-size:8pt"><strong style="font-family:Calibri">Autre Frais </strong></p></td>
-            <td class="td" ><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $bon->frais }} </span></p></td>
+            <td class="td" ><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $bon->autre_frais??0 }} DH</span></p></td>
            
         </tr>
         <tr style="height:18.65pt; -aw-height-rule:exactly">
             <td class="td"  ><p style="font-size:8pt"><strong style="font-family:Calibri"> Prix Total Net </strong></p></td>
-            <td class="td" ><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $bon->prix_total -$bon->frais }} </span></p></td>
+            <td class="td" ><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $bon->prix_total -$bon->frais-$bon->autre_frais }} DH </span></p></td>
            
         </tr>
     </table>

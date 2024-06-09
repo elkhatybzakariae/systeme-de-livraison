@@ -220,18 +220,13 @@
                                 <div class="symbol symbol-50px me-5">
                                     <img alt="Logo" src="{{ asset('storage/assets/media/avatars/300-3.jpg') }}" />
                                 </div>
-                                <!--end::Avatar-->
-                                <!--begin::Username-->
                                 <div class="d-flex flex-column">
                                     <div class="fw-bold  d-flex align-items-center fs-5">{{ session('livreur')['nomcomplet'] }}
                                     <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">{{ session('livreur')['isAdmin'] ?'Admin':'User'}}</span></div>
                                     <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">{{ session('livreur')['email'] }}</a>
                                 </div>
-                                <!--end::Username-->
                             </div>
                         </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu separator-->
                         <div class="separator my-2"></div>
                         <!--end::Menu separator-->
                         <!--begin::Menu item-->
