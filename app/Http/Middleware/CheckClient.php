@@ -17,6 +17,7 @@ class CheckClient
     public function handle(Request $request, Closure $next)
     {
         
+        // dd(session('client')['id_Cl']);
         if(isset(session('client')['id_Cl'])){
             
             $client=Client::find(session('client')['id_Cl']);

@@ -15,12 +15,13 @@ class CheckAdmin
         if(isset(session('admin')['id_Ad'])){
             
             $admin=Admin::find(session('admin')['id_Ad']);
-            
+            // dd('hh');
             if ($admin) {
                 return $next($request);
             }
             
         }
+        dd('hh');
         session(['url.intended' => $request->fullUrl()]);
     
             return redirect(route('auth.admin.signIn')); 

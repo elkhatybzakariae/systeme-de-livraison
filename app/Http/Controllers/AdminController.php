@@ -200,10 +200,10 @@ class AdminController extends Controller
             'password' => 'required|string|min:8',
         ]);
         $u = Admin::where('email', $request->email)->first();
-        // dd($u);
         if ($u) {
             if (Hash::check($request->password, $u->password)) {
-
+          
+                
                 Auth::login($u);
                 session(["admin" => $u]);
                 $url=session('url.intended');
@@ -213,6 +213,7 @@ class AdminController extends Controller
                 }
                 return redirect()->route('admin.index');
             }
+            // dd(Hash::check($request->password, $u->password),$u->password);
         } 
         return back()->with('error', 'Invalid email or password.');
         
@@ -276,7 +277,9 @@ class AdminController extends Controller
             $validation['id_Ad'] = $id_Ad;
             $validation['isAdmin'] = 0;
             $validation['user'] = $id_A;
-            $validation['password'] = Hash::make($validation['password']);
+            $validation['password'] = bcrypt($validation['password']);
+            // dd($validation);
+
             Admin::create($validation);
 
             return back()->with('success', '');
@@ -305,8 +308,8 @@ class AdminController extends Controller
             'cinrecto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'cinverso' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'RIB' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
+        ]); 
+        dd($validation);
         $validation['password'] = Hash::make($validation['password']);
 
         $admin->update($validation);

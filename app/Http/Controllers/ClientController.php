@@ -135,17 +135,16 @@ class ClientController extends Controller
             'password' => 'required',
         ]);
         $client = Client::where('email', $request->email)->first();
-        // dd($client);
         if ($client) {
-            if (Auth::attempt($v) ) {
+            if (Hash::check($request->password, $client->password )) {
                 
-                Auth::login($client);
                 session(["client" => $client]);
                 $url=session('url.intended');
                 if ($url) {
                     session(['url'=>null]);
                     return redirect()->to($url);
                 }
+                // dd($client);
                 
                 return redirect()->route('client.index')->with('success', 'successfull!!!!.');
             }
@@ -184,7 +183,7 @@ class ClientController extends Controller
         $validation['cin'] = '-';
         $validation['ville'] = '-';
         $validation['adress'] = '-';
-        $validation['password'] = Hash::make($validation['password']);
+        $validation['password'] = bcrypt($validation['password']);
         Client::create($validation);
         return back()->with('success', ' ');
     }
@@ -196,7 +195,7 @@ class ClientController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
-        $validation['password'] = Hash::make($validation['password']);
+        $validation['password'] = bcrypt($validation['password']);
 
         $client->update($validation);
         return back()->with('success', 'Client mis à jour avec succès !');
