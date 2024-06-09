@@ -4,68 +4,52 @@
 <head>
     <style>
         :root {
-            /* --main-color: #2e7d32; */
             --main-color: #202b46;
-            /* Main green color */
             --second-color: #388e3c;
-            /* Lighter shade of green */
             --third-color: #43a047;
-            /* Lightest shade of green */
             --fourth-color: #1b5e20;
-            /* Darker shade of green */
             --fifth-color: #1b5e20;
-            /* Another darker shade of green */
             --hover-color: #388e3c;
-            /* Hover color, lighter shade of green */
             --focus-color: #2e7d32;
-            /* Focus color, main green color */
+        }
+
+        .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
         }
     </style>
     <title>ELM EXPRESS</title>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="keywords" content="" />  
-      <link rel="shortcut icon" href="{{ asset('storage/images/appLogo.png') }}" />
+    <meta name="keywords" content="" />
+    <link rel="shortcut icon" href="{{ asset('storage/images/appLogo.png') }}" />
 
-   
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/bootstrap.min.css') }}">
-    <!-- Owl Theme Default CSS -->
-    <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/bootstrap.min.css') }}">
-     <link href="{{ asset('storage/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-     <link href="{{ asset('storage/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-   
-
+    <link rel="stylesheet" href="{{ asset('storage/assets/plugins/global/plugins.bundle.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('storage/assets/css/style.bundle.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/owl.theme.default.min.css') }}">
-    <!-- Owl Carousel CSS -->
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/owl.carousel.min.css') }}">
-    <!-- Owl Magnific CSS -->
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/magnific-popup.css') }}">
-    <!-- Animate CSS -->
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/animate.css') }}">
-    <!-- Boxicons CSS -->
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/boxicons.min.css') }}">
-    <!-- Flaticon CSS -->
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/flaticon.css') }}">
-    <!-- Meanmenu CSS -->
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/meanmenu.css') }}">
-    <!-- Nice Select CSS -->
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/nice-select.css') }}">
-    <!-- Odometer CSS-->
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/odometer.css') }}">
-    <!-- Style CSS -->
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/style.css') }}">
-    <!-- Responsive CSS -->
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/responsive.css') }}">
-    <link href="{{ asset('storage/styles/styles-ws.css') }}" rel="stylesheet" />
-    <!-- Favicon -->
+    <link rel="stylesheet" href="{{ asset('storage/styles/styles-ws.css') }}" />
     <link rel="stylesheet" href="{{ asset('storage/assets/main-page/css/aos.css') }}">
-    <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{ asset('storage/assets/main-page/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/floatingapp.css') }}">
-    </head>
-    <body>
-        @if ($errors->any())
+</head>
+
+<body>
+    @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -74,181 +58,96 @@
             </ul>
         </div>
     @endif
-    
-        <div class="container">
-            
-      <div class="d-flex flex-column flex-root " id="kt_app_root">
-        <!--begin::Authentication - Sign-up -->
-        <div class="d-flex flex-column flex-lg-row flex-column-fluid">
-            
-            <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-4 mt-4">
-                <!--begin::Form-->
-                <div class="d-flex flex-center flex-column flex-lg-row-fluid">
-                    <!--begin::Wrapper-->
-                    <div class="w-lg-100 p-10">
-                        <!--begin::Form-->
-                        <form action="{{ route('auth.livreur.signUp.store') }}" method="post" enctype="multipart/form-data" class="form w-100 row"
-                            novalidate="novalidate" id="kt_sign_up_form">
-                            @csrf
-                            <!--begin::Heading-->
-                            <div class="text-center mb-11">
-                                <!--begin::Title-->
-                                <h1 class="text-dark fw-bolder mb-3">Devenir Livreur</h1>
-                                <!--end::Title-->
-                            </div>
-                            <div class="fv-row mb-4 col-md-4">
 
-                                <input type="text" placeholder="Nom Complet" name="nomcomplet" autocomplete="off"
-                                    class="form-control" />
-
-                            </div>
-                            <div class="fv-row mb-4 col-md-4">
-
-                                <input type="text" placeholder="CIN" name="cin" autocomplete="off"
-                                    class="form-control" />
-
-                            </div>
-                            <div class="fv-row mb-4 col-md-4">
-
-                                <input type="text" placeholder="Numero de telephone" name="Phone"
-                                    autocomplete="off" class="form-control" />
-
-                            </div>
-                            <div class="fv-row mb-4 col-md-12">
-
-                                <input type="text" placeholder="Adresse" name="adress" autocomplete="off"
-                                    class="form-control" />
-
-                            </div>
-                            <div class="fv-row mb-4 col-md-3">
-                                <label class="" >Zone </label>
-                                <select name="id_Z" id="zone_select" class="form-select">
-                                    @foreach ($zones as $item)
-                                        <option value="{{ $item->id_Z }}">{{ $item->zonename }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            
-                            <div class="fv-row mb-4 col-md-3">
-                                
-                                <label class="" >Ville </label>
-                                <select name="ville" id="ville_select" class="form-select">
-
-                                </select>
-                            </div>
-                            <div class="fv-row mb-4 col-md-3">
-
-                                <input type="number" placeholder="Frais de livraison (DH)" name="fraislivraison"
-                                    autocomplete="off" class="form-control" />
-
-                            </div>
-                            <div class="fv-row mb-4 col-md-3">
-
-                                <input type="number" placeholder="Frais de refus (DH)" name="fraisrefus"
-                                    autocomplete="off" class="form-control" />
-
-                            </div>
-                            <div class="fv-row mb-4 col-md-6">
-
-                                <input type="text" placeholder="Banque" name="nombanque" autocomplete="off"
-                                    class="form-control" />
-
-                            </div>
-                            <div class="fv-row mb-4 col-md-6">
-
-                                <input type="text" placeholder="Numero du compte" name="numerocompte"
-                                    autocomplete="off" class="form-control" />
-
-                            </div>
-                            <div class="fv-row mb-4 col-md-4">
-                                <label for="cinrecto">CIN Recto</label>
-                                <input type="file" name="cinrecto" autocomplete="off" accept="image/*"
-                                    class="form-control" />
-
-                            </div>
-                            <div class="fv-row mb-4 col-md-4">
-                                <label for="cinverso">CIN Verso</label>
-
-                                <input type="file" name="cinverso" autocomplete="off" accept="image/*"
-                                    class="form-control" />
-
-                            </div>
-                            <div class="fv-row mb-4 col-md-4">
-                                <label for="RIB">RIB</label>
-
-                                <input type="file" name="RIB" autocomplete="off" accept="image/*"
-                                    class="form-control" />
-
-                            </div>
-                            <div class="fv-row mb-4 col-md-4">
-                                <input type="text" placeholder="Email" name="email" autocomplete="off"
-                                    class="form-control" />
-                            </div>
-                            <div class="fv-row mb-4 col-md-4" data-kt-password-meter="true">
-                                <div class="mb-1">
-                                    <div class="position-relative mb-3"> 
-                                        <input placeholder="Password" name="password" type="password"
-                                        autocomplete="off" class="form-control" />
-                                        {{-- <input class="form-control" type="password"
-                                            placeholder="Password" name="password" autocomplete="off" />
-                                        <span
-                                            class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
-                                            data-kt-password-meter-control="visibility">
-                                            <i class="bi bi-eye-slash fs-2"></i>
-                                            <i class="bi bi-eye fs-2 d-none"></i>
-                                        </span> --}}
-                                    </div>
-                                    {{-- <div class="d-flex align-items-center mb-3"
-                                        data-kt-password-meter-control="highlight">
-                                        <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2">
-                                        </div>
-                                        <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2">
-                                        </div>
-                                        <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2">
-                                        </div>
-                                        <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px">
-                                        </div>
-                                    </div> --}}
-                                    <!--end::Meter-->
+    <div class="container">
+        <div class="d-flex flex-column flex-root" id="kt_app_root">
+            <div class="d-flex flex-column flex-lg-row flex-column-fluid">
+                <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-4 mt-4">
+                    <div class="d-flex flex-center flex-column flex-lg-row-fluid">
+                        <div class="w-lg-100 p-10">
+                            <form action="{{ route('auth.livreur.signUp.store') }}" method="post" enctype="multipart/form-data" class="form w-100 row" novalidate="novalidate" id="kt_sign_up_form">
+                                @csrf
+                                <div class="text-center mb-11">
+                                    <h1 class="text-dark fw-bolder mb-3">Devenir Livreur</h1>
                                 </div>
-                             
-                                {{-- <div class="text-muted">Use 8 or more characters with a mix of letters, numbers &
-                                    symbols.</div> --}}
-                                <!--end::Hint-->
-                            </div>
-                            <div class="fv-row mb-4 col-md-4">
-                                
-                                <input placeholder="Repeat Password" 
-                                name="confirmpassword" type="password"
-                                autocomplete="off" class="form-control" />
-                                <!--end::Repeat Password-->
-                            </div>
-                            <div class="d-grid mb-10">
-                                <button type="submit" {{-- id="kt_sign_up_submit" --}} class="btn btn-primary">
-                                    <!--begin::Indicator label-->
-                                    <span class="indicator-label">Devenir Livreur</span>
-                                    <span class="indicator-progress">Please wait...
-                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                    <!--end::Indicator progress-->
-                                </button>
-                            </div>
-                            <!--end::Submit button-->
-                            <!--begin::Sign up-->
-                            <div class="text-gray-500 text-center fw-semibold fs-6">Vous avez déja un compte?
-                                <a href="{{ route('auth.livreur.signIn') }}" class="link-primary fw-semibold">Espace
-                                    Livreur</a>
-                            </div>
-                            <!--end::Sign up-->
-                        </form>
-                        <!--end::Form-->
+                                <div class="fv-row mb-4 col-md-4">
+                                    <input type="text" placeholder="Nom Complet" name="nomcomplet" autocomplete="off" class="form-control" />
+                                </div>
+                                <div class="fv-row mb-4 col-md-4">
+                                    <input type="text" placeholder="CIN" name="cin" autocomplete="off" class="form-control" />
+                                </div>
+                                <div class="fv-row mb-4 col-md-4">
+                                    <input type="text" placeholder="Numero de telephone" name="Phone" autocomplete="off" class="form-control" />
+                                </div>
+                                <div class="fv-row mb-4 col-md-12">
+                                    <input type="text" placeholder="Adresse" name="adress" autocomplete="off" class="form-control" />
+                                </div>
+                                <div class="fv-row mb-4 col-md-3">
+                                    <label class="">Zone </label>
+                                    <select name="id_Z" id="zone_select" class="form-select">
+                                        @foreach ($zones as $item)
+                                            <option value="{{ $item->id_Z }}">{{ $item->zonename }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="fv-row mb-4 col-md-3">
+                                    <label class="">Ville </label>
+                                    <select name="ville" id="ville_select" class="form-select">
+                                    </select>
+                                </div>
+                                <div class="fv-row mb-4 col-md-3">
+                                    <input type="number" placeholder="Frais de livraison (DH)" name="fraislivraison" autocomplete="off" class="form-control" />
+                                </div>
+                                <div class="fv-row mb-4 col-md-3">
+                                    <input type="number" placeholder="Frais de refus (DH)" name="fraisrefus" autocomplete="off" class="form-control" />
+                                </div>
+                                <div class="fv-row mb-4 col-md-6">
+                                    <input type="text" placeholder="Banque" name="nombanque" autocomplete="off" class="form-control" />
+                                </div>
+                                <div class="fv-row mb-4 col-md-6">
+                                    <input type="text" placeholder="Numero du compte" name="numerocompte" autocomplete="off" class="form-control" />
+                                </div>
+                                <div class="fv-row mb-4 col-md-4">
+                                    <label for="cinrecto">CIN Recto</label>
+                                    <input type="file" name="cinrecto" autocomplete="off" accept="image/*" class="form-control" />
+                                </div>
+                                <div class="fv-row mb-4 col-md-4">
+                                    <label for="cinverso">CIN Verso</label>
+                                    <input type="file" name="cinverso" autocomplete="off" accept="image/*" class="form-control" />
+                                </div>
+                                <div class="fv-row mb-4 col-md-4">
+                                    <label for="RIB">RIB</label>
+                                    <input type="file" name="RIB" autocomplete="off" accept="image/*" class="form-control" />
+                                </div>
+                                <div class="fv-row mb-4 col-md-4">
+                                    <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control" />
+                                </div>
+                                <div class="fv-row mb-4 col-md-4 position-relative" data-kt-password-meter="true">
+                                    <input placeholder="Password" name="password" id="password" type="password" autocomplete="off" class="form-control" />
+                                    <i class="fa fa-eye eye-icon" id="togglePassword"></i>
+                                </div>
+                                <div class="fv-row mb-4 col-md-4 position-relative">
+                                    <input placeholder="Repeat Password" name="confirmpassword" 
+                                    id="confirmpassword" type="password" 
+                                    autocomplete="off" class="form-control" />
+                                    <i class="fa fa-eye eye-icon" id="toggleConfirmPassword"></i>
+                                </div>
+                                <div class="d-grid mb-10">
+                                    <button type="submit" class="btn btn-primary">
+                                        <span class="indicator-label">Devenir Livreur</span>
+                                        <span class="indicator-progress">Please wait...
+                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                    </button>
+                                </div>
+                                <div class="text-gray-500 text-center fw-semibold fs-6">Vous avez déja un compte?
+                                    <a href="{{ route('auth.livreur.signIn') }}" class="link-primary fw-semibold">Espace Livreur</a>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <!--end::Wrapper-->
                 </div>
-                <!--end::Form-->
-
             </div>
         </div>
-        <!--end::Authentication - Sign-up-->
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <x-alert :message="session('error')" type="error" />
@@ -260,22 +159,34 @@
             const villeSelect = document.getElementById('ville_select');
             var zones = @json($zones);
             zoneSelect.addEventListener('change', function() {
-                // Get the selected zone ID
                 const selectedZoneId = this.value;
-                let data= zones.find(ele=>ele.id_Z==selectedZoneId).ville
-                // console.log(data);
-                
+                let data = zones.find(ele => ele.id_Z == selectedZoneId).ville;
                 villeSelect.innerHTML = '';
-                        data.forEach(city => {
-                            const option = document.createElement('option');
-                            option.value = city.id_V;
-                            option.textContent = city.villename;
-                            villeSelect.appendChild(option);
-                        });
-        });
+                data.forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city.id_V;
+                    option.textContent = city.villename;
+                    villeSelect.appendChild(option);
+                });
+            });
+
+            const togglePassword = document.getElementById('togglePassword');
+            const password = document.getElementById('password');
+            togglePassword.addEventListener('click', function() {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                this.classList.toggle('fa-eye-slash');
+            });
+
+            const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+            const confirmpassword = document.getElementById('confirmpassword');
+            toggleConfirmPassword.addEventListener('click', function() {
+                const type = confirmpassword.getAttribute('type') === 'password' ? 'text' : 'password';
+                confirmpassword.setAttribute('type', type);
+                this.classList.toggle('fa-eye-slash');
+            });
         });
     </script>
-    
     <script>
         var defaultThemeMode = "light";
         var themeMode;
@@ -295,30 +206,6 @@
             document.documentElement.setAttribute("data-bs-theme", themeMode);
         }
     </script>
-    <!--end::Theme mode setup on page load-->
-    <!--begin::Javascript-->
-    <script>
-        var hostUrl = "assets/";
-    </script>
+</body>
 
-    <script>
-    var defaultThemeMode = "light";
-    var themeMode;
-    if (document.documentElement) {
-        if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
-            themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
-        } else {
-            if (localStorage.getItem("data-bs-theme") !== null) {
-                themeMode = localStorage.getItem("data-bs-theme");
-            } else {
-                themeMode = defaultThemeMode;
-            }
-        }
-        if (themeMode === "system") {
-            themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-        }
-        document.documentElement.setAttribute("data-bs-theme", themeMode);
-    }
-</script>
-    </body>
 </html>
