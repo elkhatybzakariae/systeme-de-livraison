@@ -4,21 +4,23 @@
 <head>
     <style>
         :root {
-            /* --main-color: #2e7d32; */
             --main-color: #202b46;
-            /* Main green color */
             --second-color: #388e3c;
-            /* Lighter shade of green */
             --third-color: #43a047;
-            /* Lightest shade of green */
             --fourth-color: #1b5e20;
-            /* Darker shade of green */
             --fifth-color: #1b5e20;
-            /* Another darker shade of green */
             --hover-color: #388e3c;
-            /* Hover color, lighter shade of green */
             --focus-color: #2e7d32;
-            /* Focus color, main green color */
+        }
+        .eye-icon {
+            cursor: pointer;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .position-relative {
+            position: relative;
         }
     </style>
     <title>ELM EXPRESS</title>
@@ -29,49 +31,30 @@
         content="livraison est la nouvelle solution d'expédition pour gérer vos livraisons en ligne. Donnez à votre entreprise en ligne un avantage concurrentiel grâce aux solutions de livraison sur mesure de commerce électronique de livraison." />
     <meta name="keywords" content="" />    <link rel="shortcut icon" href="{{ asset('storage/images/appLogo.png') }}" />
 
-
-
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/bootstrap.min.css') }}">
-    <!-- Owl Theme Default CSS -->
-
     <link rel="stylesheet" href="https://cdn.vitex.ma/assets/home-page/css/boxicons.min.css"> 
-    <!-- Flaticon CSS -->
-     <link rel="stylesheet" href="https://cdn.vitex.ma/assets/home-page/css/flaticon.css">
-     <link href="{{ asset('storage/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-     <link href="{{ asset('storage/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-   
-
+    <link rel="stylesheet" href="https://cdn.vitex.ma/assets/home-page/css/flaticon.css">
+    <link href="{{ asset('storage/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('storage/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/owl.theme.default.min.css') }}">
-    <!-- Owl Carousel CSS -->
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/owl.carousel.min.css') }}">
-    <!-- Owl Magnific CSS -->
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/magnific-popup.css') }}">
-    <!-- Animate CSS -->
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/animate.css') }}">
-    <!-- Boxicons CSS -->
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/boxicons.min.css') }}">
-    <!-- Flaticon CSS -->
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/flaticon.css') }}">
-    <!-- Meanmenu CSS -->
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/meanmenu.css') }}">
-    <!-- Nice Select CSS -->
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/nice-select.css') }}">
-    <!-- Odometer CSS-->
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/odometer.css') }}">
-    <!-- Style CSS -->
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/style.css') }}">
-    <!-- Responsive CSS -->
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/responsive.css') }}">
     <link href="{{ asset('storage/styles/styles-ws.css') }}" rel="stylesheet" />
-    <!-- Favicon -->
     <link rel="stylesheet" href="{{ asset('storage/assets/main-page/css/aos.css') }}">
-    <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{ asset('storage/assets/main-page/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/floatingapp.css') }}">
-    </head>
-    <body>
-        <div class="container">
-            <div class="d-flex flex-column flex-root mt-10" id="kt_app_root">
+</head>
+<body>
+    <div class="container">
+        <div class="d-flex flex-column flex-root mt-10" id="kt_app_root">
             <div class="d-flex flex-column flex-lg-row flex-column-fluid">
                 <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 mt-15">
                     <div class="d-flex flex-center flex-column flex-lg-row-fluid">
@@ -93,30 +76,18 @@
                                 <div class="fv-row mb-8 col-6">
                                     <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent" />
                                 </div>
-                                <div class="fv-row mb-8 col-6" data-kt-password-meter="true">
-                                    <div class="mb-1">
-                                        <div class="position-relative mb-3">
-                                            <input class="form-control bg-transparent" 
-                                            type="password" placeholder="Password" 
-                                            name="password" autocomplete="off" />
-                                            {{-- <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
-                                                <i class="bi bi-eye-slash fs-2"></i>
-                                                <i class="bi bi-eye fs-2 d-none"></i>
-                                            </span> --}}
-                                        </div>
-                                        {{-- <div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
-                                            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
-                                            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
-                                            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
-                                            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
-                                        </div> --}}
-                                    </div>
-                                    {{-- <div class="text-muted">Use 8 or more characters with a mix of letters, numbers & symbols.</div> --}}
+                                <div class="fv-row mb-8 col-6 position-relative">
+                                    <input class="form-control bg-transparent" 
+                                    type="password" placeholder="Password" 
+                                    name="password" autocomplete="off" id="password" />
+                                    <i class="fa fa-eye eye-icon" id="togglePassword"></i>
                                 </div>
-                                <div class="fv-row mb-8 col-6">
+                                <div class="fv-row mb-8 col-6 position-relative">
                                     <input placeholder="Repeat Password" 
                                     name="confirmpassword" type="password" 
-                                    autocomplete="off" class="form-control bg-transparent" />
+                                    autocomplete="off" class="form-control bg-transparent"
+                                     id="confirmpassword" />
+                                    <i class="fa fa-eye eye-icon" id="toggleConfirmPassword"></i>
                                 </div>
                                 <div class="fv-row mb-8 col-6">
                                     <input type="text" placeholder="Ville" name="ville" autocomplete="off" class="form-control bg-transparent" />
@@ -152,30 +123,47 @@
                 </div>
             </div>
         </div>
-        </div>
-        
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <x-alert :message="session('error')" type="error" />
-        <x-alert :message="session('success')" type="success" />
-        <x-alert :message="session('warning')" type="warning" />
-<script>
-    var defaultThemeMode = "light";
-    var themeMode;
-    if (document.documentElement) {
-        if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
-            themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
-        } else {
-            if (localStorage.getItem("data-bs-theme") !== null) {
-                themeMode = localStorage.getItem("data-bs-theme");
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <x-alert :message="session('error')" type="error" />
+    <x-alert :message="session('success')" type="success" />
+    <x-alert :message="session('warning')" type="warning" />
+
+    <script>
+        var defaultThemeMode = "light";
+        var themeMode;
+        if (document.documentElement) {
+            if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
+                themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
             } else {
-                themeMode = defaultThemeMode;
+                if (localStorage.getItem("data-bs-theme") !== null) {
+                    themeMode = localStorage.getItem("data-bs-theme");
+                } else {
+                    themeMode = defaultThemeMode;
+                }
             }
+            if (themeMode === "system") {
+                themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            }
+            document.documentElement.setAttribute("data-bs-theme", themeMode);
         }
-        if (themeMode === "system") {
-            themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-        }
-        document.documentElement.setAttribute("data-bs-theme", themeMode);
-    }
-</script>
-    </body>
+
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        document.getElementById('toggleConfirmPassword').addEventListener('click', function () {
+            const confirmPasswordInput = document.getElementById('confirmpassword');
+            const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPasswordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
+</body>
 </html>
