@@ -18,9 +18,11 @@ use App\Models\Ramassagecoli;
 use App\Models\Reclamation;
 use App\Models\Remarque;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
+
     /**
      * Register any application services.
      */
@@ -34,9 +36,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
         view()->composer('layouts.admin.sidebar', function ($view) {
             $numberOfItems = Reclamation::where('etat', 0)->count();
-            $numberOfClients = Client::where('isAccepted', 0)->where('isAdmin',1)->count();
+            $numberOfClients = Client::where('isAccepted', 0)->where('isAdmin', 1)->count();
             $numberOfLivreurs = Livreur::where('isAccepted', 0)->count();
             $numberOfRem = Remarque::count();
             $numberOfRC = Ramassagecoli::where('etat', 'Nouvelle demande')->count();
