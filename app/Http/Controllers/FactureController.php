@@ -24,7 +24,7 @@ class FactureController extends Controller
         } else {
             session(['client' => $id_Cl]);
         }
-        $user = session('user');
+        $user = session('admin');
         $colis = Colis::query()->with('ville')
             ->whereNull('id_F')
             ->where('status', 'Livre')
@@ -39,7 +39,7 @@ class FactureController extends Controller
                 'reference' => 'Fac-' . Str::random(10),
                 'date_paiment' => now(),
                 'id_Cl' => $id_Cl,
-                'id_Ad' => session('user')['id_Ad'],
+                'id_Ad' => session('admin')['id_Ad'],
             ]);
         } else {
             $bonLivraison = Facture::query()->with('colis')->where('id_F', $id_F)->first();
@@ -87,7 +87,7 @@ class FactureController extends Controller
             ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_F = factures.id_F) as total_prix')) // Corrected table name (BL -> BD)
             ->leftJoin('colis', 'factures.id_F', '=', 'colis.id_F')
             ->with('colis', 'colis.ville')
-            ->where('clients.id_Cl', session('user')['id_Cl'])
+            ->where('clients.id_Cl', session('client')['id_Cl'])
             ->distinct()
             ->orderBy('created_at', 'desc')
 

@@ -17,10 +17,10 @@ class CheckClient
     public function handle(Request $request, Closure $next)
     {
         
-        if(isset(session('user')['id_Cl'])){
+        if(isset(session('client')['id_Cl'])){
             
-            $user=Client::find(session('user')['id_Cl']);
-            if ($user && $user->isAccepted) {
+            $client=Client::find(session('client')['id_Cl']);
+            if ($client && $client->isAccepted) {
                 return $next($request);
             }
         }

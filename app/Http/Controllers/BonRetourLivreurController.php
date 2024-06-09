@@ -25,7 +25,7 @@ class BonRetourLivreurController extends Controller
         } else {
             session(['zone' => $id_Z]);
         }
-        $user = session('user');
+        $user = session('admin');
         $colis = Colis::query()->with('ville')
         ->whereNull('id_BRL')->where('zone', $id_Z)
             ->whereNotIn(
@@ -44,12 +44,7 @@ class BonRetourLivreurController extends Controller
                     'id_Z' => $id_Z,
                     'id_Liv' => $request->input('id_Liv'),
                 ]);
-                // $colis = Colis::query()->with('ville')->whereNull('id_BRL')->where('zone', $id_Z)
-                //     ->whereNotIn(
-                //         'status',
-                //         ['Livre', 'Ramasse', 'Nouveau', 'Attente de Ramassage', 'Expedie', 'Mise en distribution', 'Recu']
-                //     )
-                //     ->get();
+                
             } else {
                 return redirect(route('auth.client.signIn'));
             }
@@ -67,11 +62,7 @@ class BonRetourLivreurController extends Controller
     }
     public function list()
     {
-        $user = session('user');
-        if (!$user) {
-            return redirect(route('auth.admin.signIn'));
-        }
-
+       
         $bons = BonRetourLivreur::withCount('colis') // Count related colis
             ->withSum('colis', 'prix') // Sum prices of related colis
             ->leftJoin('livreurs', 'bon_retour_livreurs.id_Liv', '=', 'livreurs.id_Liv')
@@ -98,15 +89,7 @@ class BonRetourLivreurController extends Controller
     }
     public function create()
     {
-        $user = session('user');
-        if (!$user) {
-            return redirect(route('auth.client.signIn'));
-        }
-        // $zones = Zone::withCount([
-        //     'colis' => function ($query) {
-        //         $query->where('status', 'distribution');
-        //     }
-        // ])->with(['colis', 'livreurs'])->get();
+        
         $zones = Zone::withCount([
             'colis' => function ($query) {
                 $query->whereNotIn(

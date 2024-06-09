@@ -25,7 +25,7 @@ class BonRetourClientController extends Controller
         } else {
             session(['client' => $id_Cl]);
         }
-        $user = session('user');
+        $user = session('admin');
         $colis = Colis::query()->with('ville')
             ->whereNull('id_BRC')
             ->where(
@@ -90,7 +90,7 @@ class BonRetourClientController extends Controller
             ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BRC = bon_retour_clients.id_BRC) as total_prix')) // Corrected table name (BL -> BD)
             ->leftJoin('colis', 'bon_retour_clients.id_BRC', '=', 'colis.id_BRC')
             ->with('colis', 'colis.ville')
-            ->where('clients.id_Cl', session('user')['id_Cl'])
+            ->where('clients.id_Cl', session('client')['id_Cl'])
             ->distinct()
             ->orderBy('created_at','desc')
 

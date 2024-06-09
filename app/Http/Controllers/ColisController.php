@@ -131,8 +131,7 @@ class ColisController extends Controller
         
         $validatedData['id']=Helpers::generateIdC();
         $validatedData['code_d_envoi'] = 'Colis-' . Str::random(7);
-        $validatedData['id_Cl']=session('user')['id_Cl'];
-        // $validatedData['id_Cl']=session('user')['id_Cl'];
+        $validatedData['id_Cl']=session('client')['id_Cl'];
         // dd($validatedData);
         
         $colis=Colis::create($validatedData);

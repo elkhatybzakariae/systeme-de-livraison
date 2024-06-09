@@ -140,7 +140,7 @@ class ClientController extends Controller
             if (Auth::attempt($v) ) {
                 
                 Auth::login($client);
-                session(["user" => $client]);
+                session(["client" => $client]);
                 $url=session('url.intended');
                 if ($url) {
                     session(['url'=>null]);

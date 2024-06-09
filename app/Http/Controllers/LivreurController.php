@@ -176,7 +176,7 @@ class LivreurController extends Controller
             if (Hash::check($request->password, $Livreur->password)) {
                 
                 Auth::login($Livreur);
-                session(["user" => $Livreur]);
+                session(["livreur" => $Livreur]);
                 $url = session('url.intended');
                 if ($url) {
                     // dd($url);

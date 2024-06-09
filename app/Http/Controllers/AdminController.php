@@ -16,7 +16,6 @@ use App\Models\Client;
 use App\Models\Colis;
 use App\Models\colisinfo;
 use App\Models\Facture;
-use App\Models\Livreur;
 use App\Models\Reclamation;
 use App\Models\Remarque;
 use App\Models\Role;
@@ -85,15 +84,12 @@ class AdminController extends Controller
 
     $clients = Client::all();
 
-    // Fetch statistics
     $query = Colis::query();
 
-    // Apply client filter
     if ($request->has('client_id') && $request->client_id) {
         $query->where('id_Cl', $request->client_id);
     }
 
-    // Apply date filter
     $query=Helpers::applyDateFilter($query,$request);
     $statistics = $query->selectRaw('status, COUNT(*) as count')
                         ->groupBy('status')
@@ -186,122 +182,7 @@ class AdminController extends Controller
         'rec', 'retourZ'));
 }
 
-// Helper function to apply date filter
 
-
-//     public function index(Request $request)
-//     {
-//         $colis = Colis::all()->count();
-//         $liv = BonLivraison::all()->count();
-//         $env = BonEnvois::all()->count();
-//         $dis = BonDistribution::all()->count();
-//         $payLiv = BonPaymentLivreur::all()->count();
-//         $retourC = BonRetourClient::all()->count();
-//         $retourL = BonRetourLivreur::all()->count();
-//         $payZ = BonPaymentZone::all()->count();
-//         $fact = Facture::all()->count();
-//         $rec = Reclamation::all()->count();
-//         $cl = Client::all()->count();
-//         $retourZ = BonRetourZone::all()->count();
-//         $clients = Client::all();
-// 
-//         // Fetch statistics
-//         $query = Colis::query();
-// 
-//         if ($request->has('client_id') && $request->client_id) {
-//             $query->where('id_Cl', $request->client_id);
-//         }
-// 
-//         $statistics = $query->selectRaw('status, COUNT(*) as count')
-//                             ->groupBy('status')
-//                             ->pluck('count', 'status')
-//                             ->toArray();
-// 
-//         $statuses = array_keys($statistics);
-//         $counts = array_values($statistics);
-// 
-// 
-//         $query = BonLivraison::query();
-// 
-//         if ($request->has('client_id') && $request->client_id) {
-//             $query->where('id_Cl', $request->client_id);
-//         }
-// 
-//         $statistics = $query->selectRaw('status, COUNT(*) as count')
-//                             ->groupBy('status')
-//                             ->pluck('count', 'status')
-//                             ->toArray();
-// 
-//         $statusesBL = array_keys($statistics);
-//         $countsBL = array_values($statistics);
-// 
-//         $query = BonEnvois::query();
-// 
-//         $statistics = $query->selectRaw('status, COUNT(*) as count')
-//                             ->groupBy('status')
-//                             ->pluck('count', 'status')
-//                             ->toArray();
-// 
-//         $statusesBE = array_keys($statistics);
-//         $countsBE = array_values($statistics);
-// 
-//         $query = BonDistribution::query();
-// 
-//         $statistics = $query->selectRaw('status, COUNT(*) as count')
-//                             ->groupBy('status')
-//                             ->pluck('count', 'status')
-//                             ->toArray();
-// 
-//         $statusesBD = array_keys($statistics);
-//         $countsBD = array_values($statistics);
-// 
-//         $query = BonPaymentLivreur::query();
-// 
-//         $statistics = $query->selectRaw('status, COUNT(*) as count')
-//                             ->groupBy('status')
-//                             ->pluck('count', 'status')
-//                             ->toArray();
-// 
-//         $statusesBPL = array_keys($statistics);
-//         $countsBPL = array_values($statistics);
-// 
-//         $query = BonRetourClient::query();
-//         $statistics = $query->selectRaw('status, COUNT(*) as count')
-//                             ->groupBy('status')
-//                             ->pluck('count', 'status')
-//                             ->toArray();
-// 
-//         $statusesBRC = array_keys($statistics);
-//         $countsBRC = array_values($statistics);
-// 
-//         $query = BonRetourLivreur::query();
-//         $statistics = $query->selectRaw('status, COUNT(*) as count')
-//                             ->groupBy('status')
-//                             ->pluck('count', 'status')
-//                             ->toArray();
-// 
-//         $statusesBRL = array_keys($statistics);
-//         $countsBRL = array_values($statistics);
-//         // 
-//         $remarques=Remarque::all();
-//         $breads = [
-//             ['title' => 'Tableau de bord', 'url' => null],
-//             ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
-//         ];
-//         return view('pages.admin.index' ,compact('breads','remarques',
-//         'statuses', 'counts',
-//         'statusesBL', 'countsBL',
-//         'statusesBE', 'countsBE',
-//         'statusesBD', 'countsBD',
-//         'statusesBPL', 'countsBPL',
-//         'statusesBRC', 'countsBRC',
-//         'statusesBRL', 'countsBRL',
-//         'colis','liv','env','dis',
-//         'cl','payLiv','retourC','retourL',
-//         'payZ','fact','clients',
-//         'rec','retourZ'));
-//     }
-//  
     public function signuppage()
     {
         return view('auth.admin.sign-up');
@@ -324,7 +205,7 @@ class AdminController extends Controller
             if (Hash::check($request->password, $u->password)) {
 
                 Auth::login($u);
-                session(["user" => $u]);
+                session(["admin" => $u]);
                 $url=session('url.intended');
                 if ($url) {
                     session(['url'=>null]);
@@ -363,7 +244,7 @@ class AdminController extends Controller
     public function storenewuser(Request $request)
     {
         $id_Ad = Helpers::generateIdAd();
-        $id_A = Auth::id();
+        $id_A =   session('admin')['id_Ad'];
         $validation = $request->validate([
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'nomcomplet' => 'required|string|max:50',

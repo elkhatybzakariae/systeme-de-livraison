@@ -17,11 +17,11 @@ class CheckLivreur
     public function handle(Request $request, Closure $next)
     {
         
-        if(isset(session('user')['id_Liv'])){
+        if(isset(session('livreur')['id_Liv'])){
           
-        $user=Livreur::find(session('user')['id_Liv']);
+        $livreur=Livreur::find(session('livreur')['id_Liv']);
 
-        if ($user && $user->isAccepted) {
+        if ($livreur && $livreur->isAccepted) {
             return $next($request);
         }
         session(['url.intended' => $request->fullUrl()]);

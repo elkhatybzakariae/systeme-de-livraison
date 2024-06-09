@@ -25,7 +25,7 @@ class BonRetourZoneController extends Controller
         } else {
             session(['zone' => $id_Z]);
         }
-        $user = session('user');
+        $user = session('admin');
         $colis = Colis::query()->with('ville')
         ->whereNull('id_BRZ')->where('zone', $id_Z)
         ->whereIn(
@@ -78,31 +78,7 @@ class BonRetourZoneController extends Controller
         ];
         return view('pages.admin.bonRetourZone.list', compact("bons",'cl','etat', 'breads'));
     }
-    public function getClientBons()
-    {
-      
-
-        $bons = BonRetourZone::withCount('colis') // Count related colis
-            ->withSum('colis', 'prix') // Sum prices of related colis
-            ->leftJoin('zones', 'bon_retour_zones.id_Z', '=', 'zones.id_Z')
-            ->select('bon_retour_zones.*', 'zones.nomcomplet as nomcomplet')
-            ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_BRZ = bon_retour_zones.id_BRZ) as colis_count'))
-            ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_BRZ = bon_retour_zones.id_BRZ) as total_prix')) // Corrected table name (BL -> BD)
-            ->leftJoin('colis', 'bon_retour_zones.id_BRZ', '=', 'colis.id_BRZ')
-            ->with('colis', 'colis.ville')
-            ->where('zones.id_Z',session('user')['id_Z'])
-            ->distinct()
-            ->orderBy('created_at','desc')
-
-            ->get();
-        // $bons=BonRetourClient::all();
-        // dd($bons);
-        $breads = [
-            ['title' => 'Liste des Bons de retour de client ', 'url' => null],
-            ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
-        ];
-        return view('pages.zones.bonRetourZone.list', compact("bons", 'breads'));
-    }
+//    
     public function create()
     {     
         $zones = Zone::withCount([

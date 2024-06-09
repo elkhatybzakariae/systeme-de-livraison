@@ -28,7 +28,7 @@ class BonEnvoisController extends Controller
         } else {
             session(['zone' => $id_Z]);
         }
-        $user = session('user');
+        $user = session('admin');
         $colis = Colis::query()->with('ville')
             ->whereNull('id_BE')->where('status', 'Ramasse')
             ->where('zone', $id_Z)->get();
@@ -62,10 +62,7 @@ class BonEnvoisController extends Controller
     }
     public function list()
     {
-        $user = session('user');
-        if (!$user) {
-            return redirect(route('auth.admin.signIn'));
-        }
+        
 
         $bons = BonEnvois::select(
             'bon_envois.id_BE',
@@ -93,10 +90,7 @@ class BonEnvoisController extends Controller
     }
     public function create()
     {
-        $user = session('user');
-        if (!$user) {
-            return redirect(route('auth.client.signIn'));
-        }
+       
 
         $zones = Zone::withCount([
             'colis' => function ($query) {

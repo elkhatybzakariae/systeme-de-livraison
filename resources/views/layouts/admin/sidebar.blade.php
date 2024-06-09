@@ -85,7 +85,7 @@
 
                 </div>
                 <!--begin:Menu link-->
-                @if (session('user')['role']=='Admin')
+                @if (session('admin')['role']=='Admin')
                     
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('admin.statistic.client')||request()->routeIs('admin.statistic.index')||request()->routeIs('admin.statistic.livreur')||request()->routeIs('admin.statistic.zone') ?'show':'' }}">
                     <span class="menu-link">
@@ -397,7 +397,7 @@
                         </div>
                         <!--end:Menu item-->
                         <!--begin:Menu item-->
-                        @if (session('user')['role']=='Admin')
+                        @if (session('admin')['role']=='Admin')
                         <div class="menu-item">
                             <!--begin:Menu link-->
                             <a class="menu-link {{ request()->routeIs('bon.retour.client.list') ?'active':'' }}" href="{{ route('bon.retour.client.list') }}">
@@ -415,7 +415,7 @@
                 </div>
                 <!--end:Menu sub-->
 
-                @if (session('user')['role']=='Admin')
+                @if (session('admin')['role']=='Admin')
                    
               
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
