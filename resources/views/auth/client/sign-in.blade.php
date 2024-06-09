@@ -8,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
-   <link rel="shortcut icon" href="{{ asset('storage/images/appLogo.png') }}" />
+   <link rel="shortcut icon" href="{{ secure_asset('storage/images/appLogo.png') }}" />
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <!--end::Fonts-->
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
-    <link href="{{ asset('storage/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('storage/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ secure_asset('storage/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ secure_asset('storage/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
 </head>
 <!--end::Head-->
@@ -48,7 +48,7 @@
         <div class="d-flex flex-column flex-lg-row flex-column-fluid">
             <!--begin::Aside-->
             <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center"
-                style="background-image: url({{ asset('storage/images/client.png)') }}">
+                style="background-image: url({{ secure_asset('storage/images/client.png)') }}">
                 
             </div>
             <!--begin::Aside-->
@@ -147,11 +147,11 @@
         var hostUrl = "assets/";
     </script>
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
-    <script src={{ asset('storage/assets/plugins/global/plugins.bundle.js') }}></script>
-    <script src={{ asset('storage/assets/js/scripts.bundle.js') }}></script>
+    <script src={{ secure_asset('storage/assets/plugins/global/plugins.bundle.js') }}></script>
+    <script src={{ secure_asset('storage/assets/js/scripts.bundle.js') }}></script>
     <!--end::Global Javascript Bundle-->
     <!--begin::Custom Javascript(used for this page only)-->
-    <script src={{ asset('storage/assets/js/custom/authentication/sign-in/general.js') }}></script>
+    <script src={{ secure_asset('storage/assets/js/custom/authentication/sign-in/general.js') }}></script>
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
 </body>
