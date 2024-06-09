@@ -161,18 +161,20 @@
 
                             </div>
                             <div class="fv-row mb-4 col-md-4">
-
+                                <label for="cinrecto">CIN Recto</label>
                                 <input type="file" name="cinrecto" autocomplete="off" accept="image/*"
                                     class="form-control" />
 
                             </div>
                             <div class="fv-row mb-4 col-md-4">
+                                <label for="cinverso">CIN Verso</label>
 
                                 <input type="file" name="cinverso" autocomplete="off" accept="image/*"
                                     class="form-control" />
 
                             </div>
                             <div class="fv-row mb-4 col-md-4">
+                                <label for="RIB">RIB</label>
 
                                 <input type="file" name="RIB" autocomplete="off" accept="image/*"
                                     class="form-control" />
@@ -184,17 +186,19 @@
                             </div>
                             <div class="fv-row mb-4 col-md-4" data-kt-password-meter="true">
                                 <div class="mb-1">
-                                    <div class="position-relative mb-3">
-                                        <input class="form-control" type="password"
+                                    <div class="position-relative mb-3"> 
+                                        <input placeholder="Password" name="password" type="password"
+                                        autocomplete="off" class="form-control" />
+                                        {{-- <input class="form-control" type="password"
                                             placeholder="Password" name="password" autocomplete="off" />
                                         <span
                                             class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
                                             data-kt-password-meter-control="visibility">
                                             <i class="bi bi-eye-slash fs-2"></i>
                                             <i class="bi bi-eye fs-2 d-none"></i>
-                                        </span>
+                                        </span> --}}
                                     </div>
-                                    <div class="d-flex align-items-center mb-3"
+                                    {{-- <div class="d-flex align-items-center mb-3"
                                         data-kt-password-meter-control="highlight">
                                         <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2">
                                         </div>
@@ -204,17 +208,18 @@
                                         </div>
                                         <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px">
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <!--end::Meter-->
                                 </div>
                              
-                                <div class="text-muted">Use 8 or more characters with a mix of letters, numbers &
-                                    symbols.</div>
+                                {{-- <div class="text-muted">Use 8 or more characters with a mix of letters, numbers &
+                                    symbols.</div> --}}
                                 <!--end::Hint-->
                             </div>
                             <div class="fv-row mb-4 col-md-4">
                                 
-                                <input placeholder="Repeat Password" name="confirmpassword" type="password"
+                                <input placeholder="Repeat Password" 
+                                name="confirmpassword" type="password"
                                 autocomplete="off" class="form-control" />
                                 <!--end::Repeat Password-->
                             </div>

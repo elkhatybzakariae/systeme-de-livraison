@@ -208,6 +208,7 @@ class ClientController extends Controller
         if ($client) {
             $client->update([
                 'valider' => 1,
+                'isAccepted' => 1,
             ]);
 
             // Success message (consider using a more descriptive message)
@@ -224,6 +225,7 @@ class ClientController extends Controller
         if ($client) {
             $client->update([
                 'valider' => 0,
+                'isAccepted' => 0,
             ]);
 
             // Success message (consider using a more descriptive message)
