@@ -27,7 +27,7 @@ class BonDistributionController extends Controller
         } else {
             session(['zone' => $id_Z]);
         }
-        $user = session('user');
+        $user = session('admin');
         $colis = Colis::query()->with('ville')->whereNull('id_BD')
             ->where('status', 'Recu')
             ->where('zone', $id_Z)->get();
@@ -61,11 +61,7 @@ class BonDistributionController extends Controller
     }
     public function list()
     {
-        $user = session('user');
-        if (!$user) {
-            return redirect(route('auth.admin.signIn'));
-        }
-
+       
         $bons = BonDistribution::withCount('colis') // Count related colis
             ->withSum('colis', 'prix') // Sum prices of related colis
             ->leftJoin('livreurs', 'bon_distributions.id_Liv', '=', 'livreurs.id_Liv')
@@ -93,10 +89,7 @@ class BonDistributionController extends Controller
     }
     public function create()
     {
-        $user = session('user');
-        if (!$user) {
-            return redirect(route('auth.client.signIn'));
-        }
+       
 
         $zones = Zone::withCount([
             'colis' => function ($query) {

@@ -21,7 +21,7 @@ class DepenseController extends Controller
     }
     public function store(DepenseRequest $request)
     {
-        $user = session('user');
+        $user = session('admin');
         // dd($user['id_Ad']);
         $customIdDep = Helpers::generateIdDep();
         $validatedData = $request->validated();

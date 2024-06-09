@@ -22,7 +22,7 @@ class BonLivraisonController extends Controller
 {
     public function index($id_BL = null)
     {
-        $user = session('user');
+        $user = session('client');
         // $colis = DB::select('select * from colis 
         //              inner join villes on villes.id_V = colis.ville_id 
         //              where id_BL is null and status= nouveau and id_Cl=?', [$user['id_Cl']]);
@@ -59,10 +59,7 @@ class BonLivraisonController extends Controller
     }
     public function list()
     {
-        $user = session('user');
-        if (!$user) {
-            return redirect(route('auth.admin.signIn'));
-        }
+        
         $bons = BonLivraison::withCount('colis') // Count related colis
             ->withSum('colis', 'prix') // Sum prices of related colis
             ->leftJoin('clients', 'bon_livraisons.id_Cl', '=', 'clients.id_Cl')
@@ -85,10 +82,7 @@ class BonLivraisonController extends Controller
     }
     public function getClientBons()
     {
-        $user = session('user');
-        if (!$user) {
-            return redirect(route('auth.admin.signIn'));
-        }
+        $user = session('client');
         $bons = BonLivraison::withCount('colis') // Count related colis
             ->withSum('colis', 'prix') // Sum prices of related colis
             ->leftJoin('clients', 'bon_livraisons.id_Cl', '=', 'clients.id_Cl')
@@ -112,10 +106,8 @@ class BonLivraisonController extends Controller
 
     public function create()
     {
-        $user = session('user');
-        if (!$user) {
-            return redirect(route('auth.client.signIn'));
-        }
+        $user = session('client');
+        
         $breads = [
             ['title' => 'Creér un Bon Livraison', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb

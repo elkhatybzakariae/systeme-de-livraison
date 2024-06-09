@@ -23,7 +23,7 @@ class BonPaymentZoneController extends Controller
         } else {
             session(['zone' => $id_Z]);
         }
-        $user = session('user');
+        $user = session('admin');
         // $colis = Colis::query()->with('ville')->whereNull('id_BPZ')->where('zone', $id_Z)->get();
         $colis = Colis::query()
             ->with('ville')
@@ -59,10 +59,7 @@ class BonPaymentZoneController extends Controller
     }
     public function list()
     {
-        $user = session('user');
-        if (!$user) {
-            return redirect(route('auth.admin.signIn'));
-        }
+       
         $bons = BonPaymentZone::select(
             'bon_payment_zones.id_BPZ',
             'bon_payment_zones.reference',
@@ -90,8 +87,6 @@ class BonPaymentZoneController extends Controller
     }
     public function create()
     {
-        $user = session('user');
-
         $zones = Zone::whereHas('colis', function ($query) {
             $query->where('status', 'Livre')
                 ->where('etat', 'Paye')

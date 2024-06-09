@@ -14,7 +14,7 @@ class MessageController extends Controller
     {
         $id_Mess = Helpers::generateIdMess();
 
-       $user=session('user');
+       $user=session('admin');
        if(isset($user['id_Ad'])){
         $id_Ad=$user['id_Ad'];
        }

@@ -12,16 +12,18 @@ class CheckAdmin
     
     public function handle(Request $request, Closure $next)
     {
-        if(isset(session('user')['id_Ad'])){
-
-        $user=Admin::find(session('user')['id_Ad']);
-
-        if ($user) {
-            return $next($request);
+        if(isset(session('admin')['id_Ad'])){
+            
+            $admin=Admin::find(session('admin')['id_Ad']);
+            
+            if ($admin) {
+                return $next($request);
+            }
+            dd(session('admin')['id_Ad']);
+            
         }
-
-    }
-    session(['url.intended' => $request->fullUrl()]);
+        session(['url.intended' => $request->fullUrl()]);
+        dd(session('admin'));
     
             return redirect(route('auth.admin.signIn')); 
     }
