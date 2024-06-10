@@ -21,7 +21,7 @@ class CheckAdmin
             }
             
         }
-        dd('hh');
+        // dd('hh');
         session(['url.intended' => $request->fullUrl()]);
     
             return redirect(route('auth.admin.signIn')); 

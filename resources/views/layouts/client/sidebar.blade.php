@@ -4,7 +4,7 @@
     <!--begin::Logo-->
     <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
         <!--begin::Logo image-->
-        <a href="{{ route('client.index') }}">
+        <a href="{{ session('client')['isAdmin']?route('client.index'):route('colis.index') }}">
             <img alt="Logo" src="{{ asset('storage/images/l.png') }}"
                 class="h-90px app-sidebar-logo-default" />
         </a>
@@ -36,6 +36,7 @@
             <div class="menu menu-column menu-rounded menu-sub-indention fw-semibold px-3" id="#kt_app_sidebar_menu"
                 data-kt-menu="true" data-kt-menu-expand="false">
                 <!--begin:Menu item-->
+                @if (session('client')['isAdmin'])
                 <div data-kt-menu-trigger="click" class="menu-item here  menu-accordion">
                     <div class="menu-item">
                         <!--begin:Menu link-->
@@ -56,6 +57,7 @@
                         <!--end:Menu link-->
                     </div>
                 </div>
+                @endif
                 <div data-kt-menu-trigger="click"  class="menu-item menu-accordion {{ request()->routeIs('colis.create')||request()->routeIs('colis.index') ||request()->routeIs('colis.indexRamassage')||request()->routeIs('colis.importPage') ?'show':'' }}">
                     <span class="menu-link">
                         <span class="menu-icon">
@@ -190,7 +192,7 @@
                     </a>
                 </div>
                             <!--end:Menu sub-->
-
+                 @if (session('client')['isAdmin'])
                 <!--begin:Menu link-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
@@ -210,6 +212,7 @@
                     </a>
                     <!--end:Menu link-->
                 </div>
+                @endif
                 <!--end:Menu sub-->
                 <!--begin:Menu link-->
                 <div class="menu-item">
@@ -255,7 +258,7 @@
                 <!--end:Menu sub-->
 
 
-
+                @if (session('client')['isAdmin'])
 
                 <!--begin:Menu link-->
                 <div class="menu-item">
@@ -276,6 +279,7 @@
                     </a>
                     <!--end:Menu link-->
                 </div>
+                @endif
                 <!--end:Menu sub-->
 
 
