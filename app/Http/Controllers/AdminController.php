@@ -33,154 +33,173 @@ class AdminController extends Controller
 {
 
     public function index(Request $request)
-{
-    // Count total records
-    $query = Colis::query();
-    $colis=Helpers::applyDateFilter($query,$request);
-    $colis=$colis->count();
+    {
+        // Count total records
+        $query = Colis::query();
+        $colis = Helpers::applyDateFilter($query, $request);
+        $colis = $colis->count();
 
-    $query = BonLivraison::query();
-    $liv=Helpers::applyDateFilter($query,$request);
-    $liv=$liv->count();
-    
-    $query = BonEnvois::query();
-    $env=Helpers::applyDateFilter($query,$request);
-    $env=$env->count();
+        $query = BonLivraison::query();
+        $liv = Helpers::applyDateFilter($query, $request);
+        $liv = $liv->count();
 
-    $query = BonDistribution::query();
-    $dis=Helpers::applyDateFilter($query,$request);
-    $dis=$dis->count();
+        $query = BonEnvois::query();
+        $env = Helpers::applyDateFilter($query, $request);
+        $env = $env->count();
 
-    $query = BonPaymentLivreur::query();
-    $payLiv=Helpers::applyDateFilter($query,$request);
-    $payLiv=$payLiv->count();
+        $query = BonDistribution::query();
+        $dis = Helpers::applyDateFilter($query, $request);
+        $dis = $dis->count();
 
-    $query = BonRetourClient::query();
-    $retourC=Helpers::applyDateFilter($query,$request);
-    $retourC=$retourC->count();
+        $query = BonPaymentLivreur::query();
+        $payLiv = Helpers::applyDateFilter($query, $request);
+        $payLiv = $payLiv->count();
 
-    $query = BonRetourLivreur::query();
-    $retourL=Helpers::applyDateFilter($query,$request);
-    $retourL=$retourL->count();
+        $query = BonRetourClient::query();
+        $retourC = Helpers::applyDateFilter($query, $request);
+        $retourC = $retourC->count();
 
-    $query = BonPaymentZone::query();
-    $payZ=Helpers::applyDateFilter($query,$request);
-    $payZ=$payZ->count();
+        $query = BonRetourLivreur::query();
+        $retourL = Helpers::applyDateFilter($query, $request);
+        $retourL = $retourL->count();
 
-    $query = Facture::query();
-    $fact=Helpers::applyDateFilter($query,$request);
-    $fact=$fact->count();
+        $query = BonPaymentZone::query();
+        $payZ = Helpers::applyDateFilter($query, $request);
+        $payZ = $payZ->count();
 
-    $query = Reclamation::query();
-    $rec=Helpers::applyDateFilter($query,$request);
-    $rec=$rec->count();
-    $query = Client::query();
-    $cl=Helpers::applyDateFilter($query,$request);
-    $cl=$cl->count();
+        $query = Facture::query();
+        $fact = Helpers::applyDateFilter($query, $request);
+        $fact = $fact->count();
 
-    $query = BonRetourZone::query();
-    $retourZ=Helpers::applyDateFilter($query,$request);
-    $retourZ=$retourZ->count();
+        $query = Reclamation::query();
+        $rec = Helpers::applyDateFilter($query, $request);
+        $rec = $rec->count();
+        $query = Client::query();
+        $cl = Helpers::applyDateFilter($query, $request);
+        $cl = $cl->count();
 
-    $clients = Client::all();
+        $query = BonRetourZone::query();
+        $retourZ = Helpers::applyDateFilter($query, $request);
+        $retourZ = $retourZ->count();
 
-    $query = Colis::query();
+        $clients = Client::all();
 
-    if ($request->has('client_id') && $request->client_id) {
-        $query->where('id_Cl', $request->client_id);
+        $query = Colis::query();
+
+        if ($request->has('client_id') && $request->client_id) {
+            $query->where('id_Cl', $request->client_id);
+        }
+
+        $query = Helpers::applyDateFilter($query, $request);
+        $statistics = $query->selectRaw('status, COUNT(*) as count')
+            ->groupBy('status')
+            ->pluck('count', 'status')
+            ->toArray();
+
+        $statuses = array_keys($statistics);
+        $counts = array_values($statistics);
+
+
+        $query = BonLivraison::query();
+        if ($request->has('client_id') && $request->client_id) {
+            $query->where('id_Cl', $request->client_id);
+        }
+        // Apply date filter to BonLivraison
+        $query = Helpers::applyDateFilter($query, $request);
+        $statistics = $query->selectRaw('status, COUNT(*) as count')
+            ->groupBy('status')
+            ->pluck('count', 'status')
+            ->toArray();
+        $statusesBL = array_keys($statistics);
+        $countsBL = array_values($statistics);
+
+        $query = BonEnvois::query();
+        $query = Helpers::applyDateFilter($query, $request);
+        $statistics = $query->selectRaw('status, COUNT(*) as count')
+            ->groupBy('status')
+            ->pluck('count', 'status')
+            ->toArray();
+        $statusesBE = array_keys($statistics);
+        $countsBE = array_values($statistics);
+
+        $query = BonDistribution::query();
+        $query = Helpers::applyDateFilter($query, $request);
+        $statistics = $query->selectRaw('status, COUNT(*) as count')
+            ->groupBy('status')
+            ->pluck('count', 'status')
+            ->toArray();
+        $statusesBD = array_keys($statistics);
+        $countsBD = array_values($statistics);
+
+        $query = BonPaymentLivreur::query();
+        $query = Helpers::applyDateFilter($query, $request);
+        $statistics = $query->selectRaw('status, COUNT(*) as count')
+            ->groupBy('status')
+            ->pluck('count', 'status')
+            ->toArray();
+        $statusesBPL = array_keys($statistics);
+        $countsBPL = array_values($statistics);
+
+        $query = BonRetourClient::query();
+        $query = Helpers::applyDateFilter($query, $request);
+        $statistics = $query->selectRaw('status, COUNT(*) as count')
+            ->groupBy('status')
+            ->pluck('count', 'status')
+            ->toArray();
+        $statusesBRC = array_keys($statistics);
+        $countsBRC = array_values($statistics);
+
+        $query = BonRetourLivreur::query();
+        $query = Helpers::applyDateFilter($query, $request);
+        $statistics = $query->selectRaw('status, COUNT(*) as count')
+            ->groupBy('status')
+            ->pluck('count', 'status')
+            ->toArray();
+        $statusesBRL = array_keys($statistics);
+        $countsBRL = array_values($statistics);
+
+        // Fetch remarques
+        $remarques = Remarque::all();
+
+        // Define breadcrumbs
+        $breads = [
+            ['title' => 'Tableau de bord', 'url' => null],
+            ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+
+        // Return the view with data
+        return view('pages.admin.index', compact(
+            'breads',
+            'remarques',
+            'statuses',
+            'counts',
+            'statusesBL',
+            'countsBL',
+            'statusesBE',
+            'countsBE',
+            'statusesBD',
+            'countsBD',
+            'statusesBPL',
+            'countsBPL',
+            'statusesBRC',
+            'countsBRC',
+            'statusesBRL',
+            'countsBRL',
+            'colis',
+            'liv',
+            'env',
+            'dis',
+            'cl',
+            'payLiv',
+            'retourC',
+            'retourL',
+            'payZ',
+            'fact',
+            'clients',
+            'rec',
+            'retourZ'
+        ));
     }
-
-    $query=Helpers::applyDateFilter($query,$request);
-    $statistics = $query->selectRaw('status, COUNT(*) as count')
-                        ->groupBy('status')
-                        ->pluck('count', 'status')
-                        ->toArray();
-
-    $statuses = array_keys($statistics);
-    $counts = array_values($statistics);
-
-
-    $query = BonLivraison::query();
-    if ($request->has('client_id') && $request->client_id) {
-        $query->where('id_Cl', $request->client_id);
-    }
-    // Apply date filter to BonLivraison
-    $query=Helpers::applyDateFilter($query,$request);
-    $statistics = $query->selectRaw('status, COUNT(*) as count')
-                        ->groupBy('status')
-                        ->pluck('count', 'status')
-                        ->toArray();
-    $statusesBL = array_keys($statistics);
-    $countsBL = array_values($statistics);
-
-    $query = BonEnvois::query();
-    $query=Helpers::applyDateFilter($query,$request);
-    $statistics = $query->selectRaw('status, COUNT(*) as count')
-                        ->groupBy('status')
-                        ->pluck('count', 'status')
-                        ->toArray();
-    $statusesBE = array_keys($statistics);
-    $countsBE = array_values($statistics);
-
-    $query = BonDistribution::query();
-    $query=Helpers::applyDateFilter($query,$request);
-    $statistics = $query->selectRaw('status, COUNT(*) as count')
-                        ->groupBy('status')
-                        ->pluck('count', 'status')
-                        ->toArray();
-    $statusesBD = array_keys($statistics);
-    $countsBD = array_values($statistics);
-
-    $query = BonPaymentLivreur::query();
-    $query=Helpers::applyDateFilter($query,$request);
-    $statistics = $query->selectRaw('status, COUNT(*) as count')
-                        ->groupBy('status')
-                        ->pluck('count', 'status')
-                        ->toArray();
-    $statusesBPL = array_keys($statistics);
-    $countsBPL = array_values($statistics);
-
-    $query = BonRetourClient::query();
-    $query=Helpers::applyDateFilter($query,$request);
-    $statistics = $query->selectRaw('status, COUNT(*) as count')
-                        ->groupBy('status')
-                        ->pluck('count', 'status')
-                        ->toArray();
-    $statusesBRC = array_keys($statistics);
-    $countsBRC = array_values($statistics);
-
-    $query = BonRetourLivreur::query();
-    $query=Helpers::applyDateFilter($query,$request);
-    $statistics = $query->selectRaw('status, COUNT(*) as count')
-                        ->groupBy('status')
-                        ->pluck('count', 'status')
-                        ->toArray();
-    $statusesBRL = array_keys($statistics);
-    $countsBRL = array_values($statistics);
-
-    // Fetch remarques
-    $remarques = Remarque::all();
-    
-    // Define breadcrumbs
-    $breads = [
-        ['title' => 'Tableau de bord', 'url' => null],
-        ['text' => 'Tableau', 'url' => null], // You can set the URL to null for the last breadcrumb
-    ];
-    
-    // Return the view with data
-    return view('pages.admin.index', compact('breads', 'remarques',
-        'statuses', 'counts',
-        'statusesBL', 'countsBL',
-        'statusesBE', 'countsBE',
-        'statusesBD', 'countsBD',
-        'statusesBPL', 'countsBPL',
-        'statusesBRC', 'countsBRC',
-        'statusesBRL', 'countsBRL',
-        'colis', 'liv', 'env', 'dis',
-        'cl', 'payLiv', 'retourC', 'retourL',
-        'payZ', 'fact', 'clients',
-        'rec', 'retourZ'));
-}
 
 
     public function signuppage()
@@ -202,21 +221,20 @@ class AdminController extends Controller
         $u = Admin::where('email', $request->email)->first();
         if ($u) {
             if (Hash::check($request->password, $u->password)) {
-          
-                
+
+
                 Auth::login($u);
                 session(["admin" => $u]);
-                $url=session('url.intended');
+                $url = session('url.intended');
                 if ($url) {
-                    session(['url'=>null]);
+                    session(['url' => null]);
                     return redirect()->to($url);
                 }
                 return redirect()->route('admin.index');
             }
             // dd(Hash::check($request->password, $u->password),$u->password);
-        } 
+        }
         return back()->with('error', 'Invalid email or password.');
-        
     }
     public function signout()
     {
@@ -230,7 +248,7 @@ class AdminController extends Controller
     {
         // $users = Admin::where('user', Auth::id())->with('referrer')->get();
         $users = Admin::whereNotNull('user')->with('referrals')->get();
-        $admins = Admin::where('role','Admin')->get();
+        $admins = Admin::where('role', 'Admin')->get();
 
         // dd($users);
         $villes = Ville::all();
@@ -240,7 +258,7 @@ class AdminController extends Controller
             ['title' => 'liste des utilisateurs ', 'url' => null],
             ['text' => 'utilisateurs', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.users.index', compact('users', 'admins', 'villes', 'zones','breads'));
+        return view('pages.admin.users.index', compact('users', 'admins', 'villes', 'zones', 'breads'));
     }
     public function storenewuser(Request $request)
     {
@@ -308,7 +326,7 @@ class AdminController extends Controller
             'cinrecto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'cinverso' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'RIB' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]); 
+        ]);
         dd($validation);
         $validation['password'] = Hash::make($validation['password']);
 
@@ -335,7 +353,7 @@ class AdminController extends Controller
         $client->update($validation);
         return back()->with('success', 'person mis à jour avec succès !');
     }
-       public function deletenewuser($id)
+    public function deletenewuser($id)
     {
         Admin::find($id)->delete();
         return back()->with('success', ' ');
@@ -348,13 +366,12 @@ class AdminController extends Controller
             ['title' => 'liste des  clients ', 'url' => null],
             ['text' => 'Clients', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.clients.index', compact('users','breads'));
+        return view('pages.admin.clients.index', compact('users', 'breads'));
     }
 
     public function getsendSMS(Request $request)
     {
         return view('pages.admin.SMS.index');
-
     }
     public function sendSMS(Request $request)
     {
@@ -363,7 +380,7 @@ class AdminController extends Controller
         $twilio_phone_number = env('TWILIO_PHONE_NUMBER');
 
         $client = new CL($twilio_sid, $twilio_token);
-        
+
         $message = $client->messages->create(
             $request->input('to'), // Receiver's phone number
             [
@@ -380,7 +397,7 @@ class AdminController extends Controller
     }
 
 
-    
+
 
     public function showLinkRequestForm()
     {
@@ -395,10 +412,9 @@ class AdminController extends Controller
             return back()->withErrors(['email' => 'We can\'t find a user with that email address.']);
         }
         $token = Str::random(60);
-        $user = Admin::where('email', $request->email)->
-        update([
-            'token' => bcrypt($token),
-        ]);
+        $user = Admin::where('email', $request->email)->update([
+                'token' => bcrypt($token),
+            ]);
         Mail::send('auth.admin.email', ['token' => $token], function ($message) use ($request) {
             $message->to($request->email);
             $message->subject('Your Password Reset Link');
@@ -427,8 +443,8 @@ class AdminController extends Controller
             // dd($request->all());
             return back()->withErrors(['email' => 'The provided credentials are incorrect.']);
         }
-            
-       
+
+
 
         // Reset the user's password
         Admin::where('email', $request->email)->update([
@@ -446,7 +462,7 @@ class AdminController extends Controller
         $coli = Colis::where('id', $id)->first();
         $colisinfo = colisinfo::where('id', $id)->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',' .'non paye,' . $req->status . ',' . $coli['updated_at'] . ',' .' ' . '_';
+        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',' . 'non paye,' . $req->status . ',' . $coli['updated_at'] . ',' . ' ' . '_';
 
         $colisinfo->update(['info' => $newInfo]);
         return back();
@@ -483,6 +499,4 @@ class AdminController extends Controller
             return back()->with('error', 'Client not found!');
         }
     }
-
-
 }

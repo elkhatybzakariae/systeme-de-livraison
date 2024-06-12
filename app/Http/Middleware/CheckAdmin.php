@@ -8,8 +8,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class CheckAdmin
-{
-    
+{    
     public function handle(Request $request, Closure $next)
     {
         if(isset(session('admin')['id_Ad'])){
