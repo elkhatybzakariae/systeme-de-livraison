@@ -145,15 +145,11 @@
                             à chaque client professionnel ou particulier une offre de prestation complète, variée et
                             optimale grâce à une expérience riche et professionnelle sur le marché de la messagerie
                             nationale..</p>
-
-                        <a class="white video-btn popup-youtube" href="https://www.youtube.com/">
-                            <i class="bx bx-play"></i>
-                        </a>
                     </div>
                 </div>
                 <div class="col-lg-6 pr-0">
                     <div class="about-img" style="background-image: url({{ asset('storage/images/about-img-two.jpg') }});">
-                        <div class="about-list">
+                        {{-- <div class="about-list">
                             <h3>Nos priorités principales:</h3>
                             <ul>
                                 <li>
@@ -178,7 +174,7 @@
                                     <i class="flaticon-checked"></i>Système de support disponible 24/7
                                 </li>
                             </ul>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -261,7 +257,7 @@
                 <span>A commencé avec des rôles</span>
                 <h2>Veuillez respecter les règles pour rester en sécurité</h2>
             </div>
-            <div class="began-top-wrap" style="background-image: url({{ asset('storage/images/services.jpg') }});">
+            {{-- <div class="began-top-wrap" style="background-image: url({{ asset('storage/images/services.jpg') }});">
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="began-wrap">
@@ -307,6 +303,9 @@
                         </div>
                     </div>
                 </div>
+            </div> --}}
+            <div class="d-flex align-items-center justify-content-center vh-100 " style="background-image: url('{{ asset('storage/images/services.jpg') }}'); background-size: cover; background-position: center;">
+                <!-- Optional content inside the div -->
             </div>
         </div>
         <div class="lines">
