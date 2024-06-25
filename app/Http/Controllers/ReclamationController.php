@@ -14,7 +14,7 @@ class ReclamationController extends Controller
 {
     public function index()
     {
-        $idU= Auth::id();
+        $idU= session('client')['id_Cl'];
         $reclamations = Reclamation::where('id_Cl', $idU)
         ->with(['client', 'message' => function ($query) {
             $query->orderBy('created_at', 'asc');
@@ -49,7 +49,7 @@ class ReclamationController extends Controller
         $id_Rec = Helpers::generateIdRec();
         $id_Mess = Helpers::generateIdMess();
 
-        $id_Cl= Auth::id();
+        $id_Cl= session('client')['id_Cl'];
         $id_C=$request->id_C ?$request->id_C :Null;
         // dd($id_C);
         $validatedData = $request->validate([

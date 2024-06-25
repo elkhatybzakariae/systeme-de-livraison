@@ -63,7 +63,7 @@
 
 
 
-        <div class="tracking-number-area tracking-number-area-five pb-70 pt-70">
+        {{-- <div class="tracking-number-area tracking-number-area-five pb-70 pt-70">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-5">
@@ -82,7 +82,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="container">
             <div class="row">
@@ -149,32 +149,6 @@
                 </div>
                 <div class="col-lg-6 pr-0">
                     <div class="about-img" style="background-image: url({{ asset('storage/images/about-img-two.jpg') }});">
-                        {{-- <div class="about-list">
-                            <h3>Nos priorités principales:</h3>
-                            <ul>
-                                <li>
-                                    <i class="flaticon-checked"></i>
-                                    Les solutions clients et employés prennent du temps.
-                                </li>
-                                <li>
-                                    <i class="flaticon-checked"></i>Nous accomplissons nos objectifs plus efficacement.
-                                </li>
-                                <li>
-                                    <i class="flaticon-checked"></i>La collaboration de communication transparente le fait
-                                    correctement.
-                                </li>
-                                <li>
-                                    <i class="flaticon-checked"></i>Il fournit une feuille de route pour une productivité
-                                    accrue.
-                                </li>
-                                <li>
-                                    <i class="flaticon-checked"></i>Fournir des conseils indépendants pour vous.
-                                </li>
-                                <li>
-                                    <i class="flaticon-checked"></i>Système de support disponible 24/7
-                                </li>
-                            </ul>
-                        </div> --}}
                     </div>
                 </div>
             </div>

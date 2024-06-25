@@ -4,7 +4,7 @@
 <head>
     <style>
         :root {
-            --main-color: #202b46;
+            --main-color: #000000;
             --second-color: #388e3c;
             --third-color: #43a047;
             --fourth-color: #1b5e20;
@@ -12,6 +12,7 @@
             --hover-color: #388e3c;
             --focus-color: #2e7d32;
         }
+
         .eye-icon {
             cursor: pointer;
             position: absolute;
@@ -19,6 +20,7 @@
             top: 50%;
             transform: translateY(-50%);
         }
+
         .position-relative {
             position: relative;
         }
@@ -29,10 +31,11 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="description"
         content="livraison est la nouvelle solution d'expédition pour gérer vos livraisons en ligne. Donnez à votre entreprise en ligne un avantage concurrentiel grâce aux solutions de livraison sur mesure de commerce électronique de livraison." />
-    <meta name="keywords" content="" />    <link rel="shortcut icon" href="{{ asset('storage/images/appLogo.png') }}" />
+    <meta name="keywords" content="" />
+    <link rel="shortcut icon" href="{{ asset('storage/images/appLogo.png') }}" />
 
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="https://cdn.vitex.ma/assets/home-page/css/boxicons.min.css"> 
+    <link rel="stylesheet" href="https://cdn.vitex.ma/assets/home-page/css/boxicons.min.css">
     <link rel="stylesheet" href="https://cdn.vitex.ma/assets/home-page/css/flaticon.css">
     <link href="{{ asset('storage/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('storage/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -52,6 +55,7 @@
     <link rel="stylesheet" href="{{ asset('storage/assets/main-page/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('storage/assets/home-page/css/floatingapp.css') }}">
 </head>
+
 <body>
     <div class="container">
         <div class="d-flex flex-column flex-root mt-10" id="kt_app_root">
@@ -59,64 +63,117 @@
                 <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 mt-15">
                     <div class="d-flex flex-center flex-column flex-lg-row-fluid">
                         <div class="w-lg-100 p-10">
-                            <form action="{{ route('auth.client.signUp.store') }}" method="post" class="form w-100 row" novalidate="novalidate" id="kt_sign_up_form">
+                            <form action="{{ route('auth.client.signUp.store') }}" method="post"
+                                class="form w-100 row" novalidate="novalidate" id="kt_sign_up_form">
                                 @csrf
                                 <div class="text-center mb-11">
                                     <h1 class="text-dark fw-bolder mb-3">Devenir Client</h1>
                                 </div>
                                 <div class="fv-row mb-8 col-6">
-                                    <input type="text" placeholder="Nom Complet" name="nomcomplet" autocomplete="off" class="form-control bg-transparent" />
+                                    <input type="text" placeholder="Nom Complet" name="nomcomplet" value="{{old('nomcomplet')}}" autocomplete="off"
+                                        class="form-control bg-transparent" />
+                                    @if ($errors->has('nomcomplet'))
+                                        <div class="text-danger">
+                                            * Le champ Nom complet est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-8 col-6">
-                                    <input type="text" placeholder="Nom du magasin" name="nommagasin" autocomplete="off" class="form-control bg-transparent" />
+                                    <input type="text" placeholder="Nom du magasin" name="nommagasin" value="{{old('nommagasin')}}"
+                                        autocomplete="off" class="form-control bg-transparent" />
+                                    @if ($errors->has('nommagasin'))
+                                        <div class="text-danger">
+                                            * Le champ Nom magasin est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-8 col-6">
-                                    <input type="text" placeholder="Numero de telephone" name="Phone" autocomplete="off" class="form-control bg-transparent" />
+                                    <input type="text" placeholder="Numero de telephone" name="Phone" value="{{old('Phone')}}"
+                                        autocomplete="off" class="form-control bg-transparent" />
+                                    @if ($errors->has('Phone'))
+                                        <div class="text-danger">
+                                            * Le champ Numero de telephone est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-8 col-6">
-                                    <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent" />
+                                    <input type="text" placeholder="Email" name="email" autocomplete="off" value="{{old('email')}}"
+                                        class="form-control bg-transparent" />
+                                    @if ($errors->has('email'))
+                                        <div class="text-danger">
+                                            * Le champ Email est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-8 col-6 position-relative">
-                                    <input class="form-control bg-transparent" 
-                                    type="password" placeholder="Password" 
-                                    name="password" autocomplete="off" id="password" />
+                                    <input class="form-control bg-transparent" type="password" placeholder="Password"
+                                        name="password" autocomplete="off" id="password" />
                                     <i class="fa fa-eye eye-icon" id="togglePassword"></i>
+                                    @if ($errors->has('password'))
+                                        <div class="text-danger">
+                                            * Le champ Password est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-8 col-6 position-relative">
-                                    <input placeholder="Repeat Password" 
-                                    name="confirmpassword" type="password" 
-                                    autocomplete="off" class="form-control bg-transparent"
-                                     id="confirmpassword" />
+                                    <input placeholder="Repeat Password" name="confirmpassword" type="password"
+                                        autocomplete="off" class="form-control bg-transparent"
+                                        id="confirmpassword" />
                                     <i class="fa fa-eye eye-icon" id="toggleConfirmPassword"></i>
+                                    @if ($errors->has('confirmpassword'))
+                                        <div class="text-danger">
+                                            * Le champ Repeat Password est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-8 col-6">
-                                    <input type="text" placeholder="Ville" name="ville" autocomplete="off" class="form-control bg-transparent" />
+                                    <input type="text" placeholder="Ville" name="ville" autocomplete="off" value="{{old('ville')}}"
+                                        class="form-control bg-transparent" />
+                                    @if ($errors->has('ville'))
+                                        <div class="text-danger">
+                                            * Le champ Ville est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-8 col-6">
-                                    <input type="text" placeholder="Adresse" name="adress" autocomplete="off" class="form-control bg-transparent" />
+                                    <input type="text" placeholder="Adresse" name="adress" autocomplete="off" value="{{old('adress')}}"
+                                        class="form-control bg-transparent" />
+                                    @if ($errors->has('adress'))
+                                        <div class="text-danger">
+                                            * Le champ Adresse est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-8 col-6">
-                                    <input type="text" placeholder="CIN" name="cin" autocomplete="off" class="form-control bg-transparent" />
+                                    <input type="text" placeholder="CIN" name="cin" autocomplete="off" value="{{old('cin')}}"
+                                        class="form-control bg-transparent" />
+                                    @if ($errors->has('cin'))
+                                        <div class="text-danger">
+                                            * Le champ CIN est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-8 col-6">
-                                    <input type="text" placeholder="Site web" name="siteweb" autocomplete="off" class="form-control bg-transparent" />
+                                    <input type="text" placeholder="Site web" name="siteweb" autocomplete="off" value="{{old('siteweb')}}"
+                                        class="form-control bg-transparent" />
                                 </div>
                                 <div class="fv-row mb-8 col-6">
-                                    <input type="text" placeholder="type entreprise" name="typeentreprise" autocomplete="off" class="form-control bg-transparent" />
+                                    <input type="text" placeholder="type entreprise" name="typeentreprise" value="{{old('typeentreprise')}}"
+                                        autocomplete="off" class="form-control bg-transparent" />
+                                        @if ($errors->has('typeentreprise'))
+                                        <div class="text-danger">
+                                            * Le champ type entreprise est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-8 col-6">
                                     <label class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="toc" value="1" />
-                                        <span class="form-check-label fw-semibold text-gray-700 fs-base ms-1">I Accept the <a href="#" class="ms-1 link-primary">Terms</a></span>
+                                        <input class="form-check-input" type="checkbox" name="toc"
+                                            value="1" />
+                                        <span class="form-check-label fw-semibold text-gray-700 fs-base ms-1">I Accept
+                                            the <a href="#" class="ms-1 link-primary">Terms</a></span>
                                     </label>
                                 </div>
                                 <div class="d-grid mb-10">
                                     <button type="submit" class="btn btn-primary">
                                         <span class="indicator-label">Devenir Client</span>
-                                        <span class="indicator-progress">Please wait...<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                        <span class="indicator-progress">Please wait...<span
+                                                class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                     </button>
                                 </div>
-                                <div class="text-gray-500 text-center fw-semibold fs-6">Vous avez déja un compte? <a href="{{ route('auth.client.signIn') }}" class="link-primary fw-semibold">Espace Client</a></div>
+                                <div class="text-gray-500 text-center fw-semibold fs-6">Vous avez déja un compte? <a
+                                        href="{{ route('auth.client.signIn') }}"
+                                        class="link-primary fw-semibold">Espace Client</a></div>
                             </form>
                         </div>
                     </div>
@@ -149,7 +206,7 @@
             document.documentElement.setAttribute("data-bs-theme", themeMode);
         }
 
-        document.getElementById('togglePassword').addEventListener('click', function () {
+        document.getElementById('togglePassword').addEventListener('click', function() {
             const passwordInput = document.getElementById('password');
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
@@ -157,7 +214,7 @@
             this.classList.toggle('fa-eye-slash');
         });
 
-        document.getElementById('toggleConfirmPassword').addEventListener('click', function () {
+        document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
             const confirmPasswordInput = document.getElementById('confirmpassword');
             const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             confirmPasswordInput.setAttribute('type', type);
@@ -166,4 +223,5 @@
         });
     </script>
 </body>
+
 </html>

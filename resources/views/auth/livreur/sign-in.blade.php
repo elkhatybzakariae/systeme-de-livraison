@@ -51,10 +51,18 @@
                             <div class="fv-row mb-8">
                                 <input type="text" placeholder="Email" name="email" value="{{ old('email') }}"
                                     class="form-control bg-transparent" />
+                                    @if ($errors->has('email'))
+                                    <div class="text-danger">
+                                        * Le champ Email est obligatoire.</div>
+                                @endif
                             </div>
                             <div class="fv-row mb-3">
                                 <input type="password" placeholder="Password" name="password" autocomplete="off"
                                     class="form-control bg-transparent" />
+                                    @if ($errors->has('password'))
+                                        <div class="text-danger">
+                                            * Le champ Password est obligatoire.</div>
+                                    @endif
                             </div>
                             <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
                                 <a href="{{ route('auth.livreur.password.request') }}"

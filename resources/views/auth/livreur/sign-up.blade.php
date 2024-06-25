@@ -4,7 +4,7 @@
 <head>
     <style>
         :root {
-            --main-color: #202b46;
+            --main-color: #000000;
             --second-color: #388e3c;
             --third-color: #43a047;
             --fourth-color: #1b5e20;
@@ -49,7 +49,7 @@
 </head>
 
 <body>
-    @if ($errors->any())
+    {{-- @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -57,7 +57,7 @@
                 @endforeach
             </ul>
         </div>
-    @endif
+    @endif --}}
 
     <div class="container">
         <div class="d-flex flex-column flex-root" id="kt_app_root">
@@ -71,16 +71,32 @@
                                     <h1 class="text-dark fw-bolder mb-3">Devenir Livreur</h1>
                                 </div>
                                 <div class="fv-row mb-4 col-md-4">
-                                    <input type="text" placeholder="Nom Complet" name="nomcomplet" autocomplete="off" class="form-control" />
+                                    <input type="text" placeholder="Nom Complet" value="{{old('nomcomplet')}}" name="nomcomplet" autocomplete="off" class="form-control" />
+                                    @if ($errors->has('nomcomplet'))
+                                        <div class="text-danger">
+                                            * Le champ Nom complet est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-4 col-md-4">
-                                    <input type="text" placeholder="CIN" name="cin" autocomplete="off" class="form-control" />
+                                    <input type="text" placeholder="CIN" name="cin" value="{{old('cin')}}" autocomplete="off" class="form-control" />
+                                    @if ($errors->has('cin'))
+                                        <div class="text-danger">
+                                            * Le champ CIN est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-4 col-md-4">
-                                    <input type="text" placeholder="Numero de telephone" name="Phone" autocomplete="off" class="form-control" />
+                                    <input type="text" placeholder="Numero de telephone" name="Phone" value="{{old('Phone')}}" autocomplete="off" class="form-control" />
+                                    @if ($errors->has('Phone'))
+                                        <div class="text-danger">
+                                            * Le champ Numero de telephone est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-4 col-md-12">
-                                    <input type="text" placeholder="Adresse" name="adress" autocomplete="off" class="form-control" />
+                                    <input type="text" placeholder="Adresse" name="adress" value="{{old('adress')}}" autocomplete="off" class="form-control" />
+                                    @if ($errors->has('adress'))
+                                        <div class="text-danger">
+                                            * Le champ Adresse est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-4 col-md-3">
                                     <label class="">Zone </label>
@@ -89,17 +105,35 @@
                                             <option value="{{ $item->id_Z }}">{{ $item->zonename }}</option>
                                         @endforeach
                                     </select>
+                                    @if ($errors->has('id_Z'))
+                                        <div class="text-danger">
+                                            * Le champ Zone est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-4 col-md-3">
                                     <label class="">Ville </label>
-                                    <select name="ville" id="ville_select" class="form-select">
+                                    <select name="ville" id="ville_select" value="{{old('ville')}}" class="form-select">
                                     </select>
+                                    @if ($errors->has('ville'))
+                                        <div class="text-danger">
+                                            * Le champ ville est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-4 col-md-3">
-                                    <input type="number" placeholder="Frais de livraison (DH)" name="fraislivraison" autocomplete="off" class="form-control" />
+                                    <input type="number" placeholder="Frais de livraison (DH)" name="fraislivraison" value="{{old('fraislivraison')}}" autocomplete="off" class="form-control" />
+                                    
+                                    @if ($errors->has('fraislivraison'))
+                                        <div class="text-danger">
+                                            * Le champ frais livraison est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-4 col-md-3">
-                                    <input type="number" placeholder="Frais de refus (DH)" name="fraisrefus" autocomplete="off" class="form-control" />
+                                    <input type="number" placeholder="Frais de refus (DH)" name="fraisrefus" value="{{old('fraisrefus')}}" autocomplete="off" class="form-control" />
+                                    
+                                    @if ($errors->has('fraisrefus'))
+                                        <div class="text-danger">
+                                            * Le champ frais refus est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-4 col-md-6">
                                     <input type="text" placeholder="Banque" name="nombanque" autocomplete="off" class="form-control" />
@@ -109,28 +143,52 @@
                                 </div>
                                 <div class="fv-row mb-4 col-md-4">
                                     <label for="cinrecto">CIN Recto</label>
-                                    <input type="file" name="cinrecto" autocomplete="off" accept="image/*" class="form-control" />
+                                    <input type="file" name="cinrecto"  autocomplete="off" accept="image/*" class="form-control" />
+                                    @if ($errors->has('cinrecto'))
+                                    <div class="text-danger">
+                                        * Le champ cin recto est obligatoire.</div>
+                                @endif
                                 </div>
                                 <div class="fv-row mb-4 col-md-4">
                                     <label for="cinverso">CIN Verso</label>
                                     <input type="file" name="cinverso" autocomplete="off" accept="image/*" class="form-control" />
+                                    @if ($errors->has('cinverso'))
+                                        <div class="text-danger">
+                                            * Le champ cin verso est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-4 col-md-4">
                                     <label for="RIB">RIB</label>
-                                    <input type="file" name="RIB" autocomplete="off" accept="image/*" class="form-control" />
+                                    <input type="file" name="RIB"  autocomplete="off" accept="image/*" class="form-control" />
+                                    @if ($errors->has('RIB'))
+                                        <div class="text-danger">
+                                            * Le champ RIB est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-4 col-md-4">
-                                    <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control" />
+                                    <input type="text" placeholder="Email" value="{{old('email')}}" name="email" autocomplete="off" class="form-control" />
+                                    @if ($errors->has('email'))
+                                        <div class="text-danger">
+                                            * Le champ Email est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-4 col-md-4 position-relative" data-kt-password-meter="true">
                                     <input placeholder="Password" name="password" id="password" type="password" autocomplete="off" class="form-control" />
                                     <i class="fa fa-eye eye-icon" id="togglePassword"></i>
+                                    @if ($errors->has('password'))
+                                        <div class="text-danger">
+                                            * Le champ Password est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="fv-row mb-4 col-md-4 position-relative">
                                     <input placeholder="Repeat Password" name="confirmpassword" 
                                     id="confirmpassword" type="password" 
                                     autocomplete="off" class="form-control" />
                                     <i class="fa fa-eye eye-icon" id="toggleConfirmPassword"></i>
+                                    @if ($errors->has('confirmpassword'))
+                                        <div class="text-danger">
+                                            * Le champ Repeat Password est obligatoire.</div>
+                                    @endif
                                 </div>
                                 <div class="d-grid mb-10">
                                     <button type="submit" class="btn btn-primary">

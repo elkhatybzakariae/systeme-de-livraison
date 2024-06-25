@@ -5,7 +5,7 @@
     <style>
         :root {
             /* --main-color: #2e7d32; */
-            --main-color: #202b46;
+            --main-color: #000000;
             /* Main green color */
             --second-color: #388e3c;
             /* Lighter shade of green */
@@ -157,7 +157,7 @@
 
 
 
-    <div id="myButton"></div>
+    {{-- <div id="myButton"></div> --}}
 
     @include('components.includes.footer')
     <!-- Start Go Top Area -->
@@ -213,9 +213,9 @@
     <script src="{{ asset('storage/assets/main-page/js/aos.js') }}"></script>
     <script type="text/javascript" src="{{ asset('storage/javascript/javascript-ws.js') }}"></script>
     <script type="text/javascript" src="{{ asset('storage/assets/home-page/js/floatingapp.js') }}"></script>
-    <script>
+    {{-- <script>
         $("#myButton").floatingWhatsApp({
-            phone: "+212680651421",
+            phone: "+212600000000",
             popupMessage: "Bienvenue sur ELM EXPRESS livraison, comment puis-je vous aider ?",
             message: "Salut  ELM EXPRESS livraison",
             showPopup: true,
@@ -225,7 +225,7 @@
             backgroundColor: "crimson",
 
         });
-    </script>
+    </script> --}}
     <script src={{ asset('storage/assets/js/main.js') }}></script>
 
     @yield('script')

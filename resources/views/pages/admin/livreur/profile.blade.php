@@ -62,16 +62,19 @@
                  class="form-control bg-transparent" />
         </div>
         <div class="fv-row mb-8 col-4">
-            <input type="file" name="cinrecto"  accept="image/*" 
-                class="form-control bg-transparent" />
+            {{-- <input type="file" name="cinrecto"  accept="image/*" 
+                class="form-control bg-transparent" /> --}}
+                <img src="{{ asset('imgs/'.$livreur->cinrecto) }}" name="cinrecto"  width="100%" alt="" srcset="">
         </div>
         <div class="fv-row mb-8 col-4">
-            <input type="file" name="cinverso"  accept="image/*"
-                class="form-control bg-transparent" />
+            {{-- <input type="file" name="cinverso"  accept="image/*"
+                class="form-control bg-transparent" /> --}}
+                <img src="{{ asset('imgs/'.$livreur->cinverso) }}" name="cinverso" width="100%" alt="" srcset="">
         </div>
         <div class="fv-row mb-8 col-4">
-            <input type="file" name="RIB"  accept="image/*"
-                class="form-control bg-transparent" />
+            {{-- <input type="file" name="RIB"  accept="image/*"
+                class="form-control bg-transparent" /> --}}
+                <img src="{{ asset('imgs/'.$livreur->RIB) }}" name="RIB" width="100%" alt="" srcset="">
         </div>
         <div class="d-grid mb-10">
             <button type="submit" class="btn btn-primary">
@@ -79,7 +82,6 @@
                 <span class="indicator-progress">Please wait...<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
             </button>
         </div>
-        <div class="text-gray-500 text-center fw-semibold fs-6">Vous avez déja un compte? <a href="{{ route('auth.livreur.signIn') }}" class="link-primary fw-semibold">Espace livreur</a></div>
     </form>
 
   </div>

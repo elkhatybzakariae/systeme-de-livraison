@@ -7,11 +7,13 @@ use App\Models\Ramassagecoli;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class RamassagecoliController extends Controller
 {
     public function index()
     {
-        $idU= Auth::id();
+        // $idU= Auth::id();
+        $idU= session('client')['id_Cl'];
         $Ramassages = Ramassagecoli::where('id_Cl', $idU)->orderBy('created_at','desc')->get();
         $breads = [
             ['title' => 'Liste des Ramassages', 'url' => null],
@@ -32,9 +34,11 @@ class RamassagecoliController extends Controller
     {
         $id_Ram = Helpers::generateIdRam();
 
-        $id_Cl= Auth::id();
-        $cl = Auth::user();
-        // dd($cl);
+        // $id_Cl= Auth::id();
+        $id_Cl= session('client')['id_Cl'];
+        // $cl = Auth::user();
+        $cl = session('client');
+        // dd($cc);
         // $id_C=$request->filled('id_C') ?$request->input('id_C') :'';
         $validatedData = $request->validate([
             'remarque' => 'required|string|max:255',
@@ -43,7 +47,6 @@ class RamassagecoliController extends Controller
         ]);
         $validatedData['id_Ram']=$id_Ram;
         $validatedData['ville']=$cl['ville'];
-        // $validatedData['etat']=
         $validatedData['id_Cl']=$id_Cl;
         $newRec=Ramassagecoli::create($validatedData);
         return redirect()->route('ramassagecolis.index')->with('success', 'Ramassage coli created successfully.');

@@ -59,15 +59,7 @@
                     <!--begin::Wrapper-->
                     <div class="w-lg-500px p-10">
                         <!--begin::Form-->
-                        @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                        
                         <form action="{{ route('auth.client.signIn.store') }}" method="post" class="form w-100" novalidate="novalidate"
 
                             id="kt_sign_in_form">
@@ -84,6 +76,10 @@
                                 <!--begin::Email-->
                                 <input type="text" placeholder="Email" name="email" value="{{ old('email') }}"
                                     class="form-control bg-transparent" />
+                                    @if ($errors->has('email'))
+                                        <div class="text-danger">
+                                            * Le champ Email est obligatoire.</div>
+                                    @endif
                                 <!--end::Email-->
                             </div>
                             <!--end::Input group=-->
@@ -91,6 +87,10 @@
                                 <!--begin::Password-->
                                 <input type="password" placeholder="Password" name="password" autocomplete="off"
                                     class="form-control bg-transparent" />
+                                    @if ($errors->has('password'))
+                                        <div class="text-danger">
+                                            * Le champ Password est obligatoire.</div>
+                                    @endif
                                 <!--end::Password-->
                             </div>
                             <!--end::Input group=-->

@@ -39,7 +39,7 @@ Route::middleware('check.admin')->group(function () {
 
     Route::get('/admin/profile/',[ProfileController::class, 'overview'])->name('admin.profile.overview');
     Route::controller(AdminController::class)->prefix('admin')->group(function () {
-        Route::get('/index',  'index')->name('admin.index');
+        Route::get('/',  'index')->name('admin.index');
         Route::get('/clients',  'clients')->name('admin.clients');
         Route::get('/new-user',  'newuser')->name('admin.newuser');
         Route::post('/store/new-user',  'storenewuser')->name('admin.newuser.store');
@@ -308,7 +308,7 @@ Route::middleware('check.client')->group(function () {
     Route::get('/client/profile/',[ProfileController::class, 'overviewClient'])->name('overviewClient');
 
     Route::controller(ClientController::class)->prefix('clients')->group(function () {
-        Route::get('/index',  'index')->name('client.index');
+        Route::get('/',  'index')->name('client.index');
         Route::get('/profile',  'profile')->name('profile');
         Route::put('/profile/update',  'update')->name('update');
         Route::get('/signout',  'signout')->name('signout');

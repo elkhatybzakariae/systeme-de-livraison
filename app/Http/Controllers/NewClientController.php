@@ -30,7 +30,7 @@ class NewClientController extends Controller
     }
     public function accept(Request $request,$id)
     {
-        $idAd=Auth::id();
+        $idAd=session('admin')['id_Ad'];
         $validation = $request->validate([
             'nommagasin' => 'required|string|max:50',
             'nomcomplet' => 'required|string|max:50',

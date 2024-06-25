@@ -25,7 +25,7 @@ class ClientController extends Controller
 {
     public function index(Request $request)
     {
-        $idC=Auth::id();
+        $idC=session('client')['id_Cl'];
         $colis = Colis::where('id_Cl',$idC)->count();
         $liv = BonLivraison::where('id_Cl',$idC)->count();
         $retourC = BonRetourClient::all()->count();
@@ -104,7 +104,7 @@ class ClientController extends Controller
             'typeentreprise' => 'required|string|max:50',
             'cin' => 'required|string|max:50',
             'email' => 'required|email|max:50',
-            'Phone' => 'nullable|string|max:50',
+            'Phone' => 'required|string|max:50',
             'ville' => 'required|string|max:50',
             'villeRamassage' => 'nullable|string|max:50',
             'adress' => 'required|string|max:50',
@@ -112,6 +112,7 @@ class ClientController extends Controller
             'nombanque' => 'nullable|string|max:50',
             'numerocompte' => 'nullable|string|max:50',
             'password' => 'required|string|min:8',
+            'confirmpassword' => 'required|string|min:8',
         ]);
         $validation['id_Cl'] = $id_Cl;
         $validation['isAdmin'] = 1;
@@ -159,7 +160,8 @@ class ClientController extends Controller
 
     public function newuser()
     {
-        $users = Client::where('user', Auth::id())->get();
+        $users = Client::where('user', session('client')['id_Cl'])->get();
+        // dd($users);
         $breads = [
             ['title' => 'Liste de utilisateurs', 'url' => null],
             ['text' => 'Utilisateurs', 'url' => null], // You can set the URL to null for the last breadcrumb
@@ -169,7 +171,7 @@ class ClientController extends Controller
     public function storenewuser(Request $request)
     {
         $id_Cl = Helpers::generateIdCl();
-        $id_Mag = Auth::id();
+        $id_Mag = session('client')['id_Cl'];
         $validation = $request->validate([
             'nomcomplet' => 'required|string|max:50',
             'email' => 'required|email|max:50',
