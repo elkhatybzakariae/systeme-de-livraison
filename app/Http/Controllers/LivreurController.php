@@ -12,6 +12,7 @@ use App\Models\Etat;
 use App\Models\Livreur;
 use App\Models\Option;
 use App\Models\Remarque;
+use App\Models\typeBank;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -104,8 +105,9 @@ class LivreurController extends Controller
     public function signuppage()
     {
         $zones = Zone::query()->with('ville')->get();
+        $banks = typeBank::all();
         // dd($zones->ville);
-        return view('auth.livreur.sign-up', compact('zones'));
+        return view('auth.livreur.sign-up', compact('zones','banks'));
     }
     public function signup(Request $request)
     {

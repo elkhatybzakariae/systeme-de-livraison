@@ -136,6 +136,12 @@
                                     @endif
                                 </div>
                                 <div class="fv-row mb-4 col-md-6">
+                                    {{-- <label class="">Bank </label> --}}
+                                    <select name="nombanque" id="nombanque" class="form-select">
+                                        @foreach ($banks as $item)
+                                            <option value="{{ $item->id_TB }}">{{ $item->nom }}</option>
+                                        @endforeach
+                                    </select>
                                     <input type="text" placeholder="Banque" name="nombanque" autocomplete="off" class="form-control" />
                                 </div>
                                 <div class="fv-row mb-4 col-md-6">
