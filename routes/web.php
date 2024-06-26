@@ -40,7 +40,8 @@ Route::middleware('check.admin')->group(function () {
     Route::get('/admin/profile/',[ProfileController::class, 'overview'])->name('admin.profile.overview');
     Route::controller(AdminController::class)->prefix('admin')->group(function () {
         Route::get('/',  'index')->name('admin.index');
-        Route::get('/clients',  'clients')->name('admin.clients');
+        Route::get('/clients',  'clients')->name('admin.clients');        
+        Route::get('/livreurs', 'livreurs')->name('admin.livreurs');
         Route::get('/new-user',  'newuser')->name('admin.newuser');
         Route::post('/store/new-user',  'storenewuser')->name('admin.newuser.store');
         Route::post('/update/user/{id}',  'updatenewuser')->name('admin.newuser.update');

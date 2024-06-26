@@ -16,6 +16,7 @@ class NewLivreurController extends Controller
         ];
         return view('pages.admin.livreur.newlivreurs',compact('list','breads'));
     }
+    
     public function profile($id)
     {
         $livreur= Livreur::find($id);

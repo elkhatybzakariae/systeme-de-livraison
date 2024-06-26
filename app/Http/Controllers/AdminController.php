@@ -16,6 +16,7 @@ use App\Models\Client;
 use App\Models\Colis;
 use App\Models\colisinfo;
 use App\Models\Facture;
+use App\Models\Livreur;
 use App\Models\Reclamation;
 use App\Models\Remarque;
 use App\Models\Role;
@@ -367,6 +368,15 @@ class AdminController extends Controller
             ['text' => 'Clients', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
         return view('pages.admin.clients.index', compact('users', 'breads'));
+    }
+    public function livreurs()
+    {
+        $users= Livreur::where('isAccepted',1)->get();
+        $breads = [
+            ['title' => 'Liste des Livreurs', 'url' => null],
+            ['text' => 'livreurs', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.admin.livreur.index',compact('users','breads'));
     }
 
     public function getsendSMS(Request $request)
