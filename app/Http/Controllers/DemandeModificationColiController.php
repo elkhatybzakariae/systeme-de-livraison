@@ -41,6 +41,7 @@ class DemandeModificationColiController extends Controller
             // 'fragile' => 'nullable|boolean',
             // 'ouvrir' => 'nullable|boolean',
         ]);
+        dd($validatedData);
         $validatedData['id_DMC'] = $id_DMC;
         $validatedData['id'] = $id;
         DemandeModificationColi::create($validatedData);

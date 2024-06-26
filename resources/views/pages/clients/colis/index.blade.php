@@ -291,7 +291,8 @@
                                     </a>
                                     <a onclick="openModalDMC('{{ $coli->id }}','{{ $coli->code_d_envoi }}','{{ $coli->destinataire }}','{{ $coli->telephone }}'
                                         ,'{{ $coli->prix }}','{{ $coli->commentaire }}','{{ $coli->adresse }}',
-                                        '{{ $coli->fragile }}','{{ $coli->ouvrir }}','{{ route('demandemodificationcolis.store', $coli->id) }}')"
+                                        '{{ $coli->fragile }}','{{ $coli->ouvrir }}',
+                                        '{{ route('demandemodificationcolis.store', $coli->id) }}')"
                                         data-bs-toggle="modal" data-bs-target="#kt_modal_new_target2"
                                         class="btn btn-sm btn-secondary"><i class="fa fa-edit"></i></a>
                                 </div>
