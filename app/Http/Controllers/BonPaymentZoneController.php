@@ -83,7 +83,7 @@ class BonPaymentZoneController extends Controller
             ['title' => 'Liste des Bons de payment zone ', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.BonPaymentZone.list', compact("bons", 'breads'));
+        return view('pages.admin.bonPaymentZone.list', compact("bons", 'breads'));
     }
     public function create()
     {
