@@ -25,7 +25,7 @@ class ColisController extends Controller
 {
     public function index()
     {
-        $id=Auth::id();
+        $id=session('client')['id_Cl'];
         $colis = Colis::query()->where('id_Cl',$id)->whereNot('status','Nouveau')->with('client','bonLivraison','bonEnvoi','bonDistribution','bonPaymentLivreur','bonPaymentZone')->whereNot('status','nouveau')
             ->orderBy('created_at','desc')
             ->get();        
