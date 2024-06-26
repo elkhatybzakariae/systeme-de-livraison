@@ -161,7 +161,7 @@
                             </td>
                             <td class="pe-0">
                                 <span class="fw-bold"
-                                    data-kt-ecommerce-product-filter="etat">{{ $item->etat }}</span>
+                                    data-kt-etat-product-filter="etat">{{ $item->etat }}</span>
                             </td>
                         </tr>
                     @endforeach
@@ -214,19 +214,37 @@
             //         });
             //     }
             // }
-            function filterTableByetat(etat) {
-                $('#kt_ecommerce_products_table tbody tr').each(function() {
-                    if (etat === 'Demande traitee' ) {
-                        $(this).show();
-                    } else if (etat === 'Demande recue' ) {
-                        $(this).show();
-                    } else if (etat === 'Nouvelle demande') {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
-                    }
-                });
+            // function filterTableByetat(etat) {
+            //     $('#kt_ecommerce_products_table tbody tr').each(function() {
+            //         if (etat === $(this).val) {
+            //             console.log(etat);
+            //         }
+            //         if (etat === 'Demande traitee' ) {
+            //             $(this).show();
+            //         } else if (etat === 'Demande recue' ) {
+            //             $(this).show();
+            //         } else if (etat === 'Nouvelle demande') {
+            //             $(this).show();
+            //         } else {
+            //             $(this).hide();
+            //         }
+            //     });
 
+            // }
+            function filterTableByetat(etat) {
+                if (etat === 'all') {
+                    $('#kt_ecommerce_products_table tbody tr').show();
+                } else {
+                    $('#kt_ecommerce_products_table tbody tr').each(function() {
+                        var rowetat = $(this).find('[data-kt-etat-product-filter="etat"]').text()
+                            .trim();
+                        if (rowetat === etat) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                }
             }
         });
     </script>
