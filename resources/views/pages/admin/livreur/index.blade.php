@@ -52,7 +52,7 @@
                         @method('PUT')
                         @csrf
                         <div class="mb-13 text-center">
-                            <h1 class="mb-3">Modifier les information de Client</h1>
+                            <h1 class="mb-3">Modifier les information de Livreur</h1>
                         </div>
                         <div class="row">
                             <div class=" col-md-12 col mb-8 fv-row">
@@ -278,18 +278,8 @@
                                                     <th class="min-w-250px sorting" tabindex="0"
                                                         aria-controls="kt_project_users_table" rowspan="1"
                                                         colspan="1"
-                                                        aria-label="Client: activate to sort column ascending"
-                                                        style="width: 0px;">Client</th>
-                                                    <th class="min-w-150px sorting" tabindex="0"
-                                                        aria-controls="kt_project_users_table" rowspan="1"
-                                                        colspan="1"
-                                                        aria-label="Date: activate to sort column ascending"
-                                                        style="width: 0px;">Nom Magasine</th>
-                                                    <th class="min-w-150px sorting" tabindex="0"
-                                                        aria-controls="kt_project_users_table" rowspan="1"
-                                                        colspan="1"
-                                                        aria-label="Date: activate to sort column ascending"
-                                                        style="width: 0px;">Accepte par</th>
+                                                        aria-label="Livreur: activate to sort column ascending"
+                                                        style="width: 0px;">Livreur</th>
                                                     <th class="min-w-50px text-end sorting_disabled" rowspan="1"
                                                         colspan="1" aria-label="Details" style="width: 0px;">Actions
                                                     </th>
@@ -325,19 +315,9 @@
                                                             <!--end::User-->
                                                         </td>
                                                         <td>
-                                                            <div class="fw-semibold fs-6 text-gray-400">
-                                                                {{ $item->nommagasin }}
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="fw-semibold fs-6 text-gray-400">
-                                                                {{ $item->acceptedByA ? $item->acceptedByA->nomcomplet : 'N/A' }}
-                                                            </div>
-                                                        </td>
-                                                        <td>
                                                             <div class="d-flex align-items-center justify-content-between">
                                                                 <div class="menu-item px-3">
-                                                                    <button onclick="openModal('{{ $item->id_Cl }}')"
+                                                                    <button onclick="openModal('{{ $item->id_Liv }}')"
                                                                         data-bs-toggle="modal"
                                                                         data-bs-target="#kt_modal_new_target"
                                                                         class="btn">
@@ -354,7 +334,7 @@
                                                                         '{{ $item->adress }}',
                                                                         '{{ $item->nombanque }}',
                                                                         '{{ $item->numerocompte }}',
-                                                                        '{{ route('admin.client.update', $item->id_Cl) }}'
+                                                                        '{{ route('admin.Livreur.update', $item->id_Cl) }}'
                                                                     )"
                                                                         data-bs-toggle="modal"
                                                                         data-bs-target="#kt_modal_new_target_MC"
@@ -365,7 +345,7 @@
                                                                 @if ($item->isActive == 0)
                                                                     <div class="menu-item px-3">
                                                                         <form
-                                                                            action="{{ route('admin.client.activer', $item->id_Cl) }}"
+                                                                            action="{{ route('admin.Livreur.activer', $item->id_Cl) }}"
                                                                             method="POST">
                                                                             @method('PUT')
                                                                             @csrf
@@ -381,7 +361,7 @@
                                                                 @if ($item->isActive == 1)
                                                                     <div class="menu-item px-3">
                                                                         <form
-                                                                            action="{{ route('admin.client.desactiver', $item->id_Cl) }}"
+                                                                            action="{{ route('admin.Livreur.desactiver', $item->id_Cl) }}"
                                                                             method="POST">
                                                                             @method('PUT')
                                                                             @csrf
@@ -437,10 +417,10 @@
     <script>
         $(document).ready(function() {
             $('#kt_filter_search').on('input', function() {
-                filterClients();
+                filterLivreurs();
             });
 
-            function filterClients() {
+            function filterLivreurs() {
                 var searchText = $('#kt_filter_search').val().toLowerCase();
                 // Filter card view
                 // $('#kt_project_users_card_pane .card').each(function() {
@@ -469,7 +449,7 @@
         function openModal(id) {
             var users = @json($users);
             let bb = '';
-            let item = users.find(ele => ele.id_Cl == id)
+            let item = users.find(ele => ele.id_Liv == id)
             console.log(item);
             bb += `
                 <div class="">
@@ -479,22 +459,15 @@
                                 <img src="{{ $item->img ? '' : asset('storage/images/profile.jpg') }}" alt="image">
 
                             </div>
-                            <div class="ms-3">
-                                <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">Brian Cox</a>
-                            </div>
                         </div>
                         <div class=" rounded text-dark fw-semibold text-start row" data-kt-element="message-text">
                             <div class="form-group mb-3 col col-md-6">
-                                <label class="fw-bold" for="nom_livreur">Nom Client:</label>
+                                <label class="fw-bold" for="nom_livreur">Nom Livreur:</label>
                                 <input type="text" id="nom_livreur" class="form-control" value="${item.nomcomplet}" readonly>
                             </div>
                             <div class="form-group mb-3 col col-md-6">
                                 <label class="fw-bold" for="cin">CIN:</label>
                                 <input type="text" id="cin" class="form-control" value="${item.cin}" readonly>
-                            </div>
-                            <div class="form-group mb-3 col col-md-6">
-                                <label class="fw-bold" for="bank">Bank:</label>
-                                <input type="text" id="bank" class="form-control" value="${item.nombanque}" readonly>
                             </div>
                             <div class="form-group mb-3 col col-md-6">
                                 <label class="fw-bold" for="email">Adresse electronique:</label>
@@ -505,12 +478,32 @@
                                 <input type="text" id="phone" class="form-control" value="${item.Phone}" readonly>
                             </div>
                             <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="zone">Zone:</label>
+                                <input  type='text' id="zone" class="form-control" value="${item.zone.zonename}" readonly>
+                            </div>
+                            <div class="form-group mb-3 col col-md-6">
                                 <label class="fw-bold" for="ville">Ville:</label>
                                 <input type="text" id="ville" class="form-control" value="${item.ville}" readonly>
                             </div>
                             <div class="form-group mb-3 col col-md-12">
                                 <label class="fw-bold" for="adresse">Adresse:</label>
                                 <textarea  id="adresse" class="form-control"  readonly> ${item.adress}</textarea>
+                            </div>
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="fraislivraison">Frais livraison:</label>
+                                <input  type='text' id="fraislivraison" class="form-control" value="${item.fraislivraison}"  readonly>
+                            </div>
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="fraisrefus">Frais refus:</label>
+                                <input  type='text'  id="fraisrefus" class="form-control" value="${item.fraisrefus}"  readonly>
+                            </div>
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="nombanque">Bank:</label>
+                                <input type="text" id="nombanque" class="form-control" value="${item.nombanque}" readonly>
+                            </div>
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="numerocompte">Numero compte:</label>
+                                <input type="text" id="numerocompte" class="form-control" value="${item.numerocompte}" readonly>
                             </div>
                         </div>
                     </div>

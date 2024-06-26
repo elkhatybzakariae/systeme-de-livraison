@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Etat;
+use App\Models\Livreur;
 use App\Models\Option as ModelsOption;
 use App\Models\typeBank;
 use App\Models\typeClient;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class Option extends Controller
 {
     public function index()
@@ -16,11 +18,19 @@ class Option extends Controller
         $typeClient = typeClient::query()->orderBy('created_at','desc')->get();
         $typeBank = typeBank::query()->orderBy('created_at','desc')->get();
         $etat = Etat::query()->orderBy('created_at','desc')->get();
+        $nbclient = Client::select(DB::raw('count(*) as client_count, nombanque'))
+                   ->groupBy('nombanque')
+                   ->get();
+        $nbliv = Livreur::select(DB::raw('count(*) as liv_count, nombanque'))
+                   ->groupBy('nombanque')
+                   ->get();
+        // $nbclient = Client::query()->count()->groupBy('nombanque')->get();
+        // dd($nbclient);
         $breads = [
             ['title' => 'Liste des Options', 'url' => null],
             ['text' => 'Options', 'url' => null],
         ];
-        return view('pages.option.index', compact('Options','typeClient','typeBank','etat', 'breads'));
+        return view('pages.option.index', compact('Options','nbclient','nbliv','typeClient','typeBank','etat', 'breads'));
     }
     public function store(Request $request)
     {

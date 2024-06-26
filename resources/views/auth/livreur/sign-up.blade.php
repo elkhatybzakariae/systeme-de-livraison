@@ -135,14 +135,14 @@
                                             * Le champ frais refus est obligatoire.</div>
                                     @endif
                                 </div>
-                                <div class="fv-row mb-4 col-md-6">
+                                <div class="fv-row mb-4 mt-2 col-md-6">
                                     {{-- <label class="">Bank </label> --}}
                                     <select name="nombanque" id="nombanque" class="form-select">
                                         @foreach ($banks as $item)
-                                            <option value="{{ $item->id_TB }}">{{ $item->nom }}</option>
+                                            <option value="{{ $item->nom }}">{{ $item->nom }}</option>
                                         @endforeach
                                     </select>
-                                    <input type="text" placeholder="Banque" name="nombanque" autocomplete="off" class="form-control" />
+                                    {{-- <input type="text" placeholder="Banque" name="nombanque" autocomplete="off" class="form-control" /> --}}
                                 </div>
                                 <div class="fv-row mb-4 col-md-6">
                                     <input type="text" placeholder="Numero du compte" name="numerocompte" autocomplete="off" class="form-control" />
@@ -228,7 +228,7 @@
                 villeSelect.innerHTML = '';
                 data.forEach(city => {
                     const option = document.createElement('option');
-                    option.value = city.id_V;
+                    option.value = city.villename;
                     option.textContent = city.villename;
                     villeSelect.appendChild(option);
                 });

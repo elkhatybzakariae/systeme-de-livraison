@@ -54,9 +54,9 @@
       </div>
     @endif
   @endforeach --}}
-    @if (session()->has('user') && isset(session('user')['role']))
+    @if (session()->has('admin') && isset(session('admin')['role']))
         @foreach ($remarques as $remarque)
-            @if ($remarque->cible == session('user')['role'])
+            @if ($remarque->cible == session('admin')['role'])
                 <div class="alert 
                 @if ($remarque->type == 'Urgence') alert-danger
                 @elseif ($remarque->type == 'Important')

@@ -110,8 +110,8 @@
                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
                                     title="Specify a target name for future usage and reference"></i>
                             </label>
-                            <input type="text" class="form-control form-control-solid" placeholder="Nom *" id="nom"
-                                name="nom" />
+                            <input type="text" class="form-control form-control-solid" placeholder="Nom *"
+                                id="nom" name="nom" />
                         </div>
                         <div class="d-flex flex-column mb-8 fv-row">
                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
@@ -436,7 +436,7 @@
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <div class="container-fluid">
+                        {{-- <div class="container-fluid">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="card">
@@ -543,7 +543,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-12">
@@ -556,7 +556,7 @@
                                         <div class="card-body">
                                             <div id="settings_banks_table_wrapper"
                                                 class="dataTables_wrapper dt-bootstrap4 no-footer">
-                                                <div class="row">
+                                                {{-- <div class="row">
                                                     <div class="col-xs-12 col-sm-12 col-md-6">
                                                         <div id="settings_statut_table_filter" class="dataTables_filter">
                                                             <label>Rechercher :<input type="search"
@@ -571,7 +571,7 @@
                                                         </div>
                                                     </div>
 
-                                                </div>
+                                                </div> --}}
                                                 <div class="row">
                                                     <div class="col-xs-12 col-sm-12">
                                                         <table id="settings_banks_table"
@@ -588,140 +588,45 @@
                                                                         aria-controls="settings_banks_table"
                                                                         rowspan="1" colspan="1"
                                                                         aria-label="Utilisateurs: activate to sort column ascending"
-                                                                        style="width: 81.7604px;">Utilisateurs</th>
+                                                                        style="width: 81.7604px;">Clients</th>
                                                                     <th class="sorting" tabindex="0"
                                                                         aria-controls="settings_banks_table"
                                                                         rowspan="1" colspan="1"
                                                                         aria-label="Clients: activate to sort column ascending"
-                                                                        style="width: 47.9792px;">Clients</th>
-                                                                    <th class="sorting" tabindex="0"
+                                                                        style="width: 47.9792px;">Livreurs</th>
+                                                                    {{-- <th class="sorting" tabindex="0"
                                                                         aria-controls="settings_banks_table"
                                                                         rowspan="1" colspan="1"
                                                                         aria-label="Actions: activate to sort column ascending"
-                                                                        style="width: 56.3542px;">Actions</th>
+                                                                        style="width: 56.3542px;">Actions</th> --}}
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr id="banks-15" role="row" class="odd">
-                                                                    <td><input name="bank_name" type="text"
-                                                                            value="BANQUE POPULAIRE"></td>
-                                                                    <td>12</td>
-                                                                    <td>3</td>
-                                                                    <td><a href="javascript:editBank('15');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a>
+                                                                @foreach ($typeBank as $item)
+                                                                    <tr id="banks-15" role="row" class="odd">
+                                                                        <td><input name="bank_name" type="text"
+                                                                                value="{{ $item->nom }}" readonly></td>
+                                                                        <td>
+                                                                            @foreach ($nbclient as $nbitem)
+                                                                                @if ($nbitem->nombanque === $item->nom)
+                                                                                    {{ $nbitem->client_count }}
+                                                                                @endif
+                                                                            @endforeach
+                                                                        </td>
+                                                                        <td>
+                                                                            @foreach ($nbliv as $nbitem)
+                                                                                @if ($nbitem->nombanque === $item->nom)
+                                                                                    {{ $nbitem->liv_count }}
+                                                                                @endif
+                                                                            @endforeach
+                                                                        </td>
+                                                                        {{-- <td><a href="javascript:editBank('15');"
+                                                                                class="btn btn-sm btn-primary"><i
+                                                                                    class="far fa-save"></i></a>
 
-                                                                    </td>
-                                                                </tr>
-                                                                <tr id="banks-14" role="row" class="even">
-                                                                    <td><input name="bank_name" type="text"
-                                                                            value="ATTIJARIWAFA BANK"></td>
-                                                                    <td>1</td>
-                                                                    <td>2</td>
-                                                                    <td><a href="javascript:editBank('14');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a>
-
-                                                                    </td>
-                                                                </tr>
-                                                                <tr id="banks-12" role="row" class="odd">
-                                                                    <td><input name="bank_name" type="text"
-                                                                            value="BMCE BANK"></td>
-                                                                    <td>2</td>
-                                                                    <td>0</td>
-                                                                    <td><a href="javascript:editBank('12');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a>
-
-                                                                    </td>
-                                                                </tr>
-                                                                <tr id="banks-11" role="row" class="even">
-                                                                    <td><input name="bank_name" type="text"
-                                                                            value="CIH BANK"></td>
-                                                                    <td>35</td>
-                                                                    <td>14</td>
-                                                                    <td><a href="javascript:editBank('11');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a>
-
-                                                                    </td>
-                                                                </tr>
-                                                                <tr id="banks-2854" role="row" class="odd">
-                                                                    <td><input name="bank_name" type="text"
-                                                                            value="BARID BANK"></td>
-                                                                    <td>0</td>
-                                                                    <td>0</td>
-                                                                    <td><a href="javascript:editBank('2854');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a>
-                                                                        <a href="javascript:ajaxLink('s_options?action=delete-bank&amp;config-id=2854');"
-                                                                            class="btn btn-sm btn-danger"><i
-                                                                                class="fa fa-trash"></i></a>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr id="banks-2855" role="row" class="even">
-                                                                    <td><input name="bank_name" type="text"
-                                                                            value="CREDIT AGRICOLE"></td>
-                                                                    <td>4</td>
-                                                                    <td>2</td>
-                                                                    <td><a href="javascript:editBank('2855');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a>
-
-                                                                    </td>
-                                                                </tr>
-                                                                <tr id="banks-2856" role="row" class="odd">
-                                                                    <td><input name="bank_name" type="text"
-                                                                            value="CREDIT DU MAROC"></td>
-                                                                    <td>0</td>
-                                                                    <td>0</td>
-                                                                    <td><a href="javascript:editBank('2856');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a>
-                                                                        <a href="javascript:ajaxLink('s_options?action=delete-bank&amp;config-id=2856');"
-                                                                            class="btn btn-sm btn-danger"><i
-                                                                                class="fa fa-trash"></i></a>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr id="banks-2857" role="row" class="even">
-                                                                    <td><input name="bank_name" type="text"
-                                                                            value="UMNIA BANK"></td>
-                                                                    <td>0</td>
-                                                                    <td>0</td>
-                                                                    <td><a href="javascript:editBank('2857');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a>
-                                                                        <a href="javascript:ajaxLink('s_options?action=delete-bank&amp;config-id=2857');"
-                                                                            class="btn btn-sm btn-danger"><i
-                                                                                class="fa fa-trash"></i></a>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr id="banks-2858" role="row" class="odd">
-                                                                    <td><input name="bank_name" type="text"
-                                                                            value="BANK AL YOUSR"></td>
-                                                                    <td>0</td>
-                                                                    <td>0</td>
-                                                                    <td><a href="javascript:editBank('2858');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a>
-                                                                        <a href="javascript:ajaxLink('s_options?action=delete-bank&amp;config-id=2858');"
-                                                                            class="btn btn-sm btn-danger"><i
-                                                                                class="fa fa-trash"></i></a>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr id="banks-2859" role="row" class="even">
-                                                                    <td><input name="bank_name" type="text"
-                                                                            value="SOCIETE GENERALE"></td>
-                                                                    <td>0</td>
-                                                                    <td>0</td>
-                                                                    <td><a href="javascript:editBank('2859');"
-                                                                            class="btn btn-sm btn-primary"><i
-                                                                                class="far fa-save"></i></a>
-                                                                        <a href="javascript:ajaxLink('s_options?action=delete-bank&amp;config-id=2859');"
-                                                                            class="btn btn-sm btn-danger"><i
-                                                                                class="fa fa-trash"></i></a>
-                                                                    </td>
-                                                                </tr>
+                                                                        </td> --}}
+                                                                    </tr>
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>

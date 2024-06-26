@@ -109,7 +109,7 @@
           <div class="d-flex flex-column">
             <!--begin::Name-->
             <div class="d-flex align-items-center mb-2">
-              <a href="#" class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1">{{ session('user')['nomcomplet'] }}</a>
+              <a href="#" class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1">{{ session('admin')['nomcomplet'] }}</a>
               <a href="#" class="" data-bs-toggle="tooltip" data-bs-placement="right" title="Account is verified">
                 <!--begin::Svg Icon | path: icons/duotune/general/gen026.svg-->
                 <span class="svg-icon svg-icon-1 svg-icon-primary">

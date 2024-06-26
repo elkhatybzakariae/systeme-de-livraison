@@ -48,14 +48,14 @@
           </th>
           {{-- <th class="min-w-200px">Id</th> --}}
           <th class="min-w-100px">Code d'Envoi</th>
-          <th class="min-w-100px">Date d'Expedition</th>
-          {{-- <th class="min-w-100px">Telephone</th>
-          <th class="min-w-100px">Nom du Magasin</th> --}}
+          {{-- <th class="min-w-100px">Date d'Expedition</th> --}}
+          {{-- <th class="min-w-100px">Telephone</th>--}}
+          <th class="min-w-100px">Nom du Magasin</th> 
           <th class="min-w-100px">Etat</th>
           <th class="min-w-100px">Status</th>
           <th class="min-w-100px">Ville</th>
           <th class="min-w-70px">Prix</th>
-          <th class="min-w-70px">Actions</th>
+          {{-- <th class="min-w-70px">Actions</th> --}}
         </tr>
       </thead>
       <tbody class="fw-semibold text-gray-600">
@@ -76,15 +76,15 @@
             <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="code">{{ $coli->code_d_envoi }}</span>
             </td>
-            <td class="pe-0">
+            {{-- <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="date">{{ $coli->date_d_expedition }}</span>
-            </td>
+            </td> --}}
             {{-- <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="telephone">{{ $coli->client->telephone }}</span>
-            </td>
+            </td>--}}
             <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="magasin">{{ $coli->client->nom_magasin }}</span>
-            </td> --}}
+              <span class="fw-bold" data-kt-ecommerce-product-filter="magasin">{{ $coli->client->nommagasin }}</span>
+            </td> 
             <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="etat">{{ $coli->etat }}</span>
             </td>
@@ -97,7 +97,7 @@
             <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="prix">{{ $coli->prix }}</span>
             </td>
-            <td>
+            {{-- <td>
               <a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                 <span class="svg-icon svg-icon-5 m-0">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -117,7 +117,7 @@
                   </form>
                 </div>
               </div>
-            </td>
+            </td> --}}
           </tr>
         @endforeach
       </tbody>

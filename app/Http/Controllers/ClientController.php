@@ -12,6 +12,7 @@ use App\Models\Colis;
 use App\Models\Facture;
 use App\Models\Reclamation;
 use App\Models\Remarque;
+use App\Models\typeBank;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -93,7 +94,9 @@ class ClientController extends Controller
     }
     public function signuppage()
     {
-        return view('auth.client.sign-up');
+        
+        $banks = typeBank::all();
+        return view('auth.client.sign-up', compact('banks'));
     }
     public function signup(Request $request)
     {

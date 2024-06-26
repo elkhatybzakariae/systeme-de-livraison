@@ -418,8 +418,8 @@
                 @if (session('admin')['role']=='Admin')
                    
               
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                    <span class="menu-link">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('factures.create')||request()->routeIs('factures.list') ?'show':'' }}">
+                    <span class="menu-link ">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -517,7 +517,7 @@
                 <!--begin:Menu link-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('demandemodificationcolis.all')}}">
+                    <a class="menu-link {{ request()->routeIs('demandemodificationcolis.all') ?'active':'' }}" href="{{route('demandemodificationcolis.all')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -540,7 +540,7 @@
                 <!--begin:Menu link-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('admin.clients')}}">
+                    <a class="menu-link {{ request()->routeIs('admin.clients') ?'active':'' }}" href="{{route('admin.clients')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -562,7 +562,7 @@
                 <!--begin:Menu link-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('ramassagecolis.all')}}">
+                    <a class="menu-link {{ request()->routeIs('ramassagecolis.all') ?'active':'' }}" href="{{route('ramassagecolis.all')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -609,7 +609,7 @@
                 <!--begin:Menu link-->
                 <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="{{route('admin.newuser')}}">
+                    <a class="menu-link {{ request()->routeIs('admin.newuser') ?'active':'' }}" href="{{route('admin.newuser')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -629,7 +629,7 @@
 
 
                 <!--begin:Menu link-->
-                <div class="menu-item">
+                {{-- <div class="menu-item">
                     <!--begin:Menu link-->
                     <a class="menu-link {{ request()->routeIs('newlivreurs') ?'active':'' }}" href="{{route('newlivreurs')}}">
                         <span class="menu-icon">
@@ -648,8 +648,9 @@
 
                     </a>
                     <!--end:Menu link-->
-                </div>
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                </div> --}}
+                <div data-kt-menu-trigger="click"  
+                class="menu-item menu-accordion {{ request()->routeIs('newlivreurs')||request()->routeIs('admin.livreurs') ?'show':'' }}">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->

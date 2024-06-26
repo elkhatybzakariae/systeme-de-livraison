@@ -148,13 +148,23 @@
                                     <input type="text" placeholder="Site web" name="siteweb" autocomplete="off" value="{{old('siteweb')}}"
                                         class="form-control bg-transparent" />
                                 </div>
-                                <div class="fv-row mb-8 col-6">
+                                <div class="fv-row mb-12 col-12">
                                     <input type="text" placeholder="type entreprise" name="typeentreprise" value="{{old('typeentreprise')}}"
                                         autocomplete="off" class="form-control bg-transparent" />
                                         @if ($errors->has('typeentreprise'))
                                         <div class="text-danger">
                                             * Le champ type entreprise est obligatoire.</div>
                                     @endif
+                                </div>
+                                <div class="fv-row mb-4 mt-2 col-md-6">
+                                    <select name="nombanque" id="nombanque" class="form-select">
+                                        @foreach ($banks as $item)
+                                            <option value="{{ $item->nom }}">{{ $item->nom }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="fv-row mb-4 col-md-6">
+                                    <input type="text" placeholder="Numero du compte" name="numerocompte" autocomplete="off" class="form-control" />
                                 </div>
                                 <div class="fv-row mb-8 col-6">
                                     <label class="form-check form-check-inline">

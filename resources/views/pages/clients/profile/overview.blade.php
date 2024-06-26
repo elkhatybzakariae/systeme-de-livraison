@@ -109,7 +109,7 @@
           <div class="d-flex flex-column">
             <!--begin::Name-->
             <div class="d-flex align-items-center mb-2">
-              <a href="#" class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1">{{ session('user')['nomcomplet'] }}</a>
+              <a href="#" class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1">{{ session('client')['nomcomplet'] }}</a>
               <a href="#" class="" data-bs-toggle="tooltip" data-bs-placement="right" title="Account is verified">
                 <!--begin::Svg Icon | path: icons/duotune/general/gen026.svg-->
                 <span class="svg-icon svg-icon-1 svg-icon-primary">
@@ -334,7 +334,7 @@
       <!--end::Row-->
       
       <!--begin::Row-->
-      <div class="row mb-7">
+      {{-- <div class="row mb-7">
           <!--begin::Label-->
           <label class="col-lg-4 fw-semibold text-muted">Photo</label>
           <!--end::Label-->
@@ -343,11 +343,11 @@
               <img src="{{ asset('storage/' . $client->photo) }}" alt="Photo" class="img-fluid">
           </div>
           <!--end::Col-->
-      </div>
+      </div> --}}
       <!--end::Row-->
       
       <!--begin::Row-->
-      <div class="row mb-7">
+      {{-- <div class="row mb-7">
           <!--begin::Label-->
           <label class="col-lg-4 fw-semibold text-muted">CIN Recto</label>
           <!--end::Label-->
@@ -356,11 +356,11 @@
               <img src="{{ asset('storage/' . $client->cinrecto) }}" alt="CIN Recto" class="img-fluid">
           </div>
           <!--end::Col-->
-      </div>
+      </div> --}}
       <!--end::Row-->
       
       <!--begin::Row-->
-      <div class="row mb-7">
+      {{-- <div class="row mb-7">
           <!--begin::Label-->
           <label class="col-lg-4 fw-semibold text-muted">CIN Verso</label>
           <!--end::Label-->
@@ -369,22 +369,21 @@
               <img src="{{ asset('storage/' . $client->cinverso) }}" alt="CIN Verso" class="img-fluid">
           </div>
           <!--end::Col-->
-      </div>
+      </div> --}}
       <!--end::Row-->
       
       <!--begin::Row-->
-      <div class="row mb-7">
+      {{-- <div class="row mb-7">
           <!--begin::Label-->
           <label class="col-lg-4 fw-semibold text-muted">RIB</label>
           <!--end::Label-->
           <!--begin::Col-->
           <div class="col-lg-8">
-              {{-- <span class="fw-bold fs-6 text-gray-800">{{ $client->RIB }}</span> --}}
               <img src="{{ asset('storage/' . $client->RIB) }}" alt="RIB" class="img-fluid">
 
           </div>
           <!--end::Col-->
-      </div>
+      </div> --}}
       <!--end::Row-->
   </div>
   

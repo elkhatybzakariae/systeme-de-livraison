@@ -479,22 +479,23 @@
                                 <img src="{{ $item->img ? '' : asset('storage/images/profile.jpg') }}" alt="image">
 
                             </div>
-                            <div class="ms-3">
-                                <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">Brian Cox</a>
-                            </div>
                         </div>
                         <div class=" rounded text-dark fw-semibold text-start row" data-kt-element="message-text">
                             <div class="form-group mb-3 col col-md-6">
-                                <label class="fw-bold" for="nom_livreur">Nom Client:</label>
-                                <input type="text" id="nom_livreur" class="form-control" value="${item.nomcomplet}" readonly>
+                                <label class="fw-bold" for="nomcomplet">Nom Client:</label>
+                                <input type="text" id="nomcomplet" class="form-control" value="${item.nomcomplet}" readonly>
+                            </div>
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="nommagasin">Nom magasin:</label>
+                                <input type="text" id="nommagasin" class="form-control" value="${item.nommagasin}" readonly>
+                            </div>
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="typeentreprise">Type entreprise:</label>
+                                <input type="text" id="typeentreprise" class="form-control" value="${item.typeentreprise}" readonly>
                             </div>
                             <div class="form-group mb-3 col col-md-6">
                                 <label class="fw-bold" for="cin">CIN:</label>
                                 <input type="text" id="cin" class="form-control" value="${item.cin}" readonly>
-                            </div>
-                            <div class="form-group mb-3 col col-md-6">
-                                <label class="fw-bold" for="bank">Bank:</label>
-                                <input type="text" id="bank" class="form-control" value="${item.nombanque}" readonly>
                             </div>
                             <div class="form-group mb-3 col col-md-6">
                                 <label class="fw-bold" for="email">Adresse electronique:</label>
@@ -504,13 +505,25 @@
                                 <label class="fw-bold" for="phone">Numero de telephone:</label>
                                 <input type="text" id="phone" class="form-control" value="${item.Phone}" readonly>
                             </div>
+                            <div class="form-group mb-3 col col-md-12">
+                                <label class="fw-bold" for="adresse">Adresse:</label>
+                                <textarea  id="adresse" class="form-control"  readonly> ${item.adress}</textarea>
+                            </div>
                             <div class="form-group mb-3 col col-md-6">
                                 <label class="fw-bold" for="ville">Ville:</label>
                                 <input type="text" id="ville" class="form-control" value="${item.ville}" readonly>
                             </div>
-                            <div class="form-group mb-3 col col-md-12">
-                                <label class="fw-bold" for="adresse">Adresse:</label>
-                                <textarea  id="adresse" class="form-control"  readonly> ${item.adress}</textarea>
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="siteweb">Site web:</label>
+                                <input  type='text' id="siteweb" class="form-control" value="${item.siteweb}"  readonly>
+                            </div>
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="nombanque">Bank:</label>
+                                <input type="text" id="nombanque" class="form-control" value="${item.nombanque}" readonly>
+                            </div>
+                            <div class="form-group mb-3 col col-md-6">
+                                <label class="fw-bold" for="numerocompte">Numero compte:</label>
+                                <input type="text" id="numerocompte" class="form-control" value="${item.numerocompte}" readonly>
                             </div>
                         </div>
                     </div>

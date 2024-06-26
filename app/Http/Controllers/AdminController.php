@@ -371,7 +371,7 @@ class AdminController extends Controller
     }
     public function livreurs()
     {
-        $users= Livreur::where('isAccepted',1)->get();
+        $users= Livreur::where('isAccepted',1)->with('zone')->get();
         $breads = [
             ['title' => 'Liste des Livreurs', 'url' => null],
             ['text' => 'livreurs', 'url' => null], // You can set the URL to null for the last breadcrumb

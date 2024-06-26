@@ -36,12 +36,11 @@ class DemandeModificationColiController extends Controller
             'quantite' => 'required|numeric',
             'commentaire' => 'nullable|string',
             'adresse' => 'required|string|max:255',
-            'zone' => 'required|string|max:255',
-            'ville_id' => 'required|string',
+            'zone' => 'nullable|string|max:255',
+            'ville_id' => 'nullable|string',
             // 'fragile' => 'nullable|boolean',
             // 'ouvrir' => 'nullable|boolean',
         ]);
-        dd($validatedData);
         $validatedData['id_DMC'] = $id_DMC;
         $validatedData['id'] = $id;
         DemandeModificationColi::create($validatedData);
