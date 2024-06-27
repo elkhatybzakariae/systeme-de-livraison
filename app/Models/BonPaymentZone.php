@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class BonPaymentZone extends Model
 {
     use HasFactory;
+    protected $table = 'bon_payment_zones';
     protected $primaryKey='id_BPZ';
     public $incrementing=false;
     protected $keyType='string';

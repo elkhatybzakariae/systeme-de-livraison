@@ -111,10 +111,10 @@
                     data-bs-toggle="modal" data-bs-target="#kt_modal_new_target">
                     <i class="fa fa-eye"></i>Details du bon</a>
                 </div>
-                <div class="menu-item px-3">
+                {{-- <div class="menu-item px-3">
                   <a  class="btn"  href="{{ route('bon.distribution.getPdf',$item->id_BD) }}">
                     <i class="far fa-file-pdf"></i>Voir en Pdf</a>
-                </div>
+                </div> --}}
                 
               </div>
             </td>

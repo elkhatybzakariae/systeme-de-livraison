@@ -203,7 +203,7 @@ class BonPaymentZoneController extends Controller
     public function getPdfColis($id,$idC)
     {
         // $bon = BonDistribution::where('id_BPZ', $id)->first();
-        $bon = BonRetourClient::where('bon_payment_zones.id_BPZ', $id) // Specify the table for id_BPZ
+        $bon = BonPaymentZone::where('bon_payment_zones.id_BPZ', $id) // Specify the table for id_BPZ
             ->withCount('colis') // Count related colis
             ->withSum('colis', 'prix') // Sum prices of related colis
             // ->leftJoin('livreurs', 'bon_payment_zones.id_Liv', '=', 'livreurs.id_Liv')
@@ -236,7 +236,7 @@ class BonPaymentZoneController extends Controller
             'img'=>$img
         ];
         $dompdf = new Dompdf();
-        $html = view('pages.admin.bonRetourZone.getPdf', $data)->render();
+        $html = view('pages.admin.BonPaymentZone.getPdf', $data)->render();
         $dompdf->loadHtml($html);
 
         // Render the PDF
@@ -246,7 +246,7 @@ class BonPaymentZoneController extends Controller
     public function getPdf($id)
     {
         // $bon = BonDistribution::where('id_BPZ', $id)->first();
-        $bon = BonRetourClient::where('bon_payment_zones.id_BPZ', $id) // Specify the table for id_BPZ
+        $bon = BonPaymentZone::where('bon_payment_zones.id_BPZ', $id) // Specify the table for id_BPZ
             ->withCount('colis') // Count related colis
             ->withSum('colis', 'prix') // Sum prices of related colis
             // ->leftJoin('livreurs', 'bon_payment_zones.id_Liv', '=', 'livreurs.id_Liv')
@@ -279,7 +279,7 @@ class BonPaymentZoneController extends Controller
             'img'=>$img
         ];
         $dompdf = new Dompdf();
-        $html = view('pages.admin.bonRetourZone.getPdf', $data)->render();
+        $html = view('pages.admin.BonPaymentZone.getPdf', $data)->render();
         $dompdf->loadHtml($html);
 
         // Render the PDF
