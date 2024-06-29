@@ -331,4 +331,5 @@ class LivreurController extends Controller
 
         return redirect()->route('auth.livreur.signIn')->with('status', 'Your password has been reset!');
     }
+
 }

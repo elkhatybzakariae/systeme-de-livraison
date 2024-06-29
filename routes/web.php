@@ -46,6 +46,8 @@ Route::middleware('check.admin')->group(function () {
         Route::post('/store/new-user',  'storenewuser')->name('admin.newuser.store');
         Route::post('/update/user/{id}',  'updatenewuser')->name('admin.newuser.update');
         Route::put('/update/client/{id}',  'updateclient')->name('admin.client.update');
+        Route::get('/edit/livreur/{id}',  'editlivreur')->name('admin.livreur.edit');
+        Route::put('/update/livreur/{id}',  'updatelivreur')->name('admin.livreur.update');
         Route::delete('/delete/user/{id}',  'deletenewuser')->name('admin.newuser.delete');
         Route::get('/signout',  'signout')->name('admin.signout');
         Route::post('/coli/{id}',  'changestatus')->name('admin.changestatus');

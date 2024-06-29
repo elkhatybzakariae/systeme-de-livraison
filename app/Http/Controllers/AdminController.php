@@ -20,6 +20,7 @@ use App\Models\Livreur;
 use App\Models\Reclamation;
 use App\Models\Remarque;
 use App\Models\Role;
+use App\Models\typeBank;
 use App\Models\Ville;
 use App\Models\Zone;
 use Illuminate\Http\Request;
@@ -353,6 +354,37 @@ class AdminController extends Controller
 
         $client->update($validation);
         return back()->with('success', 'person mis à jour avec succès !');
+    }
+    
+
+    public function editlivreur($id){
+        $livreur= Livreur::find($id); 
+        $zone= Zone::all(); 
+        $tb= typeBank::all(); 
+        // dd($tb);
+        $breads = [
+            ['title' => 'Edit Livreur', 'url' => null],
+            ['text' => 'Livreur', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.admin.livreur.editLiv',compact('livreur','breads','tb','zone'));
+    }
+    public function updatelivreur(Request $req,$id){
+        $liv= Livreur::find($id);
+        $validation = $req->validate([
+            'nomcomplet' => 'required|string|max:50',
+            'cin' => 'required|string|max:50',
+            'email' => 'required|email|max:50',
+            'Phone' => 'nullable|string|max:50',
+            'id_Z' => 'required|string|max:50',
+            'ville' => 'required|string',
+            'adress' => 'required|string|max:150',
+            'fraislivraison' => 'required|string|max:50',
+            'fraisrefus' => 'required|string|max:50',
+            'nombanque' => 'nullable|string|max:50',
+            'numerocompte' => 'nullable|string|max:50',
+        ]);
+        $liv->update($validation);
+        return redirect()->route('admin.livreurs')->with('success', 'Livreur mis à jour avec succès !');
     }
     public function deletenewuser($id)
     {

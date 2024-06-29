@@ -324,6 +324,13 @@
                                                                         <i class="fa fa-eye"></i>
                                                                     </button>
                                                                 </div>
+                                                                
+                                                                <div class="menu-item px-3">
+                                                                    <a href="{{route('admin.livreur.edit',$item->id_Liv)}}"
+                                                                        class="menu-link px-3">
+                                                                        <i class="fa fa-edit"></i>
+                                                                    </a>
+                                                                </div>
                                                                 {{-- <div class="menu-item px-3">
                                                                     <a onclick="openModalModify(
                                                                         '{{ $item->nommagasin }}',
