@@ -20,8 +20,10 @@ return new class extends Migration
             $table->string('cin');
             $table->string('email')->unique();
             $table->string('Phone')->nullable();
-            $table->string('ville');
-            $table->string('villeRamassage')->nullable();
+            $table->string('ville')->nullable();
+            $table->foreign('ville')->on('villes')->references('id_V');
+            // $table->string('villeRamassage')->nullable();
+            // $table->foreign('villeRamassage')->on('villes')->references('id_V');
             $table->string('adress');
             $table->string('siteweb')->nullable();
             $table->string('nombanque')->nullable();

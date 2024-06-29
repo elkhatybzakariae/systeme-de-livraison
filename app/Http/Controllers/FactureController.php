@@ -8,6 +8,7 @@ use App\Models\Colis;
 use App\Models\colisinfo;
 use App\Models\Facture;
 use App\Models\Frais;
+use App\Models\Tarif;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -57,18 +58,46 @@ class FactureController extends Controller
     public function list()
     {
 
-
         $bons = Facture::withCount('colis') // Count related colis
-            ->withSum('colis', 'prix') // Sum prices of related colis
-            ->leftJoin('clients', 'factures.id_Cl', '=', 'clients.id_Cl')
-            ->select('factures.*', 'clients.nomcomplet as nomcomplet')
-            ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_F = factures.id_F) as colis_count'))
-            ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_F = factures.id_F) as total_prix'))
-            ->leftJoin('colis', 'factures.id_F', '=', 'colis.id_F')
-            ->with('colis', 'colis.ville')
-            ->distinct()
-            ->orderBy('created_at', 'desc')
-            ->get();
+        ->withSum('colis', 'prix') // Sum prices of related colis
+        ->leftJoin('clients', 'factures.id_Cl', '=', 'clients.id_Cl')
+        ->leftJoin('colis', 'factures.id_F', '=', 'colis.id_F')
+        ->leftJoin('villes as v_colis', 'colis.ville_id', '=', 'v_colis.id_V')
+        ->leftJoin('villes as v_client', 'clients.villeRamassage', '=', 'v_client.id_V')
+        ->leftJoin('tarifs', function ($join) {
+            $join->on('tarifs.ville', '=', 'v_colis.id_V')
+                 ->on('tarifs.villeRamassage', '=', 'v_client.id_V');
+        })
+        ->select(
+            'factures.*',
+            'clients.nomcomplet as nomcomplet',
+            'clients.villeRamassage as client_villeRamassage',
+            'colis.*',
+            'v_colis.villename as colis_ville_name',
+            'v_client.villename as client_ville_name',
+            'tarifs.*',
+            DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_F = factures.id_F) as colis_count'),
+            DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_F = factures.id_F) as total_prix')
+        )
+        // ->whereIn('colis.id', $ids)
+        ->with('colis', 'colis.ville')
+
+        ->distinct()
+        ->orderBy('factures.created_at', 'desc')
+        ->get();
+        $tarif=Tarif::query()->where('ville','autre')->get();
+        dd($bons);
+        // $bons = Facture::withCount('colis') // Count related colis
+        //     ->withSum('colis', 'prix') // Sum prices of related colis
+        //     ->leftJoin('clients', 'factures.id_Cl', '=', 'clients.id_Cl')
+        //     ->select('factures.*', 'clients.nomcomplet as nomcomplet')
+        //     ->addSelect(DB::raw('(SELECT COUNT(*) FROM colis WHERE colis.id_F = factures.id_F) as colis_count'))
+        //     ->addSelect(DB::raw('(SELECT SUM(prix) FROM colis WHERE colis.id_F = factures.id_F) as total_prix'))
+        //     ->leftJoin('colis', 'factures.id_F', '=', 'colis.id_F')
+        //     ->with('colis', 'colis.ville')
+        //     ->distinct()
+        //     ->orderBy('created_at', 'desc')
+        //     ->get();
         $breads = [
             ['title' => 'Liste des Factures ', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
