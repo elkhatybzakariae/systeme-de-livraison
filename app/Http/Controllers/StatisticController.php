@@ -391,15 +391,25 @@ class StatisticController extends Controller
         $colisStatus=Helpers::applyDateFilter($colisStatus,$request,'colis.');
         $colisStatus=$colisStatus->get();
 
-        $query = Facture::select( 'factures.status',
-        DB::raw('COUNT(factures.id_F) AS factures_count'),
-        DB::raw('COUNT(colis.id) AS colis_count'),
-        DB::raw('SUM(colis.prix) AS prix_total'),
-        DB::raw('SUM(frais.prix * frais.quntite) AS frais_total'))
+        $query = Facture::select(
+            'factures.status',
+            DB::raw('COUNT(DISTINCT factures.id_F) AS factures_count'),
+            DB::raw('COUNT(colis.id) AS colis_count'),
+            DB::raw('SUM(colis.prix) AS prix_total'),
+            DB::raw('SUM(tarifs.prixliv) as frais'),
+        
+        )
+        ->addSelect(DB::raw('(SELECT SUM(frais.prix * frais.quntite) FROM frais WHERE frais.id_F = factures.id_F) as frais_total'))
         ->leftJoin('colis', 'colis.id_F', '=', 'factures.id_F')
+        ->leftJoin('clients', 'clients.id_Cl', '=', 'colis.id_Cl')
+        ->leftJoin('villes as ville_colis', 'ville_colis.id_V', '=', 'colis.ville_id')
+        ->leftJoin('tarifs', function ($join) {
+            $join->on('tarifs.villeRamassage', '=', 'clients.ville')
+                 ->on('tarifs.ville', '=', 'ville_colis.id_V');
+        })
         ->leftJoin('frais', 'frais.id_F', '=', 'factures.id_F')
-        ->groupBy(  'factures.status')
-        ->where('factures.status', 'Paye');
+        ->where('factures.status', 'Paye')
+        ->groupBy('factures.status','factures.id_F');
         if ($request->has('client_id') && $request->client_id) {
             $query->where('factures.id_Cl', $request->client_id);
         }
@@ -407,44 +417,81 @@ class StatisticController extends Controller
         $facturesPaye=$facturesPaye->first();
 
         $facturesEnregistre = Facture::select( 'factures.status',
-        DB::raw('COUNT(factures.id_F) AS factures_count'),
+        DB::raw('COUNT(DISTINCT factures.id_F) AS factures_count'),
         DB::raw('COUNT(colis.id) AS colis_count'),
         DB::raw('SUM(colis.prix) AS prix_total'),
-        DB::raw('SUM(frais.prix * frais.quntite) AS frais_total'))
-        ->leftJoin('colis', 'colis.id_F', '=', 'factures.id_F')
-        ->leftJoin('frais', 'frais.id_F', '=', 'factures.id_F')
-        ->groupBy(  'factures.status')
-        ->where('factures.status', 'Enregistre');
+        DB::raw('SUM(tarifs.prixliv) as frais'),
+    
+    )
+    ->addSelect(DB::raw('(SELECT SUM(frais.prix * frais.quntite) FROM frais WHERE frais.id_F = factures.id_F) as frais_total'))
+    ->leftJoin('colis', 'colis.id_F', '=', 'factures.id_F')
+    ->leftJoin('clients', 'clients.id_Cl', '=', 'colis.id_Cl')
+    ->leftJoin('villes as ville_colis', 'ville_colis.id_V', '=', 'colis.ville_id')
+    ->leftJoin('tarifs', function ($join) {
+        $join->on('tarifs.villeRamassage', '=', 'clients.ville')
+             ->on('tarifs.ville', '=', 'ville_colis.id_V');
+    })
+    ->leftJoin('frais', 'frais.id_F', '=', 'factures.id_F')
+    ->groupBy(  'factures.status','factures.id_F')
+    ->where('factures.status', 'Enregistre');
         if ($request->has('client_id') && $request->client_id) {
             $facturesEnregistre->where('factures.id_Cl', $request->client_id);
         }
         $facturesEnregistre=Helpers::applyDateFilter($facturesEnregistre,$request,'factures.');
         $facturesEnregistre=$facturesEnregistre->first();
         
-        $facturesBrouillon = Facture::select( 'factures.status',
-        DB::raw('COUNT(factures.id_F) AS factures_count'),
+        $facturesBrouillon = Facture::select('factures.status',
+        DB::raw('COUNT(DISTINCT factures.id_F) AS factures_count'),
         DB::raw('COUNT(colis.id) AS colis_count'),
         DB::raw('SUM(colis.prix) AS prix_total'),
-        DB::raw('SUM(frais.prix * frais.quntite) AS frais_total'))
-        ->leftJoin('colis', 'colis.id_F', '=', 'factures.id_F')
-        ->leftJoin('frais', 'frais.id_F', '=', 'factures.id_F')
-        ->groupBy(  'factures.status')
-        ->where('factures.status', 'Brouillon');
+        DB::raw('SUM(tarifs.prixliv) as frais'),
+    
+    )
+    ->addSelect(DB::raw('(SELECT SUM(frais.prix * frais.quntite) FROM frais WHERE frais.id_F = factures.id_F) as frais_total'))
+    ->leftJoin('colis', 'colis.id_F', '=', 'factures.id_F')
+    ->leftJoin('clients', 'clients.id_Cl', '=', 'colis.id_Cl')
+    ->leftJoin('villes as ville_colis', 'ville_colis.id_V', '=', 'colis.ville_id')
+    ->leftJoin('tarifs', function ($join) {
+        $join->on('tarifs.villeRamassage', '=', 'clients.ville')
+             ->on('tarifs.ville', '=', 'ville_colis.id_V');
+    })
+    ->leftJoin('frais', 'frais.id_F', '=', 'factures.id_F')
+    ->groupBy(  'factures.status','factures.id_F')
+    ->where('factures.status', 'Brouillon');
         if ($request->has('client_id') && $request->client_id) {
             $facturesBrouillon->where('factures.id_Cl', $request->client_id);
         }
         $facturesBrouillon=Helpers::applyDateFilter($facturesBrouillon,$request,'factures.');
         $facturesBrouillon=$facturesBrouillon->first();
 
-        $total = Facture::select( 
-        DB::raw('COUNT(factures.id_F) AS factures_count'),
-        DB::raw('COUNT(colis.id) AS colis_count'),
-        DB::raw('SUM(colis.prix) AS prix_total'),
-        DB::raw('SUM(frais.prix * frais.quntite) AS frais_total'))
+        $total =Facture::select(
+            DB::raw('COUNT(factures.id_F) AS factures_count'),
+            DB::raw('COUNT(colis.id) AS colis_count'),
+            DB::raw('SUM(colis.prix) AS prix_total'),
+            DB::raw('SUM(tarifs.prixliv) as frais'),
+            
+        )
         ->leftJoin('colis', 'colis.id_F', '=', 'factures.id_F')
-        ->leftJoin('frais', 'frais.id_F', '=', 'factures.id_F');
+        ->leftJoin('clients', 'clients.id_Cl', '=', 'colis.id_Cl')
+        ->leftJoin('villes as ville_colis', 'ville_colis.id_V', '=', 'colis.ville_id')
+        ->leftJoin('tarifs', function ($join) {
+            $join->on('tarifs.villeRamassage', '=', 'clients.ville')
+                 ->on('tarifs.ville', '=', 'ville_colis.id_V');
+        })
+        ->leftJoin('frais', 'frais.id_F', '=', 'factures.id_F')
+       
+        ;
+        $frais_total = Frais::select(DB::raw('SUM(prix * quntite) as total_frais'))->first()->total_frais;
+
+
         if ($request->has('client_id') && $request->client_id) {
             $total->where('factures.id_Cl', $request->client_id);
+            $id_Cl=$request->client_id;
+            $frais_total = Frais::whereHas('facture', function ($query) use ($id_Cl) {
+                $query->where('id_Cl', $id_Cl);
+            })
+            ->select(DB::raw('SUM(prix * quntite) as total_frais'))
+            ->first()->total_frais;
         }
         $total=Helpers::applyDateFilter($total,$request,'factures.');
         $total=$total->first();
@@ -455,7 +502,7 @@ class StatisticController extends Controller
             ['text' => 'Tableau', 'url' => null], 
         ];
         return view('pages.admin.statistic.client' ,compact('breads',
-        'facturesBrouillon','facturesEnregistre','facturesPaye','total','clients',
+        'facturesBrouillon','facturesEnregistre','facturesPaye','total','clients','frais_total',
         'colisStatus',));
     }
 }

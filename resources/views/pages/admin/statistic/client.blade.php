@@ -106,11 +106,11 @@
               <td>{{ $facturesBrouillon->factures_count ?? 0 }}</td>
               <td>{{ $facturesBrouillon->colis_count ?? 0 }}</td>
               <td>{{ $facturesBrouillon->prix_total ?? 0 }} Dhs</td>
-              <td><b>-</b>{{ $facturesBrouillon->frais_total ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $facturesBrouillon->frais ?? 0 }} Dhs</td>
               <td><b>+</b>{{ $facturesBrouillon->remis ?? 0 }} Dhs</td>
               <td><b>-</b>{{ $facturesBrouillon->frais_total ?? 0 }} Dhs</td>
-              <td><b>{{ $facturesBrouillon->frais_total ?? 0 + $facturesBrouillon->frais_total ?? 0 }} Dhs</b></td>
-              <td>{{ $facturesBrouillon->prix_total - ($facturesBrouillon->frais_total ?? 0) - ($facturesBrouillon->frais_total ?? 0) }} Dhs</td>
+              <td><b>{{ $facturesBrouillon->frais + $facturesBrouillon->frais_total ?? 0 }} Dhs</b></td>
+              <td>{{ $facturesBrouillon->prix_total - ($facturesBrouillon->frais ?? 0) - ($facturesBrouillon->frais_total ?? 0) }} Dhs</td>
             </tr>
           @else
             <tr>
@@ -131,11 +131,11 @@
               <td>{{ $facturesEnregistre->factures_count ?? 0 }}</td>
               <td>{{ $facturesEnregistre->colis_count ?? 0 }}</td>
               <td>{{ $facturesEnregistre->prix_total ?? 0 }} Dhs</td>
-              <td><b>-</b>{{ $facturesEnregistre->frais_total ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $facturesEnregistre->frais ?? 0 }} Dhs</td>
               <td><b>+</b>{{ $facturesEnregistre->remis ?? 0 }} Dhs</td>
               <td><b>-</b>{{ $facturesEnregistre->frais_total ?? 0 }} Dhs</td>
-              <td><b>{{ $facturesEnregistre->frais_total ?? 0 + $facturesEnregistre->frais_total ?? 0 }} Dhs</b></td>
-              <td>{{ $facturesEnregistre->prix_total - ($facturesEnregistre->frais_total ?? 0) - ($facturesEnregistre->frais_total ?? 0) }} Dhs</td>
+              <td><b>{{ $facturesEnregistre->frais + $facturesEnregistre->frais_total ?? 0 }} Dhs</b></td>
+              <td>{{ $facturesEnregistre->prix_total - ($facturesEnregistre->frais ?? 0) - ($facturesEnregistre->frais_total ?? 0) }} Dhs</td>
             </tr>
           @else
             <tr>
@@ -156,11 +156,11 @@
               <td>{{ $facturesPaye->factures_count ?? 0 }}</td>
               <td>{{ $facturesPaye->colis_count ?? 0 }}</td>
               <td>{{ $facturesPaye->prix_total ?? 0 }} Dhs</td>
-              <td><b>-</b>{{ $facturesPaye->frais_total ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $facturesPaye->frais ?? 0 }} Dhs</td>
               <td><b>+</b>{{ $facturesPaye->remis ?? 0 }} Dhs</td>
               <td><b>-</b>{{ $facturesPaye->frais_total ?? 0 }} Dhs</td>
-              <td><b>{{ $facturesPaye->frais_total ?? 0 + $facturesPaye->frais_total ?? 0 }} Dhs</b></td>
-              <td>{{ $facturesPaye->prix_total - ($facturesPaye->frais_total ?? 0) - ($facturesPaye->frais_total ?? 0) }} Dhs</td>
+              <td><b>{{ $facturesPaye->frais + $facturesPaye->frais_total ?? 0 }} Dhs</b></td>
+              <td>{{ $facturesPaye->prix_total - ($facturesPaye->frais ?? 0) - ($facturesPaye->frais_total ?? 0) }} Dhs</td>
             </tr>
           @else
             <tr>
@@ -182,11 +182,11 @@
               <td>{{ $total->factures_count ?? 0 }}</td>
               <td>{{ $total->colis_count ?? 0 }}</td>
               <td>{{ $total->prix_total ?? 0 }} Dhs</td>
-              <td><b>-</b>{{ $total->frais_total ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $total->frais ?? 0 }} Dhs</td>
               <td><b>+</b>{{ $total->remis ?? 0 }} Dhs</td>
-              <td><b>-</b>{{ $total->frais_total ?? 0 }} Dhs</td>
-              <td><b>{{ $total->frais_total ?? 0 + $total->frais_total ?? 0 }} Dhs</b></td>
-              <td>{{ $total->prix_total - ($total->frais_total ?? 0) - ($total->frais_total ?? 0) }} Dhs</td>
+              <td><b>-</b>{{ $frais_total ?? 0 }} Dhs</td>
+              <td><b>{{ $total->frais + $frais_total  }} Dhs</b></td>
+              <td>{{ $total->prix_total - ($total->frais ?? 0) - ($frais_total ?? 0) }} Dhs</td>
             </tr>
           @else
             <tr>
