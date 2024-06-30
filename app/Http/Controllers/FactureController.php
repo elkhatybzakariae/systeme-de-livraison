@@ -305,12 +305,12 @@ public function deleteFrais($id)
             'factures.created_at',
             'clients.nomcomplet',
             'clients.Phone as telephone',
-            // DB::raw('SUM(frais.prix * frais.quntite) as autre_frais'),
             DB::raw('COUNT(colis.id) as colis_count'),
             DB::raw('SUM(colis.prix) as prix_total'),
             DB::raw('SUM(tarifs.prixliv) as frais_total')
         )
         ->addSelect(DB::raw('(SELECT SUM(frais.prix * frais.quntite) FROM frais WHERE frais.id_F = factures.id_F) as autre_frais'))
+        ->where('factures.id_F',$id)
         ->groupBy(
             'factures.id_F',
             'factures.id_Cl',
@@ -339,8 +339,8 @@ public function deleteFrais($id)
     foreach ($colis as $item) {
         $totalColis = $totalColis + $item->prix - $item->prixlivraison;
     }
-
-    $total= $totalColis-$bon->autre_frais;
+// dd($bon);
+    $total= $totalColis-$bon->autre_frais??0;
             // dd($total);
         $img = Helpers::base64Image();
         $data = [
