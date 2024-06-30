@@ -9,3 +9,5 @@ INSERT INTO `typebank` (`id_TB`, `nom`, `created_at`, `updated_at`) VALUES
 (8, 'BANK AL YOUSR', NULL, NULL),
 (9, 'UMNIA BANK', NULL, NULL),
 (10, 'SOCIETE GENERALE', NULL, NULL);
+
+
