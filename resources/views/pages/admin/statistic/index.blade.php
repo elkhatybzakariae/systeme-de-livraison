@@ -121,11 +121,11 @@
               <td>{{ $facturesEnregistre->factures_count ?? 0 }}</td>
               <td>{{ $facturesEnregistre->colis_count ?? 0 }}</td>
               <td>{{ $facturesEnregistre->prix_total ?? 0 }} Dhs</td>
-              <td><b>-</b>{{ $facturesEnregistre->frais_total ?? 0 }} Dhs</td>
+              <td><b>-</b>{{ $facturesEnregistre->frais ?? 0 }} Dhs</td>
               <td><b>+</b>{{ $facturesEnregistre->remis ?? 0 }} Dhs</td>
               <td><b>-</b>{{ $facturesEnregistre->frais_total ?? 0 }} Dhs</td>
-              <td><b>{{ $facturesEnregistre->frais_total ?? 0 + $facturesEnregistre->frais_total ?? 0 }} Dhs</b></td>
-              <td>{{ $facturesEnregistre->prix_total - ($facturesEnregistre->frais_total ?? 0) - ($facturesEnregistre->frais_total ?? 0) }} Dhs</td>
+              <td><b>{{ $facturesEnregistre->frais + $facturesEnregistre->frais_total ?? 0 }} Dhs</b></td>
+              <td>{{ $facturesEnregistre->prix_total - ($facturesEnregistre->frais ?? 0) - ($facturesEnregistre->frais_total ?? 0) }} Dhs</td>
             </tr>
           @else
             <tr>
