@@ -463,7 +463,7 @@
                     <div class="d-flex flex-column ">
                         <div class="d-flex justify-content-center align-items-center  mb-2">
                             <div class="symbol symbol-35px symbol-circle">
-                                <img src="{{ $item->img ? '' : asset('storage/images/profile.jpg') }}" alt="image">
+                                <img src="{{asset('storage/images/profile.jpg') }}" alt="image">
 
                             </div>
                         </div>

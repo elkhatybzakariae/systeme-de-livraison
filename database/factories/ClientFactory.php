@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Admin;
+use App\Models\Ville;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -19,6 +20,7 @@ class ClientFactory extends Factory
     public function definition(): array
     {
         $admins = Admin::pluck('id_Ad')->toArray();
+        $villes = Ville::pluck('id_V')->toArray();
         return [
             'id_Cl' => Str::random(10),
             'nommagasin' => fake()->company(),
@@ -27,8 +29,8 @@ class ClientFactory extends Factory
             'cin' => Str::random(10),
             'email' => fake()->unique()->safeEmail(),
             'Phone' => fake()->phoneNumber(),
-            'ville' => fake()->city(),
-            'villeRamassage' => fake()->city(),
+            'ville' =>fake()->randomElement($villes),
+            // 'villeRamassage' => fake()->city(),
             'adress' => fake()->address(),
             'siteweb' => fake()->url(),
             'nombanque' => fake()->company(),
