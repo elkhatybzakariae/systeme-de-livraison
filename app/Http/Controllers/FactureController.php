@@ -74,7 +74,7 @@ class FactureController extends Controller
             ['title' => 'Liste des Factures ', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.Factures.list', compact("bons", 'breads'));
+        return view('pages.admin.factures.list', compact("bons", 'breads'));
     }
     public function getClientBons()
     {
