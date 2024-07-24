@@ -10,7 +10,7 @@ class NewClientController extends Controller
 {
     public function newclients()
     {
-        $list= Client::where('isAdmin',1)->where('isAccepted',0)
+        $list= Client::where('isAdmin',1)->where('isAccepted',0)->with('Cville')
         ->orderBy('created_at','desc')->get();
         // dd($list);
         $breads = [
@@ -21,7 +21,8 @@ class NewClientController extends Controller
     }
     public function profile($id)
     {
-        $client= Client::find($id);
+        $client= Client::where('id_Cl',$id)->with('Cville')->first();
+        // dd($client);
         $breads = [
             ['title' => 'Modifier Profile', 'url' => null],
             ['text' => 'Profile', 'url' => null], // You can set the URL to null for the last breadcrumb
