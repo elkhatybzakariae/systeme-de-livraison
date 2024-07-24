@@ -394,7 +394,7 @@ class AdminController extends Controller
 
     public function clients()
     {
-        $users = Client::where('isAdmin', 1)->where('isAccepted', 1)->with('acceptedByA')->get();
+        $users = Client::where('isAdmin', 1)->where('isAccepted', 1)->with('acceptedByA','Cville')->get();
         $breads = [
             ['title' => 'liste des  clients ', 'url' => null],
             ['text' => 'Clients', 'url' => null], // You can set the URL to null for the last breadcrumb

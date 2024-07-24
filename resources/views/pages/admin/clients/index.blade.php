@@ -511,7 +511,7 @@
                             </div>
                             <div class="form-group mb-3 col col-md-6">
                                 <label class="fw-bold" for="ville">Ville:</label>
-                                <input type="text" id="ville" class="form-control" value="${item.ville}" readonly>
+                                <input type="text" id="ville" class="form-control" value="${item.cville.villename}" readonly>
                             </div>
                             <div class="form-group mb-3 col col-md-6">
                                 <label class="fw-bold" for="siteweb">Site web:</label>

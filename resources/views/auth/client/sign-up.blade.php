@@ -121,8 +121,14 @@
                                     @endif
                                 </div>
                                 <div class="fv-row mb-8 col-6">
-                                    <input type="text" placeholder="Ville" name="ville" autocomplete="off" value="{{old('ville')}}"
-                                        class="form-control bg-transparent" />
+                                    <select name="ville" id="ville" class="form-select">
+                                        <option value="">Choisir Ville</option>
+                                        @foreach ($villes as $item)
+                                            <option value="{{ $item->id_V }}">{{ $item->villename }}</option>
+                                        @endforeach
+                                    </select>
+                                    {{-- <input type="text" placeholder="Ville" name="ville" autocomplete="off" value="{{old('ville')}}"
+                                        class="form-control bg-transparent" /> --}}
                                     @if ($errors->has('ville'))
                                         <div class="text-danger">
                                             * Le champ Ville est obligatoire.</div>
@@ -158,6 +164,7 @@
                                 </div>
                                 <div class="fv-row mb-4 mt-2 col-md-6">
                                     <select name="nombanque" id="nombanque" class="form-select">
+                                        <option value="">Choisir Bank</option>
                                         @foreach ($banks as $item)
                                             <option value="{{ $item->nom }}">{{ $item->nom }}</option>
                                         @endforeach

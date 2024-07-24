@@ -60,7 +60,7 @@
                         class="form-control bg-transparent" />
                 </div><div class="fv-row mb-8 col-6"> <label class="fw-bold" for="ville">Ville:</label>
 
-                    <input type="text" placeholder="Ville" name="ville" value="{{ $client->ville }}"
+                    <input type="text" placeholder="Ville" name="ville" value="{{ $client->Cville->villename }}"
                         class="form-control bg-transparent" />
                 </div>
                 {{-- <div class="fv-row mb-8 col-6">
