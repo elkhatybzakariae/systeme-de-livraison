@@ -53,7 +53,7 @@ class FactureController extends Controller
             ['title' => 'créer un Facture', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.Factures.index', compact("colis", "bonLivraison", 'colisBon', 'breads','frais'));
+        return view('pages.admin.factures.index', compact("colis", "bonLivraison", 'colisBon', 'breads','frais'));
     }
     public function list()
     {
@@ -99,7 +99,7 @@ class FactureController extends Controller
             ['title' => 'Liste des Factures ', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.clients.Factures.list', compact("bons", 'breads'));
+        return view('pages.clients.factures.list', compact("bons", 'breads'));
     }
     public function create()
     {
@@ -130,7 +130,7 @@ class FactureController extends Controller
             ['title' => 'Créer un Facture', 'url' => null],
             ['text' => 'Bons', 'url' => null],
         ];
-        return view('pages.admin.Factures.create', compact("clients", 'breads'));
+        return view('pages.admin.factures.create', compact("clients", 'breads'));
     }
     public function store(Request $request,$id_F)
 {
