@@ -58,7 +58,7 @@ class BonRetourLivreurController extends Controller
             ['title' => 'créer un Bon Retour', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.BonRetourLivreur.index', compact("colis", "bonLivraison", 'colisBon', 'breads'));
+        return view('pages.admin.bonRetourLivreur.index', compact("colis", "bonLivraison", 'colisBon', 'breads'));
     }
     public function list()
     {
@@ -85,7 +85,7 @@ class BonRetourLivreurController extends Controller
             ['title' => 'Liste des Bons de retour pour livreur ', 'url' => null],
             ['text' => 'Bons', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.BonRetourLivreur.list', compact("bons", 'cl', 'etat', 'breads'));
+        return view('pages.admin.bonRetourLivreur.list', compact("bons", 'cl', 'etat', 'breads'));
     }
     public function create()
     {
