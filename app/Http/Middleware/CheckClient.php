@@ -26,7 +26,7 @@ class CheckClient
             }
         }
 
-        session(['url.intended' => $request->fullUrl()]);
+        // session(['url.intended' => $request->fullUrl()]);
         // dd(session('url.intended'));
         return redirect(route('auth.client.signIn'));
     }
