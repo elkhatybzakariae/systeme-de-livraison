@@ -44,14 +44,18 @@
                 <div class="fv-row mb-8 col-6"> <label class="fw-bold" for="id_Z">Zone:</label>
                     <select name="id_Z" id="id_Z" class="form-select">
                         @foreach ($zone as $zitem)
-                            <option {{$livreur->id_Z === $zitem->id_Z? 'selected' :''}} value="{{ $zitem->id_Z }}">{{ $zitem->zonename }}</option>
+                            <option {{ $livreur->id_Z === $zitem->id_Z ? 'selected' : '' }} value="{{ $zitem->id_Z }}">
+                                {{ $zitem->zonename }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="fv-row mb-8 col-6"> <label class="fw-bold" for="ville">Ville:</label>
-
-                    <input type="text" placeholder="Ville" name="ville" value="{{ $livreur->ville }}"
-                        class="form-control bg-transparent" />
+                    <select name="ville" id="ville_select" value="{{old('ville')}}" class="form-select">
+                        <option value="{{ $livreur->ville }}">
+                            {{ $livreur->ville }}</option>
+                    </select>
+                    {{-- <input type="text" placeholder="Ville" name="ville" value="{{ $livreur->ville }}"
+                        class="form-control bg-transparent" /> --}}
                 </div>
                 <div class="fv-row mb-8 col-12"> <label class="fw-bold" for="adresse">Adresse:</label>
 
@@ -71,7 +75,8 @@
                 <div class="fv-row mb-8 col-6"> <label class="fw-bold" for="nombanque">Bank:</label>
                     <select name="nombanque" id="nombanque" class="form-select">
                         @foreach ($tb as $item)
-                            <option {{$livreur->nombanque === $item->nom? 'selected' :''}} value="{{ $item->nom }}">{{ $item->nom }}</option>
+                            <option {{ $livreur->nombanque === $item->nom ? 'selected' : '' }} value="{{ $item->nom }}">
+                                {{ $item->nom }}</option>
                         @endforeach
                     </select>
                     {{-- <input type="text" placeholder="Banque" name="nombanque" value="{{ $livreur->nombanque }}"
@@ -111,5 +116,29 @@
 
         </div>
     </div>
-
+    <script>
+        const zoneSelect = document.getElementById('id_Z');
+        const villeSelect = document.getElementById('ville_select');
+        var zones = @json($zone);
+        // const ZoneId = this.value;
+        //     let data = zones.find(ele => ele.id_Z == ZoneId).ville;
+        //     villeSelect.innerHTML = '';
+        //     data.forEach(city => {
+        //         const option = document.createElement('option');
+        //         option.value = city.villename;
+        //         option.textContent = city.villename;
+        //         villeSelect.appendChild(option);
+        //     });
+        zoneSelect.addEventListener('change', function() {
+            const selectedZoneId = this.value;
+            let data = zones.find(ele => ele.id_Z == selectedZoneId).ville;
+            villeSelect.innerHTML = '';
+            data.forEach(city => {
+                const option = document.createElement('option');
+                option.value = city.villename;
+                option.textContent = city.villename;
+                villeSelect.appendChild(option);
+            });
+        });
+    </script>
 @endsection

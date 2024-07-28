@@ -176,17 +176,14 @@ class LivreurController extends Controller
         
         $Livreur = Livreur::where('email', $request->email)->first();
         if ($Livreur) {
-            if (Hash::check($request->password, $Livreur->password)) {
-                
+            if (Hash::check($request->password, $Livreur->password)) {                
                 Auth::login($Livreur);
                 session(["livreur" => $Livreur]);
                 $url = session('url.intended');
                 if ($url) {
-                    // dd($url);
                     session(['url' => null]);
                     return redirect()->to($url);
                 }
-                // dd($url);
                 return redirect()->route('livreur.index');
             }
         } 

@@ -41,12 +41,29 @@
                     <input type="text" placeholder="Email" name="email" value="{{ $livreur->email }}"
                         class="form-control bg-transparent" />
                 </div>
+                
+                <div class="fv-row mb-8 col-6"> <label class="fw-bold" for="id_Z">Zone:</label>
+                    <select name="id_Z" id="id_Z" class="form-select">
+                        @foreach ($zone as $zitem)
+                            <option {{ $livreur->id_Z === $zitem->id_Z ? 'selected' : '' }} value="{{ $zitem->id_Z }}">
+                                {{ $zitem->zonename }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="fv-row mb-8 col-6"> <label class="fw-bold" for="ville">Ville:</label>
+                    <select name="ville" id="ville_select" value="{{old('ville')}}" class="form-select">
+                        <option value="{{ $livreur->ville }}">
+                            {{ $livreur->ville }}</option>
+                    </select>
+                    {{-- <input type="text" placeholder="Ville" name="ville" value="{{ $livreur->ville }}"
+                        class="form-control bg-transparent" /> --}}
+                </div>
+                {{-- <div class="fv-row mb-8 col-6"> <label class="fw-bold" for="ville">Ville:</label>
 
                     <input type="text" placeholder="Ville" name="ville" value="{{ $livreur->ville }}"
                         class="form-control bg-transparent" />
-                </div>
-                <div class="fv-row mb-8 col-6"> <label class="fw-bold" for="adresse">Adresse:</label>
+                </div> --}}
+                <div class="fv-row mb-8 col-12"> <label class="fw-bold" for="adresse">Adresse:</label>
 
                     <input type="text" placeholder="Adresse" name="adress" value="{{ $livreur->adress }}"
                         class="form-control bg-transparent" />
@@ -100,5 +117,22 @@
 
         </div>
     </div>
+    <script>
+        const zoneSelect = document.getElementById('id_Z');
+        const villeSelect = document.getElementById('ville_select');
+        var zones = @json($zone);
+        zoneSelect.addEventListener('change', function() {
+            const selectedZoneId = this.value;
+            let data = zones.find(ele => ele.id_Z == selectedZoneId).ville;
+            console.log(data);
+            villeSelect.innerHTML = '';
+            data.forEach(city => {
+                const option = document.createElement('option');
+                option.value = city.villename;
+                option.textContent = city.villename;
+                villeSelect.appendChild(option);
+            });
+        });
+    </script>
 
 @endsection

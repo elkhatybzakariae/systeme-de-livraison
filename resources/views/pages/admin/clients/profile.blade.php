@@ -39,7 +39,8 @@
                 </div>
                 <div class="fv-row mb-8 col-6">
                     <label class="fw-bold" for="cin">CIN:</label>
-                    <input type="text" id="cin" name="cin" class="form-control bg-transparent" value="{{ $client->cin }}">
+                    <input type="text" id="cin" name="cin" class="form-control bg-transparent"
+                        value="{{ $client->cin }}">
 
                 </div>
                 <div class="fv-row mb-8 col-6"> <label class="fw-bold" for="phone">Numero de telephone:</label>
@@ -53,16 +54,34 @@
                         class="form-control bg-transparent" />
                 </div>
 
-                
+
                 <div class="fv-row mb-8 col-12"> <label class="fw-bold" for="adresse">Adresse:</label>
 
                     <input type="text" placeholder="Adresse" name="adress" value="{{ $client->adress }}"
                         class="form-control bg-transparent" />
-                </div><div class="fv-row mb-8 col-6"> <label class="fw-bold" for="ville">Ville:</label>
+                </div>
+
+                <div class="fv-row mb-8 col-6"> <label class="fw-bold" for="id_Z">Zone:</label>
+                    <select name="id_Z" id="id_Z" class="form-select">
+                        @foreach ($zone as $zitem)
+                            <option {{ $client->id_Z === $zitem->id_Z ? 'selected' : '' }} value="{{ $zitem->id_Z }}">
+                                {{ $zitem->zonename }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="fv-row mb-8 col-6"> <label class="fw-bold" for="ville">Ville:</label>
+                    <select name="ville" id="ville_select" value="{{ old('ville') }}" class="form-select">
+                        <option value="{{ $client->Cville->id_V }}">
+                            {{ $client->Cville->villename }}</option>
+                    </select>
+                    {{-- <input type="text" placeholder="Ville" name="ville" value="{{ $livreur->ville }}"
+                        class="form-control bg-transparent" /> --}}
+                </div>
+                {{-- <div class="fv-row mb-8 col-6"> <label class="fw-bold" for="ville">Ville:</label>
 
                     <input type="text" placeholder="Ville" name="ville" value="{{ $client->Cville->villename }}"
                         class="form-control bg-transparent" />
-                </div>
+                </div> --}}
                 {{-- <div class="fv-row mb-8 col-6">
                     <input type="text" placeholder="CIN" name="cin" value="{{ $client->cin }}"
                         class="form-control bg-transparent" />
@@ -74,8 +93,16 @@
                 </div>
                 <div class="form-group mb-3 col col-md-6">
                     <label class="fw-bold" for="nombanque">Bank:</label>
-                    <input type="text" id="nombanque" class="form-control bg-transparent"
-                        value="{{ $client->nombanque }}">
+                    {{-- <input type="text" id="nombanque" class="form-control bg-transparent"
+                        value="{{ $client->nombanque }}"> --}}
+                    <select name="nombanque" id="M_nombanque" class="form-select">
+                        <option value="{{ $client->nombanque }}">
+                            {{ $client->nombanque }}</option>
+                        @foreach ($tb as $zitem)
+                            <option value="{{ $zitem->nom }}">
+                                {{ $zitem->nom }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group mb-3 col col-md-6">
                     <label class="fw-bold" for="numerocompte">Numero compte:</label>
@@ -97,5 +124,22 @@
             </form>
         </div>
     </div>
+    <script>
+        const zoneSelect = document.getElementById('id_Z');
+        const villeSelect = document.getElementById('ville_select');
+        var zones = @json($zone);
+        zoneSelect.addEventListener('change', function() {
+            const selectedZoneId = this.value;
+            let data = zones.find(ele => ele.id_Z == selectedZoneId).ville;
+            console.log(data);
+            villeSelect.innerHTML = '';
+            data.forEach(city => {
+                const option = document.createElement('option');
+                option.value = city.id_V;
+                option.textContent = city.villename;
+                villeSelect.appendChild(option);
+            });
+        });
+    </script>
 
 @endsection

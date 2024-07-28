@@ -155,7 +155,7 @@
         <a class="btn btn-sm btn-color-gray-600 bg-state-body btn-active-color-gray-800 fw-bolder fw-bold fs-6 fs-lg-base nav-link px-3 px-lg-4 mx-1 active" href="{{ route('admin.profile.overview') }}">Overview</a>
       </li>
       <li class="nav-item my-1">
-        <a class="btn btn-sm btn-color-gray-600 bg-state-body btn-active-color-gray-800 fw-bolder fw-bold fs-6 fs-lg-base nav-link px-3 px-lg-4 mx-1" href="{{ route('admin.profile.overview') }}">Settings</a>
+        <a class="btn btn-sm btn-color-gray-600 bg-state-body btn-active-color-gray-800 fw-bolder fw-bold fs-6 fs-lg-base nav-link px-3 px-lg-4 mx-1" href="{{ route('editAdPass') }}">Edit Mot de Passe</a>
       </li>
      
     </ul>
@@ -172,7 +172,7 @@
       </div>
       <!--end::Card title-->
       <!--begin::Action-->
-      {{-- <a href="" class="btn btn-sm btn-primary align-self-center">Edit Profile</a> --}}
+      <a href="{{route('editAd')}}" class="btn btn-sm btn-primary align-self-center">Edit Profile</a>
       <!--end::Action-->
     </div>
     <div class="card-body p-9">

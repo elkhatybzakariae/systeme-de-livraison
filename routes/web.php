@@ -38,6 +38,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('check.admin')->group(function () {
 
     Route::get('/admin/profile/',[ProfileController::class, 'overview'])->name('admin.profile.overview');
+
+    Route::get('/admin/profile/editAd',[ProfileController::class, 'editAd'])->name('editAd');
+    Route::put('/admin/profile/updateAd',[ProfileController::class, 'updateAd'])->name('updateAd');
+
+
+    Route::get('/admin/profile/editAdPass',[ProfileController::class, 'editAdPass'])->name('editAdPass');
+    Route::put('/admin/profile/updateAdPass',[ProfileController::class, 'updateAdPass'])->name('updateAdPass');
+
+
     Route::controller(AdminController::class)->prefix('admin')->group(function () {
         Route::get('/',  'index')->name('admin.index');
         Route::get('/clients',  'clients')->name('admin.clients');        
@@ -47,7 +56,11 @@ Route::middleware('check.admin')->group(function () {
         Route::post('/update/user/{id}',  'updatenewuser')->name('admin.newuser.update');
         Route::put('/update/client/{id}',  'updateclient')->name('admin.client.update');
         Route::get('/edit/livreur/{id}',  'editlivreur')->name('admin.livreur.edit');
+        Route::get('/edit/livreurPass/{id}',  'editlivreurPassword')->name('admin.livreur.editPass');
+        Route::get('/edit/clientPass/{id}',  'editclientPassword')->name('admin.client.editclientPassword');
         Route::put('/update/livreur/{id}',  'updatelivreur')->name('admin.livreur.update');
+        Route::put('/update/livreurPass/{id}',  'updatelivreurPassword')->name('admin.livreur.updatePass');
+        Route::put('/update/clientPass/{id}',  'updateclientPassword')->name('admin.client.updateclientPassword');
         Route::delete('/delete/user/{id}',  'deletenewuser')->name('admin.newuser.delete');
         Route::get('/signout',  'signout')->name('admin.signout');
         Route::post('/coli/{id}',  'changestatus')->name('admin.changestatus');
@@ -310,6 +323,13 @@ Route::get('rc/get/pdf/{id}/{idC}', [BonRetourClientController::class, 'getPdfCo
 Route::middleware('check.client')->group(function () {
     Route::get('/client/profile/',[ProfileController::class, 'overviewClient'])->name('overviewClient');
 
+    Route::get('/client/profile/editcl',[ProfileController::class, 'editCl'])->name('editCl');
+    Route::put('/client/profile/updatecl',[ProfileController::class, 'updateCl'])->name('updateCl');
+
+
+    Route::get('/client/profile/editmyclPass',[ProfileController::class, 'editmyclPass'])->name('editmyclPass');
+    Route::put('/client/profile/updatemyclPass',[ProfileController::class, 'updatemyclPass'])->name('updatemyclPass');
+
     Route::controller(ClientController::class)->prefix('clients')->group(function () {
         Route::get('/',  'index')->name('client.index');
         Route::get('/profile',  'profile')->name('profile');
@@ -383,6 +403,11 @@ Route::middleware('check.client')->group(function () {
 
 Route::middleware('check.livreur')->group(function () {
     Route::get('/livreur/profile/',[ProfileController::class, 'overviewLiv'])->name('overviewLiv');
+    Route::get('/livreur/profile/edit',[ProfileController::class, 'editLiv'])->name('editLiv');
+    Route::put('/livreur/profile/update',[ProfileController::class, 'updateLiv'])->name('updateLiv');
+
+    Route::get('/livreur/profile/editPass',[ProfileController::class, 'editPass'])->name('editPass');
+    Route::put('/livreur/profile/updatePass',[ProfileController::class, 'updatePass'])->name('updatePass');
 
     Route::controller(LivreurController::class)->prefix('livreurs')->group(function () {
         Route::get('/dashboard',  'index')->name('livreur.index');

@@ -344,13 +344,13 @@ class AdminController extends Controller
             'cin' => 'required|string|max:50',
             'email' => 'required|email|max:50',
             'Phone' => 'nullable|string|max:50',
-            'password' => 'required|string|min:8',
+            // 'password' => 'required|string|min:8',
             'adress' => 'required|string|max:150',
             'nombanque' => 'nullable|string|max:50',
             'numerocompte' => 'nullable|string|max:50',
         ]);
 
-        $validation['password'] = Hash::make($validation['password']);
+        // $validation['password'] = Hash::make($validation['password']);
 
         $client->update($validation);
         return back()->with('success', 'person mis à jour avec succès !');
@@ -359,7 +359,7 @@ class AdminController extends Controller
 
     public function editlivreur($id){
         $livreur= Livreur::find($id); 
-        $zone= Zone::all(); 
+        $zone= Zone::with('ville')->get(); 
         $tb= typeBank::all(); 
         // dd($tb);
         $breads = [
@@ -367,6 +367,32 @@ class AdminController extends Controller
             ['text' => 'Livreur', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
         return view('pages.admin.livreur.editLiv',compact('livreur','breads','tb','zone'));
+    }
+    public function editlivreurPassword($id){
+        $livreur= Livreur::find($id);
+        $breads = [
+            ['title' => 'Edit Livreur Mot de Passe', 'url' => null],
+            ['text' => 'Livreur', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.admin.livreur.editLivPass',compact('livreur','breads'));
+    }
+    public function editclientPassword($id){
+        $client= Client::find($id);
+        $breads = [
+            ['title' => 'Edit Client Mot de Passe', 'url' => null],
+            ['text' => 'Client', 'url' => null], // You can set the URL to null for the last breadcrumb
+        ];
+        return view('pages.admin.clients.editClPass',compact('client','breads'));
+    }
+    public function updateclientPassword(Request $req,$id){
+        $cl= Client::find($id);
+        $validation = $req->validate([
+            'password' => 'required|string|min:8',
+            'confirmpassword' => 'required|string|min:8',
+        ]);
+        $validation['password'] = Hash::make($validation['password']);
+        $cl->update($validation);
+        return redirect()->route('admin.clients')->with('success', 'Client Mot de passe mis à jour avec succès !');
     }
     public function updatelivreur(Request $req,$id){
         $liv= Livreur::find($id);
@@ -386,6 +412,16 @@ class AdminController extends Controller
         $liv->update($validation);
         return redirect()->route('admin.livreurs')->with('success', 'Livreur mis à jour avec succès !');
     }
+    public function updatelivreurPassword(Request $req,$id){
+        $liv= Livreur::find($id);
+        $validation = $req->validate([
+            'password' => 'required|string|min:8',
+            'confirmpassword' => 'required|string|min:8',
+        ]);
+        $validation['password'] = Hash::make($validation['password']);
+        $liv->update($validation);
+        return redirect()->route('admin.livreurs')->with('success', 'Livreur Mot de passe mis à jour avec succès !');
+    }
     public function deletenewuser($id)
     {
         Admin::find($id)->delete();
@@ -395,11 +431,13 @@ class AdminController extends Controller
     public function clients()
     {
         $users = Client::where('isAdmin', 1)->where('isAccepted', 1)->with('acceptedByA','Cville')->get();
+        $tb=typeBank::all();
+
         $breads = [
             ['title' => 'liste des  clients ', 'url' => null],
             ['text' => 'Clients', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.clients.index', compact('users', 'breads'));
+        return view('pages.admin.clients.index', compact('users', 'breads','tb'));
     }
     public function livreurs()
     {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Livreur;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 
 class NewLivreurController extends Controller
@@ -20,11 +21,12 @@ class NewLivreurController extends Controller
     public function profile($id)
     {
         $livreur= Livreur::find($id);
+        $zone=Zone::with('ville')->get();
         $breads = [
             ['title' => 'Modifier Profile', 'url' => null],
             ['text' => 'Profile', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.livreur.profile',compact('livreur','breads'));
+        return view('pages.admin.livreur.profile',compact('livreur','breads','zone'));
     }
     public function accept(Request $request,$id)
     {
@@ -33,6 +35,7 @@ class NewLivreurController extends Controller
             'cin' => 'required|string|max:50',
             'email' => 'required|email|max:50',
             'Phone' => 'nullable|string|max:50',
+            'id_Z' => 'required|string|max:150',
             'ville' => 'required|string|max:150',
             'adress' => 'required|string|max:150',
             'fraislivraison' => 'required|integer',

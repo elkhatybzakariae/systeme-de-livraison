@@ -90,14 +90,7 @@
                                 <input type="email" class="form-control form-control-solid" placeholder="Email"
                                     id="M_email" name="email" />
                             </div>
-                            <div class=" col-md-6 col mb-8 fv-row">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">Mot de passe</span>
-                                </label>
-                                <input type="password" class="form-control form-control-solid" placeholder="Mot de passe"
-                                    id="M_password" name="password" />
-                            </div>
-                            <div class=" col-md-6 col mb-8 fv-row">
+                            <div class=" col-md-12 col mb-8 fv-row">
                                 <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                     <span class="required">Adresse</span>
                                 </label>
@@ -108,8 +101,14 @@
                                 <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                     <span class="required">Nom du banque</span>
                                 </label>
-                                <input type="text" class="form-control form-control-solid" placeholder="Nom du banque"
-                                    id="M_nombanque" name="nombanque" />
+                                <select name="nombanque" id="M_nombanque" class="form-select">
+                                    @foreach ($tb as $zitem)
+                                        <option value="{{ $zitem->nom }}">
+                                            {{ $zitem->nom }}</option>
+                                    @endforeach
+                                </select>
+                                {{-- <input type="text" class="form-control form-control-solid" placeholder="Nom du banque"
+                                    id="M_nombanque" name="nombanque" /> --}}
                             </div>
                             <div class=" col-md-6 col mb-8 fv-row">
                                 <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
@@ -362,6 +361,13 @@
                                                                         <i class="fa fa-edit"></i>
                                                                     </a>
                                                                 </div>
+
+                                                                <div class="menu-item px-3">
+                                                                    <a href="{{ route('admin.client.editclientPassword', $item->id_Cl) }}"
+                                                                        class="menu-link px-3">
+                                                                        <i class="fa-solid fa-key"></i>
+                                                                    </a>
+                                                                </div>
                                                                 @if ($item->isActive == 0)
                                                                     <div class="menu-item px-3">
                                                                         <form
@@ -470,13 +476,12 @@
             var users = @json($users);
             let bb = '';
             let item = users.find(ele => ele.id_Cl == id)
-            console.log(item);
             bb += `
                 <div class="">
                     <div class="d-flex flex-column ">
                         <div class="d-flex justify-content-center align-items-center  mb-2">
                             <div class="symbol symbol-35px symbol-circle">
-                                <img src="{{ $item->img ? '' : asset('storage/images/profile.jpg') }}" alt="image">
+                                <img src="{{ asset('storage/images/profile.jpg') }}" alt="image">
 
                             </div>
                         </div>
@@ -533,26 +538,41 @@
             document.getElementById('show').innerHTML = bb;
         }
 
-        function openModalModify(nommagasin,nomcomplet, email, cin, Phone, adress,
+        function openModalModify(nommagasin, nomcomplet, email, cin, Phone, adress,
             nombanque, numerocompte, actionUrl) {
             // Set the zone name input value
             console.log(adress);
             document.getElementById('M_nommagasin').value = nommagasin;
             document.getElementById('M_nomcomplet').value = nomcomplet;
-            document.getElementById('M_nommagasin').readOnly = true;
-            document.getElementById('M_nomcomplet').readOnly = true;
-            document.getElementById('M_email').readOnly = true;
+            // document.getElementById('M_nommagasin').readOnly = true;
+            // document.getElementById('M_nomcomplet').readOnly = true;
+            // document.getElementById('M_email').readOnly = true;
             document.getElementById('M_email').value = email;
             document.getElementById('M_cin').value = cin;
             document.getElementById('M_Phone').value = Phone;
             document.getElementById('M_adress').value = adress;
-            document.getElementById('M_nombanque').value = nombanque;
             document.getElementById('M_numerocompte').value = numerocompte;
-            // document.getElementById('M_kt_modal_new_target_MC_cancel').style.display = 'none';
-
-
             document.getElementById('kt_modal_new_user_form').action = actionUrl;
-            // document.getElementById('kt_modal_new_user_form').method = 'put';
+
+
+            // document.getElementById('M_nombanque').value = nombanque;
+            var nombanqueSelect = document.getElementById('M_nombanque');
+            var optionExists = false;
+
+            for (var i = 0; i < nombanqueSelect.options.length; i++) {
+                if (nombanqueSelect.options[i].value === nombanque) {
+                    optionExists = true;
+                    break;
+                }
+            }
+            if (!optionExists) {
+                var newOption = document.createElement('option');
+                newOption.value = nombanque;
+                newOption.text = nombanque;
+                nombanqueSelect.appendChild(newOption);
+            }
+
+            nombanqueSelect.value = nombanque;
 
 
         }

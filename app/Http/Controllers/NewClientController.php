@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\typeBank;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,7 +14,6 @@ class NewClientController extends Controller
     {
         $list= Client::where('isAdmin',1)->where('isAccepted',0)->with('Cville')
         ->orderBy('created_at','desc')->get();
-        // dd($list);
         $breads = [
             ['title' => 'Liste des nouveaux client', 'url' => null],
             ['text' => 'Nouveaux Clients', 'url' => null], // You can set the URL to null for the last breadcrumb
@@ -22,12 +23,14 @@ class NewClientController extends Controller
     public function profile($id)
     {
         $client= Client::where('id_Cl',$id)->with('Cville')->first();
-        // dd($client);
+        $zone=Zone::with('ville')->get();
+        $tb=typeBank::all();
+
         $breads = [
             ['title' => 'Modifier Profile', 'url' => null],
             ['text' => 'Profile', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.clients.profile',compact('client','breads'));
+        return view('pages.admin.clients.profile',compact('client','breads','tb','zone'));
     }
     public function accept(Request $request,$id)
     {

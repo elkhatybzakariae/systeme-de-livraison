@@ -331,6 +331,12 @@
                                                                         <i class="fa fa-edit"></i>
                                                                     </a>
                                                                 </div>
+                                                                <div class="menu-item px-3">
+                                                                    <a href="{{route('admin.livreur.editPass',$item->id_Liv)}}"
+                                                                        class="menu-link px-3">
+                                                                        <i class="fa-solid fa-key"></i>
+                                                                    </a>
+                                                                </div>
                                                                 {{-- <div class="menu-item px-3">
                                                                     <a onclick="openModalModify(
                                                                         '{{ $item->nommagasin }}',
@@ -457,7 +463,6 @@
             var users = @json($users);
             let bb = '';
             let item = users.find(ele => ele.id_Liv == id)
-            console.log(item);
             bb += `
                 <div class="">
                     <div class="d-flex flex-column ">
