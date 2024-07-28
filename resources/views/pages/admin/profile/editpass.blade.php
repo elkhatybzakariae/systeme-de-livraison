@@ -1,20 +1,20 @@
-@extends('layouts.client.admin')
+@extends('layouts.admin.admin')
 @section('breads')
     <x-breadcrumb :breads="$breads" />
 @endsection
 @section('content')
     <div class="container">
         <div class="w-lg-100 p-10">
-            <form action="{{ route('updatemyclPass', $client->id_Liv) }}" method="post" class="form w-100 row"
+            <form action="{{ route('updateAdPass', $admin->id_Ad) }}" method="post" class="form w-100 row"
                 enctype="multipart/form-data" id="kt_sign_up_form">
                 @csrf
                 @method('PUT')
                 <div class="text-center mb-11">
-                    <h1 class="text-dark fw-bolder mb-3">Edit Mot de Passe de client</h1>
+                    <h1 class="text-dark fw-bolder mb-3">Edit Mot de Passe de admin</h1>
                 </div>
                 <div class="fv-row mb-8 col-12">
-                    <label class="fw-bold" for="nom_client">Nom client:</label>
-                    <input type="text" placeholder="Nom Complet" name="nomcomplet" value="{{ $client->nomcomplet }}"
+                    <label class="fw-bold" for="nom_admin">Nom admin:</label>
+                    <input type="text" placeholder="Nom Complet" name="nomcomplet" value="{{ $admin->nomcomplet }}"
                       readonly  class="form-control bg-transparent" />
                 </div>
                 

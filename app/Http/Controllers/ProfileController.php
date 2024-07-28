@@ -55,9 +55,9 @@ class ProfileController extends Controller
         $admin = Admin::find(session('admin')['id_Ad']);
         $breads = [
             ['title' => 'Edit Votre Mot de Passe', 'url' => null],
-            ['text' => 'Livreur', 'url' => null], // You can set the URL to null for the last breadcrumb
+            ['text' => 'admin', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.livreur.profile.editpass', compact('livreur', 'breads'));
+        return view('pages.admin.profile.editpass', compact('admin', 'breads'));
     }
     public function updateAdPass(Request $req)
     {
@@ -67,8 +67,8 @@ class ProfileController extends Controller
             'confirmpassword' => 'required|string|min:8',
         ]);
         $validation['password'] = Hash::make($validation['password']);
-        $livreur->update($validation);
-        return redirect()->route('overviewLiv')->with('success', 'Votre Mot de passe mis à jour avec succès !');
+        $admin->update($validation);
+        return redirect()->route('admin.profile.overview')->with('success', 'Votre Mot de passe mis à jour avec succès !');
     }
 
 
