@@ -188,9 +188,10 @@ class ClientController extends Controller
         $validation['nommagasin'] = '-';
         $validation['typeentreprise'] = '-';
         $validation['cin'] = '-';
-        $validation['ville'] = '-';
+        // $validation['ville'] = '-';
         $validation['adress'] = '-';
         $validation['password'] = bcrypt($validation['password']);
+        // dd($validation);
         Client::create($validation);
         return back()->with('success', ' ');
     }
@@ -213,14 +214,13 @@ class ClientController extends Controller
 
         if ($client) {
             $client->update([
-                'valider' => 1,
                 'isAccepted' => 1,
+                'valider' => 1,
             ]);
 
-            // Success message (consider using a more descriptive message)
+            // dd($client);:
             return back()->with('success', 'Client updated successfully!');
         } else {
-            // Handle case where Client with the provided ID is not found
             return back()->with('error', 'Client not found!');
         }
     }
@@ -234,6 +234,7 @@ class ClientController extends Controller
                 'isAccepted' => 0,
             ]);
 
+            // dd($client);
             // Success message (consider using a more descriptive message)
             return back()->with('success', 'Client updated successfully!');
         } else {

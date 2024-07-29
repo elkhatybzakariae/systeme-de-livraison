@@ -22,7 +22,7 @@
                         action="{{ route('admin.newuser.store') }}">
                         @csrf
                         <div class="mb-13 text-center">
-                            <h1 class="mb-3">Nouvelle Utilisateur</h1>
+                            <h1 class="mb-3" id="title">Nouvelle Utilisateur</h1>
                         </div>
                         <div class="row">
                             <div class=" col-md-12 col mb-8 fv-row">
@@ -96,8 +96,14 @@
                                 <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                     <span class="required">Nom du banque</span>
                                 </label>
-                                <input type="text" class="form-control form-control-solid" placeholder="Nom du banque"
-                                    id="nombanque" name="nombanque" />
+                                <select name="nombanque" id="nombanque" class="form-control form-control-solid">
+                                    <option value=""> selecte Bank </option>
+                                    @foreach ($tb as $item)
+                                        <option value="{{ $item->nom }}"> {{ $item->nom }} </option>
+                                    @endforeach
+                                </select>
+                                {{-- <input type="text" class="form-control form-control-solid" placeholder="Nom du banque"
+                                    id="nombanque" name="nombanque" /> --}}
                             </div>
                             <div class=" col-md-6 col mb-8 fv-row">
                                 <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
@@ -185,7 +191,7 @@
                 </div>
             </div>
             <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-                
+
                 <div class="w-100 mw-150px">
                     <select class="form-select form-select-solid" data-control="ville" data-hide-search="true"
                         data-placeholder="Ville" data-kt-ecommerce-product-filter="ville">
@@ -239,7 +245,7 @@
                             <td>
                                 <div class="">
                                     <div class="ms-5">
-                                        <img src="{{ asset('storage/app/' . $item->photo) }}" alt="Product Image">
+                                        <img src="{{ asset('storage/app/' . $item->photo) }}" alt="">
                                     </div>
                                 </div>
                             </td>
@@ -252,7 +258,7 @@
                                 </div>
                             </td>
 
-                           
+
                             <td class="pe-0" data-kt-ecommerce-product-filter="information">
                                 <span class="fw-bold">Numero de telephone: {{ $item->Phone }} <br>
                                     Email: {{ $item->email }} <br>Adresse: {{ $item->adress }}
@@ -285,13 +291,14 @@
                                         '{{ $item->adress }}',
                                         '{{ $item->nombanque }}',
                                         '{{ $item->numerocompte }}',
+                                        '{{ $item->role }}',
                                         '{{ route('admin.newuser.update', $item->id_Ad) }}'
                                     )"
                                         data-bs-toggle="modal" data-bs-target="#kt_modal_new_target"
                                         class="menu-link px-3"><i class="fa fa-edit"></i></a>
                                 </div>
 
-                               
+
                                 <div class="menu-item px-3 col-4">
                                     <form action="{{ route('admin.newuser.delete', $item->id_Ad) }}" method="POST">
                                         @method('DELETE')
@@ -312,7 +319,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
-    
         $(document).ready(function() {
             $('[data-kt-ecommerce-product-filter="ville"]').on('change', function() {
                 var selectedCity = $(this).val();
@@ -380,12 +386,11 @@
 
 
         function openModal(nomcomplet, email, cin, Phone, ville, adress,
-            nombanque, numerocompte, actionUrl = "{{ route('newuser.store') }}") {
-            // Set the zone name input value
-            console.log('dddddd');
+            nombanque, numerocompte,role, actionUrl = "{{ route('newuser.store') }}") {
+
             document.getElementById('nomcomplet').value = nomcomplet;
-            document.getElementById('nomcomplet').readOnly = true;
-            document.getElementById('email').readOnly = true;
+            // document.getElementById('nomcomplet').readOnly = true;
+            // document.getElementById('email').readOnly = true;
             document.getElementById('email').value = email;
             document.getElementById('cin').value = cin;
             document.getElementById('Phone').value = Phone;
@@ -393,9 +398,20 @@
             document.getElementById('adress').value = adress;
             document.getElementById('nombanque').value = nombanque;
             document.getElementById('numerocompte').value = numerocompte;
+            // document.getElementById('role').value = role;
             document.getElementById('kt_modal_new_target_cancel').style.display = 'none';
 
+            var roleSelect = document.getElementById('role');
+            var options = roleSelect.options;
 
+            for (var i = 0; i < options.length; i++) {
+                if (options[i].value === role) {
+                    roleSelect.selectedIndex = i;
+                    break;
+                }
+            }
+
+            document.getElementById('title').innerHTML = "Modifier les information d'Utilisateur";
             document.getElementById('kt_modal_new_user_form').action = actionUrl;
             // document.getElementById('kt_modal_new_user_form').method = 'put';
 

@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 use Twilio\Rest\Client as CL;
 
@@ -251,16 +252,15 @@ class AdminController extends Controller
         // $users = Admin::where('user', Auth::id())->with('referrer')->get();
         $users = Admin::whereNotNull('user')->with('referrals')->get();
         $admins = Admin::where('role', 'Admin')->get();
-
-        // dd($users);
         $villes = Ville::all();
         $zones = Zone::all();
+        $tb = typeBank::all();
         // $roles = Role::all();, 'roles'
         $breads = [
             ['title' => 'liste des utilisateurs ', 'url' => null],
             ['text' => 'utilisateurs', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.users.index', compact('users', 'admins', 'villes', 'zones', 'breads'));
+        return view('pages.admin.users.index', compact('users', 'admins', 'villes', 'zones', 'tb', 'breads'));
     }
     public function storenewuser(Request $request)
     {
@@ -314,24 +314,41 @@ class AdminController extends Controller
         $admin = Admin::find($id);
 
         $validation = $request->validate([
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'nomcomplet' => 'required|string|max:50',
             'cin' => 'required|string|max:50',
             'email' => 'required|email|max:50',
             'Phone' => 'nullable|string|max:50',
-            'password' => 'required|string|min:8',
+            'password' => 'nullable|string|min:8',
             'ville' => 'required|string|max:150',
             'adress' => 'required|string|max:150',
             'nombanque' => 'nullable|string|max:50',
             'numerocompte' => 'nullable|string|max:50',
             'role' => 'required|string|max:150',
-            'cinrecto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'cinverso' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'RIB' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'cinrecto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'cinverso' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'RIB' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-        dd($validation);
-        $validation['password'] = Hash::make($validation['password']);
-
+        // dd($validation);
+        // $validation['password'] = Hash::make($validation['password']);
+        if ($request->filled('password')) {
+            $validation['password'] = Hash::make($request->input('password'));
+        } else {
+            // Remove the password from validation array if not provided
+            unset($validation['password']);
+        }
+        $fileFields = ['photo', 'cinrecto', 'cinverso', 'RIB'];
+        foreach ($fileFields as $field) {
+            if ($request->hasFile($field)) {
+                $filePath = $request->file($field)->store('public/images');
+                $validation[$field] = $filePath;
+                // if (!empty($admin->$field)) {
+                //     Storage::delete($admin->$field);
+                // }
+            } else {
+                $validation[$field] = $admin->$field;
+            }
+        }
         $admin->update($validation);
         return back()->with('success', 'person mis à jour avec succès !');
     }
@@ -355,37 +372,41 @@ class AdminController extends Controller
         $client->update($validation);
         return back()->with('success', 'person mis à jour avec succès !');
     }
-    
 
-    public function editlivreur($id){
-        $livreur= Livreur::find($id); 
-        $zone= Zone::with('ville')->get(); 
-        $tb= typeBank::all(); 
+
+    public function editlivreur($id)
+    {
+        $livreur = Livreur::find($id);
+        $zone = Zone::with('ville')->get();
+        $tb = typeBank::all();
         // dd($tb);
         $breads = [
             ['title' => 'Edit Livreur', 'url' => null],
             ['text' => 'Livreur', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.livreur.editLiv',compact('livreur','breads','tb','zone'));
+        return view('pages.admin.livreur.editLiv', compact('livreur', 'breads', 'tb', 'zone'));
     }
-    public function editlivreurPassword($id){
-        $livreur= Livreur::find($id);
+    public function editlivreurPassword($id)
+    {
+        $livreur = Livreur::find($id);
         $breads = [
             ['title' => 'Edit Livreur Mot de Passe', 'url' => null],
             ['text' => 'Livreur', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.livreur.editLivPass',compact('livreur','breads'));
+        return view('pages.admin.livreur.editLivPass', compact('livreur', 'breads'));
     }
-    public function editclientPassword($id){
-        $client= Client::find($id);
+    public function editclientPassword($id)
+    {
+        $client = Client::find($id);
         $breads = [
             ['title' => 'Edit Client Mot de Passe', 'url' => null],
             ['text' => 'Client', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.clients.editClPass',compact('client','breads'));
+        return view('pages.admin.clients.editClPass', compact('client', 'breads'));
     }
-    public function updateclientPassword(Request $req,$id){
-        $cl= Client::find($id);
+    public function updateclientPassword(Request $req, $id)
+    {
+        $cl = Client::find($id);
         $validation = $req->validate([
             'password' => 'required|string|min:8',
             'confirmpassword' => 'required|string|min:8',
@@ -394,8 +415,9 @@ class AdminController extends Controller
         $cl->update($validation);
         return redirect()->route('admin.clients')->with('success', 'Client Mot de passe mis à jour avec succès !');
     }
-    public function updatelivreur(Request $req,$id){
-        $liv= Livreur::find($id);
+    public function updatelivreur(Request $req, $id)
+    {
+        $liv = Livreur::find($id);
         $validation = $req->validate([
             'nomcomplet' => 'required|string|max:50',
             'cin' => 'required|string|max:50',
@@ -412,8 +434,9 @@ class AdminController extends Controller
         $liv->update($validation);
         return redirect()->route('admin.livreurs')->with('success', 'Livreur mis à jour avec succès !');
     }
-    public function updatelivreurPassword(Request $req,$id){
-        $liv= Livreur::find($id);
+    public function updatelivreurPassword(Request $req, $id)
+    {
+        $liv = Livreur::find($id);
         $validation = $req->validate([
             'password' => 'required|string|min:8',
             'confirmpassword' => 'required|string|min:8',
@@ -430,23 +453,23 @@ class AdminController extends Controller
 
     public function clients()
     {
-        $users = Client::where('isAdmin', 1)->where('isAccepted', 1)->with('acceptedByA','Cville')->get();
-        $tb=typeBank::all();
+        $users = Client::where('isAdmin', 1)->where('isAccepted', 1)->with('acceptedByA', 'Cville')->get();
+        $tb = typeBank::all();
 
         $breads = [
             ['title' => 'liste des  clients ', 'url' => null],
             ['text' => 'Clients', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.clients.index', compact('users', 'breads','tb'));
+        return view('pages.admin.clients.index', compact('users', 'breads', 'tb'));
     }
     public function livreurs()
     {
-        $users= Livreur::where('isAccepted',1)->with('zone')->get();
+        $users = Livreur::where('isAccepted', 1)->with('zone')->get();
         $breads = [
             ['title' => 'Liste des Livreurs', 'url' => null],
             ['text' => 'livreurs', 'url' => null], // You can set the URL to null for the last breadcrumb
         ];
-        return view('pages.admin.livreur.index',compact('users','breads'));
+        return view('pages.admin.livreur.index', compact('users', 'breads'));
     }
 
     public function getsendSMS(Request $request)
@@ -493,8 +516,8 @@ class AdminController extends Controller
         }
         $token = Str::random(60);
         $user = Admin::where('email', $request->email)->update([
-                'token' => bcrypt($token),
-            ]);
+            'token' => bcrypt($token),
+        ]);
         Mail::send('auth.admin.email', ['token' => $token], function ($message) use ($request) {
             $message->to($request->email);
             $message->subject('Your Password Reset Link');

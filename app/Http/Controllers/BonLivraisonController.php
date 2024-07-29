@@ -133,7 +133,7 @@ class BonLivraisonController extends Controller
     {
         $bon = BonLivraison::find($id);
         $bon->delete();
-        return redirect()->route('bon.livraison.list')->with('success', 'bon deleted successfully.');
+        return redirect()->back()->with('success', 'bon deleted successfully.');
     }
     public function recu($id_BL)
     {

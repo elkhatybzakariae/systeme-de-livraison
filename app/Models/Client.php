@@ -16,7 +16,7 @@ class Client extends Authenticatable
 
     public $timestamps = true;
     protected $fillable = ['id_Cl','nommagasin','nomcomplet','typeentreprise','cin','email','Phone'
-    ,'ville','villeRamassage','adress','siteweb','nombanque','numerocompte','isActive','isAdmin','acceptedBy','user','valider','password'];
+    ,'ville','villeRamassage','adress','siteweb','nombanque','numerocompte','isActive','isAdmin','isAccepted','acceptedBy','user','valider','password'];
     public function Cville()
     {
         return $this->belongsTo(Ville::class,'ville');
