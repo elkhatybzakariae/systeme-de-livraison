@@ -126,13 +126,25 @@
                 <div class="menu-item px-3">
                   <a  class="btn" href="{{ route('bon.payment.zone.getPdf',$item->id_BPZ) }}"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
                 </div>
-                @if ($item->colis->count()==0)
+                {{-- @if ($item->colis->count()==0)
                   <div class="menu-item  text-hover-danger px-3">        
                     <a  href="{{ route('bon.payment.zone.destroy',$item->id_BPZ) }}" class="btn">
                       <i class="fa fa-trash"></i>Delete
                     </a>
                   </div>
-                @endif
+                @endif --}}
+                @if ($item->colis->count() == 0)
+  <div class="menu-item text-hover-danger px-3">
+    <form action="{{ route('bon.payment.zone.destroy', $item->id_BPZ) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
+      @csrf
+      @method('DELETE')
+      <button type="submit" class="btn">
+        <i class="fa fa-trash"></i> Delete
+      </button>
+    </form>
+  </div>
+@endif
+
                 
               </div>
             </td>

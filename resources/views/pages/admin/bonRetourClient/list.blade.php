@@ -152,14 +152,26 @@
                                             href="{{ route('bon.retour.client.getPdf', $item->id_BRC) }}"><i
                                                 class="far fa-file-pdf"></i>Voir en Pdf</a>
                                     </div>
-                                    @if ($item->colis->count() == 0)
+                                    {{-- @if ($item->colis->count() == 0)
                                         <div class="menu-item  text-hover-danger px-3">
                                             <a href="{{ route('bon.retour.client.destroy', $item->id_BRC) }}"
                                                 class="btn">
                                                 <i class="fa fa-trash"></i>Delete
                                             </a>
                                         </div>
-                                    @endif
+                                    @endif --}}
+                                    @if ($item->colis->count() == 0)
+  <div class="menu-item text-hover-danger px-3">
+    <form action="{{ route('bon.retour.client.destroy', $item->id_BRC) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
+      @csrf
+      @method('DELETE')
+      <button type="submit" class="btn ">
+        <i class="fa fa-trash"></i> Delete
+      </button>
+    </form>
+  </div>
+@endif
+
                                     @if ($item->status == 'Nouveau')
                                         <div class="menu-item px-3">
                                                 <a href="{{ route('bon.retour.client.index',$item->id_BRC) }}" class="btn">
