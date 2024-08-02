@@ -425,19 +425,19 @@
         <tbody>
           <tr>
             <td>Benefice des factures</td>
-            <td>0 Dhs</td>
+            <td>{{ $frais_total  + $total->frais ?? 0 }} Dhs</td>
           </tr>
           <tr>
             <td>Frais de Livraison ( Livreur )</td>
-            <td><b>-</b>0 Dhs</td>
+            <td><b>-</b>{{ $livBonTotal->frais_total  }} Dhs</td>
           </tr>
           <tr>
             <td>Total des Depenses</td>
-            <td><b>-</b> Dhs</td>
+            <td><b>-</b>{{ $depenses->dep_prix }} Dhs</td>
           </tr>
           <tr>
             <td><b>Total</b></td>
-            <td><b>0 Dhs</b></td>
+            <td><b>{{$frais_total  + $total->frais  -$livBonTotal->frais_total -$depenses->dep_prix  }} Dhs</b></td>
           </tr>
         </tbody>	
       </table>
