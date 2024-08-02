@@ -307,7 +307,7 @@
                         <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold">
                             <div class="d-flex flex-column">
                                 <span class="me-2">Modification Colis</span>
-                                <span class="me-2 text-end">{{ $colis }}</span>
+                                <span class="me-2 text-end">{{ $dmcolis }}</span>
                             </div>
                         </span>
                     </div>

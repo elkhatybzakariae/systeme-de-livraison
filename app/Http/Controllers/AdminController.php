@@ -15,6 +15,7 @@ use App\Models\BonRetourZone;
 use App\Models\Client;
 use App\Models\Colis;
 use App\Models\colisinfo;
+use App\Models\DemandeModificationColi;
 use App\Models\Facture;
 use App\Models\Livreur;
 use App\Models\Reclamation;
@@ -41,6 +42,10 @@ class AdminController extends Controller
         $query = Colis::query();
         $colis = Helpers::applyDateFilter($query, $request);
         $colis = $colis->count();
+
+        $query = DemandeModificationColi::query()->where('isAccepted', 0)->get();
+        $dmcolis = Helpers::applyDateFilter($query, $request);
+        $dmcolis = $dmcolis->count();
 
         $query = BonLivraison::query();
         $liv = Helpers::applyDateFilter($query, $request);
@@ -189,6 +194,7 @@ class AdminController extends Controller
             'statusesBRL',
             'countsBRL',
             'colis',
+            'dmcolis',
             'liv',
             'env',
             'dis',
