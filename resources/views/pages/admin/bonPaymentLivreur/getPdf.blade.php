@@ -70,6 +70,12 @@ th {
   </table>
     
   <hr>
+  @php
+  $total = 0;
+  foreach ($colis as $key => $value) {
+    $total += $value->prix - $bon->frais;
+  }
+@endphp
   <table >
     <tr>
       <td style="position: relative">
@@ -91,7 +97,7 @@ th {
 
           <div class="total">
               <strong >Total:</strong>
-              <span> {{ $bon->prix_total }} Dhs</span>
+              <span> {{ $total }} Dhs</span>
           </div>
       </div>
       </td>
@@ -131,9 +137,10 @@ th {
       </tr>
     
       @endforeach
+     
       <tr style="height:18.65pt; -aw-height-rule:exactly">
           <td class="td" colspan="7" ><p style="font-size:8pt"><strong style="font-family:Calibri"> Total </strong></p></td>
-          <td class="td" ><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $item->prix - $bon->frais }} </span></p></td>
+          <td class="td" ><p style="font-size:8pt"><span style="font-family:Calibri"> {{ $total }} </span></p></td>
          
       </tr>
   </table>
