@@ -219,6 +219,7 @@
           </tr>
         </thead>	
         <tbody>
+          {{-- @dd($livBonAttent) --}}
           @if ($livBonAttent)
               
           <tr>

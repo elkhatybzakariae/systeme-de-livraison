@@ -86,7 +86,6 @@ class StatisticController extends Controller
             DB::raw('COUNT(colis.id) AS colis_count'),
             DB::raw('SUM(colis.prix) AS prix_total'),
             DB::raw('SUM(tarifs.prixliv) as frais'),
-        
         )
         ->addSelect(DB::raw('(SELECT SUM(frais.prix * frais.quntite) FROM frais WHERE frais.id_F = factures.id_F) as frais_total'))
         ->leftJoin('colis', 'colis.id_F', '=', 'factures.id_F')
@@ -137,11 +136,11 @@ class StatisticController extends Controller
         ->leftJoin('colis', 'colis.id_BPL', '=', 'bon_payment_livreurs.id_BPL')
         ->leftJoin('livreurs', 'livreurs.id_Liv', '=', 'bon_payment_livreurs.id_Liv')
         ->groupBy(  'bon_payment_livreurs.status')
-        ->where('bon_payment_livreurs.status', 'Attente Payment');
+        ->where('bon_payment_livreurs.status', 'Nouveau');
 
-        $livBonAttent=Helpers::applyDateFilter($livBonAttent,$request,'bon_payment_livreurs.');
-        $livBonAttent=$livBonAttent->first();
-
+        $q=Helpers::applyDateFilter($livBonAttent,$request,'bon_payment_livreurs.');
+        $livBonAttent=$q->first();
+        // dd($livBonAttent);
         $livBonPaye = BonPaymentLivreur::select( 'bon_payment_livreurs.status',
         DB::raw('COUNT(bon_payment_livreurs.id_BPL) AS bons_count'),
         DB::raw('COUNT(colis.id) AS colis_count'),
@@ -181,7 +180,7 @@ class StatisticController extends Controller
         ->leftJoin('bon_payment_livreurs', 'bon_payment_livreurs.id_BPL', '=', 'colis.id_BPL')
         ->leftJoin('livreurs', 'livreurs.id_Liv', '=', 'bon_payment_livreurs.id_Liv')
         ->groupBy(  'bon_payment_zones.status')
-        ->where('bon_payment_zones.status', 'Attente Payment');
+        ->where('bon_payment_zones.status', 'Nouveau');
 
         $zoneBonAttent=Helpers::applyDateFilter($zoneBonAttent,$request,'bon_payment_zones.');
         $zoneBonAttent=$zoneBonAttent->first();
@@ -334,8 +333,8 @@ class StatisticController extends Controller
         if ($request->has('liv_id') && $request->liv_id) {
             $livBonAttent->where('livreurs.id_Liv', $request->liv_id);
         }
-        $livBonAttent=Helpers::applyDateFilter($livBonAttent,$request,'bon_payment_livreurs.');
-        $livBonAttent=$livBonAttent->first();
+        $q=Helpers::applyDateFilter($livBonAttent,$request,'bon_payment_livreurs.');
+        $livBonAttent=$q->first();
 
         $livBonPaye = BonPaymentLivreur::select( 'bon_payment_livreurs.status',
         DB::raw('COUNT(bon_payment_livreurs.id_BPL) AS bons_count'),
@@ -479,10 +478,8 @@ class StatisticController extends Controller
                  ->on('tarifs.ville', '=', 'ville_colis.id_V');
         })
         ->leftJoin('frais', 'frais.id_F', '=', 'factures.id_F')
-       
         ;
         $frais_total = Frais::select(DB::raw('SUM(prix * quntite) as total_frais'))->first()->total_frais;
-
 
         if ($request->has('client_id') && $request->client_id) {
             $total->where('factures.id_Cl', $request->client_id);

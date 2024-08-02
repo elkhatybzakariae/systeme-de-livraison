@@ -286,14 +286,14 @@ public function deleteFrais($id)
     public function getPdf($id)
     {
         
-        $bon = Facture::where('factures.id_F', $id) 
-        ->withCount('colis') 
-        ->withSum('colis', 'prix') 
+        $bon = Facture::where('factures.id_F', $id)
+        ->withCount('colis')
+        ->withSum('colis', 'prix')
         ->leftJoin('clients', 'factures.id_Cl', '=', 'clients.id_Cl')
         ->leftJoin('frais', 'factures.id_F', '=', 'frais.id_F')
         ->leftJoin('colis', 'factures.id_F', '=', 'colis.id_F')
         ->leftJoin('villes as ville_colis', 'ville_colis.id_V', '=', 'colis.ville_id')
-        ->join('tarifs', function ($join) {
+        ->leftJoin('tarifs', function ($join) {
             $join->on('tarifs.villeRamassage', '=', 'clients.ville')
                  ->on('tarifs.ville', '=', 'ville_colis.id_V');
         })
@@ -307,10 +307,11 @@ public function deleteFrais($id)
             'clients.Phone as telephone',
             DB::raw('COUNT(colis.id) as colis_count'),
             DB::raw('SUM(colis.prix) as prix_total'),
-            DB::raw('SUM(tarifs.prixliv) as frais_total')
-        )
+            // DB::raw('COALESCE(tarifs.prixliv, 45) as prixlivraison'),
+
+        DB::raw('SUM(CASE WHEN tarifs.prixliv IS NOT NULL THEN tarifs.prixliv ELSE 45 END) as frais_total'),
+             )
         ->addSelect(DB::raw('(SELECT SUM(frais.prix * frais.quntite) FROM frais WHERE frais.id_F = factures.id_F) as autre_frais'))
-        ->where('factures.id_F',$id)
         ->groupBy(
             'factures.id_F',
             'factures.id_Cl',
@@ -321,6 +322,7 @@ public function deleteFrais($id)
             'clients.Phone'
         )
         ->first();
+    
             $colis = Colis::query()
     ->where('id_F', $id)
     ->leftJoin('clients', 'clients.id_Cl', '=', 'colis.id_Cl')
@@ -332,7 +334,7 @@ public function deleteFrais($id)
     ->select(
         'colis.*',
         'ville_colis.villename',
-        'tarifs.prixliv as prixlivraison'
+        DB::raw('COALESCE(tarifs.prixliv, 45) as prixlivraison')
     )
     ->get();
     $totalColis=0;
