@@ -201,7 +201,7 @@
                         </div>
                         <!--end:Menu item-->
                         <!--begin:Menu item-->
-                        <div class="menu-item">
+                        {{-- <div class="menu-item">
                             <!--begin:Menu link-->
                             <a class="menu-link" href="">
                                 <span class="menu-bullet">
@@ -210,10 +210,10 @@
                                 <span class="menu-title">Bon de livraison(stock)</span>
                             </a>
                             <!--end:Menu link-->
-                        </div>
+                        </div> --}}
                         <!--end:Menu item-->
                         <!--begin:Menu item-->
-                        <div class="menu-item">
+                        {{-- <div class="menu-item">
                             <!--begin:Menu link-->
                             <a class="menu-link" href="">
                                 <span class="menu-bullet">
@@ -222,7 +222,7 @@
                                 <span class="menu-title">inventory</span>
                             </a>
                             <!--end:Menu link-->
-                        </div>
+                        </div> --}}
                         <!--end:Menu item-->
 
                     </div>

@@ -112,7 +112,7 @@ class BonPaymentZoneController extends Controller
             ['title' => 'créer un Bon Payement', 'url' => null],
             ['text' => 'Bons', 'url' => null],
         ];
-        return view('pages.admin.BonPaymentZone.create', compact("zones", 'breads'));
+        return view('pages.admin.bonPaymentZone.create', compact("zones", 'breads'));
     }
 
     public function destroy($id)
@@ -236,7 +236,7 @@ class BonPaymentZoneController extends Controller
             'img'=>$img
         ];
         $dompdf = new Dompdf();
-        $html = view('pages.admin.BonPaymentZone.getPdf', $data)->render();
+        $html = view('pages.admin.bonPaymentZone.getPdf', $data)->render();
         $dompdf->loadHtml($html);
 
         // Render the PDF
@@ -279,7 +279,7 @@ class BonPaymentZoneController extends Controller
             'img'=>$img
         ];
         $dompdf = new Dompdf();
-        $html = view('pages.admin.BonPaymentZone.getPdf', $data)->render();
+        $html = view('pages.admin.bonPaymentZone.getPdf', $data)->render();
         $dompdf->loadHtml($html);
 
         // Render the PDF
