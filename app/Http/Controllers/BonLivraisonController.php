@@ -135,6 +135,12 @@ class BonLivraisonController extends Controller
         $bon->delete();
         return redirect()->back()->with('success', 'bon deleted successfully.');
     }
+    public function admindestroy($id)
+    {
+        $bon = BonLivraison::find($id);
+        $bon->delete();
+        return redirect()->back()->with('success', 'bon deleted successfully.');
+    }
     public function recu($id_BL)
     {
         Colis::where('id_BL', $id_BL)
