@@ -201,7 +201,7 @@
                             </div>
                         </th> --}}
                         <th class="min-w-100px">Code d'Envoi</th>
-                        <th class="min-w-100px">Date d'Expedition</th>
+                        {{-- <th class="min-w-100px">Date d'Expedition</th> --}}
                         <th class="min-w-100px">Telephone</th>
                         <th class="min-w-90px">Nom du Magasin</th>
                         <th class="min-w-70px">Etat</th>
@@ -224,10 +224,10 @@
                                 <span class="fw-bold"
                                     data-kt-ecommerce-product-filter="code">{{ $coli->code_d_envoi }}</span>
                             </td>
-                            <td class="pe-0">
+                            {{-- <td class="pe-0">
                                 <span class="fw-bold"
                                     data-kt-ecommerce-product-filter="date">{{ $coli->date_d_expedition }}</span>
-                            </td>
+                            </td> --}}
                             <td class="pe-0">
                                 <span class="fw-bold"
                                     data-kt-ecommerce-product-filter="telephone">{{ $coli->telephone }}</span>

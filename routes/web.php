@@ -37,19 +37,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('check.admin')->group(function () {
 
-    Route::get('/admin/profile/',[ProfileController::class, 'overview'])->name('admin.profile.overview');
+    Route::get('/admin/profile/', [ProfileController::class, 'overview'])->name('admin.profile.overview');
 
-    Route::get('/admin/profile/editAd',[ProfileController::class, 'editAd'])->name('editAd');
-    Route::put('/admin/profile/updateAd',[ProfileController::class, 'updateAd'])->name('updateAd');
+    Route::get('/admin/profile/editAd', [ProfileController::class, 'editAd'])->name('editAd');
+    Route::put('/admin/profile/updateAd', [ProfileController::class, 'updateAd'])->name('updateAd');
 
 
-    Route::get('/admin/profile/editAdPass',[ProfileController::class, 'editAdPass'])->name('editAdPass');
-    Route::put('/admin/profile/updateAdPass',[ProfileController::class, 'updateAdPass'])->name('updateAdPass');
+    Route::get('/admin/profile/editAdPass', [ProfileController::class, 'editAdPass'])->name('editAdPass');
+    Route::put('/admin/profile/updateAdPass', [ProfileController::class, 'updateAdPass'])->name('updateAdPass');
 
 
     Route::controller(AdminController::class)->prefix('admin')->group(function () {
         Route::get('/',  'index')->name('admin.index');
-        Route::get('/clients',  'clients')->name('admin.clients');        
+        Route::get('/clients',  'clients')->name('admin.clients');
         Route::get('/livreurs', 'livreurs')->name('admin.livreurs');
         Route::get('/new-user',  'newuser')->name('admin.newuser');
         Route::post('/store/new-user',  'storenewuser')->name('admin.newuser.store');
@@ -153,7 +153,6 @@ Route::middleware('check.admin')->group(function () {
         Route::get('/export/colis/{id}', [BonPaymentLivreurController::class, 'exportColis'])->name('bon.payment.livreur.exportColis');
         Route::get('/destroy/{id}', [BonPaymentLivreurController::class, 'destroy'])->name('bon.payment.livreur.destroy');
         Route::get('/get/pdf/{id_BPL}', [BonPaymentLivreurController::class, 'getPdf'])->name('bon.payment.livreur.getPdf');
-
     });
 
     Route::group(['prefix' => 'admin/bon-payment-zone'], function () {
@@ -171,9 +170,6 @@ Route::middleware('check.admin')->group(function () {
         Route::get('/destroy/{id}', [BonPaymentZoneController::class, 'destroy'])->name('bon.payment.zone.destroy');
         Route::post('admin/bon-payment/{id}', [BonPaymentZoneController::class, 'recu'])->name('bon.payment.zone.recu');
         Route::get('/get/pdf/{id_BPZ}', [BonPaymentZoneController::class, 'getPdf'])->name('bon.payment.zone.getPdf');
-
-
-
     });
     Route::group(['prefix' => 'admin/bon-distribution'], function () {
         Route::get('/bon/{id_BD?}', [BonDistributionController::class, 'index'])->name('bon.distribution.index');
@@ -205,8 +201,6 @@ Route::middleware('check.admin')->group(function () {
         Route::post('admin/bon-retour/bdr/{id}', [BonRetourLivreurController::class, 'recu'])->name('bon.retour.livreur.recu');
         Route::post('admin/bon-retour/bdcr/{id}', [BonRetourLivreurController::class, 'nonrecu'])->name('bon.retour.livreur.nonrecu');
         Route::get('/destroy/{id}', [BonRetourLivreurController::class, 'destroy'])->name('bon.retour.livreur.destroy');
-
-
     });
     Route::group(['prefix' => 'admin/bon-retour-zone'], function () {
         Route::get('/bon/{id_BRZ?}', [BonRetourZoneController::class, 'index'])->name('bon.retour.zone.index');
@@ -224,8 +218,6 @@ Route::middleware('check.admin')->group(function () {
         Route::post('admin/bon-retour/bdr/{id}', [BonRetourZoneController::class, 'recu'])->name('bon.retour.zone.recu');
         Route::post('admin/bon-retour/bdnr/{id}', [BonRetourZoneController::class, 'nonrecu'])->name('bon.retour.zone.nonrecu');
         Route::get('/destroy/{id}', [BonRetourZoneController::class, 'destroy'])->name('bon.retour.zone.destroy');
-
-
     });
     Route::group(['prefix' => 'admin/bon-retour-client'], function () {
         Route::get('/bon/{id_BRC?}', [BonRetourClientController::class, 'index'])->name('bon.retour.client.index');
@@ -243,8 +235,6 @@ Route::middleware('check.admin')->group(function () {
         Route::post('admin/bon-retour/bdr/{id}', [BonRetourClientController::class, 'recu'])->name('bon.retour.client.recu');
         Route::post('admin/bon-retour/bdnr/{id}', [BonRetourClientController::class, 'nonrecu'])->name('bon.retour.client.nonrecu');
         Route::get('/destroy/{id}', [BonRetourClientController::class, 'destroy'])->name('bon.retour.client.destroy');
-
-
     });
     Route::group(['prefix' => 'admin/factures'], function () {
         Route::get('/bon/{id_F?}', [FactureController::class, 'index'])->name('factures.index');
@@ -264,15 +254,13 @@ Route::middleware('check.admin')->group(function () {
         Route::get('/destroy/{id}', [FactureController::class, 'destroy'])->name('factures.destroy');
         Route::post('/facture/frais/{id}', [FactureController::class, 'store'])->name('factures.frais.store');
         Route::get('/facture/frais/delete/{id}', [FactureController::class, 'deleteFrais'])->name('factures.frais.delete');
-
-
     });
     Route::controller(StockController::class)->prefix('admin/stock')->group(function () {
         Route::get('/nouveau/colis', 'nouveau')->name('stock.colis.nouveau');
         Route::get('/pres/preparation/colis', 'pres')->name('stock.colis.pres');
         // Route::get('/nouveau/colis', 'nouveau')->name('stock.colis.nouveau');
     });
-    
+
 
     Route::group(['prefix' => 'admin/reclamation'], function () {
         Route::get('/all', [ReclamationController::class, 'all'])->name('reclamation.all');
@@ -322,14 +310,14 @@ Route::get('rc/get/pdf/{id}/{idC}', [BonRetourClientController::class, 'getPdfCo
 
 
 Route::middleware('check.client')->group(function () {
-    Route::get('/client/profile/',[ProfileController::class, 'overviewClient'])->name('overviewClient');
+    Route::get('/client/profile/', [ProfileController::class, 'overviewClient'])->name('overviewClient');
 
-    Route::get('/client/profile/editcl',[ProfileController::class, 'editCl'])->name('editCl');
-    Route::put('/client/profile/updatecl',[ProfileController::class, 'updateCl'])->name('updateCl');
+    Route::get('/client/profile/editcl', [ProfileController::class, 'editCl'])->name('editCl');
+    Route::put('/client/profile/updatecl', [ProfileController::class, 'updateCl'])->name('updateCl');
 
 
-    Route::get('/client/profile/editmyclPass',[ProfileController::class, 'editmyclPass'])->name('editmyclPass');
-    Route::put('/client/profile/updatemyclPass',[ProfileController::class, 'updatemyclPass'])->name('updatemyclPass');
+    Route::get('/client/profile/editmyclPass', [ProfileController::class, 'editmyclPass'])->name('editmyclPass');
+    Route::put('/client/profile/updatemyclPass', [ProfileController::class, 'updatemyclPass'])->name('updatemyclPass');
 
     Route::controller(ClientController::class)->prefix('clients')->group(function () {
         Route::get('/',  'index')->name('client.index');
@@ -352,12 +340,11 @@ Route::middleware('check.client')->group(function () {
         Route::get('/edit/{id}', [ColisController::class, 'edit'])->name('colis.edit');
         Route::put('/update/{id}', [ColisController::class, 'update'])->name('colis.update');
         Route::delete('/destroy/{id}', [ColisController::class, 'destroy'])->name('colis.destroy');
-    
+
         Route::get('/import', [ColisController::class, 'showImportPage'])->name('colis.importPage');
         Route::post('/import', [ColisController::class, 'import'])->name('colis.import');
         Route::get('
         /template/download', [ColisController::class, 'downloadTemplate'])->name('colis.downloadTemplate');
-
     });
 
     Route::group(['prefix' => 'bon-livraison'], function () {
@@ -374,7 +361,6 @@ Route::middleware('check.client')->group(function () {
         Route::post('/update/barCode/{id_BL}', [BonLivraisonController::class, 'updateBarCode'])->name('bon.livraison.update.barCode');
         Route::post('/update/delete/barCode/{id_BL}', [BonLivraisonController::class, 'updateDeleteBarCode'])->name('bon.livraison.updateDelete.barCode');
         Route::get('/bon/livraison/list', [BonLivraisonController::class, 'getClientBons'])->name('bon.livraison.client.list');
-    
     });
     Route::group(['prefix' => 'reclamation'], function () {
         Route::get('/', [ReclamationController::class, 'index'])->name('reclamation.index');
@@ -392,9 +378,8 @@ Route::middleware('check.client')->group(function () {
         Route::post('/store/{id}', [DemandeModificationColiController::class, 'store'])->name('demandemodificationcolis.store');
         // Route::post('/update/{id}', [DemandeModificationColiController::class, 'update'])->name('demandemodificationcolis.update');
         // Route::post('/traiteRec/{id}', [DemandeModificationColiController::class, 'traiteRec'])->name('demandemodificationcolis.traiteRec');
-        
-    });
 
+    });
 });
 
 
@@ -403,12 +388,12 @@ Route::middleware('check.client')->group(function () {
 
 
 Route::middleware('check.livreur')->group(function () {
-    Route::get('/livreur/profile/',[ProfileController::class, 'overviewLiv'])->name('overviewLiv');
-    Route::get('/livreur/profile/edit',[ProfileController::class, 'editLiv'])->name('editLiv');
-    Route::put('/livreur/profile/update',[ProfileController::class, 'updateLiv'])->name('updateLiv');
+    Route::get('/livreur/profile/', [ProfileController::class, 'overviewLiv'])->name('overviewLiv');
+    Route::get('/livreur/profile/edit', [ProfileController::class, 'editLiv'])->name('editLiv');
+    Route::put('/livreur/profile/update', [ProfileController::class, 'updateLiv'])->name('updateLiv');
 
-    Route::get('/livreur/profile/editPass',[ProfileController::class, 'editPass'])->name('editPass');
-    Route::put('/livreur/profile/updatePass',[ProfileController::class, 'updatePass'])->name('updatePass');
+    Route::get('/livreur/profile/editPass', [ProfileController::class, 'editPass'])->name('editPass');
+    Route::put('/livreur/profile/updatePass', [ProfileController::class, 'updatePass'])->name('updatePass');
 
     Route::controller(LivreurController::class)->prefix('livreurs')->group(function () {
         Route::get('/dashboard',  'index')->name('livreur.index');
@@ -426,6 +411,7 @@ Route::get('/generate-facture/{id}', [BonLivraisonController::class, 'generateFa
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/tarifs', [HomeController::class, 'tarifs'])->name('tarifs');
+Route::get('/tarifs/filter', [HomeController::class, 'filtertarifs'])->name('tarifs.all');
 
 
 Route::controller(Option::class)->prefix('options')->group(function () {
@@ -455,7 +441,7 @@ Route::controller(AdminController::class)->prefix('admin')->group(function () {
     Route::post('/register',  'signup')->name('auth.admin.signUp.store');
     Route::get('/signin',  'signinpage')->name('auth.admin.signIn');
     Route::post('/login',  'signin')->name('auth.admin.signIn.store');
-    
+
 
     Route::get('forgot-password', 'showLinkRequestForm')->name('auth.admin.password.request');
     Route::post('forgot-password', 'sendResetLinkEmail')->name('auth.admin.password.email');

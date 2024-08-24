@@ -174,7 +174,7 @@
                                     @endif --}}
                                     @if ($item->colis->count() == 0)
   <div class="menu-item text-hover-danger px-3">
-    <form action="{{ route('bon.payement.livreur.destroy', $item->id_BPL) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <form action="{{ route('bon.payment.livreur.destroy', $item->id_BPL) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
       @csrf
       @method('DELETE')
       <button type="submit" class="btn">

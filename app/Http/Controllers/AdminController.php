@@ -566,13 +566,21 @@ class AdminController extends Controller
 
     public function changestatus(Request $req, $id)
     {
-        $colis = Colis::where('id', $id)
-            ->update(['status' => $req->status]);
+        if ($req->status == 'Livre') {
+            $colis = Colis::where('id', $id)
+                ->update(['status' => $req->status,'etat'=>'paye']);
+        } else {
+            $colis = Colis::where('id', $id)
+                ->update(['status' => $req->status]);
+        }
         $coli = Colis::where('id', $id)->first();
         $colisinfo = colisinfo::where('id', $id)->first();
         $oldinfo = $colisinfo['info'];
-        $newInfo = $oldinfo . $coli['code_d_envoi'] . ',' . 'non paye,' . $req->status . ',' . $coli['updated_at'] . ',' . ' ' . '_';
-
+        if ($req->status == 'Livre') {
+            $newInfo = $oldinfo . $coli['code_d_envoi'] . ',' . 'paye,' . $req->status . ',' . $coli['updated_at'] . ',' . ' ' . '_';
+        } else {
+            $newInfo = $oldinfo . $coli['code_d_envoi'] . ',' . 'non paye,' . $req->status . ',' . $coli['updated_at'] . ',' . ' ' . '_';
+        }
         $colisinfo->update(['info' => $newInfo]);
         return back();
     }
