@@ -759,7 +759,7 @@
                 <select id="zone" class="form-control @error('zone') is-invalid @enderror" name="zone" disabled>
                     ${zoneOptions}
                 </select>
-                // <input type="hidden" name="zone" value="${coliss.zone}">
+                <input type="hidden" name="zone" value="${coliss.zone}">
             </div>
             <div class="col-6 mb-8 fv-row">
                 <label class="d-flex align-items-center fs-6 fw-semibold mb-2">

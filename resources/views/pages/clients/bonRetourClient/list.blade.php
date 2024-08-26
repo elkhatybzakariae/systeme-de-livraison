@@ -125,29 +125,10 @@
                                             href="{{ route('bon.retour.client.exportColis', $item->id_BRC) }}"><i
                                                 class="far fa-file-excel"></i>Exporter les colis</a>
                                     </div>
-                                    @if ($item->status != 'recu')
-                                        <div class="menu-item px-3">
-                                            <form action="{{ route('bon.retour.client.recu', $item->id_BRC) }}"
-                                                method="post">
-                                                @csrf
-                                                <button type="submit"class="btn">
-                                                    <i class="fa fa-check"></i>bon bien recu
-                                                </button>
-                                            </form>
-                                        </div>
-                                    @endif
-                                    <div class="menu-item px-3">
+                                    {{-- <div class="menu-item px-3">
                                         <a class="btn" href="{{ route('bon.retour.client.getPdf', $item->id_BRC) }}"><i
                                                 class="far fa-file-pdf"></i>Voir en Pdf</a>
-                                    </div>
-                                    @if ($item->colis->count() == 0)
-                                        <div class="menu-item  text-hover-danger px-3">
-                                            <a href="{{ route('bon.retour.client.destroy', $item->id_BRC) }}"
-                                                class="btn">
-                                                <i class="fa fa-trash"></i>Delete
-                                            </a>
-                                        </div>
-                                    @endif
+                                    </div> --}}
 
                                 </div>
                             </td>

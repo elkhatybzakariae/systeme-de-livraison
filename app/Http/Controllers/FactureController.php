@@ -354,7 +354,7 @@ public function deleteFrais($id)
         ];
         
         $dompdf = new Dompdf();
-        $html = view('pages.admin.Factures.getPdf', $data)->render();
+        $html = view('pages.admin.factures.getPdf', $data)->render();
         $dompdf->loadHtml($html);
 
         $dompdf->render();

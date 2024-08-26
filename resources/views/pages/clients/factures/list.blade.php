@@ -45,12 +45,14 @@
     </div>
     <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
       <div class="w-100 mw-150px">
-        <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-product-filter="status">
-          <option></option>
-          <option value="all">All</option>
-          <option value="nouveau">Nouveau</option>
-          <option value="recu">Recu</option>
-        </select>
+        <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
+                        data-placeholder="Status" data-kt-ecommerce-product-filter="status">
+                        <option></option>
+                        <option value="all">All</option>
+                        <option value="brouillon">Brouillon</option>
+                        <option value="enregistre">Enregistre</option>
+                        <option value="paye">Paye</option>
+                    </select>
       </div>
     </div>
   </div>
@@ -109,16 +111,9 @@
                   <a  class="btn" href="{{ route('factures.exportColis',$item->id_F) }}"><i class="far fa-file-excel"></i>Exporter les colis</a>
                 </div>
                 
-                <div class="menu-item px-3">
+                {{-- <div class="menu-item px-3">
                   <a  class="btn"  href="{{ route('factures.getPdf',$item->id_F) }}"><i class="far fa-file-pdf"></i>Voir en Pdf</a>
-                </div>
-                @if ($item->colis->count()==0)
-                  <div class="menu-item  text-hover-danger px-3">        
-                    <a  href="{{ route('factures.destroy',$item->id_F) }}" class="btn">
-                      <i class="fa fa-trash"></i>Delete
-                    </a>
-                  </div>
-                @endif
+                </div> --}}
                 
               </div>
             </td>

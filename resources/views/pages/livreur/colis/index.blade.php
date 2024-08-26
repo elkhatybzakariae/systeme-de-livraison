@@ -88,27 +88,26 @@
                         data-placeholder="Status" data-kt-ecommerce-product-filter="status">
                         <option></option>
                         <option value="all">Status(Tous)</option>
-                        <option value="1">boite vocale</option>
-                        <option value="1">Annulé</option>
-                        <option value="1">deuxieme appel</option>
-                        <option value="1">Mise en distribution</option>
-                        <option value="1">Numero erroné</option>
-                        <option value="1">client intéressé</option>
-                        <option value="1">in progress</option>
-                        <option value="1">pas de réponse et envoi SMS</option>
-                        <option value="1">Hors zone</option>
-                        <option value="1">Ramassé</option>
-                        <option value="1">Reporté</option>
-                        <option value="1">programmé</option>
-                        <option value="1">Recu</option>
-                        <option value="1">Refusé</option>
-                        <option value="1">Retourné</option>
-                        <option value="1">en livraison</option>
-                        <option value="1">en voyage</option>
-                        <option value="1">injoignable</option>
+                        <option value="boite vocale">boite vocale</option>
+                        <option value="Annule">Annulé</option>
+                        <option value="deuxieme appel">deuxieme appel</option>
+                        <option value="Mise en distribution">Mise en distribution</option>
+                        <option value="Numero erroné">Numero erroné</option>
+                        <option value="client intéressé">client intéressé</option>
+                        <option value="in progress">in progress</option>
+                        <option value="pas de réponse et envoi SMS">pas de réponse et envoi SMS</option>
+                        <option value="Hors zone">Hors zone</option>
+                        <option value="Ramassé">Ramassé</option>
+                        <option value="Reporté">Reporté</option>
+                        <option value="programmé">programmé</option>
+                        <option value="Recu">Recu</option>
+                        <option value="Refusé">Refusé</option>
+                        <option value="Retourné">Retourné</option>
+                        <option value="en livraison">en livraison</option>
+                        <option value="en voyage">en voyage</option>
+                        <option value="injoignable">injoignable</option>
                     </select>
                 </div>
-                <button class="btn btn-primary">Filtrer Colis</button>
             </div>
         </div>
 
@@ -260,7 +259,30 @@
 
             // Function to filter table by search text
             function filterTable(searchText) {
-                // Filter table logic
+                $('#kt_ecommerce_products_table tbody tr').each(function() {
+                    var code = $(this).find('[data-kt-ecommerce-product-filter="code"]').text()
+                    .toLowerCase();
+                    var colis_count = $(this).find('[data-kt-ecommerce-product-filter="colis_count"]')
+                    .text().toLowerCase();
+                    var etat = $(this).find('[data-kt-ecommerce-product-filter="etat"]').text()
+                        .toLowerCase();
+                    var status = $(this).find('[data-kt-ecommerce-product-filter="status"]').text()
+                        .toLowerCase();
+                    var ville = $(this).find('[data-kt-ecommerce-product-filter="ville"]').text()
+                    .toLowerCase();
+                    var nomcomplet = $(this).find('[data-kt-ecommerce-product-filter="nomcomplet"]').text()
+                        .toLowerCase();
+                    if (nomcomplet.includes(searchText) ||
+                        colis_count.includes(searchText) ||
+                        etat.includes(searchText) ||
+                        status.includes(searchText) ||
+                        ville.includes(searchText) ||
+                        code.includes(searchText)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
             }
 
             // Function to filter table by etat
@@ -284,9 +306,10 @@
                     $('#kt_ecommerce_products_table tbody tr').show();
                 } else {
                     $('#kt_ecommerce_products_table tbody tr').each(function() {
-                        var coliStatus = $(this).find('td:eq(5)').text().trim().toLowerCase();
-                        console.log(coliStatus);
-                        if (coliStatus === status) {
+                        var rowStatus = $(this).find('[data-kt-ecommerce-product-filter="status"]').text()
+                            .trim().toLowerCase();
+                            console.log(rowStatus);
+                        if (rowStatus === status.trim().toLowerCase()) {
                             $(this).show();
                         } else {
                             $(this).hide();

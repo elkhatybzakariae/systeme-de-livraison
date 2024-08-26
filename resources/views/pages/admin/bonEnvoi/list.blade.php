@@ -52,7 +52,7 @@
                         <option></option>
                         <option value="all">All</option>
                         <option value="nouveau">Nouveau</option>
-                        <option value="distribution">distribution</option>
+                        <option value="recu">Recu</option>
                     </select>
                 </div>
                 <a href="{{ route('bon.envoi.create') }}" class="btn btn-primary">Ajouter Bon Envoi</a>

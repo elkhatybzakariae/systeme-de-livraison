@@ -30,8 +30,8 @@ class ClientController extends Controller
         $idC=session('client')['id_Cl'];
         $colis = Colis::where('id_Cl',$idC)->count();
         $liv = BonLivraison::where('id_Cl',$idC)->count();
-        $retourC = BonRetourClient::all()->count();
-        $fact = Facture::all()->count();
+        $retourC = BonRetourClient::where('id_Cl', $idC)->count();
+        $fact = Facture::where('id_Cl', $idC)->count();
         $rec = Reclamation::where('id_Cl',$idC)->count();
 
         

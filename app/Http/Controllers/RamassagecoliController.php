@@ -33,12 +33,8 @@ class RamassagecoliController extends Controller
     public function store(Request $request)
     {
         $id_Ram = Helpers::generateIdRam();
-
-        // $id_Cl= Auth::id();
         $id_Cl= session('client')['id_Cl'];
-        // $cl = Auth::user();
-        $cl = session('client');
-        // dd($cc);
+        $cl = \App\Models\Client::with('Cville')->find($id_Cl);
         // $id_C=$request->filled('id_C') ?$request->input('id_C') :'';
         $validatedData = $request->validate([
             'remarque' => 'required|string|max:255',
@@ -46,7 +42,8 @@ class RamassagecoliController extends Controller
             'adresse' => 'required|string|max:255',
         ]);
         $validatedData['id_Ram']=$id_Ram;
-        $validatedData['ville']=$cl['ville'];
+        // $validatedData['ville']=$cl['ville'];
+        $validatedData['ville']=$cl->Cville->villename;
         $validatedData['id_Cl']=$id_Cl;
         $newRec=Ramassagecoli::create($validatedData);
         return redirect()->route('ramassagecolis.index')->with('success', 'Ramassage coli created successfully.');

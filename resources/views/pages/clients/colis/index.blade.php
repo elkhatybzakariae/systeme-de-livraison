@@ -196,12 +196,27 @@
                     <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
                         data-placeholder="Status" data-kt-ecommerce-product-filter="status">
                         <option></option>
-                        <option value="all">All</option>
-                        <option value="1">Active</option>
-                        <option value="0">Inactive</option>
+                        <option value="all">Status(Tous)</option>
+                        <option value="boite vocale">boite vocale</option>
+                        <option value="Annule">Annulé</option>
+                        <option value="deuxieme appel">deuxieme appel</option>
+                        <option value="Mise en distribution">Mise en distribution</option>
+                        <option value="Numero erroné">Numero erroné</option>
+                        <option value="client intéressé">client intéressé</option>
+                        <option value="in progress">in progress</option>
+                        <option value="pas de réponse et envoi SMS">pas de réponse et envoi SMS</option>
+                        <option value="Hors zone">Hors zone</option>
+                        <option value="Ramassé">Ramassé</option>
+                        <option value="Reporté">Reporté</option>
+                        <option value="programmé">programmé</option>
+                        <option value="Recu">Recu</option>
+                        <option value="Refusé">Refusé</option>
+                        <option value="Retourné">Retourné</option>
+                        <option value="en livraison">en livraison</option>
+                        <option value="en voyage">en voyage</option>
+                        <option value="injoignable">injoignable</option>
                     </select>
                 </div>
-                <button class="btn btn-primary">Filtrer Colis</button>
             </div>
         </div>
 
@@ -219,8 +234,8 @@
                         {{-- <th class="min-w-200px">Id</th> --}}
                         <th class="min-w-100px">Code d'Envoi</th>
                         {{-- <th class="min-w-100px">Date d'Expedition</th> --}}
-                        {{-- <th class="min-w-100px">Telephone</th>--}}
-          <th class="min-w-100px">Nom du Magasin</th> 
+                        {{-- <th class="min-w-100px">Telephone</th> --}}
+                        <th class="min-w-100px">Nom du Magasin</th>
                         <th class="min-w-100px">Etat</th>
                         <th class="min-w-100px">Status</th>
                         <th class="min-w-100px">Ville</th>
@@ -253,10 +268,11 @@
                             </td> --}}
                             {{-- <td class="pe-0">
               <span class="fw-bold" data-kt-ecommerce-product-filter="telephone">{{ $coli->client->telephone }}</span>
-            </td>--}}
-            <td class="pe-0">
-              <span class="fw-bold" data-kt-ecommerce-product-filter="magasin">{{ $coli->client->nommagasin }}</span>
-            </td> 
+            </td> --}}
+                            <td class="pe-0">
+                                <span class="fw-bold"
+                                    data-kt-ecommerce-product-filter="magasin">{{ $coli->client->nommagasin }}</span>
+                            </td>
                             <td class="pe-0">
                                 <span class="fw-bold" data-kt-ecommerce-product-filter="etat">{{ $coli->etat }}</span>
                             </td>
@@ -302,27 +318,23 @@
                             </td>
                             <td>
                                 @if ($coli->bonLivraison)
-                                    
-                                <a href="{{ route('bon.livraison.getPdf',$coli->bonLivraison->id_BL) }}" class="menu-link">{{ $coli->bonLivraison->id_BL }}</a>
+                                    <a href="{{ route('bon.livraison.getPdf', $coli->bonLivraison->id_BL) }}"
+                                        class="menu-link">{{ $coli->bonLivraison->id_BL }}</a>
                                 @endif
                                 @if ($coli->bonEnvoi)
-                                    
-                                <a href="" class="menu-link">{{ $coli->bonEnvoi->id_BL }}</a>
+                                    <a href="" class="menu-link">{{ $coli->bonEnvoi->id_BL }}</a>
                                 @endif
-                                  
+
                                 @if ($coli->bonDistribution)
-                                    
-                                <a href="" class="menu-link">{{ $coli->bonDistribution->id_BL }}</a>
+                                    <a href="" class="menu-link">{{ $coli->bonDistribution->id_BL }}</a>
                                 @endif
                                 @if ($coli->bonPaymentLivreur)
-                                    
-                                <a href="" class="menu-link">{{ $coli->bonPaymentLivreur->id_BL }}</a>
+                                    <a href="" class="menu-link">{{ $coli->bonPaymentLivreur->id_BL }}</a>
                                 @endif
                                 @if ($coli->bonPaymentZone)
-                                    
-                                <a href="" class="menu-link">{{ $coli->bonPaymentZone->id_BL }}</a>
+                                    <a href="" class="menu-link">{{ $coli->bonPaymentZone->id_BL }}</a>
                                 @endif
-                                  
+
                             </td>
                         </tr>
                     @endforeach
@@ -368,15 +380,50 @@
                 var status = $(this).val();
                 filterTableByStatus(status);
             });
-
             // Function to filter table by search text
             function filterTable(searchText) {
-                // Filter table logic
+                $('#kt_ecommerce_products_table tbody tr').each(function() {
+                    var code = $(this).find('[data-kt-ecommerce-product-filter="code"]').text()
+                    .toLowerCase();
+                    var colis_count = $(this).find('[data-kt-ecommerce-product-filter="colis_count"]')
+                    .text().toLowerCase();
+                    var etat = $(this).find('[data-kt-ecommerce-product-filter="etat"]').text()
+                        .toLowerCase();
+                    var status = $(this).find('[data-kt-ecommerce-product-filter="status"]').text()
+                        .toLowerCase();
+                    var ville = $(this).find('[data-kt-ecommerce-product-filter="ville"]').text()
+                    .toLowerCase();
+                    var nomcomplet = $(this).find('[data-kt-ecommerce-product-filter="nomcomplet"]').text()
+                        .toLowerCase();
+                    if (nomcomplet.includes(searchText) ||
+                        colis_count.includes(searchText) ||
+                        etat.includes(searchText) ||
+                        status.includes(searchText) ||
+                        ville.includes(searchText) ||
+                        code.includes(searchText)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
             }
 
             // Function to filter table by status
             function filterTableByStatus(status) {
-                // Filter table by status logic
+                if (status === 'all') {
+                    $('#kt_ecommerce_products_table tbody tr').show();
+                } else {
+                    $('#kt_ecommerce_products_table tbody tr').each(function() {
+                        var rowStatus = $(this).find('[data-kt-ecommerce-product-filter="status"]').text()
+                            .trim().toLowerCase();
+                            console.log(rowStatus);
+                        if (rowStatus === status.trim().toLowerCase()) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                }
             }
         });
 
@@ -385,7 +432,7 @@
 
         function openModalallinfo(id) {
             var modal = document.getElementById('modal-body');
-            var colisinfos = colisinfo.find(e => e.id == id ).info;
+            var colisinfos = colisinfo.find(e => e.id == id).info;
             // console.log('====================================');
             // console.log(colisinfos);
             // console.log('====================================');
@@ -412,10 +459,8 @@
 
                       `;
             let allinfo = colisinfos.split('_');
-            // console.log(allinfo);
             allinfo.forEach(e => {
                 let cc = e.split(',');
-                // console.log(cc);
                 if (cc != '') {
                     text += `
                 <tr>
@@ -429,7 +474,7 @@
                 }
             });
             modal.innerHTML = text;
-            
+
             $('#ColiInfo tbody tr').each(function() {
                 var $thisRow = $(this);
                 var zoneStatus = $(this).find('td:eq(2)').text().trim();
@@ -450,9 +495,9 @@
             });
         }
 
-        function openModalDMC(id, code_d_envoi, destinataire, telephone,marchandise, prix,quantite, commentaire, adresse, zone, ville_id,
+        function openModalDMC(id, code_d_envoi, destinataire, telephone, marchandise, prix, quantite, commentaire, adresse,
+            zone, ville_id,
             action) {
-console.log("zaki");
             var modal = document.getElementById('modal-body2');
             if (dmc && dmc.length > 0) {
                 var dmcs = dmc.find(element => element.id === id);

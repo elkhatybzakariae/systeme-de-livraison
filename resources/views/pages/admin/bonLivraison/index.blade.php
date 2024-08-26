@@ -124,7 +124,6 @@
                         <option value="ramasse">Ramasse</option>
                     </select>
                 </div>
-                <button class="btn btn-primary">Filtrer Bon livraison</button>
             </div>
         </div>
 
