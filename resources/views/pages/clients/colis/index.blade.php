@@ -693,7 +693,7 @@
                                     <label class="fw-bold" for="nom_livreur">Adresse:${item.adresse}</label>
                                 </div>                                   
                                 <div class="form-group mb-3 col col-12">
-                                    <label class="fw-bold" for="nom_livreur">Crbt:${item.prix * item.quantite}</label>
+                                    <label class="fw-bold" for="nom_livreur">Crbt:${item.prix}</label>
                                 </div>    
                             </div>
                         </div>

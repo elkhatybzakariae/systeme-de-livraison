@@ -294,7 +294,7 @@
                         <label class="fw-bold" for="nom_livreur">Prix: ${item.colis.prix}</label>
                     </div>
                     <div class="form-group mb-3 col col-12">
-                        <label class="fw-bold" for="nom_livreur">Crbt: ${item.colis.prix * item.colis.quantite}</label>
+                        <label class="fw-bold" for="nom_livreur">Crbt: ${item.colis.prix}</label>
                     </div>
                 </div>
             </div>
