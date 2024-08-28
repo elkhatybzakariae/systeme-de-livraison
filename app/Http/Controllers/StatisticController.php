@@ -41,7 +41,8 @@ class StatisticController extends Controller
             DB::raw('COUNT(DISTINCT factures.id_F) AS factures_count'),
             DB::raw('COUNT(colis.id) AS colis_count'),
             DB::raw('SUM(colis.prix) AS prix_total'),
-            DB::raw('SUM(tarifs.prixliv) as frais'),
+            DB::raw('SUM(CASE WHEN tarifs.prixliv IS NOT NULL THEN tarifs.prixliv ELSE 45 END) as frais'),
+            
 
         )
             ->addSelect(DB::raw('(SELECT SUM(frais.prix * frais.quntite) FROM frais WHERE frais.id_F = factures.id_F) as frais_total'))
@@ -64,7 +65,8 @@ class StatisticController extends Controller
             DB::raw('COUNT(DISTINCT factures.id_F) AS factures_count'),
             DB::raw('COUNT(colis.id) AS colis_count'),
             DB::raw('SUM(colis.prix) AS prix_total'),
-            DB::raw('SUM(tarifs.prixliv) as frais'),
+            DB::raw('SUM(CASE WHEN tarifs.prixliv IS NOT NULL THEN tarifs.prixliv ELSE 45 END) as frais'),
+            
 
         )
             ->addSelect(DB::raw('(SELECT SUM(frais.prix * frais.quntite) FROM frais WHERE frais.id_F = factures.id_F) as frais_total'))
@@ -87,7 +89,8 @@ class StatisticController extends Controller
             DB::raw('COUNT(DISTINCT factures.id_F) AS factures_count'),
             DB::raw('COUNT(colis.id) AS colis_count'),
             DB::raw('SUM(colis.prix) AS prix_total'),
-            DB::raw('SUM(tarifs.prixliv) as frais'),
+            DB::raw('SUM(CASE WHEN tarifs.prixliv IS NOT NULL THEN tarifs.prixliv ELSE 45 END) as frais'),
+
         )
             ->addSelect(DB::raw('(SELECT SUM(frais.prix * frais.quntite) FROM frais WHERE frais.id_F = factures.id_F) as frais_total'))
             ->leftJoin('colis', 'colis.id_F', '=', 'factures.id_F')
@@ -108,8 +111,7 @@ class StatisticController extends Controller
             DB::raw('COUNT(factures.id_F) AS factures_count'),
             DB::raw('COUNT(colis.id) AS colis_count'),
             DB::raw('SUM(colis.prix) AS prix_total'),
-            DB::raw('SUM(tarifs.prixliv) as frais'),
-
+            DB::raw('SUM(CASE WHEN tarifs.prixliv IS NOT NULL THEN tarifs.prixliv ELSE 45 END) as frais'),
         )
             ->leftJoin('colis', 'colis.id_F', '=', 'factures.id_F')
             ->leftJoin('clients', 'clients.id_Cl', '=', 'colis.id_Cl')
@@ -421,7 +423,8 @@ class StatisticController extends Controller
             DB::raw('COUNT(DISTINCT factures.id_F) AS factures_count'),
             DB::raw('COUNT(colis.id) AS colis_count'),
             DB::raw('SUM(colis.prix) AS prix_total'),
-            DB::raw('SUM(tarifs.prixliv) as frais'),
+            DB::raw('SUM(CASE WHEN tarifs.prixliv IS NOT NULL THEN tarifs.prixliv ELSE 45 END) as frais'),
+
 
             )
             ->addSelect(DB::raw('(SELECT SUM(frais.prix * frais.quntite) FROM frais WHERE frais.id_F = factures.id_F) as frais_total'))
@@ -446,7 +449,8 @@ class StatisticController extends Controller
             DB::raw('COUNT(DISTINCT factures.id_F) AS factures_count'),
             DB::raw('COUNT(colis.id) AS colis_count'),
             DB::raw('SUM(colis.prix) AS prix_total'),
-            DB::raw('SUM(tarifs.prixliv) as frais'),
+            DB::raw('SUM(CASE WHEN tarifs.prixliv IS NOT NULL THEN tarifs.prixliv ELSE 45 END) as frais'),
+
 
             )
             ->addSelect(DB::raw('(SELECT SUM(frais.prix * frais.quntite) FROM frais WHERE frais.id_F = factures.id_F) as frais_total'))
@@ -471,7 +475,8 @@ class StatisticController extends Controller
             DB::raw('COUNT(DISTINCT factures.id_F) AS factures_count'),
             DB::raw('COUNT(colis.id) AS colis_count'),
             DB::raw('SUM(colis.prix) AS prix_total'),
-            DB::raw('SUM(tarifs.prixliv) as frais'),
+            DB::raw('SUM(CASE WHEN tarifs.prixliv IS NOT NULL THEN tarifs.prixliv ELSE 45 END) as frais'),
+
 
             )
             ->addSelect(DB::raw('(SELECT SUM(frais.prix * frais.quntite) FROM frais WHERE frais.id_F = factures.id_F) as frais_total'))
@@ -495,7 +500,8 @@ class StatisticController extends Controller
             DB::raw('COUNT(factures.id_F) AS factures_count'),
             DB::raw('COUNT(colis.id) AS colis_count'),
             DB::raw('SUM(colis.prix) AS prix_total'),
-            DB::raw('SUM(tarifs.prixliv) as frais'),
+            DB::raw('SUM(CASE WHEN tarifs.prixliv IS NOT NULL THEN tarifs.prixliv ELSE 45 END) as frais'),
+
 
             )
             ->leftJoin('colis', 'colis.id_F', '=', 'factures.id_F')
